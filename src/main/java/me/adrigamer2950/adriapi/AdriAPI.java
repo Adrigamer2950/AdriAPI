@@ -44,11 +44,9 @@ public final class AdriAPI extends JavaPlugin {
         cmdManager.registerCommand(new AdriAPICommand());
 
         try {
-            fileManager.createConfigFiles(
-                    Collections.singletonList(
-                            configFile
-                    )
-            );
+            fileManager.registerConfigFile(configFile);
+
+            fileManager.createConfigFiles();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,9 +57,7 @@ public final class AdriAPI extends JavaPlugin {
     @Override
     public void onDisable() {
         try {
-            fileManager.saveConfigFiles(Collections.singletonList(
-                    configFile
-            ));
+            fileManager.saveConfigFiles();
         } catch (IOException e) {
             e.printStackTrace();
         }

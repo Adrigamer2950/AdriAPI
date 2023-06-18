@@ -8,6 +8,7 @@ import org.apache.commons.lang.Validate;
 import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ public class FileManager {
     }
 
     private final Plugin plugin;
-    private List<File> files;
+    private final List<File> files = new ArrayList<>();
 
     public FileManager(Plugin plugin) {
         this.plugin = plugin;
@@ -48,13 +49,13 @@ public class FileManager {
         files.add(file);
     }
 
-    public void createConfigFiles(List<File> files) throws IOException {
-        for(File file : files)
+    public void createConfigFiles() throws IOException {
+        for(File file : this.files)
             file.createFile();
     }
 
-    public void saveConfigFiles(List<File> files) throws IOException {
-        for(File file : files)
+    public void saveConfigFiles() throws IOException {
+        for(File file : this.files)
             file.save();
     }
 }
