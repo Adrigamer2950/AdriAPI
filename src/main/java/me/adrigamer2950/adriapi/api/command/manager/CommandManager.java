@@ -47,12 +47,15 @@ public final class CommandManager {
                     )
             );
         }
+
         this.plugin = pl;
-        LOGGER.info(
-                Colors.translateColors(
-                        String.format("Command Manager for %s v%s has been successfully loaded", pl.getName(), pl.getDescription().getVersion())
-                        , '&')
-        );
+
+        if(Boolean.parseBoolean(AdriAPI.get().configFile.get("debug").toString()))
+            LOGGER.info(
+                    Colors.translateColors(
+                            String.format("Command Manager for %s v%s has been successfully loaded", pl.getName(), pl.getDescription().getVersion())
+                            , '&')
+            );
     }
 
     public Plugin getPlugin() {

@@ -45,13 +45,17 @@ public class DatabaseManager {
                     )
             );
         }
+
         this.plugin = pl;
+
         DBs.put(pl, new ArrayList<>());
-        LOGGER.info(
-                Colors.translateColors(
-                        String.format("Database Manager for %s v%s has been successfully loaded", pl.getName(), pl.getDescription().getVersion())
-                        , '&')
-        );
+
+        if(Boolean.parseBoolean(AdriAPI.get().configFile.get("debug").toString()))
+            LOGGER.info(
+                    Colors.translateColors(
+                            String.format("Database Manager for %s v%s has been successfully loaded", pl.getName(), pl.getDescription().getVersion())
+                            , '&')
+            );
 
         DBManagers.add(this);
     }
