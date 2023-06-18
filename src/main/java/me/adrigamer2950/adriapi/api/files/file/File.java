@@ -1,8 +1,7 @@
 package me.adrigamer2950.adriapi.api.files.file;
 
 import me.adrigamer2950.adriapi.api.files.file.module.FileModule;
-import me.adrigamer2950.adriapi.api.files.file.module.FileYAMLModule;
-import org.bukkit.configuration.file.FileConfiguration;
+import me.adrigamer2950.adriapi.api.files.file.module.FileModules;
 import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ public final class File {
     public final FileType type;
     public java.io.File file;
     public final Plugin plugin;
-    private FileModule module;
+    public final FileModule module;
 
     public File(String path, String name, FileType type, Plugin plugin) {
         this.path = path;
@@ -22,20 +21,7 @@ public final class File {
         this.type = type;
         this.plugin = plugin;
 
-        switch (type) {
-            case YML: {
-                this.module = new FileYAMLModule(this.plugin);
-            }
-            case JSON: {
-                this.module = new FileYAMLModule(this.plugin);
-            }
-            case TOML: {
-                this.module = new FileYAMLModule(this.plugin);
-            }
-            default: {
-
-            }
-        }
+        this.module = FileModules.createNewModule(this.plugin, this.type);
     }
 
     public enum FileType {
@@ -43,7 +29,7 @@ public final class File {
         TOML(".toml"),
         JSON(".json");
 
-        public String name;
+        public final String name;
 
         FileType(String s) {
             this.name = s;
