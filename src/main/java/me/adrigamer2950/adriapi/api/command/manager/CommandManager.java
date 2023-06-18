@@ -28,9 +28,9 @@ public final class CommandManager {
 //    private final Logger LOGGER = new SubLogger("Command Manager", Bukkit.getPluginManager().getPlugin("AdriAPI").getLogger());
     public static final Logger LOGGER = new SubLogger("CommandManager", AdriAPI.get().getLogger());
     private final List<Command> cmds = new ArrayList<>();
-    public static final List<CommandManager> CMDManagers = new ArrayList<>();
+    public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
     public static CommandManager getManager(Plugin plugin) {
-        for(CommandManager cmdM : CMDManagers)
+        for(CommandManager cmdM : COMMAND_MANAGERS)
             if(cmdM.getPlugin().equals(plugin))
                 return cmdM;
 
@@ -56,6 +56,8 @@ public final class CommandManager {
                             String.format("Command Manager for %s v%s has been successfully loaded", pl.getName(), pl.getDescription().getVersion())
                             , '&')
             );
+
+        COMMAND_MANAGERS.add(this);
     }
 
     public Plugin getPlugin() {

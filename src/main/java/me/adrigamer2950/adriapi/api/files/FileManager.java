@@ -2,6 +2,8 @@ package me.adrigamer2950.adriapi.api.files;
 
 import me.adrigamer2950.adriapi.AdriAPI;
 import me.adrigamer2950.adriapi.api.colors.Colors;
+import me.adrigamer2950.adriapi.api.database.DatabaseManager;
+import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.files.file.File;
 import me.adrigamer2950.adriapi.api.logger.SubLogger;
 import org.apache.commons.lang.Validate;
@@ -16,11 +18,11 @@ import java.util.logging.Logger;
 public class FileManager {
 
     public static final Logger LOGGER = new SubLogger("FileManager", AdriAPI.get().getLogger());
-    public static HashMap<Plugin, FileManager> FILEManagers = new HashMap<>();
+    public static final List<FileManager> FILE_MANAGERS = new ArrayList<>();
     public static FileManager getManager(Plugin plugin) {
-        for(FileManager fileM : FILEManagers.values())
-            if(fileM.getPlugin().equals(plugin))
-                return fileM;
+        for(FileManager fM : FILE_MANAGERS)
+            if(fM.getPlugin().equals(plugin))
+                return fM;
 
         return null;
     }
@@ -29,6 +31,15 @@ public class FileManager {
     private final List<File> files = new ArrayList<>();
 
     public FileManager(Plugin plugin) {
+        if(getManager(plugin) != null) {
+            throw new DuplicatedManagerException(
+                    String.format("File Manager for plugin %s v%s has already been created and cannot be duplicated",
+                            plugin.getName(),
+                            plugin.getDescription().getVersion()
+                    )
+            );
+        }
+
         this.plugin = plugin;
 
         if(Boolean.parseBoolean(AdriAPI.get().configFile.get("debug").toString()))
@@ -37,6 +48,8 @@ public class FileManager {
                             String.format("File Manager for %s v%s has been successfully loaded", plugin.getName(), plugin.getDescription().getVersion())
                             , '&')
             );
+
+        FILE_MANAGERS.add(this);
     }
 
     public Plugin getPlugin() {

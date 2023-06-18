@@ -26,9 +26,9 @@ import java.util.logging.Logger;
 public class DatabaseManager {
     public static final Logger LOGGER = new SubLogger("DatabaseManager", AdriAPI.get().getLogger());
     private static final HashMap<Plugin, List<Database>> DBs = new HashMap<>();
-    public static final List<DatabaseManager> DBManagers = new ArrayList<>();
+    public static final List<DatabaseManager> DATABASE_MANAGERS = new ArrayList<>();
     public static DatabaseManager getManager(Plugin plugin) {
-        for(DatabaseManager dbM : DBManagers)
+        for(DatabaseManager dbM : DATABASE_MANAGERS)
             if(dbM.getPlugin().equals(plugin))
                 return dbM;
 
@@ -57,7 +57,7 @@ public class DatabaseManager {
                             , '&')
             );
 
-        DBManagers.add(this);
+        DATABASE_MANAGERS.add(this);
     }
 
     public Plugin getPlugin() {
