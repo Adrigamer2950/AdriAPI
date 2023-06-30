@@ -1,5 +1,6 @@
 package me.adrigamer2950.adriapi.api.files.file.module;
 
+import me.adrigamer2950.adriapi.api.files.file.module.FileModule;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -41,10 +42,10 @@ public class FileYAMLModule implements FileModule {
     }
 
     @Override
-    public void loadConfiguration(File file) throws IOException {
+    public void loadConfiguration(File file, boolean fileExists) throws IOException {
         this.yaml = YamlConfiguration.loadConfiguration(file);
 
-        if(!file.exists()) {
+        if(!fileExists) {
             Reader defConfigStream;
             defConfigStream = new InputStreamReader(Objects.requireNonNull(plugin.getResource(file.getName())), StandardCharsets.UTF_8);
             YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);

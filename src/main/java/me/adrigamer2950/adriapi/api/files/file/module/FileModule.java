@@ -12,7 +12,7 @@ public interface FileModule {
 
     Integer getInteger(String path);
 
-    void loadConfiguration(java.io.File file) throws IOException;
+    void loadConfiguration(java.io.File file, boolean fileExists) throws IOException;
 
     void saveFile(java.io.File file) throws IOException;
 }

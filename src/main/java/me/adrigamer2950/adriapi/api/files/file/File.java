@@ -49,13 +49,15 @@ public final class File {
 
         java.io.File file = new java.io.File(this.path, this.name + this.type.getName());
 
+        this.file = file;
+
+        boolean fileExists = this.fileExists();
+
         if(!file.exists())
             if(!file.createNewFile())
                 throw new IOException("File couldn't be created. Are you sure you have given to the server the enough permissions to create files?");
 
-        this.module.loadConfiguration(file);
-
-        this.file = file;
+        this.module.loadConfiguration(file, fileExists);
     }
 
     public boolean fileExists() {
