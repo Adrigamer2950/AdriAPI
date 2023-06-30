@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi.api.files.file.module;
+package me.adrigamer2950.adriapi.api.files.file.module.yaml;
 
 import me.adrigamer2950.adriapi.api.files.file.module.FileModule;
 import org.bukkit.configuration.file.FileConfiguration;

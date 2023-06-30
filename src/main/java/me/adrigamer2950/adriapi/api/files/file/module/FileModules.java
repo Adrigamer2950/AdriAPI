@@ -1,6 +1,7 @@
 package me.adrigamer2950.adriapi.api.files.file.module;
 
 import me.adrigamer2950.adriapi.api.files.file.File;
+import me.adrigamer2950.adriapi.api.files.file.module.yaml.FileYAMLModule;
 import org.bukkit.plugin.Plugin;
 
 public class FileModules {
