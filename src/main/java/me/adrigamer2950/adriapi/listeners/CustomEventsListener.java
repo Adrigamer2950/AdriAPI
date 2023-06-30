@@ -15,14 +15,14 @@ public class CustomEventsListener implements Listener {
 
     @EventHandler
     public void onItemCrafted(InventoryClickEvent e) {
-        if(!e.getSlotType().equals(InventoryType.SlotType.RESULT)) return;
-         if(e.getCurrentItem() == null|| e.getCurrentItem().getType().equals(Material.AIR)) return;
+        if (!e.getSlotType().equals(InventoryType.SlotType.RESULT)) return;
+        if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return;
         ItemCraftedEvent event = new ItemCraftedEvent(e.getCurrentItem(), (Player) e.getWhoClicked(), e.getInventory());
         Bukkit.getServer().getPluginManager().callEvent(event);
-        if(event.isCancelled()) {
+        if (event.isCancelled()) {
             e.setCancelled(true);
 
-            if(event.getDenyMessage() != null)
+            if (event.getDenyMessage() != null)
                 e.getWhoClicked().sendMessage(event.getDenyMessage());
         }
     }
