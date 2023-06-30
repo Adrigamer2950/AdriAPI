@@ -15,7 +15,7 @@ import java.util.Objects;
 public class FileYAMLModule implements FileModule {
 
     private FileConfiguration yaml;
-    private Plugin plugin;
+    private final Plugin plugin;
 
     public FileYAMLModule(Plugin plugin) {
         this.plugin = plugin;
