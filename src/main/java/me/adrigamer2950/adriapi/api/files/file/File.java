@@ -3,6 +3,7 @@ package me.adrigamer2950.adriapi.api.files.file;
 import me.adrigamer2950.adriapi.api.files.file.module.FileModule;
 import me.adrigamer2950.adriapi.api.files.file.module.FileModules;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -13,7 +14,7 @@ public final class File {
     public final FileType type;
     public java.io.File file;
     public final Plugin plugin;
-    public final FileModule module;
+    @NotNull public final FileModule module;
 
     public File(String path, String name, FileType type, Plugin plugin) {
         this.path = path;
