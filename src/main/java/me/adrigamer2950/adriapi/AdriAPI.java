@@ -32,15 +32,8 @@ public final class AdriAPI extends JavaPlugin {
 
         for(String s : l)
             getLogger().info(Colors.translateAPIColors(s));
-    }
 
-    @Override
-    public void onEnable() {
-        cmdManager = new CommandManager(this);
         fileManager = new FileManager(this);
-        getServer().getPluginManager().registerEvents(new CustomEventsListener(), this);
-        getServer().getPluginManager().registerEvents(new ManagersListener(), this);
-        cmdManager.registerCommand(new AdriAPICommand());
 
         try {
             fileManager.registerConfigFile(configFile);
@@ -49,6 +42,23 @@ public final class AdriAPI extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        cmdManager = new CommandManager(this);
+    }
+
+    @Override
+    public void onEnable() {
+        getServer().getPluginManager().registerEvents(new CustomEventsListener(), this);
+        getServer().getPluginManager().registerEvents(new ManagersListener(), this);
+        cmdManager.registerCommand(new AdriAPICommand());
+
+        getLogger().info(String.valueOf(
+                ((FileModule4Toml) configFile.module)
+                        .getTable("tabla")
+                        .getTable("otra_tabla")
+                        .getTable("otra_tabla_mas")
+                        .getString("un_texto")
+        ));
 
         getLogger().info(Colors.translateAPIColors("<green><bold>Enabled"));
     }
