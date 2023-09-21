@@ -1,9 +1,11 @@
 package me.adrigamer2950.adriapi.api.command;
 
+import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.interfaces.TabCompleter;
 import org.apache.commons.lang.Validate;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -17,6 +19,8 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     private final List<String> aliases;
     private final Plugin plugin;
     private List<SubCommand> subCommands;
+    private boolean blockedForNonPlayers;
+    private String blockedForNonPlayersMessage;
 
     protected Command(@NotNull Plugin pl, @NotNull String name) {
         this(pl, name, null);
@@ -31,6 +35,8 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         this.name = name;
         this.aliases = aliases;
         this.subCommands = subCommands;
+        this.blockedForNonPlayers = false;
+        this.blockedForNonPlayersMessage = Colors.translateColors("Command is blocked for non players");
     }
 
     public final String getName() {
@@ -49,6 +55,11 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
     @Override
     public final boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        if(!(sender instanceof Player) && blockedForNonPlayers) {
+            sender.sendMessage(this.blockedForNonPlayersMessage);
+            return true;
+        }
+
         return execute(sender, label, args);
     }
 
@@ -75,9 +86,25 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
         for(SubCommand cmd : this.subCommands)
             for(String s : args)
-                if(cmd.getName().equalsIgnoreCase(s) || cmd.getAliases().contains(s))
+                if(cmd.getName().equalsIgnoreCase(s) || (cmd.getAliases() != null && cmd.getAliases().contains(s)))
                     return cmd.execute(sender, label, args);
 
         return false;
+    }
+
+    protected final boolean isBlockedForNonPlayers() {
+        return this.blockedForNonPlayers;
+    }
+
+    protected final void setBlockForNonPlayers(boolean blocked) {
+        this.blockedForNonPlayers = blocked;
+    }
+
+    protected final String getBlockedForNonPlayersMessage() {
+        return this.blockedForNonPlayersMessage;
+    }
+
+    protected final void setBlockForNonPlayersMessage(String message) {
+        this.blockedForNonPlayersMessage = message;
     }
 }
