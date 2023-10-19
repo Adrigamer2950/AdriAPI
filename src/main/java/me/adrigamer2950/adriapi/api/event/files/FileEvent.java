@@ -1,6 +1,6 @@
 package me.adrigamer2950.adriapi.api.event.files;
 
-import me.adrigamer2950.adriapi.api.files.file.File;
+import me.adrigamer2950.adriapi.api.files.File;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;

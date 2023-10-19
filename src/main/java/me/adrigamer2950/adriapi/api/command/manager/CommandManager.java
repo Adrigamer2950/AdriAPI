@@ -81,7 +81,7 @@ public final class CommandManager {
         CommandLoadedEvent event = new CommandLoadedEvent(command, plugin);
         Bukkit.getPluginManager().callEvent(event);
 
-        if(AdriAPI.configFile.getBoolean("debug"))
+        if(AdriAPI.get().configFile.getBoolean("debug"))
             LOGGER.info(
                     Colors.translateColors(
                             String.format("Command '%s' for plugin %s v%s has been successfully loaded", command.getName(), command.getPlugin().getName(), command.getPlugin().getDescription().getVersion())
