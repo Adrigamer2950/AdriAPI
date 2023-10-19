@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public abstract class Command implements CommandExecutor, TabCompleter {
 
     private final String name;
@@ -54,7 +55,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     public abstract boolean execute(CommandSender sender, String label, String[] args);
 
     @Override
-    public final boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+    public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
         if(!(sender instanceof Player) && blockedForNonPlayers) {
             sender.sendMessage(this.blockedForNonPlayersMessage);
             return true;
