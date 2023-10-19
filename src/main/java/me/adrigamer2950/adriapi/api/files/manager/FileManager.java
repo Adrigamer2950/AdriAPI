@@ -51,18 +51,6 @@ public class FileManager
         Validate.notNull(f, "File must not be null!");
 
         this.configs.add(f);
-
-        if(AdriAPI.get().configFile.getBoolean("debug"))
-            LOGGER.info(
-                    Colors.translateColors(
-                            String.format("File '%s%s' for plugin %s v%s has been successfully loaded",
-                                    f.getName(),
-                                    f.getType().equals(File.FileType.YAML) ? ".yml" : "",
-                                    f.getPlugin().getName(),
-                                    f.getPlugin().getDescription().getVersion())
-                            , '&'
-                    )
-            );
     }
 
     public void createConfigFiles() throws IOException {
