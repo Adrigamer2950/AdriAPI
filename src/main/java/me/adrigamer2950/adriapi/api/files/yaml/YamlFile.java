@@ -23,7 +23,7 @@ public class YamlFile extends File
 
     @Override
     public void loadFile() {
-        final java.io.File f = new java.io.File(this.path, this.name);
+        final java.io.File f = new java.io.File(this.path, this.name + ".yml");
         if (!f.exists()) {
             new java.io.File(this.path).mkdirs();
             try {
