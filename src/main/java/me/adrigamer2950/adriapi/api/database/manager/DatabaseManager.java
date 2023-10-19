@@ -1,6 +1,7 @@
-package me.adrigamer2950.adriapi.api.database;
+package me.adrigamer2950.adriapi.api.database.manager;
 
 import me.adrigamer2950.adriapi.AdriAPI;
+import me.adrigamer2950.adriapi.api.database.Database;
 import me.adrigamer2950.adriapi.api.event.database.DatabaseLoadedEvent;
 import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.logger.SubLogger;

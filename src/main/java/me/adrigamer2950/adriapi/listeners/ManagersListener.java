@@ -2,7 +2,6 @@ package me.adrigamer2950.adriapi.listeners;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
-import me.adrigamer2950.adriapi.api.database.DatabaseManager;
 import me.adrigamer2950.adriapi.api.files.FileManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.server.PluginDisableEvent;
