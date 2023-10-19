@@ -36,7 +36,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         this.aliases = aliases;
         this.subCommands = subCommands;
         this.blockedForNonPlayers = false;
-        this.blockedForNonPlayersMessage = Colors.translateColors("Command is blocked for non players");
+        this.blockedForNonPlayersMessage = Colors.translateColors("&cCommand is blocked for non players");
     }
 
     public final String getName() {
