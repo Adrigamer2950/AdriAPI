@@ -9,15 +9,27 @@ import me.adrigamer2950.adriapi.listeners.ManagersListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.ApiStatus;
+import me.adrigamer2950.adriapi.api.logger.AdriAPILogger;
+import org.bukkit.plugin.java.*;
+import org.jetbrains.annotations.*;
+import me.adrigamer2950.adriapi.api.command.manager.*;
+import me.adrigamer2950.adriapi.api.colors.*;
 
-import java.io.IOException;
-import java.util.List;
+import java.io.*;
+import java.util.*;
+
+import me.adrigamer2950.adriapi.listeners.*;
 
 @ApiStatus.Internal
 public final class AdriAPI extends JavaPlugin {
 
+    public static final AdriAPILogger LOGGER = new AdriAPILogger("AdriAPI", null);
     private static AdriAPI plugin;
-    public static AdriAPI get() {return plugin;}
+
+    public static AdriAPI get() {
+        return AdriAPI.plugin;
+    }
+
     private CommandManager cmdManager;
     private FileManager fileManager;
     public final File configFile = new File(this.getDataFolder().getAbsolutePath(), "config", File.FileType.YML, this);
@@ -29,9 +41,15 @@ public final class AdriAPI extends JavaPlugin {
                 String.format("|    <blue>Running on <green>Bukkit <blue>- <gold>%s", getServer().getName()),
                 "|    <gold>Loading"
         );
+        List<String> l = List.of(
+                String.format("|    <green>AdriAPI <gold>v%s", this.getDescription().getVersion()),
+                String.format("|    <blue>Running on <green>Bukkit <gold>%s", this.getServer().getVersion()),
+                "|    <gold>Loading");
 
         for(String s : l)
             getLogger().info(Colors.translateAPIColors(s));
+        for (String s : l)
+            LOGGER.info(Colors.translateAPIColors(s));
 
         fileManager = new FileManager(this);
 
@@ -60,7 +78,7 @@ public final class AdriAPI extends JavaPlugin {
                         .getString("un_texto")
         ));
 
-        getLogger().info(Colors.translateAPIColors("<green><bold>Enabled"));
+        LOGGER.info(Colors.translateAPIColors("<green><bold>Enabled"));
     }
 
     @Override
@@ -71,12 +89,14 @@ public final class AdriAPI extends JavaPlugin {
             e.printStackTrace();
         }
 
-        Bukkit.getScheduler().cancelTasks(this);
+        LOGGER.info(Colors.translateAPIColors("<red><bold>Disabled"));
 
         getLogger().info(Colors.translateAPIColors("<red><bold>Disabled"));
 
         plugin = null;
         cmdManager = null;
         fileManager = null;
+        this.cmdManager = null;
+        this.fileManager = null;
     }
 }

@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 public final class CommandManager {
 
 //    private final Logger LOGGER = new SubLogger("Command Manager", Bukkit.getPluginManager().getPlugin("AdriAPI").getLogger());
-    public static final Logger LOGGER = new SubLogger("CommandManager", AdriAPI.get().getLogger());
+    public static final Logger LOGGER = new SubLogger("CommandManager", AdriAPI.LOGGER);
     private final List<Command> cmds = new ArrayList<>();
     public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
     public static CommandManager getManager(Plugin plugin) {

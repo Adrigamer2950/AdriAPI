@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * @see Database
  */
 public class DatabaseManager {
-    public static final Logger LOGGER = new SubLogger("DatabaseManager", AdriAPI.get().getLogger());
+    public static final Logger LOGGER = new SubLogger("DatabaseManager", AdriAPI.LOGGER);
     private static final HashMap<Plugin, List<Database>> DBs = new HashMap<>();
     public static final List<DatabaseManager> DATABASE_MANAGERS = new ArrayList<>();
     public static DatabaseManager getManager(Plugin plugin) {
