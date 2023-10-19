@@ -50,13 +50,6 @@ public final class CommandManager {
 
         this.plugin = pl;
 
-        if(Boolean.parseBoolean(AdriAPI.get().configFile.get("debug").toString()))
-            LOGGER.info(
-                    Colors.translateColors(
-                            String.format("Command Manager for %s v%s has been successfully loaded", pl.getName(), pl.getDescription().getVersion())
-                            , '&')
-            );
-
         COMMAND_MANAGERS.add(this);
     }
 
@@ -88,13 +81,14 @@ public final class CommandManager {
         CommandLoadedEvent event = new CommandLoadedEvent(command, plugin);
         Bukkit.getPluginManager().callEvent(event);
 
-        LOGGER.info(
-                Colors.translateColors(
-                        String.format("Command '%s' for plugin %s v%s has been successfully loaded", command.getName(), command.getPlugin().getName(), command.getPlugin().getDescription().getVersion())
-                        , '&'
-                )
+        if(AdriAPI.configFile.getBoolean("debug"))
+            LOGGER.info(
+                    Colors.translateColors(
+                            String.format("Command '%s' for plugin %s v%s has been successfully loaded", command.getName(), command.getPlugin().getName(), command.getPlugin().getDescription().getVersion())
+                            , '&'
+                    )
 
-        );
+            );
     }
 
     /**

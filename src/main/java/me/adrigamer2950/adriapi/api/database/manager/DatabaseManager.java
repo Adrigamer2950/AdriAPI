@@ -50,13 +50,6 @@ public class DatabaseManager {
 
         DBs.put(pl, new ArrayList<>());
 
-        if(Boolean.parseBoolean(AdriAPI.get().configFile.get("debug").toString()))
-            LOGGER.info(
-                    Colors.translateColors(
-                            String.format("Database Manager for %s v%s has been successfully loaded", pl.getName(), pl.getDescription().getVersion())
-                            , '&')
-            );
-
         DATABASE_MANAGERS.add(this);
     }
 
@@ -92,17 +85,18 @@ public class DatabaseManager {
 
         DBs.get(database.getPlugin()).add(database);
 
-        LOGGER.info(
-                Colors.translateColors(
-                        String.format("Database '%s' for plugin %s v%s has been successfully loaded",
-                                database.getName(),
-                                database.getPlugin().getName(),
-                                database.getPlugin().getDescription().getVersion()
-                        ),
-                        '&'
-                )
+        if(AdriAPI.get().configFile.getBoolean("debug"))
+            LOGGER.info(
+                    Colors.translateColors(
+                            String.format("Database '%s' for plugin %s v%s has been successfully loaded",
+                                    database.getName(),
+                                    database.getPlugin().getName(),
+                                    database.getPlugin().getDescription().getVersion()
+                            ),
+                            '&'
+                    )
 
-        );
+            );
     }
 
     /**
