@@ -63,7 +63,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
-        if(!(sender instanceof Player) && blockedForNonPlayers) {
+        if (!(sender instanceof Player) && blockedForNonPlayers) {
             sender.sendMessage(this.blockedForNonPlayersMessage);
             return true;
         }
@@ -86,7 +86,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
     protected final void setSubCommands(List<SubCommand> subCommands) {
         Validate.notNull(subCommands, "SubCommand List must not be null!");
-        for(SubCommand scmd : this.subCommands)
+        for (SubCommand scmd : this.subCommands)
             Validate.notNull(scmd, String.format("SubCommand '%s' must not be null!", scmd.getName()));
 
         this.subCommands = subCommands;
@@ -99,9 +99,9 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     protected final boolean parseSubCommands(CommandSender sender, String label, String[] args) {
         Validate.notNull(this.subCommands, "SubCommand List is null!");
 
-        for(SubCommand cmd : this.subCommands)
-            for(String s : args)
-                if(cmd.getName().equalsIgnoreCase(s) || (cmd.getAliases() != null && cmd.getAliases().contains(s)))
+        for (SubCommand cmd : this.subCommands)
+            for (String s : args)
+                if (cmd.getName().equalsIgnoreCase(s) || (cmd.getAliases() != null && cmd.getAliases().contains(s)))
                     return cmd.execute(sender, label, args);
 
         if (this.helpSubCommand != null) return helpSubCommand.execute(sender, label, args);
