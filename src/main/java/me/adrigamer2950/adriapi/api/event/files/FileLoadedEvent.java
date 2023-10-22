@@ -3,6 +3,10 @@ package me.adrigamer2950.adriapi.api.event.files;
 import me.adrigamer2950.adriapi.api.files.File;
 import org.bukkit.plugin.Plugin;
 
+/**
+ * This event triggers when a {@link File} is successfully loaded
+ * @see File
+ */
 public class FileLoadedEvent extends FileEvent {
 
     private final Plugin loader;

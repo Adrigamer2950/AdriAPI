@@ -13,6 +13,15 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used to create commands, with some
+ * shortcuts to things that would be more
+ * difficult to implement in normal Bukkit API.
+ * Capable of implementing subcommands with just 1 line of code on command execution.
+ * You may use {@link Command#addSubCommand(SubCommand)} or {@link Command#setSubCommands(List)} to add
+ * subcommands to a command
+ * @see SubCommand
+ */
 @SuppressWarnings("unused")
 public abstract class Command implements CommandExecutor, TabCompleter {
 
@@ -53,6 +62,15 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         return this.plugin;
     }
 
+    /**
+     * You can use {@link Command#parseSubCommands(CommandSender, String, String[])} here to parse and execute subcommands attached to this main command,
+     * if {@link Command#parseSubCommands(CommandSender, String, String[])} doesn't get any subcommand, it executes the help subcommand established with
+     * {@link Command#setHelpSubCommand(SubCommand)}
+     * @param sender Who sent the command
+     * @param label The name of the command, it changes if an alias is used
+     * @param args Arguments used on execution
+     * @return The resolution of the execution, if false sends the usage message on your plugin.yml
+     */
     public abstract boolean execute(CommandSender sender, String label, String[] args);
 
     @Nullable
@@ -60,6 +78,15 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
         return tabComplete(commandSender, s, strings);
     }
+
+    /**
+     * You can use {@link Command#parseSubCommandsTabCompleter(CommandSender, String, String[])} to parse suggestions for the tab completer
+     * @param sender Who sent the command
+     * @param label The name of the command, it changes if an alias is used
+     * @param args Arguments used on execution
+     * @return The list of suggestions for the tab completer
+     */
+    public abstract List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
 
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
@@ -96,6 +123,13 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         return this.subCommands;
     }
 
+    /**
+     * Parses the list of {@link SubCommand} you may have on this command to execute the one who has been executed by the sender
+     * @param sender Who sent the command
+     * @param label The name of the command, it changes if an alias is used
+     * @param args Arguments used on execution
+     * @return The resolution of the execution, if false sends the usage message on your plugin.yml
+     */
     protected final boolean parseSubCommands(CommandSender sender, String label, String[] args) {
         Validate.notNull(this.subCommands, "SubCommand List is null!");
 
@@ -109,6 +143,14 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         return false;
     }
 
+
+    /**
+     *
+     * @param sender Who sent the command
+     * @param label The name of the command, it changes if an alias is used
+     * @param args Arguments used on execution
+     * @return The list of suggestions for the tab completer
+     */
     protected final List<String> parseSubCommandsTabCompleter(CommandSender sender, String label, String[] args) {
         Validate.notNull(this.subCommands, "SubCommand List is null!");
 

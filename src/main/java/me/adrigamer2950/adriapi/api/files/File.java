@@ -2,8 +2,10 @@ package me.adrigamer2950.adriapi.api.files;
 
 import org.bukkit.plugin.Plugin;
 
-import java.util.List;
-
+/**
+ * Class to create configuration files, mainly .yml files
+ * @see me.adrigamer2950.adriapi.api.files.yaml.YamlFile
+ */
 public abstract class File
 {
     protected final String path;
@@ -27,8 +29,14 @@ public abstract class File
         YAML
     }
 
+    /**
+     * Loads the file and its contents
+     */
     public abstract void loadFile();
 
+    /**
+     * Saves the content stored into an actual file
+     */
     public abstract void saveFile();
 
     public final Plugin getPlugin() {

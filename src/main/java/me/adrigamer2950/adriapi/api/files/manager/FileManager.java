@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Used to register and get easily configuration files, for example:
+ * {@code FileManager.getManager(Bukkit.getPluginManager().getPlugin("MyPlugin")).getConfig("config"); }
+ * would grant you access to that configuration file in order to edit its contents
+ */
 public class FileManager
 {
     public static final List<FileManager> FILE_MANAGERS = new ArrayList<>();

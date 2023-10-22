@@ -5,6 +5,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+/**
+ * Used to create subcommands, it must be attached to a {@link Command} main class.
+ */
 public abstract class SubCommand extends Command implements TabCompleter {
 
     public SubCommand(Command parent, String name) {

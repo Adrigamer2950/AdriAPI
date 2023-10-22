@@ -2,6 +2,11 @@ package me.adrigamer2950.adriapi.api.colors;
 
 import org.bukkit.ChatColor;
 
+/**
+ * Used to translate Minecraft Color Codes, or a custom color code system that is simplier to
+ * remember that Bukkit one. Or if you want, it can be a shortcut to {@link ChatColor#translateAlternateColorCodes(char, String)}
+ * ir order to write less and obtain the same result
+ */
 public class Colors {
 
     public static final String[] mc_col = new String[] {
@@ -54,6 +59,11 @@ public class Colors {
             "<reset>" //Reset
     };
 
+    /**
+     * Go to {@link Colors#api_col} to see how to write AdriAPI's color codes
+     * @param input
+     * @return
+     */
     public static String translateAPIColors(String input) {
         for(int i = 0 ; i < api_col.length ; i++) {
             if(input.contains(api_col[i])) {

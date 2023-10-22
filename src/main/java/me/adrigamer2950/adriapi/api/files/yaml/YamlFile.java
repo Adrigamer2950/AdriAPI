@@ -13,6 +13,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Objects;
 
+/**
+ * .yml configuration file class, used to create .yml files and manage their contents
+ * @see File
+ */
+@SuppressWarnings("unused")
 public class YamlFile extends File
 {
     private YamlConfiguration yaml;

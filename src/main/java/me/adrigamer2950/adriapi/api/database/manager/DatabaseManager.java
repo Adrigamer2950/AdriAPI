@@ -9,6 +9,7 @@ import me.adrigamer2950.adriapi.api.logger.SubLogger;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,11 +19,11 @@ import java.util.Objects;
 
 /**
  * Manage databases.
+ * NOT FULLY TESTED
  *
- * @author Adrigamer2950
  * @see Database
- * @since 1.0.0
  */
+@ApiStatus.Experimental
 public class DatabaseManager {
     public static final APILogger LOGGER = new SubLogger("DatabaseManager", AdriAPI.LOGGER);
     private static final HashMap<Plugin, List<Database>> DBs = new HashMap<>();

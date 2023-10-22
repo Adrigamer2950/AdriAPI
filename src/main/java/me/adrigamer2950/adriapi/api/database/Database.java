@@ -5,12 +5,18 @@ import me.adrigamer2950.adriapi.api.exceptions.database.DatabaseConnectionNotEst
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.api.logger.SubLogger;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Used to manage MySQL databases
+ * NOT FULLY TESTED
+ */
+@ApiStatus.Experimental
 public class Database {
 
     private final APILogger LOGGER = new SubLogger("Databases", AdriAPI.LOGGER);
