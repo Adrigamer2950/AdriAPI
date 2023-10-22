@@ -24,7 +24,7 @@ public class AdriAPICommand extends Command {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String alias, String[] args) {
+    public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
         return null;
     }
 }
