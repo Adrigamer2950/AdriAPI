@@ -1,11 +1,8 @@
 package me.adrigamer2950.adriapi.api.files.manager;
 
-import me.adrigamer2950.adriapi.AdriAPI;
 import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.files.File;
 import me.adrigamer2950.adriapi.api.files.yaml.YamlFile;
-import me.adrigamer2950.adriapi.api.logger.APILogger;
-import me.adrigamer2950.adriapi.api.logger.SubLogger;
 import org.apache.commons.lang.Validate;
 import org.bukkit.plugin.Plugin;
 
@@ -16,7 +13,6 @@ import java.util.Objects;
 
 public class FileManager
 {
-    public static final APILogger LOGGER = new SubLogger("FileManager", AdriAPI.LOGGER);
     public static final List<FileManager> FILE_MANAGERS = new ArrayList<>();
     private final Plugin plugin;
     private final List<File> configs;

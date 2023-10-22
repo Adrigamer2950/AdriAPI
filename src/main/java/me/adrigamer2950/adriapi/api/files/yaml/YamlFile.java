@@ -3,7 +3,6 @@ package me.adrigamer2950.adriapi.api.files.yaml;
 import me.adrigamer2950.adriapi.api.event.files.FileLoadedEvent;
 import me.adrigamer2950.adriapi.api.files.File;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -12,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.List;
 import java.util.Objects;
 
 public class YamlFile extends File
