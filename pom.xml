@@ -6,17 +6,28 @@
 
     <groupId>me.adrigamer2950</groupId>
     <artifactId>AdriAPI</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>AdriAPI</name>
 
     <description>An API for Adrigamer2950's Plugins</description>
+
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <url>https://github.com/Adrigamer2950/AdriAPI</url>
+
+    <developers>
+        <developer>
+            <id>adrigamer2950</id>
+            <name>Adrigamer</name>
+            <url>https://github.com/Adrigamer2950</url>
+            <timezone>GMT+2</timezone>
+        </developer>
+    </developers>
 
     <build>
         <plugins>
