@@ -3,7 +3,7 @@ version: '${project.version}'
 main: me.adrigamer2950.adriapi.AdriAPI
 api-version: 1.16
 author: Adrigamer2950
-description: An API created to simplify spigot plugin development to make it easy
+description: An API created to simplify Spigot Plugin development to make it easier
 website: https://github.com/Adrigamer2950/AdriAPI
 load: STARTUP
 
