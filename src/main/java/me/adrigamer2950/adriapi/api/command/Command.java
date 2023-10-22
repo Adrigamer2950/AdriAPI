@@ -58,7 +58,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
-        return null;
+        return tabComplete(commandSender, s, strings);
     }
 
     @Override
