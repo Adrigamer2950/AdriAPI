@@ -15,21 +15,21 @@ public class ManagersListener implements org.bukkit.event.Listener {
     public void onPluginDisable(PluginDisableEvent e) {
         if(CommandManager.getManager(e.getPlugin()) != null) {
             CommandManager.COMMAND_MANAGERS.remove(CommandManager.getManager(e.getPlugin()));
-            CommandManager.LOGGER.info(Colors.translateColors(String.format(
+            CommandManager.LOGGER.log(String.format(
                     String.format("Command Manager for %s v%s has been successfully unloaded", e.getPlugin().getName(), e.getPlugin().getDescription().getVersion())
-            )));
+            ));
         }
         if(DatabaseManager.getManager(e.getPlugin()) != null) {
             DatabaseManager.DATABASE_MANAGERS.remove(DatabaseManager.getManager(e.getPlugin()));
-            DatabaseManager.LOGGER.info(Colors.translateColors(String.format(
+            DatabaseManager.LOGGER.log(String.format(
                     String.format("Database Manager for %s v%s has been successfully unloaded", e.getPlugin().getName(), e.getPlugin().getDescription().getVersion())
-            )));
+            ));
         }
         if(FileManager.getManager(e.getPlugin()) != null) {
             FileManager.FILE_MANAGERS.remove(FileManager.getManager(e.getPlugin()));
-            DatabaseManager.LOGGER.info(Colors.translateColors(String.format(
+            DatabaseManager.LOGGER.log(String.format(
                     String.format("Database Manager for %s v%s has been successfully unloaded", e.getPlugin().getName(), e.getPlugin().getDescription().getVersion())
-            )));
+            ));
         }
     }
 }

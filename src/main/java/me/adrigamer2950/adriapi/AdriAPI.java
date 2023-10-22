@@ -2,11 +2,10 @@ package me.adrigamer2950.adriapi;
 
 import me.adrigamer2950.adriapi.api.files.manager.FileManager;
 import me.adrigamer2950.adriapi.api.files.yaml.YamlFile;
-import me.adrigamer2950.adriapi.api.logger.AdriAPILogger;
+import me.adrigamer2950.adriapi.api.logger.APILogger;
 import org.bukkit.plugin.java.*;
 import org.jetbrains.annotations.*;
 import me.adrigamer2950.adriapi.api.command.manager.*;
-import me.adrigamer2950.adriapi.api.colors.*;
 
 import java.io.*;
 import java.util.*;
@@ -16,7 +15,7 @@ import me.adrigamer2950.adriapi.listeners.*;
 @ApiStatus.Internal
 public final class AdriAPI extends JavaPlugin {
 
-    public static final AdriAPILogger LOGGER = new AdriAPILogger("AdriAPI", null);
+    public static final APILogger LOGGER = new APILogger("AdriAPI", null);
     private static AdriAPI plugin;
 
     public static AdriAPI get() {
@@ -41,7 +40,7 @@ public final class AdriAPI extends JavaPlugin {
                 "|    <gold>Loading");
 
         for (String s : l)
-            LOGGER.info(Colors.translateAPIColors(s));
+            LOGGER.log(s);
 
         this.fileManager = new FileManager(this);
 
@@ -59,7 +58,7 @@ public final class AdriAPI extends JavaPlugin {
 
         this.cmdManager.registerCommand(new AdriAPICommand());
 
-        LOGGER.info(Colors.translateAPIColors("<green><bold>Enabled"));
+        LOGGER.log("<green><bold>Enabled");
     }
 
     @Override
@@ -70,7 +69,7 @@ public final class AdriAPI extends JavaPlugin {
             throw new RuntimeException(e);
         }
 
-        LOGGER.info(Colors.translateAPIColors("<red><bold>Disabled"));
+        LOGGER.log("<red><bold>Disabled");
 
         this.cmdManager = null;
         this.fileManager = null;

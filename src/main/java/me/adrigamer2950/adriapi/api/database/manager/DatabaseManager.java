@@ -4,8 +4,8 @@ import me.adrigamer2950.adriapi.AdriAPI;
 import me.adrigamer2950.adriapi.api.database.Database;
 import me.adrigamer2950.adriapi.api.event.database.DatabaseLoadedEvent;
 import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
+import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.api.logger.SubLogger;
-import me.adrigamer2950.adriapi.api.colors.Colors;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -15,29 +15,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 /**
  * Manage databases.
- * @since 1.0.0
+ *
  * @author Adrigamer2950
  * @see Database
+ * @since 1.0.0
  */
 public class DatabaseManager {
-    public static final Logger LOGGER = new SubLogger("DatabaseManager", AdriAPI.LOGGER);
+    public static final APILogger LOGGER = new SubLogger("DatabaseManager", AdriAPI.LOGGER);
     private static final HashMap<Plugin, List<Database>> DBs = new HashMap<>();
     public static final List<DatabaseManager> DATABASE_MANAGERS = new ArrayList<>();
+
     public static DatabaseManager getManager(Plugin plugin) {
-        for(DatabaseManager dbM : DATABASE_MANAGERS)
-            if(dbM.getPlugin().equals(plugin))
+        for (DatabaseManager dbM : DATABASE_MANAGERS)
+            if (dbM.getPlugin().equals(plugin))
                 return dbM;
 
         return null;
     }
+
     public final Plugin plugin;
 
     public DatabaseManager(Plugin pl) {
-        if(getManager(pl) != null) {
+        if (getManager(pl) != null) {
             throw new DuplicatedManagerException(
                     String.format("Database Manager for plugin %s v%s has already been created and cannot be duplicated",
                             pl.getName(),
@@ -59,9 +61,10 @@ public class DatabaseManager {
 
     /**
      * This method allows you to register and load databases for their use.
+     *
      * @param database The database that you want to register and connect to.
+     * @throws IllegalArgumentException if command is null
      * @since 1.0.0
-     * @exception IllegalArgumentException if command is null
      */
     public void registerDatabase(Database database) {
         Validate.notNull(database, "Database cannot be null");
@@ -72,8 +75,8 @@ public class DatabaseManager {
         try {
             database.connect();
         } catch (SQLException e) {
-            LOGGER.severe(
-                    String.format("Database '%s' for plugin %s v%s has encountered and error",
+            LOGGER.log(
+                    String.format("&cDatabase '%s' for plugin %s v%s has encountered and error",
                             database.getName(),
                             database.getPlugin().getName(),
                             database.getPlugin().getDescription().getVersion()
@@ -85,28 +88,25 @@ public class DatabaseManager {
 
         DBs.get(database.getPlugin()).add(database);
 
-        if(AdriAPI.get().configFile.getBoolean("debug"))
-            LOGGER.info(
-                    Colors.translateColors(
-                            String.format("Database '%s' for plugin %s v%s has been successfully loaded",
-                                    database.getName(),
-                                    database.getPlugin().getName(),
-                                    database.getPlugin().getDescription().getVersion()
-                            ),
-                            '&'
+        if (AdriAPI.get().configFile.getBoolean("debug"))
+            LOGGER.log(
+                    String.format("Database '%s' for plugin %s v%s has been successfully loaded",
+                            database.getName(),
+                            database.getPlugin().getName(),
+                            database.getPlugin().getDescription().getVersion()
                     )
 
             );
     }
 
     /**
-     * @since 1.0.0
      * @param name The name of the database.
      * @return Registered database. Null if database doesn't exist.
+     * @since 1.0.0
      */
     public Database getDatabase(String name) {
-        for(Database db : DBs.get(plugin)) {
-            if(!Objects.equals(db.getName(), name)) continue;
+        for (Database db : DBs.get(plugin)) {
+            if (!Objects.equals(db.getName(), name)) continue;
 
             return db;
         }

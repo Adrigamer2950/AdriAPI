@@ -2,6 +2,7 @@ package me.adrigamer2950.adriapi.api.database;
 
 import me.adrigamer2950.adriapi.AdriAPI;
 import me.adrigamer2950.adriapi.api.exceptions.database.DatabaseConnectionNotEstablishedException;
+import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.api.logger.SubLogger;
 import org.bukkit.plugin.Plugin;
 
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 
 public class Database {
 
-    private final SubLogger LOGGER = new SubLogger("Databases", AdriAPI.get().getLogger());
+    private final APILogger LOGGER = new SubLogger("Databases", AdriAPI.LOGGER);
     private final String name;
     private final Plugin plugin;
 
@@ -66,7 +67,7 @@ public class Database {
             );
         }
 
-        LOGGER.info("Database connected succesfully");
+        LOGGER.log("Database connected succesfully");
     }
 
     public void disconnect() {
