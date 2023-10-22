@@ -88,15 +88,15 @@ public class DatabaseManager {
 
         DBs.get(database.getPlugin()).add(database);
 
-        if (AdriAPI.get().configFile.getBoolean("debug"))
-            LOGGER.log(
-                    String.format("Database '%s' for plugin %s v%s has been successfully loaded",
-                            database.getName(),
-                            database.getPlugin().getName(),
-                            database.getPlugin().getDescription().getVersion()
-                    )
 
-            );
+        LOGGER.log(
+                String.format("Database '%s' for plugin %s v%s has been successfully loaded",
+                        database.getName(),
+                        database.getPlugin().getName(),
+                        database.getPlugin().getDescription().getVersion()
+                )
+
+        );
     }
 
     /**

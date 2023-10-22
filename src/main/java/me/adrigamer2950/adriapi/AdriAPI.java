@@ -23,8 +23,6 @@ public final class AdriAPI extends JavaPlugin {
     }
 
     private CommandManager cmdManager;
-    private FileManager fileManager;
-    public YamlFile configFile;
 
     @Override
     public void onLoad() {
@@ -32,8 +30,6 @@ public final class AdriAPI extends JavaPlugin {
     }
 
     public void onEnable() {
-        configFile = new YamlFile(this.getDataFolder().getAbsolutePath(), "config", this, true, true);
-
         List<String> l = List.of(
                 String.format("|    <green>AdriAPI <gold>v%s", this.getDescription().getVersion()),
                 String.format("|    <blue>Running on <green>Bukkit <gold>%s", this.getServer().getVersion()),
@@ -41,15 +37,6 @@ public final class AdriAPI extends JavaPlugin {
 
         for (String s : l)
             LOGGER.log(s);
-
-        this.fileManager = new FileManager(this);
-
-        this.fileManager.registerConfigFile(configFile);
-        try {
-            this.fileManager.createConfigFiles();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
         this.cmdManager = new CommandManager(this);
 
@@ -63,15 +50,8 @@ public final class AdriAPI extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        try {
-            this.fileManager.saveConfigFiles();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         LOGGER.log("<red><bold>Disabled");
 
         this.cmdManager = null;
-        this.fileManager = null;
     }
 }

@@ -17,9 +17,9 @@ public class AdriAPICommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         sender.sendMessage(Colors.translateColors(String.format(
-                "&7AdriAPI Version &6%s %s", AdriAPI.get().getDescription().getVersion(),
-                AdriAPI.get().configFile.get("debug")
+                "&7AdriAPI Version &6%s", AdriAPI.get().getDescription().getVersion()
         ), '&'));
+
         return true;
     }
 
