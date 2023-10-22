@@ -51,27 +51,27 @@ public abstract class File
         return this.file.exists();
     }
 
-    public abstract String getString(final String p0);
-
-    public abstract List<String> getStringList(final String p0);
-
-    public abstract Boolean getBoolean(final String p0);
-
-    public abstract List<Boolean> getBooleanList(final String p0);
-
-    public abstract Integer getInteger(final String p0);
-
-    public abstract List<Integer> getIntegerList(final String p0);
-
-    public abstract Double getDouble(final String p0);
-
-    public abstract List<Double> getDoubleList(final String p0);
-
-    public abstract Long getLong(final String p0);
-
-    public abstract List<Long> getLongList(final String p0);
-
-    public abstract Object get(final String p0);
-
-    public abstract List<?> getList(final String p0);
+//    public abstract String getString(final String p0);
+//
+//    public abstract List<String> getStringList(final String p0);
+//
+//    public abstract Boolean getBoolean(final String p0);
+//
+//    public abstract List<Boolean> getBooleanList(final String p0);
+//
+//    public abstract Integer getInteger(final String p0);
+//
+//    public abstract List<Integer> getIntegerList(final String p0);
+//
+//    public abstract Double getDouble(final String p0);
+//
+//    public abstract List<Double> getDoubleList(final String p0);
+//
+//    public abstract Long getLong(final String p0);
+//
+//    public abstract List<Long> getLongList(final String p0);
+//
+//    public abstract Object get(final String p0);
+//
+//    public abstract List<?> getList(final String p0);
 }

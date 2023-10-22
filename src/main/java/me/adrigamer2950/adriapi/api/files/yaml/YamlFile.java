@@ -68,65 +68,65 @@ public class YamlFile extends File
         }
     }
 
-    @Override
-    public String getString(final String path) {
-        return this.yaml.getString(path);
-    }
-
-    @Override
-    public List<String> getStringList(final String path) {
-        return this.yaml.getStringList(path);
-    }
-
-    @Override
-    public Boolean getBoolean(final String path) {
-        return this.yaml.getBoolean(path);
-    }
-
-    @Override
-    public List<Boolean> getBooleanList(final String path) {
-        return this.yaml.getBooleanList(path);
-    }
-
-    @Override
-    public Integer getInteger(final String path) {
-        return this.yaml.getInt(path);
-    }
-
-    @Override
-    public List<Integer> getIntegerList(final String path) {
-        return this.yaml.getIntegerList(path);
-    }
-
-    @Override
-    public Double getDouble(final String path) {
-        return this.yaml.getDouble(path);
-    }
-
-    @Override
-    public List<Double> getDoubleList(final String path) {
-        return this.yaml.getDoubleList(path);
-    }
-
-    @Override
-    public Long getLong(final String path) {
-        return this.yaml.getLong(path);
-    }
-
-    @Override
-    public List<Long> getLongList(final String path) {
-        return this.yaml.getLongList(path);
-    }
-
-    @Override
-    public Object get(final String path) {
-        return this.yaml.get(path);
-    }
-
-    @Override
-    public List<?> getList(final String path) {
-        return this.yaml.getList(path);
-    }
+//    @Override
+//    public String getString(final String path) {
+//        return this.yaml.getString(path);
+//    }
+//
+//    @Override
+//    public List<String> getStringList(final String path) {
+//        return this.yaml.getStringList(path);
+//    }
+//
+//    @Override
+//    public Boolean getBoolean(final String path) {
+//        return this.yaml.getBoolean(path);
+//    }
+//
+//    @Override
+//    public List<Boolean> getBooleanList(final String path) {
+//        return this.yaml.getBooleanList(path);
+//    }
+//
+//    @Override
+//    public Integer getInteger(final String path) {
+//        return this.yaml.getInt(path);
+//    }
+//
+//    @Override
+//    public List<Integer> getIntegerList(final String path) {
+//        return this.yaml.getIntegerList(path);
+//    }
+//
+//    @Override
+//    public Double getDouble(final String path) {
+//        return this.yaml.getDouble(path);
+//    }
+//
+//    @Override
+//    public List<Double> getDoubleList(final String path) {
+//        return this.yaml.getDoubleList(path);
+//    }
+//
+//    @Override
+//    public Long getLong(final String path) {
+//        return this.yaml.getLong(path);
+//    }
+//
+//    @Override
+//    public List<Long> getLongList(final String path) {
+//        return this.yaml.getLongList(path);
+//    }
+//
+//    @Override
+//    public Object get(final String path) {
+//        return this.yaml.get(path);
+//    }
+//
+//    @Override
+//    public List<?> getList(final String path) {
+//        return this.yaml.getList(path);
+//    }
 
     public YamlConfiguration getYaml() {
         return this.yaml;
