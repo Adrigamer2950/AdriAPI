@@ -68,6 +68,7 @@ public class DatabaseManager {
      * @throws IllegalArgumentException if command is null
      * @since 1.0.0
      */
+    @SuppressWarnings("CallToPrintStackTrace")
     public void registerDatabase(Database database) {
         Validate.notNull(database, "Database cannot be null");
 

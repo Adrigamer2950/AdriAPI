@@ -54,12 +54,12 @@ public class FileManager
         this.configs.add(f);
     }
 
-    public void createConfigFiles() throws IOException {
+    public void createConfigFiles() {
         for (File f : this.configs)
             f.loadFile();
     }
 
-    public void saveConfigFiles() throws IOException {
+    public void saveConfigFiles() {
         for (File f : this.configs)
             if (f.autoSaveOnServerShutdown)
                 f.saveFile();
