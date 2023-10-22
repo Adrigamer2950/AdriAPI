@@ -23,6 +23,7 @@ import java.util.Objects;
  * @see Command
  * @since 1.0.0
  */
+@SuppressWarnings("unused")
 public final class CommandManager {
 
     //    private final Logger LOGGER = new SubLogger("Command Manager", Bukkit.getPluginManager().getPlugin("AdriAPI").getLogger());

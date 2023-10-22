@@ -16,6 +16,7 @@ import java.sql.SQLException;
  * Used to manage MySQL databases
  * NOT FULLY TESTED
  */
+@SuppressWarnings("unused")
 @ApiStatus.Experimental
 public class Database {
 
@@ -84,6 +85,7 @@ public class Database {
         return this.connection;
     }
 
+    @SuppressWarnings("SqlSourceToSinkFlow")
     public void makeStatement(String statement) {
         if(this.connection == null) throw new DatabaseConnectionNotEstablishedException("Database with name '%s' doesn't have established a successful connection, please use 'connect' method before making a statement.");
 
@@ -97,6 +99,7 @@ public class Database {
         }
     }
 
+    @SuppressWarnings("SqlSourceToSinkFlow")
     public ResultSet makeQuery(String query) {
         if(this.connection == null) throw new DatabaseConnectionNotEstablishedException("Database with name '%s' doesn't have established a successful connection, please use 'connect' method before making a query.");
 

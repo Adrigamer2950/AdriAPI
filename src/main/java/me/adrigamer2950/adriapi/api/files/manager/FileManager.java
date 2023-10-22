@@ -16,6 +16,7 @@ import java.util.Objects;
  * {@code FileManager.getManager(Bukkit.getPluginManager().getPlugin("MyPlugin")).getConfig("config"); }
  * would grant you access to that configuration file in order to edit its contents
  */
+@SuppressWarnings("unused")
 public class FileManager
 {
     public static final List<FileManager> FILE_MANAGERS = new ArrayList<>();

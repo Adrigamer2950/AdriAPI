@@ -6,6 +6,7 @@ import org.bukkit.plugin.Plugin;
  * Class to create configuration files, mainly .yml files
  * @see me.adrigamer2950.adriapi.api.files.yaml.YamlFile
  */
+@SuppressWarnings("unused")
 public abstract class File
 {
     protected final String path;

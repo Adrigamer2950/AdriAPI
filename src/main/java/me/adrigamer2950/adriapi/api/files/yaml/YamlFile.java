@@ -26,6 +26,7 @@ public class YamlFile extends File
         super(path, name, plugin, FileType.YAML, autoSaveOnServerShutdown, fileExistsOnPluginResources);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
     public void loadFile() {
         final java.io.File f = new java.io.File(this.path, this.name + ".yml");

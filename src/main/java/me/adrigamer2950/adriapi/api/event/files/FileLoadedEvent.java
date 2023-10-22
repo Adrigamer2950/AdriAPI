@@ -7,6 +7,7 @@ import org.bukkit.plugin.Plugin;
  * This event triggers when a {@link File} is successfully loaded
  * @see File
  */
+@SuppressWarnings("unused")
 public class FileLoadedEvent extends FileEvent {
 
     private final Plugin loader;

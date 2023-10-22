@@ -23,6 +23,7 @@ import java.util.Objects;
  *
  * @see Database
  */
+@SuppressWarnings("unused")
 @ApiStatus.Experimental
 public class DatabaseManager {
     public static final APILogger LOGGER = new SubLogger("DatabaseManager", AdriAPI.LOGGER);
