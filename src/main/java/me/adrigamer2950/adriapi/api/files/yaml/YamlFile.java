@@ -47,6 +47,8 @@ public class YamlFile extends File
 
         this.yaml = YamlConfiguration.loadConfiguration(f);
 
+        if(!fileExistsOnPluginResources) return;
+
         final Reader defConfigStream = new InputStreamReader(Objects.requireNonNull(this.plugin.getResource(this.name + ".yml")), StandardCharsets.UTF_8);
         final YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
         this.yaml.setDefaults(defConfig);
