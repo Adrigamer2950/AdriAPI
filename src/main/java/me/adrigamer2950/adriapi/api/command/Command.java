@@ -22,6 +22,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     private List<SubCommand> subCommands;
     private boolean blockedForNonPlayers;
     private String blockedForNonPlayersMessage;
+    private SubCommand helpSubCommand;
 
     protected Command(@NotNull Plugin pl, @NotNull String name) {
         this(pl, name, null);
@@ -70,6 +71,13 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         return execute(sender, label, args);
     }
 
+    protected final void setHelpSubCommand(SubCommand helpSubCommand) {
+        Validate.notNull(helpSubCommand, "SubCommand must not be null!");
+
+        this.subCommands.add(helpSubCommand);
+        this.helpSubCommand = helpSubCommand;
+    }
+
     protected final void addSubCommand(SubCommand subCommand) {
         Validate.notNull(subCommand, "SubCommand must not be null!");
 
@@ -95,6 +103,8 @@ public abstract class Command implements CommandExecutor, TabCompleter {
             for(String s : args)
                 if(cmd.getName().equalsIgnoreCase(s) || (cmd.getAliases() != null && cmd.getAliases().contains(s)))
                     return cmd.execute(sender, label, args);
+
+        if (this.helpSubCommand != null) return helpSubCommand.execute(sender, label, args);
 
         return false;
     }
