@@ -1,6 +1,8 @@
 package me.adrigamer2950.adriapi.api.files.yaml;
 
+import me.adrigamer2950.adriapi.api.event.files.FileLoadedEvent;
 import me.adrigamer2950.adriapi.api.files.File;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -46,6 +48,8 @@ public class YamlFile extends File
         this.file = f;
 
         this.yaml = YamlConfiguration.loadConfiguration(f);
+
+        Bukkit.getPluginManager().callEvent(new FileLoadedEvent(this, plugin));
 
         if(!fileExistsOnPluginResources) return;
 
