@@ -61,8 +61,8 @@ public class Colors {
 
     /**
      * Go to {@link Colors#api_col} to see how to write AdriAPI's color codes
-     * @param input
-     * @return
+     * @param input The message
+     * @return A colored message
      */
     public static String translateAPIColors(String input) {
         for(int i = 0 ; i < api_col.length ; i++) {
