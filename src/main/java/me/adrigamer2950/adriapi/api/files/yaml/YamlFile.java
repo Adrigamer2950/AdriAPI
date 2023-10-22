@@ -17,8 +17,8 @@ public class YamlFile extends File
 {
     private YamlConfiguration yaml;
 
-    public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown) {
-        super(path, name, plugin, FileType.YAML, autoSaveOnServerShutdown);
+    public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
+        super(path, name, plugin, FileType.YAML, autoSaveOnServerShutdown, fileExistsOnPluginResources);
     }
 
     @Override
@@ -26,11 +26,20 @@ public class YamlFile extends File
         final java.io.File f = new java.io.File(this.path, this.name + ".yml");
         if (!f.exists()) {
             new java.io.File(this.path).mkdirs();
-            try {
-                Files.copy(Objects.requireNonNull(this.plugin.getResource(this.name + ".yml")), f.toPath());
-            }
-            catch (IOException e) {
-                throw new RuntimeException(e);
+
+            if(fileExistsOnPluginResources)
+                try {
+                    Files.copy(Objects.requireNonNull(this.plugin.getResource(this.name + ".yml")), f.toPath());
+                }
+                catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            else {
+                try {
+                    f.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 

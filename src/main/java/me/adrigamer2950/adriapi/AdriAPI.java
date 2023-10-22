@@ -33,7 +33,7 @@ public final class AdriAPI extends JavaPlugin {
     }
 
     public void onEnable() {
-        configFile = new YamlFile(this.getDataFolder().getAbsolutePath(), "config", this, true);
+        configFile = new YamlFile(this.getDataFolder().getAbsolutePath(), "config", this, true, true);
 
         List<String> l = List.of(
                 String.format("|    <green>AdriAPI <gold>v%s", this.getDescription().getVersion()),

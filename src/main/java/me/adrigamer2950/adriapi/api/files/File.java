@@ -12,13 +12,15 @@ public abstract class File
     protected final Plugin plugin;
     protected final FileType type;
     public final boolean autoSaveOnServerShutdown;
+    public final boolean fileExistsOnPluginResources;
 
-    public File(final String path, final String name, final Plugin plugin, final FileType type, final boolean autoSaveOnServerShutdown) {
+    public File(final String path, final String name, final Plugin plugin, final FileType type, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
         this.path = path;
         this.name = name;
         this.plugin = plugin;
         this.type = type;
         this.autoSaveOnServerShutdown = autoSaveOnServerShutdown;
+        this.fileExistsOnPluginResources = fileExistsOnPluginResources;
     }
 
     public enum FileType {
