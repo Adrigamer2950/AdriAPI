@@ -1,12 +1,14 @@
 package me.adrigamer2950.adriapi.api.command;
 
+import me.adrigamer2950.adriapi.api.command.interfaces.TabCompleter;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public abstract class SubCommand extends Command {
+public abstract class SubCommand extends Command implements TabCompleter {
+
     public SubCommand(Command parent, String name) {
         this(parent, name, null);
     }
@@ -15,8 +17,10 @@ public abstract class SubCommand extends Command {
         super(parent.getPlugin(), name, aliases);
     }
 
-    @Nullable
-    public final List<String> onTabComplete(@NotNull final CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String alias, @NotNull String[] args) {
-        return null;
+    public abstract @Nullable List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
+
+    @Override
+    public final @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, org.bukkit.command.@NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        return this.tabComplete(commandSender, s, strings);
     }
 }

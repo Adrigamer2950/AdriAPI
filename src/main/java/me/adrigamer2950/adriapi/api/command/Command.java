@@ -54,6 +54,12 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
     public abstract boolean execute(CommandSender sender, String label, String[] args);
 
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
+        return null;
+    }
+
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
         if(!(sender instanceof Player) && blockedForNonPlayers) {
@@ -91,6 +97,25 @@ public abstract class Command implements CommandExecutor, TabCompleter {
                     return cmd.execute(sender, label, args);
 
         return false;
+    }
+
+    protected final List<String> parseSubCommandsTabCompleter(CommandSender sender, String label, String[] args) {
+        Validate.notNull(this.subCommands, "SubCommand List is null!");
+
+        for (SubCommand cmd : this.subCommands)
+            for (int i = 0; i < args.length; i++)
+                if (
+                        cmd.getName().startsWith(args[i])
+                                && args.length >= i + 2
+                ) {
+                    return cmd.tabComplete(sender, label, args);
+                }
+
+        List<String> strs = new ArrayList<>();
+
+        this.subCommands.forEach(scmd -> strs.add(scmd.getName()));
+
+        return strs;
     }
 
     protected final boolean isBlockedForNonPlayers() {
