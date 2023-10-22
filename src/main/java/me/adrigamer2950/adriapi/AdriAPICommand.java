@@ -4,6 +4,7 @@ import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class AdriAPICommand extends Command {
     }
 
     @Override
-    public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
         return null;
     }
 }
