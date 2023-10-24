@@ -98,6 +98,11 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         return execute(sender, label, args);
     }
 
+    /**
+     * This method adds automatically the subcommand specified into the subcommand list,
+     * so you don't need to do {@link Command#addSubCommand(SubCommand)} after adding the subcommand
+     * @param helpSubCommand The subcommand to be used as a help command
+     */
     protected final void setHelpSubCommand(SubCommand helpSubCommand) {
         Validate.notNull(helpSubCommand, "SubCommand must not be null!");
 
