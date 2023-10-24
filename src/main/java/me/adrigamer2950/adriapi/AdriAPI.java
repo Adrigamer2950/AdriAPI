@@ -4,6 +4,7 @@ import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.listeners.CustomEventsListener;
 import me.adrigamer2950.adriapi.listeners.ManagersListener;
+import me.adrigamer2950.adriapi.utils.bstats.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -41,6 +42,8 @@ public final class AdriAPI extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new ManagersListener(), this);
 
         this.cmdManager.registerCommand(new AdriAPICommand());
+
+        new Metrics(this, 20135);
 
         LOGGER.log("<green><bold>Enabled");
     }
