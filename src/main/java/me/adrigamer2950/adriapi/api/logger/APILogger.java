@@ -23,7 +23,7 @@ public class APILogger {
     public void log(String message) {
         Bukkit.getConsoleSender().sendMessage(Colors.translateColors( Colors.translateAPIColors(
                 String.format("&r[%s&r] %s",
-                        parent == null ? name : name + " - " + parent.name,
+                        parent == null ? name : parent.name + " - " + name,
                         message
                 ) )));
     }
