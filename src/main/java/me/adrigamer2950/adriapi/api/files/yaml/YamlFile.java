@@ -36,24 +36,15 @@ public class YamlFile extends File
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
-    public void loadFile() {
+    public void loadFile() throws IOException {
         final java.io.File f = new java.io.File(this.path, this.name + ".yml");
         if (!f.exists()) {
             new java.io.File(this.path).mkdirs();
 
             if(fileExistsOnPluginResources)
-                try {
-                    Files.copy(Objects.requireNonNull(this.plugin.getResource(this.name + ".yml")), f.toPath());
-                }
-                catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                Files.copy(Objects.requireNonNull(this.plugin.getResource(this.name + ".yml")), f.toPath());
             else {
-                try {
-                    f.createNewFile();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                f.createNewFile();
             }
         }
 
@@ -71,13 +62,8 @@ public class YamlFile extends File
     }
 
     @Override
-    public void saveFile() {
-        try {
-            this.yaml.save(this.file);
-        }
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void saveFile() throws IOException {
+        this.yaml.save(this.file);
     }
 
 //    @Override

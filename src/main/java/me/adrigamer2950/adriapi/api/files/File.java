@@ -33,12 +33,12 @@ public abstract class File
     /**
      * Loads the file and its contents
      */
-    public abstract void loadFile();
+    public abstract void loadFile() throws Throwable;
 
     /**
      * Saves the content stored into an actual file
      */
-    public abstract void saveFile();
+    public abstract void saveFile() throws Throwable;
 
     public final Plugin getPlugin() {
         return this.plugin;

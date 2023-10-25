@@ -55,14 +55,24 @@ public class FileManager
     }
 
     public void createConfigFiles() {
-        for (File f : this.configs)
-            f.loadFile();
+        for (File f : this.configs) {
+            try {
+                f.loadFile();
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public void saveConfigFiles() {
         for (File f : this.configs)
-            if (f.autoSaveOnServerShutdown)
-                f.saveFile();
+            if (f.autoSaveOnServerShutdown) {
+                try {
+                    f.saveFile();
+                } catch (Throwable e) {
+                    throw new RuntimeException(e);
+                }
+            }
     }
 
     public YamlFile getConfig(String name) {
