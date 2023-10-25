@@ -21,6 +21,7 @@ import java.util.Objects;
 public class YamlFile extends File
 {
     private YamlConfiguration yaml;
+    protected YamlConfiguration yaml;
 
     public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
         super(path, name, plugin, FileType.YAML, autoSaveOnServerShutdown, fileExistsOnPluginResources);
