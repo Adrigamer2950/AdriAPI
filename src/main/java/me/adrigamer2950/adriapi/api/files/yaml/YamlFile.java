@@ -20,8 +20,15 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class YamlFile extends File
 {
-    private YamlConfiguration yaml;
     protected YamlConfiguration yaml;
+
+    public YamlFile(final String path, final String name, final Plugin plugin) {
+        super(path, name, plugin, FileType.YAML, true, true);
+    }
+
+    public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown) {
+        super(path, name, plugin, FileType.YAML, autoSaveOnServerShutdown, true);
+    }
 
     public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
         super(path, name, plugin, FileType.YAML, autoSaveOnServerShutdown, fileExistsOnPluginResources);
