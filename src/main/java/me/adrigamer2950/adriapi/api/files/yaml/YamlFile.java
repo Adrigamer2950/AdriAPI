@@ -23,15 +23,15 @@ public class YamlFile extends File
     protected YamlConfiguration yaml;
 
     public YamlFile(final String path, final String name, final Plugin plugin) {
-        super(path, name, plugin, FileType.YAML, true, true);
+        super(path, name, plugin, true, true);
     }
 
     public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown) {
-        super(path, name, plugin, FileType.YAML, autoSaveOnServerShutdown, true);
+        super(path, name, plugin, autoSaveOnServerShutdown, true);
     }
 
     public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
-        super(path, name, plugin, FileType.YAML, autoSaveOnServerShutdown, fileExistsOnPluginResources);
+        super(path, name, plugin, autoSaveOnServerShutdown, fileExistsOnPluginResources);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

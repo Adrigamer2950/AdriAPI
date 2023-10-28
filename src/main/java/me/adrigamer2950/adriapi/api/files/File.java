@@ -13,21 +13,15 @@ public abstract class File
     protected final String name;
     protected java.io.File file;
     protected final Plugin plugin;
-    protected final FileType type;
     public final boolean autoSaveOnServerShutdown;
     public final boolean fileExistsOnPluginResources;
 
-    public File(final String path, final String name, final Plugin plugin, final FileType type, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
+    public File(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
         this.path = path;
         this.name = name;
         this.plugin = plugin;
-        this.type = type;
         this.autoSaveOnServerShutdown = autoSaveOnServerShutdown;
         this.fileExistsOnPluginResources = fileExistsOnPluginResources;
-    }
-
-    public enum FileType {
-        YAML
     }
 
     /**
@@ -42,10 +36,6 @@ public abstract class File
 
     public final Plugin getPlugin() {
         return this.plugin;
-    }
-
-    public final FileType getType() {
-        return this.type;
     }
 
     public final String getPath() {
