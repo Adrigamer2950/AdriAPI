@@ -1,11 +1,11 @@
-package me.adrigamer2950.adriapi.api.event.files;
+package me.adrigamer2950.adriapi.api.event.config;
 
-import me.adrigamer2950.adriapi.api.files.File;
+import me.adrigamer2950.adriapi.api.config.Config;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-public class FileEvent extends Event {
+public class ConfigEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
     @Override
     public @NotNull HandlerList getHandlers() {
@@ -15,14 +15,14 @@ public class FileEvent extends Event {
         return handlers;
     }
 
-    private final File file;
+    private final Config config;
 
-    public FileEvent(File file) {
-        this.file = file;
+    public ConfigEvent(Config config) {
+        this.config = config;
     }
 
 
-    public File getFile() {
-        return file;
+    public Config getFile() {
+        return config;
     }
 }

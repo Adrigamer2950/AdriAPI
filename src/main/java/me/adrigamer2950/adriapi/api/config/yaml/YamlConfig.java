@@ -1,7 +1,7 @@
-package me.adrigamer2950.adriapi.api.files.yaml;
+package me.adrigamer2950.adriapi.api.config.yaml;
 
-import me.adrigamer2950.adriapi.api.event.files.FileLoadedEvent;
-import me.adrigamer2950.adriapi.api.files.File;
+import me.adrigamer2950.adriapi.api.event.config.FileLoadedEvent;
+import me.adrigamer2950.adriapi.api.config.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -15,28 +15,28 @@ import java.util.Objects;
 
 /**
  * .yml configuration file class, used to create .yml files and manage their contents
- * @see File
+ * @see Config
  */
 @SuppressWarnings("unused")
-public class YamlFile extends File
+public class YamlConfig extends Config
 {
     protected YamlConfiguration yaml;
 
-    public YamlFile(final String path, final String name, final Plugin plugin) {
+    public YamlConfig(final String path, final String name, final Plugin plugin) {
         super(path, name, plugin, true, true);
     }
 
-    public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown) {
+    public YamlConfig(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown) {
         super(path, name, plugin, autoSaveOnServerShutdown, true);
     }
 
-    public YamlFile(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
+    public YamlConfig(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
         super(path, name, plugin, autoSaveOnServerShutdown, fileExistsOnPluginResources);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Override
-    public void loadFile() throws IOException {
+    public void loadConfig() throws IOException {
         final java.io.File f = new java.io.File(this.path, this.name + ".yml");
         if (!f.exists()) {
             new java.io.File(this.path).mkdirs();
@@ -62,7 +62,7 @@ public class YamlFile extends File
     }
 
     @Override
-    public void saveFile() throws IOException {
+    public void saveConfig() throws IOException {
         this.yaml.save(this.file);
     }
 

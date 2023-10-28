@@ -1,12 +1,11 @@
-package me.adrigamer2950.adriapi.api.files.manager;
+package me.adrigamer2950.adriapi.api.config.manager;
 
+import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
-import me.adrigamer2950.adriapi.api.files.File;
-import me.adrigamer2950.adriapi.api.files.yaml.YamlFile;
+import me.adrigamer2950.adriapi.api.config.Config;
 import org.apache.commons.lang.Validate;
 import org.bukkit.plugin.Plugin;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +20,7 @@ public class FileManager
 {
     public static final List<FileManager> FILE_MANAGERS = new ArrayList<>();
     private final Plugin plugin;
-    private final List<File> configs;
+    private final List<Config> configs;
 
     public static FileManager getManager(Plugin plugin) {
         for (final FileManager fM : FileManager.FILE_MANAGERS) {
@@ -48,16 +47,16 @@ public class FileManager
         return this.plugin;
     }
 
-    public void registerConfigFile(File f) {
+    public void registerConfigFile(Config f) {
         Validate.notNull(f, "File must not be null!");
 
         this.configs.add(f);
     }
 
     public void createConfigFiles() {
-        for (File f : this.configs) {
+        for (Config f : this.configs) {
             try {
-                f.loadFile();
+                f.loadConfig();
             } catch (Throwable e) {
                 throw new RuntimeException(e);
             }
@@ -65,20 +64,20 @@ public class FileManager
     }
 
     public void saveConfigFiles() {
-        for (File f : this.configs)
+        for (Config f : this.configs)
             if (f.autoSaveOnServerShutdown) {
                 try {
-                    f.saveFile();
+                    f.saveConfig();
                 } catch (Throwable e) {
                     throw new RuntimeException(e);
                 }
             }
     }
 
-    public YamlFile getConfig(String name) {
-        for (File f : this.configs) {
-            if (!(f instanceof YamlFile)) continue;
-            if (Objects.equals(f.getName(), name)) return (YamlFile) f;
+    public YamlConfig getConfig(String name) {
+        for (Config f : this.configs) {
+            if (!(f instanceof YamlConfig)) continue;
+            if (Objects.equals(f.getName(), name)) return (YamlConfig) f;
         }
 
         return null;

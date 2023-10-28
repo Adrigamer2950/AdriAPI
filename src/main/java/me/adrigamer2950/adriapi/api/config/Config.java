@@ -1,13 +1,14 @@
-package me.adrigamer2950.adriapi.api.files;
+package me.adrigamer2950.adriapi.api.config;
 
+import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 import org.bukkit.plugin.Plugin;
 
 /**
  * Class to create configuration files, mainly .yml files
- * @see me.adrigamer2950.adriapi.api.files.yaml.YamlFile
+ * @see YamlConfig
  */
 @SuppressWarnings("unused")
-public abstract class File
+public abstract class Config
 {
     protected final String path;
     protected final String name;
@@ -16,7 +17,7 @@ public abstract class File
     public final boolean autoSaveOnServerShutdown;
     public final boolean fileExistsOnPluginResources;
 
-    public File(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
+    public Config(final String path, final String name, final Plugin plugin, final boolean autoSaveOnServerShutdown, final boolean fileExistsOnPluginResources) {
         this.path = path;
         this.name = name;
         this.plugin = plugin;
@@ -27,12 +28,12 @@ public abstract class File
     /**
      * Loads the file and its contents
      */
-    public abstract void loadFile() throws Throwable;
+    public abstract void loadConfig() throws Throwable;
 
     /**
      * Saves the content stored into an actual file
      */
-    public abstract void saveFile() throws Throwable;
+    public abstract void saveConfig() throws Throwable;
 
     public final Plugin getPlugin() {
         return this.plugin;

@@ -2,7 +2,7 @@ package me.adrigamer2950.adriapi.listeners;
 
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.database.manager.DatabaseManager;
-import me.adrigamer2950.adriapi.api.files.manager.FileManager;
+import me.adrigamer2950.adriapi.api.config.manager.FileManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.jetbrains.annotations.ApiStatus;
