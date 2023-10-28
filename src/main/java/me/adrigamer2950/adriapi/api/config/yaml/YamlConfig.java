@@ -1,7 +1,7 @@
 package me.adrigamer2950.adriapi.api.config.yaml;
 
-import me.adrigamer2950.adriapi.api.event.config.FileLoadedEvent;
 import me.adrigamer2950.adriapi.api.config.Config;
+import me.adrigamer2950.adriapi.api.event.config.ConfigLoadedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -52,7 +52,7 @@ public class YamlConfig extends Config
 
         this.yaml = YamlConfiguration.loadConfiguration(f);
 
-        Bukkit.getPluginManager().callEvent(new FileLoadedEvent(this, plugin));
+        Bukkit.getPluginManager().callEvent(new ConfigLoadedEvent(this, plugin));
 
         if(!fileExistsOnPluginResources) return;
 
