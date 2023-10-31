@@ -6,6 +6,7 @@ author: Adrigamer2950
 description: An API created to simplify Spigot Plugin development to make it easier
 website: https://github.com/Adrigamer2950/AdriAPI
 load: STARTUP
+folia-supported: true
 
 commands:
   adriapi:
