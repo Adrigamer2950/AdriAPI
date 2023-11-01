@@ -5,6 +5,7 @@ import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.config.Config;
 import org.apache.commons.lang.Validate;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +17,14 @@ import java.util.Objects;
  * would grant you access to that configuration file in order to edit its contents
  */
 @SuppressWarnings("unused")
-public class FileManager
-{
-    public static final List<FileManager> FILE_MANAGERS = new ArrayList<>();
+public class ConfigManager {
+    @ApiStatus.Internal
+    public static final List<ConfigManager> CONFIG_MANAGERS = new ArrayList<>();
     private final Plugin plugin;
     private final List<Config> configs;
 
-    public static FileManager getManager(Plugin plugin) {
-        for (final FileManager fM : FileManager.FILE_MANAGERS) {
+    public static ConfigManager getManager(Plugin plugin) {
+        for (final ConfigManager fM : ConfigManager.CONFIG_MANAGERS) {
             if (fM.getPlugin().equals(plugin)) {
                 return fM;
             }
@@ -31,16 +32,16 @@ public class FileManager
         return null;
     }
 
-    public FileManager(Plugin plugin) {
+    public ConfigManager(Plugin plugin) {
         this.configs = new ArrayList<>();
 
         if (getManager(plugin) != null) {
-            throw new DuplicatedManagerException(String.format("FileManager for plugin %s v%s has already been created and cannot be duplicated", plugin.getName(), plugin.getDescription().getVersion()));
+            throw new DuplicatedManagerException(String.format("ConfigManager for plugin %s v%s has already been created and cannot be duplicated", plugin.getName(), plugin.getDescription().getVersion()));
         }
 
         this.plugin = plugin;
 
-        FILE_MANAGERS.add(this);
+        CONFIG_MANAGERS.add(this);
     }
 
     public Plugin getPlugin() {
