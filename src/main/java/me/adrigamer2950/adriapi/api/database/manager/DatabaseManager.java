@@ -40,6 +40,7 @@ public class DatabaseManager {
 
     public final Plugin plugin;
 
+    @SuppressWarnings("deprecation")
     public DatabaseManager(Plugin pl) {
         if (getManager(pl) != null) {
             throw new DuplicatedManagerException(

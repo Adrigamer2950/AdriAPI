@@ -32,6 +32,7 @@ public class ConfigManager {
         return null;
     }
 
+    @SuppressWarnings("deprecation")
     public ConfigManager(Plugin plugin) {
         this.configs = new ArrayList<>();
 

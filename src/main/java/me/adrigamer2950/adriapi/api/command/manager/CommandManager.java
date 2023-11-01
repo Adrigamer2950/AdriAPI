@@ -41,6 +41,7 @@ public final class CommandManager {
 
     private final Plugin plugin;
 
+    @SuppressWarnings("deprecation")
     public CommandManager(Plugin pl) {
         if (getManager(pl) != null) {
             throw new DuplicatedManagerException(

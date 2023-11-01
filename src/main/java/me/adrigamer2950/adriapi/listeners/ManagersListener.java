@@ -10,6 +10,7 @@ import org.jetbrains.annotations.ApiStatus;
 @ApiStatus.Internal
 public class ManagersListener implements org.bukkit.event.Listener {
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPluginDisable(PluginDisableEvent e) {
         if(CommandManager.getManager(e.getPlugin()) != null) {
