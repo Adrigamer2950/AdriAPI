@@ -1,5 +1,5 @@
 name: AdriAPI
-version: '${project.version}'
+version: '${version}'
 main: me.adrigamer2950.adriapi.AdriAPI
 api-version: 1.13
 author: Adrigamer2950
