@@ -80,3 +80,7 @@ processResources {
         expand props
     }
 }
+
+tasks.jar {
+    archiveBaseName.set("AdriAPI")
+}
