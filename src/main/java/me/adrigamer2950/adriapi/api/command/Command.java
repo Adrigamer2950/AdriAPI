@@ -20,6 +20,7 @@ import java.util.List;
  * Capable of implementing subcommands with just 1 line of code on command execution.
  * You may use {@link Command#addSubCommand(SubCommand)} or {@link Command#setSubCommands(List)} to add
  * subcommands to a command
+ *
  * @see SubCommand
  */
 @SuppressWarnings("unused")
@@ -66,9 +67,10 @@ public abstract class Command implements CommandExecutor, TabCompleter {
      * You can use {@link Command#parseSubCommands(CommandSender, String, String[])} here to parse and execute subcommands attached to this main command,
      * if {@link Command#parseSubCommands(CommandSender, String, String[])} doesn't get any subcommand, it executes the help subcommand established with
      * {@link Command#setHelpSubCommand(SubCommand)}
+     *
      * @param sender Who sent the command
-     * @param label The name of the command, it changes if an alias is used
-     * @param args Arguments used on execution
+     * @param label  The name of the command, it changes if an alias is used
+     * @param args   Arguments used on execution
      * @return The resolution of the execution, if false sends the usage message on your plugin.yml
      */
     public abstract boolean execute(CommandSender sender, String label, String[] args);
@@ -81,9 +83,10 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
     /**
      * You can use {@link Command#parseSubCommandsTabCompleter(CommandSender, String, String[])} to parse suggestions for the tab completer
+     *
      * @param sender Who sent the command
-     * @param label The name of the command, it changes if an alias is used
-     * @param args Arguments used on execution
+     * @param label  The name of the command, it changes if an alias is used
+     * @param args   Arguments used on execution
      * @return The list of suggestions for the tab completer
      */
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
@@ -103,6 +106,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     /**
      * This method adds automatically the subcommand specified into the subcommand list,
      * so you don't need to do {@link Command#addSubCommand(SubCommand)} after adding the subcommand
+     *
      * @param helpSubCommand The subcommand to be used as a help command
      */
     protected final void setHelpSubCommand(SubCommand helpSubCommand) {
@@ -132,9 +136,10 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
     /**
      * Parses the list of {@link SubCommand} you may have on this command to execute the one who has been executed by the sender
+     *
      * @param sender Who sent the command
-     * @param label The name of the command, it changes if an alias is used
-     * @param args Arguments used on execution
+     * @param label  The name of the command, it changes if an alias is used
+     * @param args   Arguments used on execution
      * @return The resolution of the execution, if false sends the usage message on your plugin.yml
      */
     protected final boolean parseSubCommands(CommandSender sender, String label, String[] args) {
@@ -152,21 +157,20 @@ public abstract class Command implements CommandExecutor, TabCompleter {
 
 
     /**
-     *
      * @param sender Who sent the command
-     * @param label The name of the command, it changes if an alias is used
-     * @param args Arguments used on execution
+     * @param label  The name of the command, it changes if an alias is used
+     * @param args   Arguments used on execution
      * @return The list of suggestions for the tab completer
      */
     protected final List<String> parseSubCommandsTabCompleter(CommandSender sender, String label, String[] args) {
         Validate.notNull(this.subCommands, "SubCommand List is null!");
 
-        if(args.length > 1 && args[0].isEmpty())
-            for(SubCommand cmd : this.subCommands)
-                if(cmd.getName().equals(args[0]))
+        if (args.length > 1 && args[0].isEmpty())
+            for (SubCommand cmd : this.subCommands)
+                if (cmd.getName().equals(args[0]))
                     return cmd.tabComplete(sender, label, args);
 
-        if(args.length < 2) {
+        if (args.length < 2) {
             return this.subCommands.stream().map(Command::getName).filter(name -> name.startsWith(args[0])).toList();
         }
 

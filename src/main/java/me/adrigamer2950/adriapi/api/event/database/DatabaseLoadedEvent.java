@@ -5,6 +5,7 @@ import org.bukkit.plugin.Plugin;
 
 /**
  * This event will be triggered when a {@link Database} is successfully loaded
+ *
  * @see Database
  */
 public class DatabaseLoadedEvent extends DatabaseEvent {

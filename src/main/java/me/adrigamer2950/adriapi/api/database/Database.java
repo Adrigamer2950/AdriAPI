@@ -62,12 +62,12 @@ public class Database {
     }
 
     public void connect() throws SQLException {
-        if(this.type.equals(DatabaseType.MYSQL)) {
+        if (this.type.equals(DatabaseType.MYSQL)) {
             connection = DriverManager.getConnection(
                     String.format("jdbc:%s://%s:%s/%s", this.type.name().toLowerCase(), this.hostname, this.port, this.databaseName),
                     this.username, this.password
             );
-        } else if(this.type.equals(DatabaseType.H2)) {
+        } else if (this.type.equals(DatabaseType.H2)) {
             connection = DriverManager.getConnection(
                     String.format("jdbc:h2:%s", this.h2Path),
                     this.username, this.password
@@ -87,7 +87,8 @@ public class Database {
 
     @SuppressWarnings("SqlSourceToSinkFlow")
     public void makeStatement(String statement) {
-        if(this.connection == null) throw new DatabaseConnectionNotEstablishedException("Database with name '%s' doesn't have established a successful connection, please use 'connect' method before making a statement.");
+        if (this.connection == null)
+            throw new DatabaseConnectionNotEstablishedException("Database with name '%s' doesn't have established a successful connection, please use 'connect' method before making a statement.");
 
         java.sql.PreparedStatement ps;
         try {
@@ -101,7 +102,8 @@ public class Database {
 
     @SuppressWarnings("SqlSourceToSinkFlow")
     public ResultSet makeQuery(String query) {
-        if(this.connection == null) throw new DatabaseConnectionNotEstablishedException("Database with name '%s' doesn't have established a successful connection, please use 'connect' method before making a query.");
+        if (this.connection == null)
+            throw new DatabaseConnectionNotEstablishedException("Database with name '%s' doesn't have established a successful connection, please use 'connect' method before making a query.");
 
         java.sql.PreparedStatement ps;
         try {

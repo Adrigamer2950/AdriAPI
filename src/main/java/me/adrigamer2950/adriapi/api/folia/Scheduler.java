@@ -29,42 +29,42 @@ public class Scheduler {
     }
 
     public void run(Runnable runnable) {
-        if(isFoliaServer())
+        if (isFoliaServer())
             Bukkit.getGlobalRegionScheduler().run(plugin, t -> runnable.run());
         else
             Bukkit.getScheduler().runTask(plugin, runnable);
     }
 
     public void runAsync(Runnable runnable) {
-        if(isFoliaServer())
+        if (isFoliaServer())
             Bukkit.getGlobalRegionScheduler().execute(plugin, runnable);
         else
             Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable);
     }
 
     public Task runLater(Runnable runnable, long delay) {
-        if(isFoliaServer())
+        if (isFoliaServer())
             return new Task(Bukkit.getGlobalRegionScheduler().runDelayed(plugin, t -> runnable.run(), delay));
         else
             return new Task(Bukkit.getScheduler().runTaskLater(plugin, runnable, delay));
     }
 
     public Task runLaterAsync(Runnable runnable, long delay) {
-        if(isFoliaServer())
+        if (isFoliaServer())
             return new Task(Bukkit.getGlobalRegionScheduler().runDelayed(plugin, t -> runnable.run(), delay));
         else
             return new Task(Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delay));
     }
 
     public Task runTimer(Runnable runnable, long delay, long period) {
-        if(isFoliaServer())
+        if (isFoliaServer())
             return new Task(Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, t -> runnable.run(), delay < 1 ? 1 : delay, period));
         else
             return new Task(Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period));
     }
 
     public Task runTimerAsync(Runnable runnable, long delay, long period) {
-        if(isFoliaServer())
+        if (isFoliaServer())
             return new Task(Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, t -> runnable.run(), delay < 1 ? 1 : delay, period));
         else
             return new Task(Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period));
@@ -79,7 +79,7 @@ public class Scheduler {
         }
 
         public void cancel() {
-            if(task instanceof BukkitTask)
+            if (task instanceof BukkitTask)
                 ((BukkitTask) task).cancel();
             else
                 ((ScheduledTask) task).cancel();

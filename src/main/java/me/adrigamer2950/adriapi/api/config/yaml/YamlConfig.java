@@ -15,11 +15,11 @@ import java.util.Objects;
 
 /**
  * .yml configuration file class, used to create .yml files and manage their contents
+ *
  * @see Config
  */
 @SuppressWarnings("unused")
-public class YamlConfig extends Config
-{
+public class YamlConfig extends Config {
     protected YamlConfiguration yaml;
 
     public YamlConfig(final String path, final String name, final Plugin plugin) {
@@ -41,7 +41,7 @@ public class YamlConfig extends Config
         if (!f.exists()) {
             new java.io.File(this.path).mkdirs();
 
-            if(fileExistsOnPluginResources)
+            if (fileExistsOnPluginResources)
                 Files.copy(Objects.requireNonNull(this.plugin.getResource(this.name + ".yml")), f.toPath());
             else {
                 f.createNewFile();
@@ -54,7 +54,7 @@ public class YamlConfig extends Config
 
         Bukkit.getPluginManager().callEvent(new ConfigLoadedEvent(this, plugin));
 
-        if(!fileExistsOnPluginResources) return;
+        if (!fileExistsOnPluginResources) return;
 
         final Reader defConfigStream = new InputStreamReader(Objects.requireNonNull(this.plugin.getResource(this.name + ".yml")), StandardCharsets.UTF_8);
         final YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);

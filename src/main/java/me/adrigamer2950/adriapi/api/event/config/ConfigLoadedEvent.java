@@ -5,6 +5,7 @@ import org.bukkit.plugin.Plugin;
 
 /**
  * This event triggers when a {@link Config} is successfully loaded
+ *
  * @see Config
  */
 @SuppressWarnings("unused")

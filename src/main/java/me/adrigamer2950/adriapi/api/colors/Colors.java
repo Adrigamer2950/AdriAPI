@@ -9,7 +9,7 @@ import org.bukkit.ChatColor;
  */
 public class Colors {
 
-    public static final String[] mc_col = new String[] {
+    public static final String[] mc_col = new String[]{
             "&0", //Black
             "&1", //Dark Blue
             "&2", //Dark Green
@@ -34,7 +34,7 @@ public class Colors {
             "&r", //Reset
     };
 
-    public static final String[] api_col = new String[] {
+    public static final String[] api_col = new String[]{
             "<black>", //Black
             "<dark_blue>", //Dark Blue
             "<dark_green>", //Dark Green
@@ -61,12 +61,13 @@ public class Colors {
 
     /**
      * Go to {@link Colors#api_col} to see how to write AdriAPI's color codes
+     *
      * @param input The message
      * @return A colored message
      */
     public static String translateAPIColors(String input) {
-        for(int i = 0 ; i < api_col.length ; i++) {
-            if(input.contains(api_col[i])) {
+        for (int i = 0; i < api_col.length; i++) {
+            if (input.contains(api_col[i])) {
                 String mc = mc_col[i];
                 String c = api_col[i];
                 input = input.replaceAll(c, mc);

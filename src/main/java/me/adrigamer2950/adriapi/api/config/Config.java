@@ -5,11 +5,11 @@ import org.bukkit.plugin.Plugin;
 
 /**
  * Class to create configuration files, mainly .yml files
+ *
  * @see YamlConfig
  */
 @SuppressWarnings("unused")
-public abstract class Config
-{
+public abstract class Config {
     protected final String path;
     protected final String name;
     protected java.io.File file;

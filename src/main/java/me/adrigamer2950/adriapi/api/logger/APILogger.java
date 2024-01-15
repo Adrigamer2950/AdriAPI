@@ -18,13 +18,14 @@ public class APILogger {
 
     /**
      * Send a message to console with colored text
+     *
      * @param message The message to be sent
      */
     public void log(String message) {
-        Bukkit.getConsoleSender().sendMessage(Colors.translateColors( Colors.translateAPIColors(
+        Bukkit.getConsoleSender().sendMessage(Colors.translateColors(Colors.translateAPIColors(
                 String.format("&r[%s&r] %s",
                         parent == null ? name : parent.name + " - " + name,
                         message
-                ) )));
+                ))));
     }
 }

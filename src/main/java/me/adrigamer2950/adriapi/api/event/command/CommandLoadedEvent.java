@@ -5,6 +5,7 @@ import org.bukkit.plugin.Plugin;
 
 /**
  * This event will be triggered when a {@link Command} is successfully loaded
+ *
  * @see Command
  */
 public class CommandLoadedEvent extends CommandEvent {

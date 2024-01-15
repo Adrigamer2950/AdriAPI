@@ -12,9 +12,12 @@ import org.bukkit.inventory.ItemStack;
  */
 public class ItemCraftedEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    @Override public HandlerList getHandlers() {
+
+    @Override
+    public HandlerList getHandlers() {
         return handlers;
     }
+
     public static HandlerList getHandlerList() {
         return handlers;
     }
