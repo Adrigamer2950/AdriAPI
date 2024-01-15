@@ -33,11 +33,11 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     private String blockedForNonPlayersMessage;
     private SubCommand helpSubCommand;
 
-    protected Command(@NotNull Plugin pl, @NotNull String name) {
+    public Command(@NotNull Plugin pl, @NotNull String name) {
         this(pl, name, null);
     }
 
-    protected Command(@NotNull Plugin pl, @NotNull String name, @Nullable List<String> aliases) {
+    public Command(@NotNull Plugin pl, @NotNull String name, @Nullable List<String> aliases) {
         this(pl, name, aliases, new ArrayList<>());
     }
 
