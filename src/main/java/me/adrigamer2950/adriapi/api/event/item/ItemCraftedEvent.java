@@ -19,9 +19,9 @@ public class ItemCraftedEvent extends Event implements Cancellable {
         return handlers;
     }
 
-    private ItemStack item;
-    private Player player;
-    private Inventory inventory;
+    private final ItemStack item;
+    private final Player player;
+    private final Inventory inventory;
 
     private boolean cancelled;
 
