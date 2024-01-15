@@ -161,20 +161,16 @@ public abstract class Command implements CommandExecutor, TabCompleter {
     protected final List<String> parseSubCommandsTabCompleter(CommandSender sender, String label, String[] args) {
         Validate.notNull(this.subCommands, "SubCommand List is null!");
 
-        for (SubCommand cmd : this.subCommands)
-            for (int i = 0; i < args.length; i++)
-                if (
-                        cmd.getName().startsWith(args[i])
-                                && args.length >= i + 2
-                ) {
+        if(args.length > 1 && args[0].isEmpty())
+            for(SubCommand cmd : this.subCommands)
+                if(cmd.getName().equals(args[0]))
                     return cmd.tabComplete(sender, label, args);
-                }
 
-        List<String> strs = new ArrayList<>();
+        if(args.length < 2) {
+            return this.subCommands.stream().map(Command::getName).filter(name -> name.startsWith(args[0])).toList();
+        }
 
-        this.subCommands.forEach(scmd -> strs.add(scmd.getName()));
-
-        return strs;
+        return null;
     }
 
     protected final boolean isBlockedForNonPlayers() {
