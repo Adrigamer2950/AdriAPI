@@ -86,7 +86,9 @@ public abstract class Command implements CommandExecutor, TabCompleter {
      * @param args Arguments used on execution
      * @return The list of suggestions for the tab completer
      */
-    public abstract List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args);
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        return null;
+    }
 
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
