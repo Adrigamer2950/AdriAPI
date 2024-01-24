@@ -1,8 +1,11 @@
 package me.adrigamer2950.adriapi.api.config.manager;
 
+import me.adrigamer2950.adriapi.AdriAPI;
 import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.config.Config;
+import me.adrigamer2950.adriapi.api.logger.APILogger;
+import me.adrigamer2950.adriapi.api.logger.SubLogger;
 import org.apache.commons.lang.Validate;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.ApiStatus;
@@ -18,6 +21,8 @@ import java.util.Objects;
  */
 @SuppressWarnings("unused")
 public class ConfigManager {
+
+    public static final APILogger LOGGER = new SubLogger("ConfigManager", AdriAPI.LOGGER);
     @ApiStatus.Internal
     public static final List<ConfigManager> CONFIG_MANAGERS = new ArrayList<>();
     private final Plugin plugin;

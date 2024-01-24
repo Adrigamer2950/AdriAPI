@@ -27,8 +27,8 @@ public class ManagersListener implements org.bukkit.event.Listener {
         }
         if (ConfigManager.getManager(e.getPlugin()) != null) {
             ConfigManager.CONFIG_MANAGERS.remove(ConfigManager.getManager(e.getPlugin()));
-            DatabaseManager.LOGGER.log(String.format(
-                    String.format("Database Manager for %s v%s has been successfully unloaded", e.getPlugin().getName(), e.getPlugin().getDescription().getVersion())
+            ConfigManager.LOGGER.log(String.format(
+                    String.format("Config Manager for %s v%s has been successfully unloaded", e.getPlugin().getName(), e.getPlugin().getDescription().getVersion())
             ));
         }
     }
