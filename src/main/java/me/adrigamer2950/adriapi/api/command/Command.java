@@ -2,7 +2,6 @@ package me.adrigamer2950.adriapi.api.command;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.interfaces.TabCompleter;
-import org.apache.commons.lang.Validate;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -110,22 +109,25 @@ public abstract class Command implements CommandExecutor, TabCompleter {
      * @param helpSubCommand The subcommand to be used as a help command
      */
     protected final void setHelpSubCommand(SubCommand helpSubCommand) {
-        Validate.notNull(helpSubCommand, "SubCommand must not be null!");
+        this.addSubCommand(helpSubCommand);
 
-        this.subCommands.add(helpSubCommand);
         this.helpSubCommand = helpSubCommand;
     }
 
     protected final void addSubCommand(SubCommand subCommand) {
-        Validate.notNull(subCommand, "SubCommand must not be null!");
+        if (subCommand == null)
+            throw new NullPointerException("SubCommand must not be null!");
 
         this.subCommands.add(subCommand);
     }
 
     protected final void setSubCommands(List<SubCommand> subCommands) {
-        Validate.notNull(subCommands, "SubCommand List must not be null!");
+        if (subCommands == null)
+            throw new NullPointerException("SubCommand list must not be null!");
+
         for (SubCommand scmd : this.subCommands)
-            Validate.notNull(scmd, String.format("SubCommand '%s' must not be null!", scmd.getName()));
+            if (scmd == null)
+                throw new NullPointerException("There's some SubCommand that is null");
 
         this.subCommands = subCommands;
     }
@@ -143,7 +145,8 @@ public abstract class Command implements CommandExecutor, TabCompleter {
      * @return The resolution of the execution, if false sends the usage message on your plugin.yml
      */
     protected final boolean parseSubCommands(CommandSender sender, String label, String[] args) {
-        Validate.notNull(this.subCommands, "SubCommand List is null!");
+        if (subCommands == null)
+            throw new NullPointerException("SubCommand list is null!");
 
         for (SubCommand cmd : this.subCommands)
             for (String s : args)
@@ -163,7 +166,8 @@ public abstract class Command implements CommandExecutor, TabCompleter {
      * @return The list of suggestions for the tab completer
      */
     protected final List<String> parseSubCommandsTabCompleter(CommandSender sender, String label, String[] args) {
-        Validate.notNull(this.subCommands, "SubCommand List is null!");
+        if (subCommands == null)
+            throw new NullPointerException("SubCommand list is null!");
 
         if (args.length > 1 && args[0].isEmpty())
             for (SubCommand cmd : this.subCommands)

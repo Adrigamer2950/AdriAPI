@@ -1,12 +1,12 @@
 package me.adrigamer2950.adriapi.api.command.manager;
 
+import lombok.Getter;
 import me.adrigamer2950.adriapi.AdriAPI;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.event.command.CommandLoadedEvent;
 import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.exceptions.command.CommandNotInPluginYMLException;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
@@ -38,6 +38,7 @@ public final class CommandManager {
         return null;
     }
 
+    @Getter
     private final Plugin plugin;
 
     @SuppressWarnings("deprecation")
@@ -56,10 +57,6 @@ public final class CommandManager {
         COMMAND_MANAGERS.add(this);
     }
 
-    public Plugin getPlugin() {
-        return this.plugin;
-    }
-
     /**
      * This method allows you to register and load commands for their use.
      *
@@ -69,11 +66,14 @@ public final class CommandManager {
      * @since 1.0.0
      */
     public void registerCommand(Command command) {
-        Validate.notNull(command, "Command must not be null");
+        if (command == null) {
+            throw new NullPointerException("Command must not be null");
+        }
 
         PluginCommand plCmd = command.getPlugin().getServer().getPluginCommand(command.getName());
         if (plCmd == null) {
             LOGGER.log(String.format("&cERROR LOADING COMMAND '%s'", command.getName()));
+        if (plCmd == null || plCmd.getPlugin() != command.getPlugin()) {
             throw new CommandNotInPluginYMLException(String.format("Command '%s' must be registered in plugin.yml", command.getName()));
         }
 
