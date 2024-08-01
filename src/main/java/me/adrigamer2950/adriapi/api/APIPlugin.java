@@ -1,0 +1,75 @@
+package me.adrigamer2950.adriapi.api;
+
+import lombok.Getter;
+import lombok.NonNull;
+import me.adrigamer2950.adriapi.api.command.Command;
+import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
+import me.adrigamer2950.adriapi.api.folia.Scheduler;
+import me.adrigamer2950.adriapi.api.logger.APILogger;
+import me.adrigamer2950.adriapi.utils.bstats.bStats;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Set;
+
+@Getter
+public abstract class APIPlugin extends JavaPlugin {
+
+    private APILogger apiLogger;
+
+    private CommandManager commandManager;
+    private Scheduler scheduler;
+    private bStats bstats;
+
+    @Override
+    public final void onEnable() {
+        this.apiLogger = new APILogger(this.getDescription().getPrefix(), this.getLogger());
+
+        onPreLoad();
+        loadHooks();
+        onPostLoad();
+    }
+
+    private void loadHooks() {
+        this.commandManager = new CommandManager(this);
+        this.scheduler = new Scheduler(this);
+        this.bstats = new bStats(this, 20135);
+    }
+
+    public abstract void onPreLoad();
+
+    public abstract void onPostLoad();
+
+    public abstract void onUnload();
+
+    @Override
+    public final void onDisable() {
+        this.onUnload();
+
+        this.commandManager = null;
+        this.scheduler = null;
+
+        if (this.bstats != null) this.bstats.shutdown();
+        this.bstats = null;
+    }
+
+    protected void registerCommands(Set<@NonNull Command> commands) {
+        for (Command command : commands) {
+            this.registerCommand(command);
+        }
+    }
+
+    protected void registerCommand(@NonNull Command command) {
+        this.commandManager.registerCommand(command);
+    }
+
+    protected void registerListeners(Set<@NonNull Listener> listeners) {
+        for (Listener listener : listeners) {
+            this.registerListener(listener);
+        }
+    }
+
+    protected void registerListener(Listener listener) {
+        getServer().getPluginManager().registerEvents(listener, this);
+    }
+}

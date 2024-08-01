@@ -1,5 +1,6 @@
 package me.adrigamer2950.adriapi.listeners;
 
+import me.adrigamer2950.adriapi.AdriAPI;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.server.PluginDisableEvent;
@@ -13,7 +14,7 @@ public class ManagersListener implements org.bukkit.event.Listener {
     public void onPluginDisable(PluginDisableEvent e) {
         if (CommandManager.getManager(e.getPlugin()) != null) {
             CommandManager.COMMAND_MANAGERS.remove(CommandManager.getManager(e.getPlugin()));
-            CommandManager.LOGGER.log(String.format(
+            AdriAPI.get().getApiLogger().info(String.format(
                     String.format("Command Manager for %s v%s has been successfully unloaded", e.getPlugin().getName(), e.getPlugin().getDescription().getVersion())
             ));
         }

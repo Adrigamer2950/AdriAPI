@@ -25,8 +25,7 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public final class CommandManager {
 
-    //    private final Logger LOGGER = new SubLogger("Command Manager", Bukkit.getPluginManager().getPlugin("AdriAPI").getLogger());
-    public static final APILogger LOGGER = new SubLogger("CommandManager", AdriAPI.LOGGER);
+    public final APILogger LOGGER;
     private final List<Command> cmds = new ArrayList<>();
     public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
 
@@ -54,6 +53,8 @@ public final class CommandManager {
 
         this.plugin = pl;
 
+        this.LOGGER = AdriAPI.get().getApiLogger();
+
         COMMAND_MANAGERS.add(this);
     }
 
@@ -71,9 +72,8 @@ public final class CommandManager {
         }
 
         PluginCommand plCmd = command.getPlugin().getServer().getPluginCommand(command.getName());
-        if (plCmd == null) {
-            LOGGER.log(String.format("&cERROR LOADING COMMAND '%s'", command.getName()));
         if (plCmd == null || plCmd.getPlugin() != command.getPlugin()) {
+            LOGGER.error(String.format("&cERROR LOADING COMMAND '%s'", command.getName()));
             throw new CommandNotInPluginYMLException(String.format("Command '%s' must be registered in plugin.yml", command.getName()));
         }
 
