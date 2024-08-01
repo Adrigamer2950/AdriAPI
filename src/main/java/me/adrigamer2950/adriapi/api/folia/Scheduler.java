@@ -1,11 +1,14 @@
 package me.adrigamer2950.adriapi.api.folia;
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
 @SuppressWarnings("unused")
+@RequiredArgsConstructor
 public class Scheduler {
 
     private final JavaPlugin plugin;
@@ -18,10 +21,6 @@ public class Scheduler {
         } catch (ClassNotFoundException e) {
             isFoliaServer = false;
         }
-    }
-
-    public Scheduler(JavaPlugin plugin) {
-        this.plugin = plugin;
     }
 
     public static boolean isFoliaServer() {
@@ -70,13 +69,11 @@ public class Scheduler {
             return new Task(Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period));
     }
 
+    @Getter
+    @RequiredArgsConstructor
     public static class Task {
 
         private final Object task;
-
-        public Task(Object task) {
-            this.task = task;
-        }
 
         public void cancel() {
             if (task instanceof BukkitTask)

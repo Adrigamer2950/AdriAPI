@@ -1,5 +1,7 @@
 package me.adrigamer2950.adriapi.api.event.command;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import me.adrigamer2950.adriapi.api.command.Command;
 import org.bukkit.plugin.Plugin;
 
@@ -8,6 +10,7 @@ import org.bukkit.plugin.Plugin;
  *
  * @see Command
  */
+@Getter
 public class CommandLoadedEvent extends CommandEvent {
 
     private final Plugin loader;
@@ -15,9 +18,5 @@ public class CommandLoadedEvent extends CommandEvent {
     public CommandLoadedEvent(Command command, Plugin loader) {
         super(command);
         this.loader = loader;
-    }
-
-    public Plugin getLoader() {
-        return loader;
     }
 }
