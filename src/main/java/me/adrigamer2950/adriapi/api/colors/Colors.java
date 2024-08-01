@@ -1,6 +1,7 @@
 package me.adrigamer2950.adriapi.api.colors;
 
 import org.bukkit.ChatColor;
+import org.fusesource.jansi.Ansi;
 
 /**
  * Used to translate Minecraft Color Codes, or a custom color code system that is simplier to
@@ -81,8 +82,8 @@ public class Colors {
     }
 
     public static String translateColors(String input, char s) {
-        return ChatColor.translateAlternateColorCodes(s, input);
-        /*input = input.replaceAll(s+"0", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString())
+        //return ChatColor.translateAlternateColorCodes(s, input);
+        input = input.replaceAll(s+"0", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString())
                 .replaceAll(s+"1", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLUE).boldOff().toString())
                 .replaceAll(s+"2", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.GREEN).boldOff().toString())
                 .replaceAll(s+"3", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.CYAN).boldOff().toString())
@@ -104,6 +105,6 @@ public class Colors {
                 .replaceAll(s+"n", Ansi.ansi().a(Ansi.Attribute.UNDERLINE).toString())
                 .replaceAll(s+"o", Ansi.ansi().a(Ansi.Attribute.ITALIC).toString())
                 .replaceAll(s+"r", Ansi.ansi().a(Ansi.Attribute.RESET).toString());
-        return input + Ansi.ansi().reset().toString();*/
+        return input + Ansi.ansi().reset().toString();
     }
 }

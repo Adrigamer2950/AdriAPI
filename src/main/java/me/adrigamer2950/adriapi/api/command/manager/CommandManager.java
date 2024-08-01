@@ -6,7 +6,6 @@ import me.adrigamer2950.adriapi.api.event.command.CommandLoadedEvent;
 import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.exceptions.command.CommandNotInPluginYMLException;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
-import me.adrigamer2950.adriapi.api.logger.SubLogger;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;

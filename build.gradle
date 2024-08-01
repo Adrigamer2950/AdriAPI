@@ -52,6 +52,9 @@ dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.32'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    // Ansi
+    compileOnly 'org.fusesource.jansi:jansi:2.4.1'
 }
 
 def targetJavaVersion = 17
