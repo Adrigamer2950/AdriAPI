@@ -18,9 +18,11 @@ public class APILogger {
     }
 
     private String colorizeMessage(String msg) {
-        return Colors.translateColors(
-                Colors.translateAPIColors(
-                        msg
+        return Colors.translateAPIColors(
+                Colors.translateColors(
+                        msg,
+                        '&',
+                        true
                 )
         );
     }
