@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Set;
 
+@SuppressWarnings({"deprecation", "unused"})
 @Getter
 public abstract class APIPlugin extends JavaPlugin {
 

@@ -17,6 +17,7 @@ public final class AdriAPI extends APIPlugin {
         return AdriAPI.plugin;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onPreLoad() {
         plugin = this;
