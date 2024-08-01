@@ -17,6 +17,7 @@ public class AdriAPICommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
+        //noinspection deprecation
         sender.sendMessage(Colors.translateColors(String.format(
                 "&7AdriAPI Version &6%s", AdriAPI.get().getDescription().getVersion()
         )));

@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 /**
  * Main Logger class
  */
+@SuppressWarnings("unused")
 @Getter
 public class APILogger {
 

@@ -85,7 +85,8 @@ public final class CommandManager {
         CommandLoadedEvent event = new CommandLoadedEvent(command, plugin);
         Bukkit.getPluginManager().callEvent(event);
 
-        LOGGER.log(
+        //noinspection deprecation
+        LOGGER.info(
                 String.format("Command '%s' for plugin %s v%s has been successfully loaded", command.getName(), command.getPlugin().getName(), command.getPlugin().getDescription().getVersion())
         );
     }

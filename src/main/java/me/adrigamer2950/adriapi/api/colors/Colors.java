@@ -8,6 +8,7 @@ import org.fusesource.jansi.Ansi;
  * You can also use a custom color code
  * system that's easier to remember than Bukkit one.
  */
+@SuppressWarnings("deprecation")
 public class Colors {
 
     public static final String[] mc_col = new String[]{
