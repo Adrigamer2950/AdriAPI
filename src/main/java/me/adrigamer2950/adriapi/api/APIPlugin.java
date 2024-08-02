@@ -26,6 +26,8 @@ public abstract class APIPlugin extends JavaPlugin {
     public final void onEnable() {
         this.apiLogger = new APILogger(this.getDescription().getPrefix(), this.getLogger());
 
+        new bStats(this, 20135);
+
         onPreLoad();
         loadHooks();
         onPostLoad();
@@ -34,7 +36,8 @@ public abstract class APIPlugin extends JavaPlugin {
     private void loadHooks() {
         this.commandManager = new CommandManager(this);
         this.scheduler = new Scheduler(this);
-        this.bstats = new bStats(this, 20135);
+
+        if (this.getBStatsServiceId() != 0) this.bstats = new bStats(this, this.getBStatsServiceId());
     }
 
     public abstract void onPreLoad();
@@ -72,5 +75,9 @@ public abstract class APIPlugin extends JavaPlugin {
 
     protected void registerListener(Listener listener) {
         getServer().getPluginManager().registerEvents(listener, this);
+    }
+
+    protected int getBStatsServiceId() {
+        return 0;
     }
 }
