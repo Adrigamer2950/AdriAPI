@@ -34,6 +34,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings({"deprecation", "unused"})
 public class bStats {
 
     private final Plugin plugin;
@@ -63,11 +64,12 @@ public class bStats {
             config
                     .options()
                     .header(
-                            "bStats (https://bStats.org) collects some basic information for plugin authors, like how\n"
-                                    + "many people use their plugin and their total player count. It's recommended to keep bStats\n"
-                                    + "enabled, but if you're not comfortable with this, you can turn this setting off. There is no\n"
-                                    + "performance penalty associated with having metrics enabled, and data sent to bStats is fully\n"
-                                    + "anonymous.")
+                            """
+                                    bStats (https://bStats.org) collects some basic information for plugin authors, like how
+                                    many people use their plugin and their total player count. It's recommended to keep bStats
+                                    enabled, but if you're not comfortable with this, you can turn this setting off. There is no
+                                    performance penalty associated with having metrics enabled, and data sent to bStats is fully
+                                    anonymous.""")
                     .copyDefaults(true);
             try {
                 config.save(configFile);
@@ -672,6 +674,7 @@ public class bStats {
      * <p>While this class is neither feature-rich nor the most performant one, it's sufficient enough
      * for its use-case.
      */
+    @SuppressWarnings({"UnusedReturnValue", "UnnecessaryUnicodeEscape"})
     public static class JsonObjectBuilder {
 
         private StringBuilder builder = new StringBuilder();
@@ -823,7 +826,7 @@ public class bStats {
         }
 
         /**
-         * Escapes the given string like stated in https://www.ietf.org/rfc/rfc4627.txt.
+         * Escapes the given string like stated in <a href="https://www.ietf.org/rfc/rfc4627.txt">https://www.ietf.org/rfc/rfc4627.txt</a>.
          *
          * <p>This method escapes only the necessary characters '"', '\'. and '\u0000' - '\u001F'.
          * Compact escapes are not used (e.g., '\n' is escaped as "\u000a" and not as "\n").
