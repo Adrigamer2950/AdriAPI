@@ -7,7 +7,7 @@ import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.folia.Scheduler;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.api.util.ServerType;
-import me.adrigamer2950.adriapi.utils.bstats.bStats;
+import me.adrigamer2950.adriapi.api.util.bStats;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 

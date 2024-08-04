@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi.utils.bstats;
+package me.adrigamer2950.adriapi.api.util;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
