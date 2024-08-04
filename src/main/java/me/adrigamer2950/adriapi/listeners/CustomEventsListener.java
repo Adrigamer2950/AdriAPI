@@ -15,6 +15,7 @@ public class CustomEventsListener implements Listener {
 
     @EventHandler
     public void onItemCrafted(InventoryClickEvent e) {
+        if (e.getClickedInventory() == null) return;
         if (!e.getClickedInventory().getType().equals(InventoryType.CRAFTING)) return;
         if (!e.getSlotType().equals(InventoryType.SlotType.RESULT)) return;
         if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return;
