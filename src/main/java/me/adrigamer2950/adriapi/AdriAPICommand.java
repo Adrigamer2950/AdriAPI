@@ -1,7 +1,8 @@
 package me.adrigamer2950.adriapi;
 
-import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -18,9 +19,10 @@ public class AdriAPICommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
         //noinspection deprecation
-        sender.sendMessage(Colors.translateColors(String.format(
-                "&7AdriAPI Version &6%s", AdriAPI.get().getDescription().getVersion()
-        )));
+        sender.sendMessage(
+                Component.text("AdriAPI Version ", NamedTextColor.GRAY)
+                        .append(Component.text(AdriAPI.get().getDescription().getVersion(), NamedTextColor.GOLD))
+        );
 
         return true;
     }

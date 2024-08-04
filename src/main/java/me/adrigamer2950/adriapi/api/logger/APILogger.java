@@ -2,7 +2,10 @@ package me.adrigamer2950.adriapi.api.logger;
 
 import lombok.Getter;
 import me.adrigamer2950.adriapi.api.colors.Colors;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -28,32 +31,96 @@ public class APILogger {
         );
     }
 
+    /**
+     * @param component The component
+     */
+    public void info(Component component) {
+        this.getLogger().info(
+                colorizeMessage(
+                        LegacyComponentSerializer.legacyAmpersand().serialize(component)
+                )
+        );
+    }
+
+    /**
+     * @param msg The message that you want to send
+     * @see APILogger#info(Component)
+     */
     public void info(String msg) {
         this.getLogger().info(colorizeMessage(msg));
     }
 
+    /**
+     * @param component The component
+     */
+    public void warn(Component component) {
+        this.getLogger().warning(
+                colorizeMessage(
+                        LegacyComponentSerializer.legacyAmpersand().serialize(component)
+                )
+        );
+    }
+
+    /**
+     * @param msg The message that you want to send
+     * @see APILogger#warn(Component)
+     */
     public void warn(String msg) {
         this.getLogger().warning(colorizeMessage(msg));
     }
 
+    /**
+     * @param component The component
+     */
+    public void error(Component component) {
+        this.getLogger().severe(
+                colorizeMessage(
+                        LegacyComponentSerializer.legacyAmpersand().serialize(component)
+                )
+        );
+    }
+
+    /**
+     * @param msg The message that you want to send
+     * @see APILogger#error(Component)
+     */
     public void error(String msg) {
         this.getLogger().severe(colorizeMessage(msg));
     }
 
-    public void debug(String msg) {
-        this.log(Level.DEBUG, msg);
+    /**
+     * @param component The component
+     */
+    public void debug(Component component) {
+        this.info(
+                Component.text("[DEBUG]")
+                        .append(component)
+        );
     }
 
+    /**
+     * @param msg The message that you want to send
+     * @see APILogger#debug(Component)
+     */
+    public void debug(String msg) {
+        this.info("[DEBUG] %s".formatted(msg));
+    }
+
+    /**
+     * @param component The component
+     */
+    public void log(Level level, Component component) {
+        this.getLogger().log(level, colorizeMessage(
+                LegacyComponentSerializer.legacyAmpersand().serialize(component)
+        ));
+    }
+
+    /**
+     * @param level The level of the log
+     * @param msg   The message that you want to send
+     * @see APILogger#log(Level, Component)
+     */
     public void log(Level level, String msg) {
         this.getLogger().log(level, colorizeMessage(msg));
-    }
-
-    public static class Level extends java.util.logging.Level {
-
-        public static final Level DEBUG = new Level("DEBUG", 950);
-
-        protected Level(String name, int value) {
-            super(name, value);
-        }
     }
 }

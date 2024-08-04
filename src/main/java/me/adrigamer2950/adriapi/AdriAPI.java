@@ -22,13 +22,18 @@ public final class AdriAPI extends APIPlugin {
     public void onPreLoad() {
         plugin = this;
 
-        List<String> l = List.of(
-                String.format("|    <green>AdriAPI <gold>v%s", this.getDescription().getVersion()),
-                String.format("|    <blue>Running on <green>Bukkit <gold>%s", this.getServer().getVersion()),
-                "|    <gold>Loading...");
+        List<Component> l = List.of(
+                Component.text("|    ")
+                        .append(Component.text("AdriAPI ", NamedTextColor.GREEN))
+                        .append(Component.text("v%s".formatted(this.getDescription().getVersion()), NamedTextColor.GOLD)),
+                Component.text("|    ")
+                        .append(Component.text("Running on %s".formatted(Objects.requireNonNull(ServerType.getType()).getName()), NamedTextColor.BLUE)),
+                Component.text("|    ")
+                        .append(Component.text("Loading...", NamedTextColor.GOLD))
+        );
 
-        for (String s : l)
-            this.getApiLogger().info(s);
+        for (Component c : l)
+            this.getApiLogger().info(c);
     }
 
     @Override
@@ -42,11 +47,11 @@ public final class AdriAPI extends APIPlugin {
 
         this.registerCommand(new AdriAPICommand());
 
-        this.getApiLogger().info("&a&lEnabled");
+        this.getApiLogger().info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD));
     }
 
     @Override
     public void onUnload() {
-        this.getApiLogger().info("&c&lDisabled");
+        this.getApiLogger().info(Component.text("Disabled", NamedTextColor.RED, TextDecoration.BOLD));
     }
 }
