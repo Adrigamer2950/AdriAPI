@@ -10,10 +10,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @ApiStatus.Internal
-public class AdriAPICommand extends Command {
+public class AdriAPICommand extends Command<AdriAPI> {
 
-    public AdriAPICommand() {
-        super(AdriAPI.get(), "adriapi");
+    public AdriAPICommand(AdriAPI plugin) {
+        super(plugin, "adriapi");
     }
 
     @Override
@@ -21,7 +21,7 @@ public class AdriAPICommand extends Command {
         //noinspection deprecation
         sender.sendMessage(
                 Component.text("AdriAPI Version ", NamedTextColor.GRAY)
-                        .append(Component.text(AdriAPI.get().getDescription().getVersion(), NamedTextColor.GOLD))
+                        .append(Component.text(getPlugin().getDescription().getVersion(), NamedTextColor.GOLD))
         );
 
         return true;

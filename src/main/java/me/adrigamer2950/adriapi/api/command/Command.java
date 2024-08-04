@@ -1,11 +1,11 @@
 package me.adrigamer2950.adriapi.api.command;
 
+import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.interfaces.TabCompleter;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,28 +20,32 @@ import java.util.List;
  * You may use {@link Command#addSubCommand(SubCommand)} or {@link Command#setSubCommands(List)} to add
  * subcommands to a command
  *
+ * @author Adrigamer2950
  * @see SubCommand
+ * @see CommandManager
+ * @since 1.0.0
+ * @param <T> Your plugin's main class
  */
 @SuppressWarnings("unused")
-public abstract class Command implements CommandExecutor, TabCompleter {
+public abstract class Command<T extends APIPlugin> implements CommandExecutor, TabCompleter {
 
     private final String name;
     private final List<String> aliases;
-    private final Plugin plugin;
+    private final T plugin;
     private List<SubCommand> subCommands;
     private boolean blockedForNonPlayers;
     private String blockedForNonPlayersMessage;
     private SubCommand helpSubCommand;
 
-    public Command(@NotNull Plugin pl, @NotNull String name) {
+    public Command(@NotNull T pl, @NotNull String name) {
         this(pl, name, null);
     }
 
-    public Command(@NotNull Plugin pl, @NotNull String name, @Nullable List<String> aliases) {
+    public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases) {
         this(pl, name, aliases, new ArrayList<>());
     }
 
-    public Command(@NotNull Plugin pl, @NotNull String name, @Nullable List<String> aliases, @Nullable List<SubCommand> subCommands) {
+    public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases, @Nullable List<SubCommand> subCommands) {
         this.plugin = pl;
         this.name = name;
         this.aliases = aliases;
@@ -58,7 +62,7 @@ public abstract class Command implements CommandExecutor, TabCompleter {
         return this.aliases;
     }
 
-    public final Plugin getPlugin() {
+    public final T getPlugin() {
         return this.plugin;
     }
 

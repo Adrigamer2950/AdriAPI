@@ -1,7 +1,7 @@
 package me.adrigamer2950.adriapi.api.command.manager;
 
 import lombok.Getter;
-import me.adrigamer2950.adriapi.AdriAPI;
+import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.event.command.CommandLoadedEvent;
 import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
@@ -21,12 +21,13 @@ import java.util.Objects;
  * @author Adrigamer2950
  * @see Command
  * @since 1.0.0
+ * @param <T> Your plugin's main class
  */
-@SuppressWarnings("unused")
-public final class CommandManager {
+@SuppressWarnings({"unused", "rawtypes"})
+public final class CommandManager<T extends APIPlugin> {
 
     public final APILogger LOGGER;
-    private final List<Command> cmds = new ArrayList<>();
+    private final List<Command<T>> cmds = new ArrayList<>();
     public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
 
     public static CommandManager getManager(Plugin plugin) {
@@ -38,10 +39,10 @@ public final class CommandManager {
     }
 
     @Getter
-    private final Plugin plugin;
+    private final T plugin;
 
     @SuppressWarnings("deprecation")
-    public CommandManager(Plugin pl) {
+    public CommandManager(T pl) {
         if (getManager(pl) != null) {
             throw new DuplicatedManagerException(
                     String.format("Command Manager for plugin %s v%s has already been created and cannot be duplicated",
@@ -53,7 +54,7 @@ public final class CommandManager {
 
         this.plugin = pl;
 
-        this.LOGGER = AdriAPI.get().getApiLogger();
+        this.LOGGER = this.plugin.getApiLogger();
 
         COMMAND_MANAGERS.add(this);
     }

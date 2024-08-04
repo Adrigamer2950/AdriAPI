@@ -44,11 +44,11 @@ public final class AdriAPI extends APIPlugin {
         this.registerListeners(
                 Set.of(
                         new CustomEventsListener(),
-                        new ManagersListener()
+                        new ManagersListener(this)
                 )
         );
 
-        this.registerCommand(new AdriAPICommand());
+        this.registerCommand(new AdriAPICommand(this));
 
         this.getApiLogger().info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD));
     }
