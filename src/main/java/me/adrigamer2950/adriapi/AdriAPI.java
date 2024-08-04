@@ -3,6 +3,9 @@ package me.adrigamer2950.adriapi;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.listeners.CustomEventsListener;
 import me.adrigamer2950.adriapi.listeners.ManagersListener;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
