@@ -6,6 +6,7 @@ import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.folia.Scheduler;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
+import me.adrigamer2950.adriapi.api.util.ServerType;
 import me.adrigamer2950.adriapi.utils.bstats.bStats;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,11 +23,15 @@ public abstract class APIPlugin extends JavaPlugin {
     private Scheduler scheduler;
     private bStats bstats;
 
+    private ServerType serverType;
+
     @Override
     public final void onEnable() {
         this.apiLogger = new APILogger(this.getDescription().getPrefix(), this.getLogger());
 
         new bStats(this, 20135);
+
+        this.serverType = ServerType.getType();
 
         onPreLoad();
         loadHooks();
