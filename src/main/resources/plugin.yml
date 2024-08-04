@@ -3,7 +3,7 @@ version: '${version}'
 main: me.adrigamer2950.adriapi.AdriAPI
 api-version: 1.16
 author: Adrigamer2950
-description: An API created to simplify Spigot Plugin development to make it easier
+description: An API created to make Minecraft Plugin development easier
 website: https://github.com/Adrigamer2950/AdriAPI
 load: STARTUP
 folia-supported: true
