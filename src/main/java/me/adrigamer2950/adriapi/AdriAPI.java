@@ -14,17 +14,9 @@ import java.util.Set;
 @ApiStatus.Internal
 public final class AdriAPI extends APIPlugin {
 
-    private static AdriAPI plugin;
-
-    public static AdriAPI get() {
-        return AdriAPI.plugin;
-    }
-
     @SuppressWarnings("deprecation")
     @Override
     public void onPreLoad() {
-        plugin = this;
-
         List<Component> l = List.of(
                 Component.text("|    ")
                         .append(Component.text("AdriAPI ", NamedTextColor.GREEN))
