@@ -1,14 +1,12 @@
 package me.adrigamer2950.adriapi.api.command;
 
 import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.interfaces.TabCompleter;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.user.User;
 import me.adrigamer2950.adriapi.api.user.UserImpl;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
