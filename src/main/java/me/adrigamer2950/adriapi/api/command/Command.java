@@ -36,8 +36,6 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     private final List<String> aliases;
     private final T plugin;
     private List<SubCommand<T>> subCommands;
-    private boolean blockedForNonPlayers;
-    private String blockedForNonPlayersMessage;
     private SubCommand<T> helpSubCommand;
 
     public Command(@NotNull T pl, @NotNull String name) {
@@ -53,8 +51,6 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         this.name = name;
         this.aliases = aliases;
         this.subCommands = subCommands;
-        this.blockedForNonPlayers = false;
-        this.blockedForNonPlayersMessage = Colors.translateColors("&cCommand is blocked for non players");
     }
 
     public final String getName() {
@@ -83,11 +79,6 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
 
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
-        if (!(sender instanceof Player) && blockedForNonPlayers) {
-            sender.sendMessage(this.blockedForNonPlayersMessage);
-            return true;
-        }
-
         return execute(new UserImpl(sender), label, args);
     }
 
@@ -186,21 +177,5 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         }
 
         return null;
-    }
-
-    protected final boolean isBlockedForNonPlayers() {
-        return this.blockedForNonPlayers;
-    }
-
-    protected final void setBlockForNonPlayers(boolean blocked) {
-        this.blockedForNonPlayers = blocked;
-    }
-
-    protected final String getBlockedForNonPlayersMessage() {
-        return this.blockedForNonPlayersMessage;
-    }
-
-    protected final void setBlockForNonPlayersMessage(String message) {
-        this.blockedForNonPlayersMessage = message;
     }
 }
