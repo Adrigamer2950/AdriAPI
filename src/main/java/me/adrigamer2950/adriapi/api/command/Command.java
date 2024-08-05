@@ -33,10 +33,10 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     private final String name;
     private final List<String> aliases;
     private final T plugin;
-    private List<SubCommand> subCommands;
+    private List<SubCommand<T>> subCommands;
     private boolean blockedForNonPlayers;
     private String blockedForNonPlayersMessage;
-    private SubCommand helpSubCommand;
+    private SubCommand<T> helpSubCommand;
 
     public Command(@NotNull T pl, @NotNull String name) {
         this(pl, name, null);
@@ -46,7 +46,7 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         this(pl, name, aliases, new ArrayList<>());
     }
 
-    public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases, @Nullable List<SubCommand> subCommands) {
+    public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases, @Nullable List<SubCommand<T>> subCommands) {
         this.plugin = pl;
         this.name = name;
         this.aliases = aliases;
@@ -113,31 +113,31 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
      *
      * @param helpSubCommand The subcommand to be used as a help command
      */
-    protected final void setHelpSubCommand(SubCommand helpSubCommand) {
+    protected final void setHelpSubCommand(SubCommand<T> helpSubCommand) {
         this.addSubCommand(helpSubCommand);
 
         this.helpSubCommand = helpSubCommand;
     }
 
-    protected final void addSubCommand(SubCommand subCommand) {
+    protected final void addSubCommand(SubCommand<T> subCommand) {
         if (subCommand == null)
             throw new NullPointerException("SubCommand must not be null!");
 
         this.subCommands.add(subCommand);
     }
 
-    protected final void setSubCommands(List<SubCommand> subCommands) {
+    protected final void setSubCommands(List<SubCommand<T>> subCommands) {
         if (subCommands == null)
             throw new NullPointerException("SubCommand list must not be null!");
 
-        for (SubCommand scmd : this.subCommands)
+        for (SubCommand<T> scmd : this.subCommands)
             if (scmd == null)
                 throw new NullPointerException("There's some SubCommand that is null");
 
         this.subCommands = subCommands;
     }
 
-    public final List<SubCommand> getSubCommands() {
+    public final List<SubCommand<T>> getSubCommands() {
         return this.subCommands;
     }
 
@@ -153,7 +153,7 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         if (subCommands == null)
             throw new NullPointerException("SubCommand list is null!");
 
-        for (SubCommand cmd : this.subCommands)
+        for (SubCommand<T> cmd : this.subCommands)
             for (String s : args)
                 if (cmd.getName().equalsIgnoreCase(s) || (cmd.getAliases() != null && cmd.getAliases().contains(s)))
                     return cmd.execute(sender, label, args);
@@ -175,7 +175,7 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
             throw new NullPointerException("SubCommand list is null!");
 
         if (args.length > 1 && args[0].isEmpty())
-            for (SubCommand cmd : this.subCommands)
+            for (SubCommand<T> cmd : this.subCommands)
                 if (cmd.getName().equals(args[0]))
                     return cmd.tabComplete(sender, label, args);
 
