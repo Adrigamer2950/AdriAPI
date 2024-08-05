@@ -22,7 +22,6 @@ import java.util.List;
  * You may use {@link Command#addSubCommand(SubCommand)} or {@link Command#setSubCommands(List)} to add
  * subcommands to a command
  *
- * @author Adrigamer2950
  * @see SubCommand
  * @see CommandManager
  * @since 1.0.0

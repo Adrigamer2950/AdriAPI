@@ -18,7 +18,6 @@ import java.util.Objects;
 /**
  * Manage commands.
  *
- * @author Adrigamer2950
  * @see Command
  * @since 1.0.0
  * @param <T> Your plugin's main class
