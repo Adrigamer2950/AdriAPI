@@ -4,6 +4,8 @@ import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.interfaces.TabCompleter;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
+import me.adrigamer2950.adriapi.api.user.User;
+import me.adrigamer2950.adriapi.api.user.UserImpl;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -68,34 +70,16 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     }
 
     /**
-     * You can use {@link Command#parseSubCommands(CommandSender, String, String[])} here to parse and execute subcommands attached to this main command,
-     * if {@link Command#parseSubCommands(CommandSender, String, String[])} doesn't get any subcommand, it executes the help subcommand established with
+     * You can use {@link Command#parseSubCommands(User, String, String[])} here to parse and execute subcommands attached to this main command,
+     * if {@link Command#parseSubCommands(User, String, String[])} doesn't get any subcommand, it executes the help subcommand established with
      * {@link Command#setHelpSubCommand(SubCommand)}
      *
-     * @param sender Who sent the command
+     * @param user Who sent the command
      * @param label  The name of the command, it changes if an alias is used
      * @param args   Arguments used on execution
      * @return The resolution of the execution, if false sends the usage message on your plugin.yml
      */
-    public abstract boolean execute(CommandSender sender, String label, String[] args);
-
-    @Nullable
-    @Override
-    public final List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
-        return tabComplete(commandSender, s, strings);
-    }
-
-    /**
-     * You can use {@link Command#parseSubCommandsTabCompleter(CommandSender, String, String[])} to parse suggestions for the tab completer
-     *
-     * @param sender Who sent the command
-     * @param label  The name of the command, it changes if an alias is used
-     * @param args   Arguments used on execution
-     * @return The list of suggestions for the tab completer
-     */
-    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
-        return null;
-    }
+    public abstract boolean execute(User user, String label, String[] args);
 
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
@@ -104,7 +88,25 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
             return true;
         }
 
-        return execute(sender, label, args);
+        return execute(new UserImpl(sender), label, args);
+    }
+
+    @Nullable
+    @Override
+    public final List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
+        return tabComplete(new UserImpl(commandSender), s, strings);
+    }
+
+    /**
+     * You can use {@link Command#parseSubCommandsTabCompleter(User, String, String[])} to parse suggestions for the tab completer
+     *
+     * @param user Who sent the command
+     * @param label  The name of the command, it changes if an alias is used
+     * @param args   Arguments used on execution
+     * @return The list of suggestions for the tab completer
+     */
+    public List<String> tabComplete(@NotNull User user, @NotNull String label, @NotNull String[] args) {
+        return null;
     }
 
     /**
@@ -144,43 +146,43 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     /**
      * Parses the list of {@link SubCommand} you may have on this command to execute the one who has been executed by the sender
      *
-     * @param sender Who sent the command
+     * @param user Who sent the command
      * @param label  The name of the command, it changes if an alias is used
      * @param args   Arguments used on execution
      * @return The resolution of the execution, if false sends the usage message on your plugin.yml
      */
-    protected final boolean parseSubCommands(CommandSender sender, String label, String[] args) {
+    protected final boolean parseSubCommands(User user, String label, String[] args) {
         if (subCommands == null)
             throw new NullPointerException("SubCommand list is null!");
 
         for (SubCommand<T> cmd : this.subCommands)
             for (String s : args)
                 if (cmd.getName().equalsIgnoreCase(s) || (cmd.getAliases() != null && cmd.getAliases().contains(s)))
-                    return cmd.execute(sender, label, args);
+                    return cmd.execute(user, label, args);
 
-        if (this.helpSubCommand != null) return helpSubCommand.execute(sender, label, args);
+        if (this.helpSubCommand != null) return helpSubCommand.execute(user, label, args);
 
         return false;
     }
 
 
     /**
-     * @param sender Who sent the command
+     * @param user Who sent the command
      * @param label  The name of the command, it changes if an alias is used
      * @param args   Arguments used on execution
      * @return The list of suggestions for the tab completer
      */
-    protected final List<String> parseSubCommandsTabCompleter(CommandSender sender, String label, String[] args) {
+    protected final List<String> parseSubCommandsTabCompleter(User user, String label, String[] args) {
         if (subCommands == null)
             throw new NullPointerException("SubCommand list is null!");
 
         if (args.length > 1 && args[0].isEmpty())
             for (SubCommand<T> cmd : this.subCommands)
                 if (cmd.getName().equals(args[0]))
-                    return cmd.tabComplete(sender, label, args);
+                    return cmd.tabComplete(user, label, args);
 
         if (args.length < 2) {
-            return this.subCommands.stream().map(Command::getName).filter(name -> name.startsWith(args[0])).toList();
+            return this.subCommands.stream().map(Command::getName).filter(name -> name.toLowerCase().startsWith(args[0].toLowerCase())).toList();
         }
 
         return null;
