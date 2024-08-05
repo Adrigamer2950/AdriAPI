@@ -26,7 +26,7 @@ import java.util.Objects;
 public final class CommandManager<T extends APIPlugin> {
 
     public final APILogger LOGGER;
-    private final List<Command<T>> cmds = new ArrayList<>();
+    private final List<Command<? extends APIPlugin>> cmds = new ArrayList<>();
     public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
 
     public static CommandManager getManager(Plugin plugin) {
@@ -66,7 +66,7 @@ public final class CommandManager<T extends APIPlugin> {
      * @throws CommandNotInPluginYMLException if command is not registered in your plugin.yml
      * @since 1.0.0
      */
-    public void registerCommand(Command command) {
+    public void registerCommand(Command<? extends APIPlugin> command) {
         if (command == null) {
             throw new NullPointerException("Command must not be null");
         }

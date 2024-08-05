@@ -19,7 +19,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     private APILogger apiLogger;
 
-    private CommandManager commandManager;
+    private CommandManager<APIPlugin> commandManager;
     private Scheduler scheduler;
     private bStats bstats;
 
@@ -39,7 +39,7 @@ public abstract class APIPlugin extends JavaPlugin {
     }
 
     private void loadHooks() {
-        this.commandManager = new CommandManager(this);
+        this.commandManager = new CommandManager<>(this);
         this.scheduler = new Scheduler(this);
 
         if (this.getBStatsServiceId() != 0) this.bstats = new bStats(this, this.getBStatsServiceId());
@@ -62,13 +62,13 @@ public abstract class APIPlugin extends JavaPlugin {
         this.bstats = null;
     }
 
-    protected void registerCommands(Set<@NonNull Command> commands) {
-        for (Command command : commands) {
+    protected void registerCommands(Set<@NonNull Command<? extends APIPlugin>> commands) {
+        for (Command<? extends APIPlugin> command : commands) {
             this.registerCommand(command);
         }
     }
 
-    protected void registerCommand(@NonNull Command command) {
+    protected void registerCommand(@NonNull Command<? extends APIPlugin> command) {
         this.commandManager.registerCommand(command);
     }
 
