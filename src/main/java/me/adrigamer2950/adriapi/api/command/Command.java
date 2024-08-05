@@ -1,5 +1,6 @@
 package me.adrigamer2950.adriapi.api.command;
 
+import lombok.Getter;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.command.interfaces.TabCompleter;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
@@ -30,9 +31,13 @@ import java.util.List;
 @SuppressWarnings("unused")
 public abstract class Command<T extends APIPlugin> implements CommandExecutor, TabCompleter {
 
+    @Getter
     private final String name;
+    @Getter
     private final List<String> aliases;
+    @Getter
     private final T plugin;
+    @Getter
     private List<SubCommand<T>> subCommands;
     private SubCommand<T> helpSubCommand;
 
@@ -49,18 +54,6 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         this.name = name;
         this.aliases = aliases;
         this.subCommands = subCommands;
-    }
-
-    public final String getName() {
-        return this.name;
-    }
-
-    public final List<String> getAliases() {
-        return this.aliases;
-    }
-
-    public final T getPlugin() {
-        return this.plugin;
     }
 
     /**
@@ -126,10 +119,6 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
                 throw new NullPointerException("There's some SubCommand that is null");
 
         this.subCommands = subCommands;
-    }
-
-    public final List<SubCommand<T>> getSubCommands() {
-        return this.subCommands;
     }
 
     /**
