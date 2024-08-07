@@ -1,6 +1,7 @@
 package me.adrigamer2950.adriapi.api.user;
 
 import lombok.RequiredArgsConstructor;
+import me.adrigamer2950.adriapi.api.colors.Colors;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -46,7 +47,13 @@ public class UserImpl implements User {
 
     @Override
     public void sendMessage(String message) {
-        sender.sendMessage(message);
+        sender.sendMessage(
+                Colors.translateColors(
+                        message,
+                        '&',
+                        this.isConsole()
+                )
+        );
     }
 
     @Override
