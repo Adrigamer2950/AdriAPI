@@ -84,4 +84,8 @@ processResources {
 
 tasks.jar {
     archiveBaseName.set("AdriAPI")
+
+    if (project.hasProperty("BUILD_NUMBER")) {
+        archiveClassifier.set("b" + project.property("BUILD_NUMBER"))
+    }
 }
