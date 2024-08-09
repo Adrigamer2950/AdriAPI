@@ -1,9 +1,11 @@
 package me.adrigamer2950.adriapi.api.logger;
 
 import lombok.Getter;
+import lombok.NonNull;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,11 +37,7 @@ public class APILogger {
      * @param component The component
      */
     public void info(Component component) {
-        this.getLogger().info(
-                colorizeMessage(
-                        LegacyComponentSerializer.legacyAmpersand().serialize(component)
-                )
-        );
+        this.info(LegacyComponentSerializer.legacyAmpersand().serialize(component));
     }
 
     /**
@@ -54,11 +52,7 @@ public class APILogger {
      * @param component The component
      */
     public void warn(Component component) {
-        this.getLogger().warning(
-                colorizeMessage(
-                        LegacyComponentSerializer.legacyAmpersand().serialize(component)
-                )
-        );
+        this.warn(LegacyComponentSerializer.legacyAmpersand().serialize(component));
     }
 
     /**
@@ -73,11 +67,7 @@ public class APILogger {
      * @param component The component
      */
     public void error(Component component) {
-        this.getLogger().severe(
-                colorizeMessage(
-                        LegacyComponentSerializer.legacyAmpersand().serialize(component)
-                )
-        );
+        this.error(LegacyComponentSerializer.legacyAmpersand().serialize(component));
     }
 
     /**
@@ -92,10 +82,7 @@ public class APILogger {
      * @param component The component
      */
     public void debug(Component component) {
-        this.info(
-                Component.text("[DEBUG]")
-                        .append(component)
-        );
+        this.info(Component.text("[DEBUG]").append(component));
     }
 
     /**
@@ -110,9 +97,7 @@ public class APILogger {
      * @param component The component
      */
     public void log(Level level, Component component) {
-        this.getLogger().log(level, colorizeMessage(
-                LegacyComponentSerializer.legacyAmpersand().serialize(component)
-        ));
+        this.log(level, LegacyComponentSerializer.legacyAmpersand().serialize(component));
     }
 
     /**
