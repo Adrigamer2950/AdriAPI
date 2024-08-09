@@ -17,9 +17,10 @@ import java.util.logging.Logger;
 @Getter
 public class APILogger {
 
+    @NonNull
     private final Logger logger;
 
-    public APILogger(String name, Logger logger) {
+    public APILogger(@NonNull String name, @Nullable Logger logger) {
         this.logger = logger == null ? Logger.getLogger(name) : logger;
     }
 

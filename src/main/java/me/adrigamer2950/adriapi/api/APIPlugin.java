@@ -11,6 +11,7 @@ import me.adrigamer2950.adriapi.api.util.bStats;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
 import java.util.Set;
 
 @SuppressWarnings({"deprecation", "unused"})
@@ -27,7 +28,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     @Override
     public final void onEnable() {
-        this.apiLogger = new APILogger(this.getDescription().getPrefix(), this.getLogger());
+        this.apiLogger = new APILogger(Objects.requireNonNull(this.getDescription().getPrefix()), this.getLogger());
 
         new bStats(this, 20135);
 
@@ -62,7 +63,7 @@ public abstract class APIPlugin extends JavaPlugin {
         this.bstats = null;
     }
 
-    protected void registerCommands(Set<@NonNull Command<? extends APIPlugin>> commands) {
+    protected void registerCommands(@NonNull Set<@NonNull Command<? extends APIPlugin>> commands) {
         for (Command<? extends APIPlugin> command : commands) {
             this.registerCommand(command);
         }
@@ -72,13 +73,13 @@ public abstract class APIPlugin extends JavaPlugin {
         this.commandManager.registerCommand(command);
     }
 
-    protected void registerListeners(Set<@NonNull Listener> listeners) {
+    protected void registerListeners(@NonNull Set<@NonNull Listener> listeners) {
         for (Listener listener : listeners) {
             this.registerListener(listener);
         }
     }
 
-    protected void registerListener(Listener listener) {
+    protected void registerListener(@NonNull Listener listener) {
         getServer().getPluginManager().registerEvents(listener, this);
     }
 
