@@ -52,25 +52,31 @@ dependencies {
 }
 
 def targetJavaVersion = 17
-java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+
+tasks {
+    jar {
+        archiveBaseName.set("AdriAPI")
+
+        if (project.hasProperty("BUILD_NUMBER")) {
+            archiveClassifier.set("b" + project.property("BUILD_NUMBER"))
+        }
     }
-}
 
-tasks.withType(JavaCompile).configureEach {
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-        options.release = targetJavaVersion
+    withType(JavaCompile).configureEach {
+        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+            options.release = targetJavaVersion
+            options.encoding = 'UTF-8'
+        }
     }
-}
 
-compileJava.options.encoding = 'UTF-8'
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+    java {
+        def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
+        if (JavaVersion.current() < javaVersion) {
+            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
+    }
 }
 
 processResources {
@@ -79,13 +85,5 @@ processResources {
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
         expand props
-    }
-}
-
-tasks.jar {
-    archiveBaseName.set("AdriAPI")
-
-    if (project.hasProperty("BUILD_NUMBER")) {
-        archiveClassifier.set("b" + project.property("BUILD_NUMBER"))
     }
 }
