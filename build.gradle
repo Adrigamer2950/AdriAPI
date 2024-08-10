@@ -3,6 +3,11 @@ plugins {
     id "maven-publish"
 }
 
+group = 'me.adrigamer2950'
+version = properties.get("version")
+description = properties.get("description")
+author = properties.get("author")
+
 publishing {
     repositories {
         maven {
@@ -21,8 +26,6 @@ publishing {
     }
 }
 
-group = 'me.adrigamer2950'
-version = '2.0.0'
 
 repositories {
     mavenCentral()
@@ -80,7 +83,11 @@ tasks {
 }
 
 processResources {
-    def props = [version: version]
+    def props = [
+            version: version,
+            description: description,
+            author: author
+    ]
     inputs.properties props
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {

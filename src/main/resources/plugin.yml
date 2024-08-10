@@ -2,8 +2,8 @@ name: AdriAPI
 version: '${version}'
 main: me.adrigamer2950.adriapi.AdriAPI
 api-version: 1.20
-author: Adrigamer2950
-description: An API created to make Minecraft Plugin development easier
+author: '${author}'
+description: '${description}'
 website: https://github.com/Adrigamer2950/AdriAPI
 load: STARTUP
 folia-supported: true
