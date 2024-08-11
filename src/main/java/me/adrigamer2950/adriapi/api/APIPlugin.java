@@ -28,7 +28,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     @Override
     public final void onEnable() {
-        this.apiLogger = new APILogger(Objects.requireNonNull(this.getDescription().getPrefix()), this.getLogger());
+        this.apiLogger = new APILogger(Objects.requireNonNull(this.getDescription().getPrefix() == null ? this.getDescription().getName() : this.getDescription().getPrefix()), this.getLogger());
 
         new bStats(this, 20135);
 
