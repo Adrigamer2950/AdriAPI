@@ -3,7 +3,6 @@ package me.adrigamer2950.adriapi.api.user;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Optional;
 
@@ -12,7 +11,6 @@ import java.util.Optional;
  * @since 2.0.0
  */
 @SuppressWarnings("unused")
-@ApiStatus.Experimental
 public interface User {
 
     /**
