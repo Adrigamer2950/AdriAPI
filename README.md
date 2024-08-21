@@ -9,6 +9,6 @@ An API created to make Minecraft Plugin development easier
 Under development...
 
 # Resources
-- [CI Server](https://ci.devadri.es/job/AdriAPI)
+- [CI Server](https://ci.devadri.es)
 - [bStats](https://bstats.org/plugin/bukkit/AdriAPI/20135)
 - [Repository](https://repo.devadri.es)
