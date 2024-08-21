@@ -69,13 +69,13 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
 
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
-        return execute(new UserImpl(sender), label, args);
+        return execute(new UserImpl(sender, getPlugin().getAdventure()), label, args);
     }
 
     @Nullable
     @Override
     public final List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
-        return tabComplete(new UserImpl(commandSender), s, strings);
+        return tabComplete(new UserImpl(commandSender, getPlugin().getAdventure()), s, strings);
     }
 
     /**

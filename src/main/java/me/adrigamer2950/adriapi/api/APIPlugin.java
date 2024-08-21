@@ -8,6 +8,7 @@ import me.adrigamer2950.adriapi.api.folia.Scheduler;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.api.util.ServerType;
 import me.adrigamer2950.adriapi.api.util.bStats;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,8 +24,8 @@ public abstract class APIPlugin extends JavaPlugin {
     private CommandManager<APIPlugin> commandManager;
     private Scheduler scheduler;
     private bStats bstats;
-
     private ServerType serverType;
+    private BukkitAudiences adventure;
 
     @Override
     public final void onEnable() {
@@ -33,6 +34,8 @@ public abstract class APIPlugin extends JavaPlugin {
         new bStats(this, 20135);
 
         this.serverType = ServerType.getType();
+
+        this.adventure = BukkitAudiences.create(this);
 
         onPreLoad();
         loadHooks();

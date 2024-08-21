@@ -1,12 +1,15 @@
 name: AdriAPI
 version: '${version}'
 main: me.adrigamer2950.adriapi.AdriAPI
-api-version: 1.20
+api-version: 1.18
 author: '${author}'
 description: '${description}'
 website: https://github.com/Adrigamer2950/AdriAPI
 load: STARTUP
 folia-supported: true
+
+libraries:
+  - "net.kyori:adventure-platform-bukkit:4.3.4"
 
 commands:
   adriapi:

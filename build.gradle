@@ -102,6 +102,9 @@ dependencies {
 
     // Ansi
     compileOnly 'org.fusesource.jansi:jansi:2.4.1'
+
+    // Adventure API
+    compileOnly "net.kyori:adventure-platform-bukkit:4.3.4"
 }
 
 def targetJavaVersion = 17

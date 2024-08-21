@@ -1,7 +1,8 @@
 package me.adrigamer2950.adriapi.api.user;
 
-import lombok.RequiredArgsConstructor;
 import me.adrigamer2950.adriapi.api.colors.Colors;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -18,10 +19,15 @@ import java.util.Optional;
  * @since 2.0.0
  */
 @ApiStatus.Internal
-@RequiredArgsConstructor
 public class UserImpl implements User {
 
     private final CommandSender sender;
+    private final Audience audience;
+
+    public UserImpl(CommandSender sender, BukkitAudiences adventure) {
+        this.sender = sender;
+        this.audience = adventure.sender(sender);
+    }
 
     @Override
     public boolean isConsole() {
@@ -64,7 +70,7 @@ public class UserImpl implements User {
 
     @Override
     public void sendMessage(Component component) {
-        sender.sendMessage(component);
+        audience.sendMessage(component);
     }
 
     @Override
@@ -80,7 +86,7 @@ public class UserImpl implements User {
 
     @Override
     public Component name() {
-        return sender.name();
+        return Component.text(this.getName());
     }
 
     @Override

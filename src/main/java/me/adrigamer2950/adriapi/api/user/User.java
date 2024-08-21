@@ -74,7 +74,9 @@ public interface User {
 
     /**
      * @return The player's name
+     * @see User#getName()
      */
+    @Deprecated
     Component name();
 
     /**
