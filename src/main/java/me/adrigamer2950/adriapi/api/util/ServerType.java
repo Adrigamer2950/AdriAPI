@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 @AllArgsConstructor
 public enum ServerType {
 
+    FOLIA("Folia"),
     PAPER_FORK("Paper-Fork"),
     PAPER("Paper"),
     BUKKIT("Bukkit"),
@@ -24,32 +25,38 @@ public enum ServerType {
 
     private static ServerType getServerType() {
         try {
-            Class.forName("io.papermc.paper.util.Tick");
+            Class.forName("io.papermc.paper.threadedregions.scheduler.RegionScheduler");
 
-            if (!Bukkit.getServer().getName().contains("Paper")) {
-                ServerType.PAPER_FORK.setName(Bukkit.getServer().getName());
-
-                return ServerType.PAPER_FORK;
-            }
-
-            return ServerType.PAPER;
+            return ServerType.FOLIA;
         } catch (ClassNotFoundException ex1) {
             try {
-                Class.forName("org.bukkit.Bukkit");
+                Class.forName("io.papermc.paper.util.Tick");
 
-                return ServerType.BUKKIT;
+                if (!Bukkit.getServer().getName().contains("Paper")) {
+                    ServerType.PAPER_FORK.setName(Bukkit.getServer().getName());
+
+                    return ServerType.PAPER_FORK;
+                }
+
+                return ServerType.PAPER;
             } catch (ClassNotFoundException ex2) {
                 try {
-                    Class.forName("com.velocitypowered.api.proxy.ProxyServer");
+                    Class.forName("org.bukkit.Bukkit");
 
-                    return ServerType.VELOCITY;
+                    return ServerType.BUKKIT;
                 } catch (ClassNotFoundException ex3) {
                     try {
-                        Class.forName("net.md_5.bungee.api.ProxyServer");
+                        Class.forName("com.velocitypowered.api.proxy.ProxyServer");
 
-                        return ServerType.BUNGEE;
+                        return ServerType.VELOCITY;
                     } catch (ClassNotFoundException ex4) {
-                        return null;
+                        try {
+                            Class.forName("net.md_5.bungee.api.ProxyServer");
+
+                            return ServerType.BUNGEE;
+                        } catch (ClassNotFoundException ex5) {
+                            return null;
+                        }
                     }
                 }
             }
