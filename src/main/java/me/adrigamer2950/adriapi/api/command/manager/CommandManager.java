@@ -53,7 +53,7 @@ public final class CommandManager<T extends APIPlugin> {
 
         this.plugin = pl;
 
-        this.LOGGER = this.plugin.getApiLogger();
+        this.LOGGER = this.plugin.getLogger();
 
         COMMAND_MANAGERS.add(this);
     }

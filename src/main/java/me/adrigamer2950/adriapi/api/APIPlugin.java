@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 public abstract class APIPlugin extends JavaPlugin {
 
-    private APILogger apiLogger;
+    private APILogger logger;
 
     private CommandManager<APIPlugin> commandManager;
     private Scheduler scheduler;
@@ -29,7 +29,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     @Override
     public final void onEnable() {
-        this.apiLogger = new APILogger(Objects.requireNonNull(this.getDescription().getPrefix() == null ? this.getDescription().getName() : this.getDescription().getPrefix()), this.getLogger());
+        this.logger = new APILogger(Objects.requireNonNull(this.getDescription().getPrefix() == null ? this.getDescription().getName() : this.getDescription().getPrefix()), this.getLogger());
 
         new bStats(this, 20135);
 

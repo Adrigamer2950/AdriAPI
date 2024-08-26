@@ -28,7 +28,7 @@ public final class AdriAPI extends APIPlugin {
         );
 
         for (Component c : l)
-            this.getApiLogger().info(c);
+            this.getLogger().info(c);
     }
 
     @Override
@@ -42,11 +42,11 @@ public final class AdriAPI extends APIPlugin {
 
         this.registerCommand(new AdriAPICommand(this));
 
-        this.getApiLogger().info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD));
+        this.getLogger().info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD));
     }
 
     @Override
     public void onUnload() {
-        this.getApiLogger().info(Component.text("Disabled", NamedTextColor.RED, TextDecoration.BOLD));
+        this.getLogger().info(Component.text("Disabled", NamedTextColor.RED, TextDecoration.BOLD));
     }
 }

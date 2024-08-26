@@ -15,13 +15,10 @@ import java.util.logging.Logger;
  */
 @SuppressWarnings("unused")
 @Getter
-public class APILogger {
-
-    @NonNull
-    private final Logger logger;
+public class APILogger extends Logger {
 
     public APILogger(@NonNull String name, @Nullable Logger logger) {
-        this.logger = logger == null ? Logger.getLogger(name) : logger;
+        super(name, "");
     }
 
     private String colorizeMessage(String msg) {
@@ -46,7 +43,7 @@ public class APILogger {
      * @see APILogger#info(Component)
      */
     public void info(String msg) {
-        this.getLogger().info(colorizeMessage(msg));
+        super.info(colorizeMessage(msg));
     }
 
     /**
@@ -61,7 +58,7 @@ public class APILogger {
      * @see APILogger#warn(Component)
      */
     public void warn(String msg) {
-        this.getLogger().warning(colorizeMessage(msg));
+        super.warning(colorizeMessage(msg));
     }
 
     /**
@@ -76,7 +73,7 @@ public class APILogger {
      * @see APILogger#error(Component)
      */
     public void error(String msg) {
-        this.getLogger().severe(colorizeMessage(msg));
+        super.severe(colorizeMessage(msg));
     }
 
     /**
@@ -91,7 +88,7 @@ public class APILogger {
      * @see APILogger#debug(Component)
      */
     public void debug(String msg) {
-        this.info("[DEBUG] %s".formatted(msg));
+        super.info("[DEBUG] %s".formatted(msg));
     }
 
     /**
@@ -107,6 +104,6 @@ public class APILogger {
      * @see APILogger#log(Level, Component)
      */
     public void log(Level level, String msg) {
-        this.getLogger().log(level, colorizeMessage(msg));
+        super.log(level, colorizeMessage(msg));
     }
 }
