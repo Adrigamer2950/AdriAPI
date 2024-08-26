@@ -11,6 +11,7 @@ import me.adrigamer2950.adriapi.api.util.bStats;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Objects;
 import java.util.Set;
@@ -88,5 +89,15 @@ public abstract class APIPlugin extends JavaPlugin {
 
     protected int getBStatsServiceId() {
         return 0;
+    }
+
+    /**
+     * @deprecated In favor of {@link APIPlugin#getLogger()}
+     * @see APIPlugin#getLogger()
+     */
+    @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
+    @Deprecated(forRemoval = true, since = "2.1.0")
+    public APILogger getApiLogger() {
+        return this.getLogger();
     }
 }
