@@ -12,7 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Used to create commands, with some
@@ -132,12 +134,25 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         if (subCommands == null)
             throw new NullPointerException("SubCommand list is null!");
 
-        for (SubCommand<T> cmd : this.subCommands)
-            for (String s : args)
-                if (cmd.getName().equalsIgnoreCase(s) || (cmd.getAliases() != null && cmd.getAliases().contains(s)))
-                    return cmd.execute(user, label, args);
+        if (args.length == 0 && this.helpSubCommand != null)
+            return helpSubCommand.execute(user, label, args);
 
-        if (this.helpSubCommand != null) return helpSubCommand.execute(user, label, args);
+        final String[] _args = args;
+        Optional<SubCommand<T>> scmd = this.subCommands.stream().filter(
+                cmd -> cmd.getName().equalsIgnoreCase(_args[0])
+                        || (cmd.getAliases() != null && cmd.getAliases().contains(_args[0]))
+        ).findFirst();
+
+        if (scmd.isEmpty() && this.helpSubCommand != null)
+            return helpSubCommand.execute(user, label, args);
+
+        List<String> l = new ArrayList<>(Arrays.stream(args).toList());
+        l.remove(0);
+        //noinspection DataFlowIssue
+        args = (String[]) l.toArray();
+
+        //noinspection OptionalGetWithoutIsPresent
+        scmd.get().execute(user, label, args);
 
         return false;
     }
