@@ -59,9 +59,10 @@ public abstract class APIPlugin extends JavaPlugin {
 
         this.commandManager = null;
         this.scheduler = null;
-
         if (this.bstats != null) this.bstats.shutdown();
         this.bstats = null;
+        this.serverType = null;
+        this.adventure = null;
     }
 
     protected void registerCommands(@NonNull Set<@NonNull Command<? extends APIPlugin>> commands) {
