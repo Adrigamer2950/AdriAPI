@@ -14,7 +14,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Set;
-import java.util.logging.Logger;
 
 @SuppressWarnings({"unused"})
 @Getter
