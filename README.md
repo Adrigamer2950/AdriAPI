@@ -1,4 +1,7 @@
 # AdriAPI
+<p align="center">
+    <img src="https://avatars.githubusercontent.com/u/58531641?v=4" height="364" alt="Logo" />
+</p>
 
 An API created to make Minecraft Plugin development easier
 
