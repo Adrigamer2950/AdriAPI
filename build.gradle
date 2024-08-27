@@ -3,6 +3,7 @@
 plugins {
     id 'java'
     id "maven-publish"
+    id 'net.minecrell.plugin-yml.bukkit' version '0.6.0'
 }
 
 group = 'me.adrigamer2950'
@@ -105,6 +106,7 @@ dependencies {
 
     // Adventure API
     compileOnly "net.kyori:adventure-platform-bukkit:4.3.4"
+    bukkitLibrary "net.kyori:adventure-platform-bukkit:4.3.4"
 }
 
 def targetJavaVersion = 17
@@ -125,17 +127,23 @@ tasks {
             toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
         }
     }
-}
 
-processResources {
-    def props = [
-            version: version,
-            description: description,
-            author: author
-    ]
-    inputs.properties props
-    filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
-        expand props
+    bukkit {
+        name = "AdriAPI"
+        version = version
+        main = "me.adrigamer2950.adriapi.AdriAPI"
+        apiVersion = "1.18"
+        author = author
+        description = description
+        website = "https://github.com/Adrigamer2950/AdriAPI"
+        load = 'STARTUP'
+        foliaSupported = true
+
+        commands {
+            adriapi {
+                description = "Main command"
+                usage = "/adriapi"
+            }
+        }
     }
 }
