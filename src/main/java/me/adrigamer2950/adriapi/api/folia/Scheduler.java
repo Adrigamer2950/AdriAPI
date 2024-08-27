@@ -8,6 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
+/**
+ * Scheduler that is compatible with Folia
+ */
 @SuppressWarnings("unused")
 @RequiredArgsConstructor
 public class Scheduler {

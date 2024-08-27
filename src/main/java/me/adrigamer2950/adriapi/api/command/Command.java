@@ -42,14 +42,29 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     private List<SubCommand<T>> subCommands;
     private SubCommand<T> helpSubCommand;
 
+    /**
+     * @param pl The plugin
+     * @param name The command's name
+     */
     public Command(@NotNull T pl, @NotNull String name) {
         this(pl, name, null);
     }
 
+    /**
+     * @param pl The plugin
+     * @param name The command's name
+     * @param aliases The command's aliases
+     */
     public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases) {
         this(pl, name, aliases, new ArrayList<>());
     }
 
+    /**
+     * @param pl The plugin
+     * @param name The command's name
+     * @param aliases The command's aliases
+     * @param subCommands The command's {@link SubCommand} list
+     */
     public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases, @Nullable List<SubCommand<T>> subCommands) {
         this.plugin = pl;
         this.name = name;

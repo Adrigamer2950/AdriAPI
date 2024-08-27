@@ -11,6 +11,9 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Only for internal use
+ */
 @ApiStatus.Internal
 public final class AdriAPI extends APIPlugin {
 

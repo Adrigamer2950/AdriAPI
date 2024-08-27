@@ -20,11 +20,18 @@ import java.util.logging.Logger;
 @Getter
 public class APILogger extends Logger {
 
+    /**
+     * @param plugin The plugin
+     */
     public APILogger(@NonNull APIPlugin plugin) {
         //noinspection UnstableApiUsage
         this(plugin, plugin.getServer().getLogger());
     }
 
+    /**
+     * @param plugin The plugin
+     * @param parent The logger's parent
+     */
     public APILogger(@NonNull APIPlugin plugin, @NonNull @NotNull Logger parent) {
         //noinspection deprecation
         this(
@@ -33,6 +40,10 @@ public class APILogger extends Logger {
         );
     }
 
+    /**
+     * @param name The logger's name
+     * @param parent The logger's parent
+     */
     @SuppressWarnings("DeprecatedIsStillUsed")
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
     @Deprecated(forRemoval = true)
@@ -114,6 +125,7 @@ public class APILogger extends Logger {
     }
 
     /**
+     * @param level     The level of the log
      * @param component The component
      */
     public void log(Level level, Component component) {

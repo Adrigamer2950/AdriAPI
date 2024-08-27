@@ -11,6 +11,9 @@ import org.fusesource.jansi.Ansi;
 @SuppressWarnings("deprecation")
 public class Colors {
 
+    /**
+     * Bukkit Color Codes
+     */
     public static final String[] mc_col = new String[]{
             "&0", //Black
             "&1", //Dark Blue
@@ -36,6 +39,9 @@ public class Colors {
             "&r", //Reset
     };
 
+    /**
+     * Custom Color Codes
+     */
     public static final String[] api_col = new String[]{
             "<black>", //Black
             "<dark_blue>", //Dark Blue
@@ -78,10 +84,22 @@ public class Colors {
         return translateColors(input);
     }
 
+    /**
+     * Translates color codes
+     * @param input The message you want to colorize
+     * @return Colorized message
+     */
     public static String translateColors(String input) {
         return translateColors(input, '&', false);
     }
 
+    /**
+     * Translates color codes
+     * @param input The message you want to colorize
+     * @param s Color character
+     * @param toConsole If the message is being sent to console
+     * @return Colorized message
+     */
     public static String translateColors(String input, char s, boolean toConsole) {
         if (toConsole)
             input = input.replaceAll(s+"0", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString())

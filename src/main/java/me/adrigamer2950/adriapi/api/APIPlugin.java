@@ -15,6 +15,14 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Set;
 
+/**
+ * APIPlugin is an extension of the {@link JavaPlugin} class,
+ * which gives you full control over AdriAPI's functions.
+ * You should make your plugin's main class extend this class,
+ * because it's necessary for other functions AdriAPI has.
+ * @since 2.0.0
+ * @see org.bukkit.plugin.java.JavaPlugin
+ */
 @SuppressWarnings({"unused"})
 @Getter
 public abstract class APIPlugin extends JavaPlugin {
@@ -47,10 +55,19 @@ public abstract class APIPlugin extends JavaPlugin {
         if (this.getBStatsServiceId() != 0) this.bstats = new bStats(this, this.getBStatsServiceId());
     }
 
+    /**
+     * Called before loading hooks (Command Manager, Scheduler, bStats)
+     */
     public abstract void onPreLoad();
 
+    /**
+     * Called after loading hooks (Command Manager, Scheduler, bStats)
+     */
     public abstract void onPostLoad();
 
+    /**
+     * Called before unloading hooks
+     */
     public abstract void onUnload();
 
     @Override
@@ -65,26 +82,48 @@ public abstract class APIPlugin extends JavaPlugin {
         this.adventure = null;
     }
 
+    /**
+     * Registers a {@link Set} of {@link Command}
+     * @param commands The Set of commands
+     * @see Command
+     */
     protected void registerCommands(@NonNull Set<@NonNull Command<? extends APIPlugin>> commands) {
-        for (Command<? extends APIPlugin> command : commands) {
+        for (Command<? extends APIPlugin> command : commands)
             this.registerCommand(command);
-        }
     }
 
+    /**
+     * Registers a {@link Command}
+     * @param command The command
+     * @see Command
+     */
     protected void registerCommand(@NonNull Command<? extends APIPlugin> command) {
         this.commandManager.registerCommand(command);
     }
 
+    /**
+     * Registers a {@link Set} of {@link Listener}
+     * @param listeners The listeners
+     * @see Listener
+     */
     protected void registerListeners(@NonNull Set<@NonNull Listener> listeners) {
-        for (Listener listener : listeners) {
+        for (Listener listener : listeners)
             this.registerListener(listener);
-        }
     }
 
+    /**
+     * Registers a {@link Listener}
+     * @param listener The listener
+     * @see Listener
+     */
     protected void registerListener(@NonNull Listener listener) {
         getServer().getPluginManager().registerEvents(listener, this);
     }
 
+    /**
+     * Override with your bStats plugin id to enable bStats module
+     * @return Your bStats plugin id, 0 if you didn't override this method
+     */
     protected int getBStatsServiceId() {
         return 0;
     }
@@ -92,6 +131,7 @@ public abstract class APIPlugin extends JavaPlugin {
     /**
      * @deprecated In favor of {@link APIPlugin#getLogger()}
      * @see APIPlugin#getLogger()
+     * @return The plugin's Logger
      */
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
     @Deprecated(forRemoval = true)

@@ -7,6 +7,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @see Command
+ */
 @Getter
 @RequiredArgsConstructor
 public class CommandEvent extends Event {

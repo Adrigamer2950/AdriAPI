@@ -10,6 +10,7 @@ import me.adrigamer2950.adriapi.api.logger.APILogger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,12 @@ public final class CommandManager<T extends APIPlugin> {
 
     public final APILogger LOGGER;
     private final List<Command<? extends APIPlugin>> cmds = new ArrayList<>();
-    public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
+    @ApiStatus.Internal public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
 
+    /**
+     * @param plugin The plugin
+     * @return The plugin if it has a Command Manager, null otherwise
+     */
     public static CommandManager getManager(Plugin plugin) {
         for (CommandManager cmdM : COMMAND_MANAGERS)
             if (cmdM.getPlugin().equals(plugin))
@@ -40,6 +45,9 @@ public final class CommandManager<T extends APIPlugin> {
     @Getter
     private final T plugin;
 
+    /**
+     * @param pl The plugin
+     */
     @SuppressWarnings("deprecation")
     public CommandManager(T pl) {
         if (getManager(pl) != null) {
