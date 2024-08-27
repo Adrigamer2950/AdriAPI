@@ -2,7 +2,7 @@ package me.adrigamer2950.adriapi.api.command;
 
 import lombok.Getter;
 import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.api.command.interfaces.TabCompleter;
+import org.bukkit.command.TabCompleter;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.user.User;
 import me.adrigamer2950.adriapi.api.user.UserImpl;
