@@ -2,12 +2,15 @@ package me.adrigamer2950.adriapi.api.logger;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 /**
@@ -17,8 +20,27 @@ import java.util.logging.Logger;
 @Getter
 public class APILogger extends Logger {
 
-    public APILogger(@NonNull String name, @Nullable Logger logger) {
-        super(name, "");
+    public APILogger(@NonNull APIPlugin plugin) {
+        //noinspection UnstableApiUsage
+        this(plugin, plugin.getServer().getLogger());
+    }
+
+    public APILogger(@NonNull APIPlugin plugin, @NonNull @NotNull Logger parent) {
+        //noinspection deprecation
+        this(
+                plugin.getDescription().getPrefix() != null ? plugin.getDescription().getPrefix() : plugin.getDescription().getName(),
+                parent
+        );
+    }
+
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
+    @Deprecated(forRemoval = true)
+    public APILogger(@NonNull @NotNull String name, @NonNull @NotNull Logger parent) {
+        super(name, null);
+
+        setParent(parent);
+        setLevel(Level.ALL);
     }
 
     private String colorizeMessage(String msg) {
@@ -43,7 +65,7 @@ public class APILogger extends Logger {
      * @see APILogger#info(Component)
      */
     public void info(String msg) {
-        super.info(colorizeMessage(msg));
+        super.info(msg);
     }
 
     /**
@@ -58,7 +80,7 @@ public class APILogger extends Logger {
      * @see APILogger#warn(Component)
      */
     public void warn(String msg) {
-        super.warning(colorizeMessage(msg));
+        super.warning(msg);
     }
 
     /**
@@ -73,7 +95,7 @@ public class APILogger extends Logger {
      * @see APILogger#error(Component)
      */
     public void error(String msg) {
-        super.severe(colorizeMessage(msg));
+        super.severe(msg);
     }
 
     /**
@@ -105,5 +127,13 @@ public class APILogger extends Logger {
      */
     public void log(Level level, String msg) {
         super.log(level, colorizeMessage(msg));
+    }
+
+    @Override
+    public void log(@NotNull LogRecord logRecord) {
+        logRecord.setMessage(
+                colorizeMessage(logRecord.getMessage())
+        );
+        super.log(logRecord);
     }
 }

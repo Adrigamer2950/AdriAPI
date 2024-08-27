@@ -13,14 +13,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.ApiStatus;
 
-import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
-@SuppressWarnings({"deprecation", "unused"})
+@SuppressWarnings({"unused"})
 @Getter
 public abstract class APIPlugin extends JavaPlugin {
 
-    private APILogger logger;
+    private final APILogger logger = new APILogger(this);
 
     private CommandManager<APIPlugin> commandManager;
     private Scheduler scheduler;
@@ -30,8 +30,6 @@ public abstract class APIPlugin extends JavaPlugin {
 
     @Override
     public final void onEnable() {
-        this.logger = new APILogger(Objects.requireNonNull(this.getDescription().getPrefix() == null ? this.getDescription().getName() : this.getDescription().getPrefix()), this.getLogger());
-
         new bStats(this, 20135);
 
         this.serverType = ServerType.getType();
@@ -96,7 +94,7 @@ public abstract class APIPlugin extends JavaPlugin {
      * @see APIPlugin#getLogger()
      */
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
-    @Deprecated(forRemoval = true, since = "2.1.0")
+    @Deprecated(forRemoval = true)
     public APILogger getApiLogger() {
         return this.getLogger();
     }
