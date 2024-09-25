@@ -5,8 +5,7 @@
 
 An API created to make Minecraft Plugin development easier
 
-[![Dev Build Status](https://ci.devadri.es/job/AdriAPI-Dev/badge/icon?subject=Dev%20Build)](https://ci.devadri.es/job/AdriAPI-Dev/)
-[![Build Status](https://ci.devadri.es/job/AdriAPI-Release/badge/icon?subject=Release)](https://ci.devadri.es/job/AdriAPI-Release/)
+![Build](https://github.com/Adrigamer2950/AdriAPI/actions/workflows/build.yml/badge.svg)
 
 # Resources
 - [Docs](https://docs.devadri.es)
