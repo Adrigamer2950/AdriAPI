@@ -4,17 +4,17 @@ plugins {
     id 'java'
     id "maven-publish"
     id 'net.minecrell.plugin-yml.bukkit' version '0.6.0'
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 group = 'me.adrigamer2950'
 version = properties.get("version") + (
         project.hasProperty("BUILD_NUMBER") ?
                 ("-DEV" + (
-                        project.property("BUILD_NUMBER") == "0" ? "" : ("-b" + project.property("BUILD_NUMBER")))
+                        project.property("BUILD_NUMBER") == "0" ? "" : ("-b" + System.getenv("BUILD_NUMBER")))
                 )
                 : ""
 )
-description = properties.get("description")
 author = properties.get("author")
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
@@ -134,7 +134,7 @@ tasks {
         main = "me.adrigamer2950.adriapi.AdriAPI"
         apiVersion = "1.18"
         author = author
-        description = description
+        description = this.description
         website = "https://github.com/Adrigamer2950/AdriAPI"
         load = 'STARTUP'
         foliaSupported = true
@@ -144,6 +144,19 @@ tasks {
                 description = "Main command"
                 usage = "/adriapi"
             }
+        }
+    }
+
+    if (project.hasProperty("MODRINTH_TOKEN")) {
+        modrinth {
+            token = project.property("MODRINTH_TOKEN")
+            projectId = "adriapi"
+            versionNumber = version
+            versionType = "release"
+            uploadFile = jar
+            gameVersions = ["1.18", "1.18.1", "1.18.2", "1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6", "1.21", "1.21.1"] // Must be an array, even with only one version
+            loaders = ["bukkit", "folia", "paper", "purpur", "spigot"]
+            syncBodyFrom = rootProject.file("README.md").text
         }
     }
 }
