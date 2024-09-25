@@ -54,11 +54,9 @@ public class UserImpl implements User {
     @Override
     public void sendMessage(String message) {
         sender.sendMessage(
-                Colors.translateColors(
-                        message,
-                        '&',
-                        this.isConsole()
-                )
+                this.isConsole()
+                        ? Colors.translateToAnsi(message)
+                        : Colors.translateColors(message)
         );
     }
 

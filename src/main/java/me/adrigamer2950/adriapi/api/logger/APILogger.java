@@ -55,12 +55,11 @@ public class APILogger extends Logger {
     }
 
     private String colorizeMessage(String msg) {
-        return Colors.translateColors(
+        return Colors.translateToAnsi(
                 Colors.translateAPIColors(
                         msg
                 ),
-                '§',
-                true
+                '§'
         );
     }
 

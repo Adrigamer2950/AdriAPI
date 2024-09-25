@@ -183,10 +183,15 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         if (subCommands == null)
             throw new NullPointerException("SubCommand list is null!");
 
+        List<String> l = new ArrayList<>(Arrays.asList(args));
+        l.remove(0);
+        //noinspection ToArrayCallWithZeroLengthArrayArgument
+        final String[] args2 = l.toArray(new String[l.size()]);
+
         if (args.length > 1 && !args[0].isEmpty())
             for (SubCommand<T> cmd : this.subCommands)
                 if (cmd.getName().equals(args[0]))
-                    return cmd.tabComplete(user, label, args);
+                    return cmd.tabComplete(user, label, args2);
 
         if (args.length < 2) {
             return this.subCommands.stream().map(Command::getName).filter(name -> name.toLowerCase().startsWith(args[0].toLowerCase())).toList();
