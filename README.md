@@ -10,7 +10,6 @@ An API created to make Minecraft Plugin development easier
 
 # Resources
 - [Docs](https://docs.devadri.es)
-- [CI Server](https://ci.devadri.es)
 - [bStats](https://bstats.org/plugin/bukkit/AdriAPI/20135)
 - [Maven Repository](https://repo.devadri.es)
 
