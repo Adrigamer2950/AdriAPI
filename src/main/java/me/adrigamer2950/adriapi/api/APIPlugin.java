@@ -16,10 +16,10 @@ import org.jetbrains.annotations.ApiStatus;
 import java.util.Set;
 
 /**
- * APIPlugin is an extension of the {@link JavaPlugin} class,
- * which gives you full control over AdriAPI's functions.
+ * APIPlugin is an extension of the {@link JavaPlugin} class
+ * that gives you full control over AdriAPI's functions.
  * You should make your plugin's main class extend this class,
- * because it's necessary for other functions AdriAPI has.
+ * because it's necessary for many functions AdriAPI has.
  * @since 2.0.0
  * @see org.bukkit.plugin.java.JavaPlugin
  */
@@ -56,17 +56,17 @@ public abstract class APIPlugin extends JavaPlugin {
     }
 
     /**
-     * Called before loading hooks (Command Manager, Scheduler, bStats)
+     * Called before loading AdriAPI's hooks
      */
     public abstract void onPreLoad();
 
     /**
-     * Called after loading hooks (Command Manager, Scheduler, bStats)
+     * Called after loading AdriAPI's hooks
      */
     public abstract void onPostLoad();
 
     /**
-     * Called before unloading hooks
+     * Called before unloading AdriAPI's hooks
      */
     public abstract void onUnload();
 
