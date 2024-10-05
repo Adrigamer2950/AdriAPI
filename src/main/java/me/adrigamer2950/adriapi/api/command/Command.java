@@ -104,7 +104,7 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
      * @return The list of suggestions for the tab completer
      */
     public List<String> tabComplete(@NotNull User user, @NotNull String label, @NotNull String[] args) {
-        return null;
+        return List.of();
     }
 
     /**
