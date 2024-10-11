@@ -1,5 +1,6 @@
 package me.adrigamer2950.adriapi.api.user;
 
+import me.adrigamer2950.adriapi.AdriAPI;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -12,6 +13,14 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 public interface User {
+
+    /**
+     * @param player Bukkit API's player
+     * @return A User
+     */
+    static User fromBukkitPlayer(Player player) {
+        return new UserImpl(player, AdriAPI.getPlugin(AdriAPI.class).getAdventure());
+    }
 
     /**
      * @return True if the user is the console, false otherwise
