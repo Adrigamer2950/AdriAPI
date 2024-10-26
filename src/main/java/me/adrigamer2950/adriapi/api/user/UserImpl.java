@@ -24,7 +24,7 @@ public class UserImpl implements User {
     private final CommandSender sender;
     private final Audience audience;
 
-    public UserImpl(CommandSender sender, BukkitAudiences adventure) {
+    UserImpl(CommandSender sender, BukkitAudiences adventure) {
         this.sender = sender;
         this.audience = adventure.sender(sender);
     }

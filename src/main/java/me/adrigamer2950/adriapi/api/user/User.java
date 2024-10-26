@@ -2,6 +2,7 @@ package me.adrigamer2950.adriapi.api.user;
 
 import me.adrigamer2950.adriapi.AdriAPI;
 import net.kyori.adventure.text.Component;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
@@ -15,11 +16,11 @@ import java.util.Optional;
 public interface User {
 
     /**
-     * @param player Bukkit API's player
+     * @param sender Bukkit API's command sender
      * @return A User
      */
-    static User fromBukkitPlayer(Player player) {
-        return new UserImpl(player, AdriAPI.getPlugin(AdriAPI.class).getAdventure());
+    static User fromBukkitSender(CommandSender sender) {
+        return new UserImpl(sender, AdriAPI.getPlugin(AdriAPI.class).getAdventure());
     }
 
     /**

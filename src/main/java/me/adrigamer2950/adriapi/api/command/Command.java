@@ -5,7 +5,6 @@ import me.adrigamer2950.adriapi.api.APIPlugin;
 import org.bukkit.command.TabCompleter;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.user.User;
-import me.adrigamer2950.adriapi.api.user.UserImpl;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -86,13 +85,13 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
 
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
-        return execute(new UserImpl(sender, getPlugin().getAdventure()), label, args);
+        return execute(User.fromBukkitSender(sender), label, args);
     }
 
     @Nullable
     @Override
-    public final List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
-        return tabComplete(new UserImpl(commandSender, getPlugin().getAdventure()), s, strings);
+    public final List<String> onTabComplete(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
+        return tabComplete(User.fromBukkitSender(sender), s, strings);
     }
 
     /**
