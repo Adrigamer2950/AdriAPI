@@ -2,6 +2,7 @@ package me.adrigamer2950.adriapi;
 
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.listeners.CustomEventsListener;
+import me.adrigamer2950.adriapi.listeners.InventoriesListener;
 import me.adrigamer2950.adriapi.listeners.ManagersListener;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -36,7 +37,8 @@ public final class AdriAPI extends APIPlugin {
         this.registerListeners(
                 Set.of(
                         new CustomEventsListener(),
-                        new ManagersListener(this)
+                        new ManagersListener(this),
+                        new InventoriesListener()
                 )
         );
 
