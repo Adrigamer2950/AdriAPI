@@ -150,7 +150,7 @@ tasks {
 
     if (project.hasProperty("MODRINTH_TOKEN")) {
         modrinth {
-            token = project.property("MODRINTH_TOKEN")
+            token = System.getenv("MODRINTH_TOKEN")
             projectId = "adriapi"
             versionNumber = version
             versionType = "release"
