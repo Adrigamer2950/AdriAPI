@@ -7,8 +7,9 @@ import java.util.List;
 
 /**
  * Used to create subcommands, it must be attached to a {@link Command} main class.
- * @since 1.0.0
+ *
  * @param <T> Your plugin's main class
+ * @since 1.0.0
  */
 @SuppressWarnings("unused")
 public abstract class SubCommand<T extends APIPlugin> extends Command<T> {

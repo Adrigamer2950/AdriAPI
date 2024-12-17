@@ -11,6 +11,7 @@ import java.util.Optional;
 
 /**
  * Represents a Player or a Console
+ *
  * @since 2.0.0
  */
 @SuppressWarnings("unused")

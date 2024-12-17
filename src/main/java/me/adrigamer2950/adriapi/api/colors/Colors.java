@@ -15,7 +15,7 @@ public class Colors {
     /**
      * Bukkit Color Codes
      */
-    public static final String[] mc_col = new String[]{
+    public static final String[] mc_col = new String[] {
             "&0", //Black
             "&1", //Dark Blue
             "&2", //Dark Green
@@ -43,7 +43,7 @@ public class Colors {
     /**
      * Custom Color Codes
      */
-    public static final String[] api_col = new String[]{
+    public static final String[] api_col = new String[] {
             "<black>", //Black
             "<dark_blue>", //Dark Blue
             "<dark_green>", //Dark Green
@@ -87,6 +87,7 @@ public class Colors {
 
     /**
      * Translates color codes
+     *
      * @param input The message you want to colorize
      * @return Colorized message
      */
@@ -96,8 +97,9 @@ public class Colors {
 
     /**
      * Translates color codes
-     * @param input The message you want to colorize
-     * @param s Color character
+     *
+     * @param input     The message you want to colorize
+     * @param s         Color character
      * @param toConsole If the message is being sent to console
      * @return Colorized message
      * @deprecated In favor of {@link Colors#translateToAnsi(String)} and {@link Colors#translateToAnsi(String, char)}
@@ -114,28 +116,28 @@ public class Colors {
     }
 
     public static String translateToAnsi(String input, char s) {
-        return input.replaceAll(s+"0", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString())
-                .replaceAll(s+"1", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLUE).boldOff().toString())
-                .replaceAll(s+"2", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.GREEN).boldOff().toString())
-                .replaceAll(s+"3", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.CYAN).boldOff().toString())
-                .replaceAll(s+"4", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.RED).boldOff().toString())
-                .replaceAll(s+"5", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.MAGENTA).boldOff().toString())
-                .replaceAll(s+"6", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.YELLOW).boldOff().toString())
-                .replaceAll(s+"7", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.WHITE).boldOff().toString())
-                .replaceAll(s+"8", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString())
-                .replaceAll(s+"9", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLUE).bold().toString())
-                .replaceAll(s+"a", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.GREEN).bold().toString())
-                .replaceAll(s+"b", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.CYAN).bold().toString())
-                .replaceAll(s+"c", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.RED).bold().toString())
-                .replaceAll(s+"d", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.MAGENTA).bold().toString())
-                .replaceAll(s+"e", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.YELLOW).bold().toString())
-                .replaceAll(s+"f", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.WHITE).bold().toString())
-                .replaceAll(s+"k", Ansi.ansi().a(Ansi.Attribute.BLINK_SLOW).toString())
-                .replaceAll(s+"l", Ansi.ansi().a(Ansi.Attribute.UNDERLINE_DOUBLE).toString())
-                .replaceAll(s+"m", Ansi.ansi().a(Ansi.Attribute.STRIKETHROUGH_ON).toString())
-                .replaceAll(s+"n", Ansi.ansi().a(Ansi.Attribute.UNDERLINE).toString())
-                .replaceAll(s+"o", Ansi.ansi().a(Ansi.Attribute.ITALIC).toString())
-                .replaceAll(s+"r", Ansi.ansi().a(Ansi.Attribute.RESET).toString())
+        return input.replaceAll(s + "0", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString())
+                .replaceAll(s + "1", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLUE).boldOff().toString())
+                .replaceAll(s + "2", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.GREEN).boldOff().toString())
+                .replaceAll(s + "3", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.CYAN).boldOff().toString())
+                .replaceAll(s + "4", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.RED).boldOff().toString())
+                .replaceAll(s + "5", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.MAGENTA).boldOff().toString())
+                .replaceAll(s + "6", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.YELLOW).boldOff().toString())
+                .replaceAll(s + "7", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.WHITE).boldOff().toString())
+                .replaceAll(s + "8", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString())
+                .replaceAll(s + "9", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLUE).bold().toString())
+                .replaceAll(s + "a", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.GREEN).bold().toString())
+                .replaceAll(s + "b", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.CYAN).bold().toString())
+                .replaceAll(s + "c", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.RED).bold().toString())
+                .replaceAll(s + "d", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.MAGENTA).bold().toString())
+                .replaceAll(s + "e", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.YELLOW).bold().toString())
+                .replaceAll(s + "f", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.WHITE).bold().toString())
+                .replaceAll(s + "k", Ansi.ansi().a(Ansi.Attribute.BLINK_SLOW).toString())
+                .replaceAll(s + "l", Ansi.ansi().a(Ansi.Attribute.UNDERLINE_DOUBLE).toString())
+                .replaceAll(s + "m", Ansi.ansi().a(Ansi.Attribute.STRIKETHROUGH_ON).toString())
+                .replaceAll(s + "n", Ansi.ansi().a(Ansi.Attribute.UNDERLINE).toString())
+                .replaceAll(s + "o", Ansi.ansi().a(Ansi.Attribute.ITALIC).toString())
+                .replaceAll(s + "r", Ansi.ansi().a(Ansi.Attribute.RESET).toString())
                 + Ansi.ansi().reset().toString();
     }
 }

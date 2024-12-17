@@ -20,8 +20,9 @@ import java.util.Set;
  * that gives you full control over AdriAPI's functions.
  * You should make your plugin's main class extend this class,
  * because it's necessary for many functions AdriAPI has.
- * @since 2.0.0
+ *
  * @see org.bukkit.plugin.java.JavaPlugin
+ * @since 2.0.0
  */
 @SuppressWarnings({"unused"})
 @Getter
@@ -84,6 +85,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     /**
      * Registers a {@link Set} of {@link Command}
+     *
      * @param commands The Set of commands
      * @see Command
      */
@@ -94,6 +96,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     /**
      * Registers a {@link Command}
+     *
      * @param command The command
      * @see Command
      */
@@ -103,6 +106,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     /**
      * Registers a {@link Set} of {@link Listener}
+     *
      * @param listeners The listeners
      * @see Listener
      */
@@ -113,6 +117,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     /**
      * Registers a {@link Listener}
+     *
      * @param listener The listener
      * @see Listener
      */
@@ -122,6 +127,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     /**
      * Override with your bStats plugin id to enable bStats module
+     *
      * @return Your bStats plugin id, 0 if you didn't override this method
      */
     protected int getBStatsServiceId() {
@@ -129,9 +135,9 @@ public abstract class APIPlugin extends JavaPlugin {
     }
 
     /**
-     * @deprecated In favor of {@link APIPlugin#getLogger()}
-     * @see APIPlugin#getLogger()
      * @return The plugin's Logger
+     * @see APIPlugin#getLogger()
+     * @deprecated In favor of {@link APIPlugin#getLogger()}
      */
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
     @Deprecated(forRemoval = true)

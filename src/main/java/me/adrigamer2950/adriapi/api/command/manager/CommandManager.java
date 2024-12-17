@@ -19,16 +19,17 @@ import java.util.Objects;
 /**
  * Manage commands.
  *
+ * @param <T> Your plugin's main class
  * @see Command
  * @since 1.0.0
- * @param <T> Your plugin's main class
  */
 @SuppressWarnings({"unused", "rawtypes"})
 public final class CommandManager<T extends APIPlugin> {
 
     public final APILogger LOGGER;
     private final List<Command<? extends APIPlugin>> cmds = new ArrayList<>();
-    @ApiStatus.Internal public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
+    @ApiStatus.Internal
+    public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
 
     /**
      * @param plugin The plugin

@@ -15,6 +15,7 @@ import java.util.Optional;
 /**
  * Implementation of {@link User}. Preferable to use it as
  * this class may change overtime without warning
+ *
  * @see User
  * @since 2.0.0
  */

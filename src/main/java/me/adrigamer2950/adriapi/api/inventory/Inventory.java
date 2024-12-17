@@ -16,6 +16,7 @@ import java.util.function.Consumer;
 
 /**
  * Create inventories
+ *
  * @since 2.1.0
  */
 @SuppressWarnings("unused")
@@ -59,11 +60,12 @@ public abstract class Inventory implements InventoryHolder {
 
     /**
      * Setup items in the inventory or any other thing you may want to do
-      */
+     */
     protected abstract void setupInventory();
 
     /**
      * Executed when a player clicks in the inventory
+     *
      * @param e An {@link InventoryClickEvent}.
      *          Null check on {@link InventoryClickEvent#getClickedInventory()}
      *          is unnecessary as it is checked before executing this method
@@ -72,7 +74,6 @@ public abstract class Inventory implements InventoryHolder {
     public abstract void onInventoryClick(@NotNull InventoryClickEvent e);
 
     /**
-     *
      * @param e An {@link InventoryCloseEvent}
      */
     public abstract void onInventoryClose(@NotNull InventoryCloseEvent e);

@@ -17,7 +17,8 @@ public enum ServerType {
     VELOCITY("Velocity"),
     BUNGEE("BungeeCord");
 
-    @Getter private static final ServerType type = ServerType.getServerType();
+    @Getter
+    private static final ServerType type = ServerType.getServerType();
 
     @SuppressWarnings("NonFinalFieldInEnum")
     @Setter(AccessLevel.PRIVATE)

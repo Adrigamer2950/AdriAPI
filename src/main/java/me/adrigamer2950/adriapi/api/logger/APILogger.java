@@ -41,7 +41,7 @@ public class APILogger extends Logger {
     }
 
     /**
-     * @param name The logger's name
+     * @param name   The logger's name
      * @param parent The logger's parent
      */
     @SuppressWarnings("DeprecatedIsStillUsed")

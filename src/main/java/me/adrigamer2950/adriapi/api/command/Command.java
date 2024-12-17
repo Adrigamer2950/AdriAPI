@@ -23,10 +23,10 @@ import java.util.Optional;
  * You may use {@link Command#addSubCommand(SubCommand)} or {@link Command#setSubCommands(List)} to add
  * subcommands to a command
  *
+ * @param <T> Your plugin's main class
  * @see SubCommand
  * @see CommandManager
  * @since 1.0.0
- * @param <T> Your plugin's main class
  */
 @SuppressWarnings("unused")
 public abstract class Command<T extends APIPlugin> implements CommandExecutor, TabCompleter {
@@ -42,7 +42,7 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     private SubCommand<T> helpSubCommand;
 
     /**
-     * @param pl The plugin
+     * @param pl   The plugin
      * @param name The command's name
      */
     public Command(@NotNull T pl, @NotNull String name) {
@@ -50,8 +50,8 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     }
 
     /**
-     * @param pl The plugin
-     * @param name The command's name
+     * @param pl      The plugin
+     * @param name    The command's name
      * @param aliases The command's aliases
      */
     public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases) {
@@ -59,9 +59,9 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     }
 
     /**
-     * @param pl The plugin
-     * @param name The command's name
-     * @param aliases The command's aliases
+     * @param pl          The plugin
+     * @param name        The command's name
+     * @param aliases     The command's aliases
      * @param subCommands The command's {@link SubCommand} list
      */
     public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases, @Nullable List<SubCommand<T>> subCommands) {
@@ -76,9 +76,9 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
      * if {@link Command#parseSubCommands(User, String, String[])} doesn't get any subcommand, it executes the help subcommand established with
      * {@link Command#setHelpSubCommand(SubCommand)}
      *
-     * @param user Who sent the command
-     * @param label  The name of the command, it changes if an alias is used
-     * @param args   Arguments used on execution
+     * @param user  Who sent the command
+     * @param label The name of the command, it changes if an alias is used
+     * @param args  Arguments used on execution
      * @return The resolution of the execution, if false sends the usage message on your plugin.yml
      */
     public abstract boolean execute(User user, String label, String[] args);
@@ -97,9 +97,9 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     /**
      * You can use {@link Command#parseSubCommandsTabCompleter(User, String, String[])} to parse suggestions for the tab completer
      *
-     * @param user Who sent the command
-     * @param label  The name of the command, it changes if an alias is used
-     * @param args   Arguments used on execution
+     * @param user  Who sent the command
+     * @param label The name of the command, it changes if an alias is used
+     * @param args  Arguments used on execution
      * @return The list of suggestions for the tab completer
      */
     public List<String> tabComplete(@NotNull User user, @NotNull String label, @NotNull String[] args) {
@@ -139,9 +139,9 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     /**
      * Parses the list of {@link SubCommand} you may have on this command to execute the one who has been executed by the sender
      *
-     * @param user Who sent the command
-     * @param label  The name of the command, it changes if an alias is used
-     * @param args   Arguments used on execution
+     * @param user  Who sent the command
+     * @param label The name of the command, it changes if an alias is used
+     * @param args  Arguments used on execution
      * @return The resolution of the execution, if false sends the usage message on your plugin.yml
      */
     protected final boolean parseSubCommands(User user, String label, String[] args) {
@@ -173,9 +173,9 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
 
 
     /**
-     * @param user Who sent the command
-     * @param label  The name of the command, it changes if an alias is used
-     * @param args   Arguments used on execution
+     * @param user  Who sent the command
+     * @param label The name of the command, it changes if an alias is used
+     * @param args  Arguments used on execution
      * @return The list of suggestions for the tab completer
      */
     protected final List<String> parseSubCommandsTabCompleter(User user, String label, String[] args) {

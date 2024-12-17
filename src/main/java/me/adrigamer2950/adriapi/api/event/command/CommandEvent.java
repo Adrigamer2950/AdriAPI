@@ -16,7 +16,9 @@ public class CommandEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     @Override
-    public @NotNull HandlerList getHandlers() {return handlers;}
+    public @NotNull HandlerList getHandlers() {
+        return handlers;
+    }
 
-    private final Command command;
+    private final Command<?> command;
 }
