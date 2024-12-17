@@ -157,18 +157,17 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
                         || (cmd.getAliases() != null && cmd.getAliases().contains(_args[0]))
         ).findFirst();
 
-        if (scmd.isEmpty() && this.helpSubCommand != null)
-            return helpSubCommand.execute(user, label, args);
+        if (scmd.isEmpty())
+            if (helpSubCommand != null)
+                return helpSubCommand.execute(user, label, args);
+            else
+                return false;
 
         List<String> l = new ArrayList<>(Arrays.stream(args).toList());
         l.remove(0);
-        //noinspection DataFlowIssue
-        args = (String[]) l.toArray();
+        args = l.toArray(value -> new String[l.size()]);
 
-        //noinspection OptionalGetWithoutIsPresent
-        scmd.get().execute(user, label, args);
-
-        return false;
+        return scmd.get().execute(user, label, args);
     }
 
 
@@ -179,23 +178,31 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
      * @return The list of suggestions for the tab completer
      */
     protected final List<String> parseSubCommandsTabCompleter(User user, String label, String[] args) {
-        if (subCommands == null)
+        if (this.getSubCommands() == null)
             throw new NullPointerException("SubCommand list is null!");
 
-        List<String> l = new ArrayList<>(Arrays.asList(args));
-        l.remove(0);
-        //noinspection ToArrayCallWithZeroLengthArrayArgument
-        final String[] args2 = l.toArray(new String[l.size()]);
+        if (args.length == 0 && this.helpSubCommand != null)
+            return this.helpSubCommand.tabComplete(user, label, args);
 
-        if (args.length > 1 && !args[0].isEmpty())
-            for (SubCommand<T> cmd : this.subCommands)
-                if (cmd.getName().equals(args[0]))
-                    return cmd.tabComplete(user, label, args2);
+        final String[] _args = args;
+        Optional<SubCommand<T>> scmd = this.getSubCommands().stream().filter(
+                cmd -> cmd.getName().equalsIgnoreCase(_args[0])
+                        || (cmd.getAliases() != null && cmd.getAliases().contains(_args[0]))
+        ).findFirst();
+
+        if (scmd.isEmpty() && this.helpSubCommand != null)
+            return helpSubCommand.tabComplete(user, label, args);
 
         if (args.length < 2) {
-            return this.subCommands.stream().map(Command::getName).filter(name -> name.toLowerCase().startsWith(args[0].toLowerCase())).toList();
+            @NotNull String[] finalArgs = args;
+            return this.getSubCommands().stream().map(Command::getName).filter(name -> name.toLowerCase().startsWith(finalArgs[0].toLowerCase())).toList();
         }
 
-        return null;
+        List<String> l = new ArrayList<>(Arrays.stream(args).toList());
+        l.remove(0);
+        args = l.stream().map(String::valueOf).toArray(value -> new String[l.size()]);
+
+        //noinspection OptionalGetWithoutIsPresent
+        return scmd.get().tabComplete(user, label, args);
     }
 }
