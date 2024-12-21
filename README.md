@@ -14,7 +14,7 @@ An API created to make Minecraft Plugin development easier
 
 # Info
 
-This API is aimed to simplify the development of Bukkit plugins (please use Paper instead of Bukkit/Spigot), 
+This API is aimed to simplify the development of Bukkit plugins (please use Paper or any fork of Paper instead of CraftBukkit/Spigot), 
 providing a lot of utilities that will make your life (and mine) easier.
 
 ### It's used in my plugins, but you can use it on your own plugins if you want, just make sure to give proper credit!
