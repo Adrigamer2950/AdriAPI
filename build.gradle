@@ -166,7 +166,7 @@ tasks {
 
         downloadPlugins {
             // ViaVersion
-            hangar("ViaVersion", "5.0.3")
+            hangar("ViaVersion", "5.2.0")
         }
     }
 
