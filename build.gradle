@@ -148,7 +148,7 @@ tasks {
         }
     }
 
-    if (project.hasProperty("MODRINTH_TOKEN")) {
+    if (System.getenv("MODRINTH_TOKEN") != null) {
         modrinth {
             token = System.getenv("MODRINTH_TOKEN")
             projectId = "adriapi"
