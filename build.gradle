@@ -152,6 +152,7 @@ tasks {
         token = System.getenv("MODRINTH_TOKEN")
         projectId = "adriapi"
         versionNumber = version
+        versionName = rootProject.name + " " + version
         versionType = "release"
         uploadFile = jar
         gameVersions = [
