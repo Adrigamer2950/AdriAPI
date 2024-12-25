@@ -26,19 +26,19 @@ public abstract class Inventory implements InventoryHolder {
     private final org.bukkit.inventory.Inventory inventory;
     private final User user;
 
-    private Inventory(@NotNull User user) {
+    public Inventory(@NotNull User user) {
         this(user, null);
     }
 
-    private Inventory(@NotNull User user, @Nullable Component title) {
+    public Inventory(@NotNull User user, @Nullable Component title) {
         this(user, title, InventorySize.THREE_ROWS);
     }
 
-    private Inventory(@NotNull User user, @Nullable Component title, @NotNull InventorySize size) {
+    public Inventory(@NotNull User user, @Nullable Component title, @NotNull InventorySize size) {
         this(user, title, size.getSize());
     }
 
-    private Inventory(@NotNull @NonNull User user, @Nullable Component title, int size) {
+    public Inventory(@NotNull @NonNull User user, @Nullable Component title, int size) {
         if (!user.isPlayer())
             throw new IllegalArgumentException("User must be a player");
 
