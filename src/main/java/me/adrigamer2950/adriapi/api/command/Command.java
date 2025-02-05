@@ -190,8 +190,11 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
                         || (cmd.getAliases() != null && cmd.getAliases().contains(_args[0]))
         ).findFirst();
 
-        if (scmd.isEmpty() && this.helpSubCommand != null)
-            return helpSubCommand.tabComplete(user, label, args);
+        if (scmd.isEmpty())
+            if (this.helpSubCommand != null)
+                return helpSubCommand.tabComplete(user, label, args);
+            else
+                return List.of();
 
         if (args.length < 2) {
             @NotNull String[] finalArgs = args;
@@ -202,7 +205,6 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         l.remove(0);
         args = l.stream().map(String::valueOf).toArray(value -> new String[l.size()]);
 
-        //noinspection OptionalGetWithoutIsPresent
         return scmd.get().tabComplete(user, label, args);
     }
 }
