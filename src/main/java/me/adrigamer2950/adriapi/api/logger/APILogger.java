@@ -106,6 +106,29 @@ public class APILogger extends Logger {
     }
 
     /**
+     * @param throwable The throwable that you want to log
+     */
+    public void error(@NonNull Throwable throwable) {
+        this.error("An error occurred: " + throwable.getMessage(), throwable);
+    }
+
+    /**
+     * @param component The component
+     * @param throwable The throwable that you want to log
+     */
+    public void error(@NonNull Component component, @NonNull Throwable throwable) {
+        this.error(LegacyComponentSerializer.legacyAmpersand().serialize(component), throwable);
+    }
+
+    /**
+     * @param msg The message that you want to send
+     * @param throwable The throwable that you want to log
+     */
+    public void error(@NonNull String msg, @NonNull Throwable throwable) {
+        super.log(Level.SEVERE, msg, throwable);
+    }
+
+    /**
      * @param component The component
      */
     public void debug(@NonNull Component component) {
