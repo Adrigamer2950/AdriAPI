@@ -66,7 +66,7 @@ public class APILogger extends Logger {
     /**
      * @param component The component
      */
-    public void info(Component component) {
+    public void info(@NonNull Component component) {
         this.info(LegacyComponentSerializer.legacyAmpersand().serialize(component));
     }
 
@@ -74,14 +74,14 @@ public class APILogger extends Logger {
      * @param msg The message that you want to send
      * @see APILogger#info(Component)
      */
-    public void info(String msg) {
+    public void info(@NonNull String msg) {
         super.info(msg);
     }
 
     /**
      * @param component The component
      */
-    public void warn(Component component) {
+    public void warn(@NonNull Component component) {
         this.warn(LegacyComponentSerializer.legacyAmpersand().serialize(component));
     }
 
@@ -89,14 +89,14 @@ public class APILogger extends Logger {
      * @param msg The message that you want to send
      * @see APILogger#warn(Component)
      */
-    public void warn(String msg) {
+    public void warn(@NonNull String msg) {
         super.warning(msg);
     }
 
     /**
      * @param component The component
      */
-    public void error(Component component) {
+    public void error(@NonNull Component component) {
         this.error(LegacyComponentSerializer.legacyAmpersand().serialize(component));
     }
 
@@ -104,14 +104,14 @@ public class APILogger extends Logger {
      * @param msg The message that you want to send
      * @see APILogger#error(Component)
      */
-    public void error(String msg) {
+    public void error(@NonNull String msg) {
         super.severe(msg);
     }
 
     /**
      * @param component The component
      */
-    public void debug(Component component) {
+    public void debug(@NonNull Component component) {
         this.info(Component.text("[DEBUG]").append(component));
     }
 
@@ -119,7 +119,7 @@ public class APILogger extends Logger {
      * @param msg The message that you want to send
      * @see APILogger#debug(Component)
      */
-    public void debug(String msg) {
+    public void debug(@NonNull String msg) {
         super.info("[DEBUG] %s".formatted(msg));
     }
 
@@ -127,7 +127,7 @@ public class APILogger extends Logger {
      * @param level     The level of the log
      * @param component The component
      */
-    public void log(Level level, Component component) {
+    public void log(@NonNull Level level, @NonNull Component component) {
         this.log(level, LegacyComponentSerializer.legacyAmpersand().serialize(component));
     }
 
@@ -136,12 +136,12 @@ public class APILogger extends Logger {
      * @param msg   The message that you want to send
      * @see APILogger#log(Level, Component)
      */
-    public void log(Level level, String msg) {
+    public void log(@NonNull Level level, @NonNull String msg) {
         super.log(level, colorizeMessage(msg));
     }
 
     @Override
-    public void log(@NotNull LogRecord logRecord) {
+    public void log(@NotNull @NonNull LogRecord logRecord) {
         logRecord.setMessage(
                 colorizeMessage(logRecord.getMessage())
         );
