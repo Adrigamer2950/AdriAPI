@@ -72,7 +72,6 @@ public class APILogger extends Logger {
 
     /**
      * @param msg The message that you want to send
-     * @see APILogger#info(Component)
      */
     public void info(@NonNull String msg) {
         super.info(msg);
@@ -87,7 +86,6 @@ public class APILogger extends Logger {
 
     /**
      * @param msg The message that you want to send
-     * @see APILogger#warn(Component)
      */
     public void warn(@NonNull String msg) {
         super.warning(msg);
@@ -102,7 +100,6 @@ public class APILogger extends Logger {
 
     /**
      * @param msg The message that you want to send
-     * @see APILogger#error(Component)
      */
     public void error(@NonNull String msg) {
         super.severe(msg);
@@ -117,7 +114,6 @@ public class APILogger extends Logger {
 
     /**
      * @param msg The message that you want to send
-     * @see APILogger#debug(Component)
      */
     public void debug(@NonNull String msg) {
         super.info("[DEBUG] %s".formatted(msg));
@@ -134,7 +130,6 @@ public class APILogger extends Logger {
     /**
      * @param level The level of the log
      * @param msg   The message that you want to send
-     * @see APILogger#log(Level, Component)
      */
     public void log(@NonNull Level level, @NonNull String msg) {
         super.log(level, colorizeMessage(msg));
