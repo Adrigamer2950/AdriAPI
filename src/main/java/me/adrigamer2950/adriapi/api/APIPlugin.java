@@ -38,8 +38,6 @@ public abstract class APIPlugin extends JavaPlugin {
 
     @Override
     public final void onEnable() {
-        new bStats(this, 20135);
-
         this.serverType = ServerType.getType();
 
         this.adventure = BukkitAudiences.create(this);

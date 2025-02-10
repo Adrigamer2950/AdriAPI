@@ -51,4 +51,9 @@ public final class AdriAPI extends APIPlugin {
     public void onUnload() {
         this.getLogger().info(Component.text("Disabled", NamedTextColor.RED, TextDecoration.BOLD));
     }
+
+    @Override
+    protected int getBStatsServiceId() {
+        return 20135;
+    }
 }
