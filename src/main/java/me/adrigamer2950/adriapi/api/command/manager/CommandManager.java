@@ -95,7 +95,7 @@ public final class CommandManager<T extends APIPlugin> {
         Bukkit.getPluginManager().callEvent(event);
 
         //noinspection deprecation
-        LOGGER.info(
+        LOGGER.debug(
                 String.format("Command '%s' for plugin %s v%s has been successfully loaded", command.getName(), command.getPlugin().getName(), command.getPlugin().getDescription().getVersion())
         );
     }

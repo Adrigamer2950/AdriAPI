@@ -39,19 +39,28 @@ public abstract class APIPlugin extends JavaPlugin {
     @Override
     public final void onEnable() {
         this.serverType = ServerType.getType();
-
         this.adventure = BukkitAudiences.create(this);
 
         onPreLoad();
+
+        this.getLogger().debug("&6Loading hooks...");
         loadHooks();
+
+        this.getLogger().debug("&6Enabling plugin...");
         onPostLoad();
     }
 
     private void loadHooks() {
+        this.getLogger().debug("&6Loading Command Manager...");
         this.commandManager = new CommandManager<>(this);
+
+        this.getLogger().debug("&6Loading Scheduler...");
         this.scheduler = new Scheduler(this);
 
-        if (this.getBStatsServiceId() != 0) this.bstats = new bStats(this, this.getBStatsServiceId());
+        if (this.getBStatsServiceId() != 0) {
+            this.getLogger().debug("&6Loading bStats hook...");
+            this.bstats = new bStats(this, this.getBStatsServiceId());
+        }
     }
 
     /**
@@ -71,6 +80,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     @Override
     public final void onDisable() {
+        this.getLogger().debug("&6Unloading plugin...");
         this.onUnload();
 
         this.commandManager = null;
@@ -141,5 +151,13 @@ public abstract class APIPlugin extends JavaPlugin {
     @Deprecated(forRemoval = true)
     public APILogger getApiLogger() {
         return this.getLogger();
+    }
+
+    public boolean isDebug() {
+        return this.logger.isDebug();
+    }
+
+    protected void setDebug(boolean debug) {
+        this.logger.setDebug(debug);
     }
 }

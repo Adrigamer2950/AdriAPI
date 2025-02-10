@@ -2,6 +2,7 @@ package me.adrigamer2950.adriapi.api.logger;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import net.kyori.adventure.text.Component;
@@ -17,8 +18,11 @@ import java.util.logging.Logger;
  * Main Logger class
  */
 @SuppressWarnings("unused")
+@Setter
 @Getter
 public class APILogger extends Logger {
+
+    private boolean debug;
 
     /**
      * @param plugin The plugin
@@ -132,6 +136,16 @@ public class APILogger extends Logger {
      * @param component The component
      */
     public void debug(@NonNull Component component) {
+        this.debug(component, false);
+    }
+
+    /**
+     * @param component The component
+     * @param forceLog  If the log should be forced
+     */
+    public void debug(@NonNull Component component, boolean forceLog) {
+        if (!this.isDebug() && !forceLog) return;
+
         this.info(Component.text("[DEBUG]").append(component));
     }
 
@@ -139,6 +153,16 @@ public class APILogger extends Logger {
      * @param msg The message that you want to send
      */
     public void debug(@NonNull String msg) {
+        this.debug(msg, false);
+    }
+
+    /**
+     * @param msg The message that you want to send
+     * @param forceLog  If the log should be forced
+     */
+    public void debug(@NonNull String msg, boolean forceLog) {
+        if (!this.isDebug() && !forceLog) return;
+
         super.info("[DEBUG] %s".formatted(msg));
     }
 
