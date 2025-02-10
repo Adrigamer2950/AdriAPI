@@ -26,7 +26,7 @@ public enum ServerType {
 
     private static ServerType getServerType() {
         try {
-            Class.forName("io.papermc.paper.threadedregions.scheduler.RegionScheduler");
+            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
 
             return ServerType.FOLIA;
         } catch (ClassNotFoundException ex1) {
