@@ -23,20 +23,20 @@ import java.util.Objects;
  * @see Command
  * @since 1.0.0
  */
-@SuppressWarnings({"unused", "rawtypes"})
+@SuppressWarnings("unused")
 public final class CommandManager<T extends APIPlugin> {
 
     public final APILogger LOGGER;
     private final List<Command<? extends APIPlugin>> cmds = new ArrayList<>();
     @ApiStatus.Internal
-    public static final List<CommandManager> COMMAND_MANAGERS = new ArrayList<>();
+    public static final List<CommandManager<? extends APIPlugin>> COMMAND_MANAGERS = new ArrayList<>();
 
     /**
      * @param plugin The plugin
      * @return The plugin if it has a Command Manager, null otherwise
      */
-    public static CommandManager getManager(Plugin plugin) {
-        for (CommandManager cmdM : COMMAND_MANAGERS)
+    public static CommandManager<? extends APIPlugin> getManager(Plugin plugin) {
+        for (CommandManager<? extends APIPlugin> cmdM : COMMAND_MANAGERS)
             if (cmdM.getPlugin().equals(plugin))
                 return cmdM;
 
@@ -105,8 +105,8 @@ public final class CommandManager<T extends APIPlugin> {
      * @return Registered command. Null if command doesn't exist.
      * @since 1.0.0
      */
-    public Command getCommand(String name) {
-        for (Command cmd : cmds) {
+    public Command<? extends APIPlugin> getCommand(String name) {
+        for (Command<? extends APIPlugin> cmd : cmds) {
             if (!Objects.equals(cmd.getName(), name)) continue;
 
             return cmd;
