@@ -5,9 +5,9 @@ import xyz.jpenilla.runtask.task.AbstractRun
 plugins {
     id 'java'
     id "maven-publish"
-    id 'net.minecrell.plugin-yml.bukkit' version '0.6.0'
-    id "com.modrinth.minotaur" version "2.+"
-    id "xyz.jpenilla.run-paper" version "2.3.1"
+    alias(libs.plugins.plugin.yml)
+    alias(libs.plugins.minotaur)
+    alias(libs.plugins.run.server)
 }
 
 group = 'me.adrigamer2950'
@@ -92,22 +92,22 @@ repositories {
 
 dependencies {
     // JetBrains Annotations
-    compileOnly "org.jetbrains:annotations:26.0.2"
+    compileOnly libs.jetbrains.annotations
 
     // Folia API
     //noinspection VulnerableLibrariesLocal
-    compileOnly "dev.folia:folia-api:1.20.4-R0.1-SNAPSHOT"
+    compileOnly libs.folia.api
 
     // Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.36'
-    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
 
     // Ansi
-    compileOnly 'org.fusesource.jansi:jansi:2.4.1'
+    compileOnly libs.jansi
 
     // Adventure API
-    compileOnly "net.kyori:adventure-platform-bukkit:4.3.4"
-    bukkitLibrary "net.kyori:adventure-platform-bukkit:4.3.4"
+    compileOnly libs.adventure.platform.bukkit
+    bukkitLibrary libs.adventure.platform.bukkit
 }
 
 def targetJavaVersion = 17

@@ -1,0 +1,21 @@
+[versions]
+folia-api = "1.20.4-R0.1-SNAPSHOT"
+lombok = "1.18.36"
+jansi = "2.4.1"
+jetbrains-annotations = "26.0.2"
+plugin-yml = "0.6.0"
+minotaur = "2.+"
+run-server = "2.3.1"
+adventure-platform-bukkit = "4.3.4"
+
+[libraries]
+folia-api = { group = "dev.folia", name = "folia-api", version.ref = "folia-api" }
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+jansi = { group = "org.fusesource.jansi", name = "jansi", version.ref = "jansi" }
+jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrains-annotations" }
+adventure-platform-bukkit = { group = "net.kyori", name = "adventure-platform-bukkit", version.ref = "adventure-platform-bukkit" }
+
+[plugins]
+plugin-yml = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugin-yml" }
+minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
+run-server = { id = "xyz.jpenilla.run-paper", version.ref = "run-server" }
