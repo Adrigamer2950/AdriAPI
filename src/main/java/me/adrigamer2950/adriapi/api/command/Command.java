@@ -2,10 +2,8 @@ package me.adrigamer2950.adriapi.api.command;
 
 import lombok.Getter;
 import me.adrigamer2950.adriapi.api.APIPlugin;
-import org.bukkit.command.TabCompleter;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.user.User;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +27,7 @@ import java.util.Optional;
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
-public abstract class Command<T extends APIPlugin> implements CommandExecutor, TabCompleter {
+public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Command {
 
     @Getter
     private final String name;
@@ -65,9 +63,10 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
      * @param subCommands The command's {@link SubCommand} list
      */
     public Command(@NotNull T pl, @NotNull String name, @Nullable List<String> aliases, @Nullable List<SubCommand<T>> subCommands) {
+        super(name, "", "/%s".formatted(name), aliases == null ? new ArrayList<>() : aliases);
         this.plugin = pl;
         this.name = name;
-        this.aliases = aliases;
+        this.aliases = aliases == null ? new ArrayList<>() : aliases;
         this.subCommands = subCommands;
     }
 
@@ -84,14 +83,13 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
     public abstract boolean execute(User user, String label, String[] args);
 
     @Override
-    public final boolean onCommand(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String label, String[] args) {
+    public final boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         return execute(User.fromBukkitSender(sender), label, args);
     }
 
-    @Nullable
     @Override
-    public final List<String> onTabComplete(@NotNull CommandSender sender, @NotNull org.bukkit.command.Command command, @NotNull String s, @NotNull String[] strings) {
-        return tabComplete(User.fromBukkitSender(sender), s, strings);
+    public final @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        return tabComplete(User.fromBukkitSender(sender), label, args);
     }
 
     /**
@@ -154,7 +152,7 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         final String[] _args = args;
         Optional<SubCommand<T>> scmd = this.subCommands.stream().filter(
                 cmd -> cmd.getName().equalsIgnoreCase(_args[0])
-                        || (cmd.getAliases() != null && cmd.getAliases().contains(_args[0]))
+                        || (cmd.getAliases().contains(_args[0]))
         ).findFirst();
 
         if (scmd.isEmpty())
@@ -187,7 +185,7 @@ public abstract class Command<T extends APIPlugin> implements CommandExecutor, T
         final String[] _args = args;
         Optional<SubCommand<T>> scmd = this.getSubCommands().stream().filter(
                 cmd -> cmd.getName().equalsIgnoreCase(_args[0])
-                        || (cmd.getAliases() != null && cmd.getAliases().contains(_args[0]))
+                        || (cmd.getAliases().contains(_args[0]))
         ).findFirst();
 
         if (scmd.isEmpty())
