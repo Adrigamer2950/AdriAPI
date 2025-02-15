@@ -5,16 +5,32 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.ApiStatus;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Getter
 @AllArgsConstructor
 public enum ServerType {
 
     FOLIA("Folia"),
     PAPER_FORK("Paper-Fork"),
+
     PAPER("Paper"),
+
     BUKKIT("Bukkit"),
+
+    /**
+     * @deprecated I won't be making a Velocity/Bungee API in the near future
+     */
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "2.3.0")
     VELOCITY("Velocity"),
+
+    /**
+     * @deprecated I won't be making a Velocity/Bungee API in the near future
+     */
+    @Deprecated(forRemoval = true)
+    @ApiStatus.ScheduledForRemoval(inVersion = "2.3.0")
     BUNGEE("BungeeCord");
 
     @Getter
