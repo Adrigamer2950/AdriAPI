@@ -5,6 +5,7 @@ import lombok.NonNull;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.folia.Scheduler;
+import me.adrigamer2950.adriapi.api.library.manager.LibraryManager;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.api.util.ServerType;
 import me.adrigamer2950.adriapi.api.util.bStats;
@@ -35,11 +36,13 @@ public abstract class APIPlugin extends JavaPlugin {
     private bStats bstats;
     private ServerType serverType;
     private BukkitAudiences adventure;
+    protected LibraryManager libraryManager;
 
     @Override
     public final void onEnable() {
         this.serverType = ServerType.getType();
         this.adventure = BukkitAudiences.create(this);
+        this.libraryManager = LibraryManager.get(this);
 
         onPreLoad();
 
@@ -89,6 +92,7 @@ public abstract class APIPlugin extends JavaPlugin {
         this.bstats = null;
         this.serverType = null;
         this.adventure = null;
+        this.libraryManager = null;
     }
 
     /**

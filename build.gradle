@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.plugin.yml)
     alias(libs.plugins.minotaur)
     alias(libs.plugins.run.server)
+    alias(libs.plugins.shadow)
 }
 
 group = 'me.adrigamer2950'
@@ -88,6 +89,10 @@ repositories {
     maven {
         url = "https://repo.papermc.io/repository/maven-public/"
     }
+    maven {
+        name = "AlessioDP"
+        url = "https://repo.alessiodp.com/releases"
+    }
 }
 
 dependencies {
@@ -108,6 +113,9 @@ dependencies {
     // Adventure API
     compileOnly libs.adventure.platform.bukkit
     bukkitLibrary libs.adventure.platform.bukkit
+
+    // Libby
+    implementation libs.libby
 }
 
 def targetJavaVersion = 17
@@ -216,5 +224,19 @@ tasks {
                 "-Dusing.aikars.flags=https://mcflags.emc.gs", "-Daikars.new.flags=true"
         )
 
+    }
+
+    shadowJar {
+        archiveClassifier.set("")
+
+        dependencies {
+            relocate "net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby"
+
+            //relocate "com.iridium.iridiumcolorapi", "me.adrigamer2950.adriapi.libs.iridiumcolorapi"
+        }
+    }
+
+    build {
+        finalizedBy("shadowJar")
     }
 }
