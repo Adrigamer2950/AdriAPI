@@ -4,7 +4,9 @@ import lombok.Getter;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.user.User;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,7 +29,7 @@ import java.util.Optional;
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
-public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Command {
+public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Command implements CommandExecutor, TabCompleter {
 
     @Getter
     private final String name;
@@ -88,8 +90,18 @@ public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Co
     }
 
     @Override
+    public final boolean onCommand(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        return this.execute(sender, label, args);
+    }
+
+    @Override
     public final @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         return tabComplete(User.fromBukkitSender(sender), label, args);
+    }
+
+    @Override
+    public final List<String> onTabComplete(@NotNull CommandSender sender, org.bukkit.command.@NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        return this.tabComplete(sender, label, args);
     }
 
     /**

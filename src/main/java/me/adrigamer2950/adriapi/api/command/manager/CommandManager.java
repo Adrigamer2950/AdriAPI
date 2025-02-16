@@ -8,6 +8,8 @@ import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.exceptions.command.CommandNotInPluginYMLException;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandMap;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -79,7 +81,20 @@ public final class CommandManager<T extends APIPlugin> {
             throw new NullPointerException("Command must not be null");
         }
 
-        command.getPlugin().getServer().getCommandMap().register(command.getPlugin().getPluginMeta().getName(), command);
+        CommandMap commandMap = command.getPlugin().getServer().getCommandMap();
+
+        if (commandMap.getCommand(command.getName()) == null) {
+            commandMap.register(command.getPlugin().getPluginMeta().getName(), command);
+        } else {
+            PluginCommand plCmd = command.getPlugin().getServer().getPluginCommand(command.getName());
+            if (plCmd == null || plCmd.getPlugin() != command.getPlugin()) {
+                LOGGER.error(String.format("&cERROR LOADING COMMAND '%s'", command.getName()));
+                throw new CommandNotInPluginYMLException(String.format("Command '%s' must be registered in plugin.yml", command.getName()));
+            }
+
+            plCmd.setExecutor(command);
+            plCmd.setTabCompleter(command);
+        }
 
         cmds.add(command);
 
