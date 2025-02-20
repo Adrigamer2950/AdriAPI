@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
-import org.jetbrains.annotations.ApiStatus;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
 @Getter
 @AllArgsConstructor
 public enum ServerType {
@@ -17,21 +15,7 @@ public enum ServerType {
 
     PAPER("Paper"),
 
-    BUKKIT("Bukkit"),
-
-    /**
-     * @deprecated I won't be making a Velocity/Bungee API in the near future
-     */
-    @Deprecated(forRemoval = true)
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.3.0")
-    VELOCITY("Velocity"),
-
-    /**
-     * @deprecated I won't be making a Velocity/Bungee API in the near future
-     */
-    @Deprecated(forRemoval = true)
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.3.0")
-    BUNGEE("BungeeCord");
+    BUKKIT("Bukkit");
 
     @Getter
     private static final ServerType type = ServerType.getServerType();
@@ -62,19 +46,7 @@ public enum ServerType {
 
                     return ServerType.BUKKIT;
                 } catch (ClassNotFoundException ex3) {
-                    try {
-                        Class.forName("com.velocitypowered.api.proxy.ProxyServer");
-
-                        return ServerType.VELOCITY;
-                    } catch (ClassNotFoundException ex4) {
-                        try {
-                            Class.forName("net.md_5.bungee.api.ProxyServer");
-
-                            return ServerType.BUNGEE;
-                        } catch (ClassNotFoundException ex5) {
-                            return null;
-                        }
-                    }
+                    return null;
                 }
             }
         }
