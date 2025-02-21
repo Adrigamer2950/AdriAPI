@@ -20,7 +20,6 @@ val version = properties["version"] as String + (
             ""
         }
         )
-val description = properties["description"] as String
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
     java {
@@ -51,7 +50,7 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
                 from(components["java"])
                 pom {
                     name = rootProject.name
-                    description = this.description
+                    description.set(project.properties["description"] as String)
                     url = "https://github.com/Adrigamer2950/AdriAPI"
 
                     licenses {
