@@ -20,6 +20,7 @@ val version = properties["version"] as String + (
             ""
         }
         )
+val description = properties["description"] as String
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
     java {
