@@ -50,7 +50,6 @@ public final class CommandManager<T extends APIPlugin> {
     /**
      * @param pl The plugin
      */
-    @SuppressWarnings("deprecation")
     public CommandManager(T pl) {
         if (getManager(pl) != null) {
             throw new DuplicatedManagerException(
@@ -84,7 +83,7 @@ public final class CommandManager<T extends APIPlugin> {
         CommandMap commandMap = command.getPlugin().getServer().getCommandMap();
 
         if (commandMap.getCommand(command.getName()) == null) {
-            commandMap.register(command.getPlugin().getPluginMeta().getName(), command);
+            commandMap.register(command.getPlugin().getDescription().getName(), command);
         } else {
             PluginCommand plCmd = command.getPlugin().getServer().getPluginCommand(command.getName());
             if (plCmd == null || plCmd.getPlugin() != command.getPlugin()) {
@@ -101,7 +100,6 @@ public final class CommandManager<T extends APIPlugin> {
         CommandLoadedEvent event = new CommandLoadedEvent(command, plugin);
         Bukkit.getPluginManager().callEvent(event);
 
-        //noinspection deprecation
         LOGGER.debug(
                 String.format("Command '%s' for plugin %s v%s has been successfully loaded", command.getName(), command.getPlugin().getName(), command.getPlugin().getDescription().getVersion())
         );

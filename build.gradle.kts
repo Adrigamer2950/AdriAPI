@@ -1,3 +1,5 @@
+@file:Suppress("VulnerableLibrariesLocal")
+
 import xyz.jpenilla.runtask.task.AbstractRun
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
@@ -81,14 +83,19 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
     }
 }
 
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "papermc-repo"
+            url = uri("https://repo.papermc.io/repository/maven-public/")
+        }
+    }
+}
 repositories {
-    mavenCentral()
     maven {
         name = "sonatype"
         url = uri("https://oss.sonatype.org/content/groups/public/")
-    }
-    maven {
-        url = uri("https://repo.papermc.io/repository/maven-public/")
     }
     maven {
         name = "AlessioDP"
@@ -100,9 +107,8 @@ dependencies {
     // JetBrains Annotations
     compileOnly(libs.jetbrains.annotations)
 
-    // Folia API
-    //noinspection VulnerableLibrariesLocal
-    compileOnly(libs.folia.api)
+    // Paper API
+    compileOnly(libs.paper.api)
 
     // Lombok
     compileOnly(libs.lombok)
@@ -117,6 +123,9 @@ dependencies {
 
     // Libby
     implementation(libs.libby)
+
+    // Folia module
+    implementation(project(":folia"))
 }
 
 val targetJavaVersion = 17
@@ -209,6 +218,7 @@ tasks.named<RunServer>("runServer").configure {
 
 tasks.withType(AbstractRun::class) {
     javaLauncher = javaToolchains.launcherFor {
+        @Suppress("UnstableApiUsage")
         vendor = JvmVendorSpec.JETBRAINS
         languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }

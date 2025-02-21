@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
-import me.adrigamer2950.adriapi.api.folia.Scheduler;
+import me.adrigamer2950.adriapi.api.scheduler.Scheduler;
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManager;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.api.util.ServerType;
@@ -58,7 +58,7 @@ public abstract class APIPlugin extends JavaPlugin {
         this.commandManager = new CommandManager<>(this);
 
         this.getLogger().debug("&6Loading Scheduler...");
-        this.scheduler = new Scheduler(this);
+        this.scheduler = Scheduler.get(this, this.getServerType().equals(ServerType.FOLIA));
 
         if (this.getBStatsServiceId() != 0) {
             this.getLogger().debug("&6Loading bStats hook...");

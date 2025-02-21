@@ -15,7 +15,6 @@ import java.util.Set;
 @ApiStatus.Internal
 public final class AdriAPI extends APIPlugin {
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onPreLoad() {
         List<Component> l = List.of(
