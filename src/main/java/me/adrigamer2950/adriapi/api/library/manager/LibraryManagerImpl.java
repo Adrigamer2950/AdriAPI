@@ -3,11 +3,13 @@ package me.adrigamer2950.adriapi.api.library.manager;
 import net.byteflux.libby.BukkitLibraryManager;
 import net.byteflux.libby.Library;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@ApiStatus.Internal
 public class LibraryManagerImpl extends BukkitLibraryManager implements LibraryManager {
 
     protected final Plugin plugin;
