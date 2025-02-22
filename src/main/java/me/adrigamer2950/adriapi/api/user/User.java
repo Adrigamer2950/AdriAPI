@@ -1,6 +1,5 @@
 package me.adrigamer2950.adriapi.api.user;
 
-import me.adrigamer2950.adriapi.AdriAPI;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -22,7 +21,7 @@ public interface User {
      * @return A User
      */
     static User fromBukkitSender(CommandSender sender) {
-        return new UserImpl(sender, AdriAPI.getPlugin(AdriAPI.class).getAdventure());
+        return new UserImpl(sender);
     }
 
     /**

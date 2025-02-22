@@ -13,7 +13,6 @@ public class ManagersListener implements org.bukkit.event.Listener {
 
     private final AdriAPI plugin;
 
-    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPluginDisable(PluginDisableEvent e) {
         if (CommandManager.getManager(e.getPlugin()) != null) {

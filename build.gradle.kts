@@ -117,10 +117,6 @@ dependencies {
     // Ansi
     compileOnly(libs.jansi)
 
-    // Adventure API
-    compileOnly(libs.adventure.platform.bukkit)
-    bukkitLibrary(libs.adventure.platform.bukkit)
-
     // Libby
     implementation(libs.libby)
 

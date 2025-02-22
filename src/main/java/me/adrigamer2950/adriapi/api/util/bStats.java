@@ -414,6 +414,7 @@ public class bStats {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     public static class MultiLineChart extends CustomChart {
 
         private final Callable<Map<String, Integer>> callable;
@@ -454,6 +455,7 @@ public class bStats {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     public static class AdvancedPie extends CustomChart {
 
         private final Callable<Map<String, Integer>> callable;

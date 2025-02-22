@@ -9,7 +9,6 @@ import me.adrigamer2950.adriapi.api.library.manager.LibraryManager;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import me.adrigamer2950.adriapi.api.util.ServerType;
 import me.adrigamer2950.adriapi.api.util.bStats;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.ApiStatus;
@@ -35,13 +34,11 @@ public abstract class APIPlugin extends JavaPlugin {
     private Scheduler scheduler;
     private bStats bstats;
     private ServerType serverType;
-    private BukkitAudiences adventure;
     protected LibraryManager libraryManager;
 
     @Override
     public final void onEnable() {
         this.serverType = ServerType.getType();
-        this.adventure = BukkitAudiences.create(this);
         this.libraryManager = LibraryManager.get(this);
 
         onPreLoad();
@@ -91,7 +88,6 @@ public abstract class APIPlugin extends JavaPlugin {
         if (this.bstats != null) this.bstats.shutdown();
         this.bstats = null;
         this.serverType = null;
-        this.adventure = null;
         this.libraryManager = null;
     }
 

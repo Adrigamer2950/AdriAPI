@@ -18,7 +18,6 @@ public class AdriAPICommand extends Command<AdriAPI> {
 
     @Override
     public boolean execute(User user, String label, String[] args) {
-        //noinspection deprecation
         user.sendMessage(
                 Component.text("AdriAPI Version ", NamedTextColor.GRAY)
                         .append(Component.text(getPlugin().getDescription().getVersion(), NamedTextColor.GOLD))

@@ -9,7 +9,6 @@ import org.jetbrains.annotations.ApiStatus;
  * You can also use a custom color code
  * system that's easier to remember than Bukkit one.
  */
-@SuppressWarnings("deprecation")
 public class Colors {
 
     /**

@@ -28,7 +28,6 @@ public class APILogger extends Logger {
      * @param plugin The plugin
      */
     public APILogger(@NonNull APIPlugin plugin) {
-        //noinspection UnstableApiUsage
         this(plugin, plugin.getServer().getLogger());
     }
 
@@ -37,7 +36,6 @@ public class APILogger extends Logger {
      * @param parent The logger's parent
      */
     public APILogger(@NonNull APIPlugin plugin, @NonNull @NotNull Logger parent) {
-        //noinspection deprecation
         this(
                 plugin.getDescription().getPrefix() != null ? plugin.getDescription().getPrefix() : plugin.getDescription().getName(),
                 parent

@@ -1,8 +1,6 @@
 package me.adrigamer2950.adriapi.api.user;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
-import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -23,11 +21,9 @@ import java.util.Optional;
 public class UserImpl implements User {
 
     private final CommandSender sender;
-    private final Audience audience;
 
-    UserImpl(CommandSender sender, BukkitAudiences adventure) {
+    UserImpl(CommandSender sender) {
         this.sender = sender;
-        this.audience = adventure.sender(sender);
     }
 
     @Override
@@ -69,7 +65,7 @@ public class UserImpl implements User {
 
     @Override
     public void sendMessage(Component component) {
-        audience.sendMessage(component);
+        sender.sendMessage(component);
     }
 
     @Override
@@ -83,6 +79,7 @@ public class UserImpl implements User {
         return sender.getName();
     }
 
+    @SuppressWarnings("removal")
     @Override
     public Component name() {
         return Component.text(this.getName());
