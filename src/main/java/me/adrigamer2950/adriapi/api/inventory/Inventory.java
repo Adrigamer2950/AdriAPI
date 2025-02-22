@@ -61,7 +61,7 @@ public abstract class Inventory implements InventoryHolder {
     /**
      * Setup items in the inventory or any other thing you may want to do
      */
-    protected abstract void setupInventory();
+    protected void setupInventory() { };
 
     /**
      * Executed when a player clicks in the inventory
@@ -71,12 +71,12 @@ public abstract class Inventory implements InventoryHolder {
      *          is unnecessary as it is checked before executing this method
      *          in {@link InventoriesListener#onInvClick(InventoryClickEvent)}
      */
-    public abstract void onInventoryClick(@NotNull InventoryClickEvent e);
+    public void onInventoryClick(@NotNull InventoryClickEvent e) { };
 
     /**
      * @param e An {@link InventoryCloseEvent}
      */
-    public abstract void onInventoryClose(@NotNull InventoryCloseEvent e);
+    public void onInventoryClose(@NotNull InventoryCloseEvent e) { };
 
     public static Builder builder() {
         return new Builder();
