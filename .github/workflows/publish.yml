@@ -8,7 +8,7 @@ on:
       file:
         description: 'The file to publish'
         required: true
-        default: 'build/libs/AdriAPI-*.jar'
+        default: 'AdriAPI-*.jar'
 
 jobs:
   publish:
@@ -19,6 +19,18 @@ jobs:
       contents: read
 
     steps:
+      - uses: actions/checkout@v4
+        name: Checkout sources
+
+      - uses: actions/setup-java@v4
+        name: Set up JDK 17
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - uses: gradle/actions/setup-gradle@v4
+        name: Setup Gradle
+
       - name: Fetch release asset
         uses: dsaltares/fetch-gh-release-asset@master
         with:
