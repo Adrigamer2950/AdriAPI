@@ -4,7 +4,6 @@ import xyz.jpenilla.runtask.task.AbstractRun
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 import xyz.jpenilla.runpaper.task.RunServer
-import io.papermc.hangarpublishplugin.model.Platforms
 
 plugins {
     id("java")
@@ -13,7 +12,6 @@ plugins {
     alias(libs.plugins.minotaur)
     alias(libs.plugins.run.server)
     alias(libs.plugins.shadow)
-    alias(libs.plugins.hangar.publish)
 }
 
 val group = "me.adrigamer2950"
@@ -94,7 +92,6 @@ allprojects {
         }
     }
 }
-
 repositories {
     maven {
         name = "sonatype"
@@ -250,21 +247,4 @@ tasks.named<ShadowJar>("shadowJar") {
 
 tasks.named("build") {
     finalizedBy(tasks.named("shadowJar"))
-}
-
-hangarPublish {
-    publications.register("plugin") {
-        version.set(project.version as String)
-        channel.set("Release")
-        id.set("AdriAPI")
-        apiKey.set(System.getenv("HANGAR_API_TOKEN"))
-        platforms {
-            register(Platforms.PAPER) {
-                jar.set(tasks.shadowJar.flatMap { it.archiveFile })
-
-                val versions: List<String> = listOf("1.18.x-1.21.4")
-                platformVersions.set(versions)
-            }
-        }
-    }
 }
