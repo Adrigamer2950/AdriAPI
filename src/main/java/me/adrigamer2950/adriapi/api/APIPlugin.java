@@ -34,7 +34,7 @@ public abstract class APIPlugin extends JavaPlugin {
     private Scheduler scheduler;
     private bStats bstats;
     private ServerType serverType;
-    protected LibraryManager libraryManager;
+    private LibraryManager libraryManager;
 
     @Override
     public final void onEnable() {
