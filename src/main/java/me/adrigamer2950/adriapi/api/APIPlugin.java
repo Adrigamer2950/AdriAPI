@@ -37,7 +37,7 @@ public abstract class APIPlugin extends JavaPlugin {
     private LibraryManager libraryManager;
 
     @Override
-    public final void onEnable() {
+    public final void onLoad() {
         this.serverType = ServerType.getType();
         this.libraryManager = LibraryManager.get(this);
 
@@ -45,7 +45,10 @@ public abstract class APIPlugin extends JavaPlugin {
 
         this.getLogger().debug("&6Loading hooks...");
         loadHooks();
+    }
 
+    @Override
+    public final void onEnable() {
         this.getLogger().debug("&6Enabling plugin...");
         onPostLoad();
     }
