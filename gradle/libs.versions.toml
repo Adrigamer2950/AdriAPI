@@ -23,3 +23,4 @@ plugin-yml = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugin-yml
 minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
 run-server = { id = "xyz.jpenilla.run-paper", version.ref = "run-server" }
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow"}
+hangar-publish = { id = "io.papermc.hangar-publish-plugin", version = "0.1.2" }

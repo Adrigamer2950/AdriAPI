@@ -7,7 +7,7 @@ on: [
 
 jobs:
   build:
-    name: Build & Publish
+    name: Build
     runs-on: ubuntu-latest
 
     permissions:
@@ -51,3 +51,9 @@ jobs:
         env:
           MODRINTH_TOKEN: "${{ secrets.MODRINTH_TOKEN }}"
         run: "./gradlew modrinth modrinthSyncBody"
+
+      - name: Publish to Modrinth
+        if: "${{ github.repository == 'Adrigamer2950/AdriAPI' && startsWith(github.event.head_commit.message, 'release:') }}"
+        env:
+          HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
+        run: "./gradlew publishPluginPublicationToHangar"
