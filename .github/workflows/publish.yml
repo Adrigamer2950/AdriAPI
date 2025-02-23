@@ -37,8 +37,4 @@ jobs:
           repo: 'Adrigamer2950/AdriAPI'
           file: ${{ inputs.file }}
 
-      - name: Publish to HangarMC
-        if: "${{ github.repository == 'Adrigamer2950/AdriAPI' }}"
-        env:
-          HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
-        run: "./gradlew publishPluginPublicationToHangar"
+      - run: "echo $(ls)"
