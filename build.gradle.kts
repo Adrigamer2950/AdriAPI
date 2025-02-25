@@ -147,7 +147,7 @@ java {
 bukkit {
     name = "AdriAPI"
     main = "me.adrigamer2950.adriapi.AdriAPI"
-    apiVersion = "1.18"
+    apiVersion = "1.17"
     author = properties["author"] as String?
     description = properties["description"] as String?
     website = "https://github.com/Adrigamer2950/AdriAPI"
