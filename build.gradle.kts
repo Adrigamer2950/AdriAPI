@@ -118,6 +118,7 @@ dependencies {
 
     // Ansi
     compileOnly(libs.jansi)
+    bukkitLibrary(libs.jansi)
 
     // Libby
     implementation(libs.libby)
