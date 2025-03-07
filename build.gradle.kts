@@ -18,72 +18,12 @@ plugins {
 
 val versionIsBeta = (properties["version"] as String).toDefaultLowerCase().contains("beta")
 
-val group = "me.adrigamer2950"
-val version = properties["version"] as String +
+group = "me.adrigamer2950"
+version = properties["version"] as String +
         if (versionIsBeta)
             "-${getGitCommitHash()}"
         else ""
 val targetJavaVersion = (properties["java-version"] as String).toInt()
-
-if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
-    java {
-        withJavadocJar()
-        withSourcesJar()
-    }
-
-    publishing {
-        repositories {
-            maven {
-                val baseUrl = "https://repo.devadri.es/repository/"
-
-                url = uri(
-                    baseUrl + if (versionIsBeta) "dev" else "releases"
-                )
-                credentials {
-                    username = project.property("NEXUS_USERNAME") as String
-                    password = project.property("NEXUS_PASSWORD") as String
-                }
-            }
-        }
-        publications {
-            create<MavenPublication>("mavenJava") {
-                groupId = group
-                artifactId = rootProject.name
-                version = this.version
-
-                from(components["java"])
-                pom {
-                    name = rootProject.name
-                    description.set(project.properties["description"] as String)
-                    url = "https://github.com/Adrigamer2950/AdriAPI"
-
-                    licenses {
-                        license {
-                            name = "GPL-3.0"
-                            url = "https://www.gnu.org/licenses/gpl-3.0.html"
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id = "Adrigamer2950"
-                            name = "Adri"
-                        }
-                    }
-
-                    scm {
-                        url = "https://github.com/Adrigamer2950/AdriAPI"
-                    }
-
-                    issueManagement {
-                        system = "GitHub"
-                        url = "https://github.com/Adrigamer2950/AdriAPI/issues"
-                    }
-                }
-            }
-        }
-    }
-}
 
 allprojects {
     apply(plugin = "java")
@@ -160,7 +100,7 @@ fun getGitCommitHash(): String {
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "adriapi"
-    versionNumber = version
+    versionNumber = version as String
     versionName = rootProject.name + " " + version
     versionType = "release"
     uploadFile.set(getJarFile())
@@ -249,7 +189,7 @@ tasks.withType(AbstractRun::class) {
 
 tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
-    archiveVersion.set(version)
+    archiveVersion.set(version as String)
 
     dependencies {
         relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")

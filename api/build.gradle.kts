@@ -35,7 +35,7 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
         }
         publications {
             create<MavenPublication>("mavenJava") {
-                groupId = parent?.group as String
+                groupId = rootProject.group as String
                 artifactId = rootProject.name
                 version = this.version
 
