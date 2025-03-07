@@ -34,13 +34,12 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
             }
         }
         publications {
-            create<MavenPublication>("mavenJava") {
+            create<MavenPublication>("shadow") {
                 groupId = rootProject.group as String
                 artifactId = rootProject.name
-                version = this.version
+                version = rootProject.version as String
 
                 from(components["java"])
-                artifact(tasks["shadowJar"])
                 pom {
                     name = rootProject.name
                     description.set(parent?.properties?.get("description") as String)
