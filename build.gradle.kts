@@ -132,7 +132,7 @@ dependencies {
 val targetJavaVersion = 17
 
 tasks.withType<JavaCompile>().configureEach {
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible) {
         options.release = targetJavaVersion
         options.encoding = "UTF-8"
     }
@@ -145,6 +145,10 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
+}
+
+tasks.named<Jar>("jar") {
+    enabled = false
 }
 
 bukkit {
