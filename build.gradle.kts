@@ -17,13 +17,7 @@ plugins {
 }
 
 val group = "me.adrigamer2950"
-val version = properties["version"] as String + (
-        if (project.hasProperty("BUILD_NUMBER")) {
-            if (project.property("BUILD_NUMBER") == "0") "" else "-b" + project.property("BUILD_NUMBER")
-        } else {
-            ""
-        }
-        )
+val version = properties["version"] as String + if (project.hasProperty("BUILD_NUMBER")) "-b" + project.property("BUILD_NUMBER") else ""
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
     java {
