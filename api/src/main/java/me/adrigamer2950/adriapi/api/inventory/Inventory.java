@@ -3,7 +3,6 @@ package me.adrigamer2950.adriapi.api.inventory;
 import lombok.Getter;
 import lombok.NonNull;
 import me.adrigamer2950.adriapi.api.user.User;
-import me.adrigamer2950.adriapi.plugin.listeners.InventoriesListener;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -61,7 +60,7 @@ public abstract class Inventory implements InventoryHolder {
     /**
      * Setup items in the inventory or any other thing you may want to do
      */
-    protected void setupInventory() { };
+    protected void setupInventory() { }
 
     /**
      * Executed when a player clicks in the inventory
@@ -69,14 +68,13 @@ public abstract class Inventory implements InventoryHolder {
      * @param e An {@link InventoryClickEvent}.
      *          Null check on {@link InventoryClickEvent#getClickedInventory()}
      *          is unnecessary as it is checked before executing this method
-     *          in {@link InventoriesListener#onInvClick(InventoryClickEvent)}
      */
-    public void onInventoryClick(@NotNull InventoryClickEvent e) { };
+    public void onInventoryClick(@NotNull InventoryClickEvent e) { }
 
     /**
      * @param e An {@link InventoryCloseEvent}
      */
-    public void onInventoryClose(@NotNull InventoryCloseEvent e) { };
+    public void onInventoryClose(@NotNull InventoryCloseEvent e) { }
 
     public static Builder builder() {
         return new Builder();

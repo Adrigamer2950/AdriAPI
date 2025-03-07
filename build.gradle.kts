@@ -101,10 +101,8 @@ allprojects {
     }
 
     dependencies {
-        // JetBrains Annotations
         compileOnly(rootProject.libs.jetbrains.annotations)
 
-        // Lombok
         compileOnly(rootProject.libs.lombok)
         annotationProcessor(rootProject.libs.lombok)
     }
@@ -132,6 +130,8 @@ dependencies {
     implementation(libs.bundles.shade)
 
     implementation(project(":folia"))
+
+    implementation(project(":api"))
 
     implementation(project(":plugin"))
 }
@@ -254,7 +254,7 @@ tasks.named<ShadowJar>("shadowJar") {
     dependencies {
         relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
 
-        //relocate("com.iridium.iridiumcolorapi", "me.adrigamer2950.adriapi.libs.iridiumcolorapi")
+        relocate("org.fusesource.jansi", "me.adrigamer2950.adriapi.lib.jansi")
     }
 }
 

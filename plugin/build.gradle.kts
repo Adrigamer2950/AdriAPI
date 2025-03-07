@@ -8,17 +8,11 @@ plugins {
 }
 
 dependencies {
-    // Paper API
     compileOnly(libs.paper.api)
 
-    // Ansi
-    compileOnly(libs.jansi)
-
-    // Libby
-    compileOnly(libs.libby)
-
-    // Folia module
     compileOnly(project(":folia"))
+
+    compileOnly(project(":api"))
 }
 
 bukkit {
