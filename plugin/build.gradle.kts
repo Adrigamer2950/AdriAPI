@@ -10,8 +10,6 @@ plugins {
 dependencies {
     compileOnly(libs.paper.api)
 
-    compileOnly(project(":folia"))
-
     compileOnly(project(":api"))
 }
 
