@@ -4,14 +4,11 @@ import lombok.Getter;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.event.command.CommandLoadedEvent;
-import me.adrigamer2950.adriapi.api.exceptions.DuplicatedManagerException;
 import me.adrigamer2950.adriapi.api.exceptions.command.CommandNotInPluginYMLException;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.plugin.Plugin;
-import org.jetbrains.annotations.ApiStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,20 +26,6 @@ public final class CommandManager<T extends APIPlugin> {
 
     public final APILogger LOGGER;
     private final List<Command<? extends APIPlugin>> cmds = new ArrayList<>();
-    @ApiStatus.Internal
-    public static final List<CommandManager<? extends APIPlugin>> COMMAND_MANAGERS = new ArrayList<>();
-
-    /**
-     * @param plugin The plugin
-     * @return The plugin if it has a Command Manager, null otherwise
-     */
-    public static CommandManager<? extends APIPlugin> getManager(Plugin plugin) {
-        for (CommandManager<? extends APIPlugin> cmdM : COMMAND_MANAGERS)
-            if (cmdM.getPlugin().equals(plugin))
-                return cmdM;
-
-        return null;
-    }
 
     @Getter
     private final T plugin;
@@ -51,20 +34,9 @@ public final class CommandManager<T extends APIPlugin> {
      * @param pl The plugin
      */
     public CommandManager(T pl) {
-        if (getManager(pl) != null) {
-            throw new DuplicatedManagerException(
-                    String.format("Command Manager for plugin %s v%s has already been created and cannot be duplicated",
-                            pl.getName(),
-                            pl.getDescription().getVersion()
-                    )
-            );
-        }
-
         this.plugin = pl;
 
         this.LOGGER = this.plugin.getLogger();
-
-        COMMAND_MANAGERS.add(this);
     }
 
     /**
