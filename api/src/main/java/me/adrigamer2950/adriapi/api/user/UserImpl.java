@@ -2,7 +2,6 @@ package me.adrigamer2950.adriapi.api.user;
 
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -28,12 +27,12 @@ public class UserImpl implements User {
 
     @Override
     public boolean isConsole() {
-        return Bukkit.getConsoleSender().equals(sender);
+        return sender instanceof ConsoleCommandSender;
     }
 
     @Override
     public boolean isPlayer() {
-        return !isConsole();
+        return sender instanceof Player;
     }
 
     @Override
