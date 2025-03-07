@@ -1,5 +1,6 @@
 @file:Suppress("VulnerableLibrariesLocal")
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 
 plugins {
@@ -76,9 +77,21 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
 dependencies {
     compileOnly(libs.paper.api)
 
-    compileOnly(libs.jansi)
+    implementation(libs.jansi)
 
-    compileOnly(libs.libby)
+    implementation(libs.libby)
 
-    compileOnly(project(":folia"))
+    implementation(project(":folia"))
+}
+
+tasks.named<ShadowJar>("shadowJar") {
+    dependencies {
+        relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
+
+        relocate("org.fusesource.jansi", "me.adrigamer2950.adriapi.lib.jansi")
+    }
+}
+
+tasks.named("build") {
+    finalizedBy(tasks.named("shadowJar"))
 }
