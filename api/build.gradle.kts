@@ -40,6 +40,7 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
                 version = this.version
 
                 from(components["java"])
+                artifact(tasks["shadowJar"])
                 pom {
                     name = rootProject.name
                     description.set(parent?.properties?.get("description") as String)
