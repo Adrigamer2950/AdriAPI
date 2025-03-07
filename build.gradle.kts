@@ -5,6 +5,8 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 import xyz.jpenilla.runpaper.task.RunServer
 import io.papermc.hangarpublishplugin.model.Platforms
+import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
+import java.io.ByteArrayOutputStream
 
 plugins {
     id("java")
@@ -16,8 +18,13 @@ plugins {
     alias(libs.plugins.hangar.publish)
 }
 
+val versionIsBeta = (properties["version"] as String).toDefaultLowerCase().contains("beta")
+
 val group = "me.adrigamer2950"
-val version = properties["version"] as String + if (project.hasProperty("BUILD_NUMBER")) "-b" + project.property("BUILD_NUMBER") else ""
+val version = properties["version"] as String +
+        if (versionIsBeta)
+            "-${getGitCommitHash()}"
+        else ""
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
     java {
@@ -31,7 +38,7 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
                 val baseUrl = "https://repo.devadri.es/repository/"
 
                 url = uri(
-                    baseUrl + if (project.hasProperty("BUILD_NUMBER")) "dev" else "releases"
+                    baseUrl + if (versionIsBeta) "dev" else "releases"
                 )
                 credentials {
                     username = project.property("NEXUS_USERNAME") as String
@@ -88,6 +95,7 @@ allprojects {
         }
     }
 }
+
 repositories {
     maven {
         name = "sonatype"
@@ -160,6 +168,17 @@ bukkit {
 fun getJarFile(): File? {
     val jarFile = File("./gh-assets").listFiles()?.firstOrNull { it.name.endsWith(".jar") }
     return jarFile
+}
+
+fun getGitCommitHash(): String {
+    val byteOut = ByteArrayOutputStream()
+
+    exec {
+        commandLine = "git rev-parse --short HEAD".split(" ")
+        standardOutput = byteOut
+    }
+
+    return String(byteOut.toByteArray()).trim()
 }
 
 modrinth {
@@ -256,6 +275,7 @@ tasks.withType(AbstractRun::class) {
 
 tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
+    archiveVersion.set(version)
 
     dependencies {
         relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
