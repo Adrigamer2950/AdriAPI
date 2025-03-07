@@ -173,6 +173,7 @@ fun getJarFile(): File? {
 fun getGitCommitHash(): String {
     val byteOut = ByteArrayOutputStream()
 
+    @Suppress("DEPRECATION")
     exec {
         commandLine = "git rev-parse --short HEAD".split(" ")
         standardOutput = byteOut
