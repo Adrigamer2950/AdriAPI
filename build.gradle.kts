@@ -214,11 +214,9 @@ modrinth {
     )
     loaders.set(
         listOf(
-            "bukkit",
             "folia",
             "paper",
-            "purpur",
-            "spigot"
+            "purpur"
         )
     )
     syncBodyFrom = rootProject.file("README.md").readText()
