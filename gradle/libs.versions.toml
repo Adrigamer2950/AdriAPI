@@ -7,7 +7,7 @@ plugin-yml = "0.6.0"
 minotaur = "2.+"
 run-server = "2.3.1"
 libby = "1.3.1"
-shadow = "8.1.1"
+shadow = "8.3.5"
 paper-api = "1.18.2-R0.1-SNAPSHOT"
 hangar-publish-plugin = "0.1.2"
 
@@ -23,5 +23,5 @@ libby = { group = "net.byteflux", name = "libby-bukkit", version.ref = "libby" }
 plugin-yml = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugin-yml" }
 minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
 run-server = { id = "xyz.jpenilla.run-paper", version.ref = "run-server" }
-shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow"}
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow"}
 hangar-publish = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangar-publish-plugin" }
