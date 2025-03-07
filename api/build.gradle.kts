@@ -40,7 +40,7 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
                 artifactId = rootProject.name
                 version = rootProject.version as String
 
-                from(components["java"])
+                from(components["shadow"])
                 pom {
                     name = rootProject.name
                     description.set(parent?.properties?.get("description") as String)
@@ -85,6 +85,8 @@ dependencies {
 }
 
 tasks.named<ShadowJar>("shadowJar") {
+    archiveClassifier.set("")
+
     dependencies {
         relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
 
