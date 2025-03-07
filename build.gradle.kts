@@ -2,7 +2,6 @@
 
 import xyz.jpenilla.runtask.task.AbstractRun
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 import xyz.jpenilla.runpaper.task.RunServer
 import io.papermc.hangarpublishplugin.model.Platforms
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
@@ -11,7 +10,6 @@ import java.io.ByteArrayOutputStream
 plugins {
     id("java")
     id("maven-publish")
-    alias(libs.plugins.plugin.yml)
     alias(libs.plugins.minotaur)
     alias(libs.plugins.run.server)
     alias(libs.plugins.shadow)
@@ -25,6 +23,7 @@ val version = properties["version"] as String +
         if (versionIsBeta)
             "-${getGitCommitHash()}"
         else ""
+val targetJavaVersion = (properties["java-version"] as String).toInt()
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
     java {
@@ -87,86 +86,58 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
 }
 
 allprojects {
+    apply(plugin = "java")
+
     repositories {
         mavenCentral()
         maven {
             name = "papermc-repo"
             url = uri("https://repo.papermc.io/repository/maven-public/")
         }
+        maven {
+            name = "AlessioDP"
+            url = uri("https://repo.alessiodp.com/releases")
+        }
     }
-}
 
-repositories {
-    maven {
-        name = "sonatype"
-        url = uri("https://oss.sonatype.org/content/groups/public/")
+    dependencies {
+        // JetBrains Annotations
+        compileOnly(rootProject.libs.jetbrains.annotations)
+
+        // Lombok
+        compileOnly(rootProject.libs.lombok)
+        annotationProcessor(rootProject.libs.lombok)
     }
-    maven {
-        name = "AlessioDP"
-        url = uri("https://repo.alessiodp.com/releases")
+
+    tasks.withType<JavaCompile>().configureEach {
+        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible) {
+            options.release = targetJavaVersion
+            options.encoding = "UTF-8"
+        }
+    }
+
+    java {
+        val javaVersion = JavaVersion.toVersion(targetJavaVersion)
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
+        if (JavaVersion.current() < javaVersion) {
+            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
     }
 }
 
 dependencies {
-    // JetBrains Annotations
-    compileOnly(libs.jetbrains.annotations)
-
-    // Paper API
     compileOnly(libs.paper.api)
 
-    // Lombok
-    compileOnly(libs.lombok)
-    annotationProcessor(libs.lombok)
+    implementation(libs.bundles.shade)
 
-    // Ansi
-    compileOnly(libs.jansi)
-    bukkitLibrary(libs.jansi)
-
-    // Libby
-    implementation(libs.libby)
-
-    // Folia module
     implementation(project(":folia"))
-}
 
-val targetJavaVersion = 17
-
-tasks.withType<JavaCompile>().configureEach {
-    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible) {
-        options.release = targetJavaVersion
-        options.encoding = "UTF-8"
-    }
-}
-
-java {
-    val javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
+    implementation(project(":plugin"))
 }
 
 tasks.named<Jar>("jar") {
     enabled = false
-}
-
-bukkit {
-    name = "AdriAPI"
-    main = "me.adrigamer2950.adriapi.AdriAPI"
-    apiVersion = "1.17"
-    author = properties["author"] as String?
-    description = properties["description"] as String?
-    website = "https://github.com/Adrigamer2950/AdriAPI"
-    load = BukkitPluginDescription.PluginLoadOrder.STARTUP
-    foliaSupported = true
-
-    commands {
-        register("adriapi") {
-            description = "Main command"
-            usage = "/adriapi"
-        }
-    }
 }
 
 fun getJarFile(): File? {

@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi;
+package me.adrigamer2950.adriapi.plugin;
 
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.user.User;

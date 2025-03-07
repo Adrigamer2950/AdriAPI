@@ -3,7 +3,7 @@ package me.adrigamer2950.adriapi.api.inventory;
 import lombok.Getter;
 import lombok.NonNull;
 import me.adrigamer2950.adriapi.api.user.User;
-import me.adrigamer2950.adriapi.listeners.InventoriesListener;
+import me.adrigamer2950.adriapi.plugin.listeners.InventoriesListener;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryClickEvent;

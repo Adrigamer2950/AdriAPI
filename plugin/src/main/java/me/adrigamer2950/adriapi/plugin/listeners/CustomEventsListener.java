@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi.listeners;
+package me.adrigamer2950.adriapi.plugin.listeners;
 
 import me.adrigamer2950.adriapi.api.event.item.ItemCraftedEvent;
 import org.bukkit.Bukkit;

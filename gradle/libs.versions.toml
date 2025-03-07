@@ -25,3 +25,6 @@ minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
 run-server = { id = "xyz.jpenilla.run-paper", version.ref = "run-server" }
 shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow"}
 hangar-publish = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangar-publish-plugin" }
+
+[bundles]
+shade = ["jansi", "libby"]
