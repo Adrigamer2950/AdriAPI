@@ -83,14 +83,6 @@ jobs:
           name: "AdriAPI-b${{ github.run_number }}"
           path: "./gh-assets"
 
-      - name: "Extract jar file from artifact"
-        run: |
-          cd gh-assets
-          DIR_NAME=$(ls -1 | head -n 1)
-          mv $DIR_NAME/* .
-          rm -rf $DIR_NAME
-          cd ..
-
       - name: Publish to HangarMC
         env:
           HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
