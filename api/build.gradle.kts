@@ -6,10 +6,7 @@ import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 plugins {
     id("java")
     id("maven-publish")
-    alias(libs.plugins.minotaur)
-    alias(libs.plugins.run.server)
     alias(libs.plugins.shadow)
-    alias(libs.plugins.hangar.publish)
 }
 
 val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowerCase().contains("beta")
