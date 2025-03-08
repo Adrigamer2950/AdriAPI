@@ -6,12 +6,10 @@ import me.adrigamer2950.adriapi.plugin.listeners.InventoriesListener;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 import java.util.Set;
 
-@ApiStatus.Internal
 public final class AdriAPI extends APIPlugin {
 
     @Override
