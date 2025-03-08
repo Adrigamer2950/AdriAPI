@@ -100,6 +100,8 @@ modrinth {
     uploadFile.set(getJarFile())
     gameVersions.set(
         listOf(
+            "1.17",
+            "1.17.1",
             "1.18",
             "1.18.1",
             "1.18.2",
@@ -142,7 +144,7 @@ hangarPublish {
             register(Platforms.PAPER) {
                 jar.set(getJarFile())
 
-                val versions: List<String> = listOf("1.18-1.21.4")
+                val versions: List<String> = listOf("1.17-1.21.4")
                 platformVersions.set(versions)
             }
         }
