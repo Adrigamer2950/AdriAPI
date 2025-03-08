@@ -82,6 +82,8 @@ dependencies {
     implementation(libs.libby)
 
     implementation(project(":folia"))
+
+    compileOnly(libs.boosted.yaml)
 }
 
 tasks.named<ShadowJar>("shadowJar") {
