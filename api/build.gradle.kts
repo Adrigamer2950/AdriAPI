@@ -5,6 +5,7 @@ import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 
 plugins {
     id("java")
+    id("java-library")
     id("maven-publish")
     alias(libs.plugins.shadow)
 }
@@ -76,8 +77,10 @@ dependencies {
 
     implementation(libs.jansi)
 
+    api(libs.libby)
     implementation(libs.libby)
 
+    api(project(":folia"))
     implementation(project(":folia"))
 
     compileOnly(libs.boosted.yaml)
