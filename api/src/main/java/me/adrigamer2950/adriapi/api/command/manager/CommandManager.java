@@ -25,7 +25,7 @@ import java.util.Objects;
 public final class CommandManager<T extends APIPlugin> {
 
     public final APILogger LOGGER;
-    private final List<Command<? extends APIPlugin>> cmds = new ArrayList<>();
+    private final List<Command<? extends APIPlugin>> commands = new ArrayList<>();
 
     @Getter
     private final T plugin;
@@ -67,7 +67,7 @@ public final class CommandManager<T extends APIPlugin> {
             plCmd.setTabCompleter(command);
         }
 
-        cmds.add(command);
+        commands.add(command);
 
         CommandLoadedEvent event = new CommandLoadedEvent(command, plugin);
         Bukkit.getPluginManager().callEvent(event);
@@ -83,7 +83,7 @@ public final class CommandManager<T extends APIPlugin> {
      * @since 1.0.0
      */
     public Command<? extends APIPlugin> getCommand(String name) {
-        for (Command<? extends APIPlugin> cmd : cmds) {
+        for (Command<? extends APIPlugin> cmd : commands) {
             if (!Objects.equals(cmd.getName(), name)) continue;
 
             return cmd;

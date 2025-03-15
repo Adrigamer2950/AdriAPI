@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@SuppressWarnings("SpellCheckingInspection")
 @Getter
 @AllArgsConstructor
 public enum ServerType {

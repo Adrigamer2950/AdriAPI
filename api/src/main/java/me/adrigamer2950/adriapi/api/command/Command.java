@@ -139,8 +139,8 @@ public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Co
         if (subCommands == null)
             throw new NullPointerException("SubCommand list must not be null!");
 
-        for (SubCommand<T> scmd : this.subCommands)
-            if (scmd == null)
+        for (SubCommand<T> subCommand : this.subCommands)
+            if (subCommand == null)
                 throw new NullPointerException("There's some SubCommand that is null");
 
         this.subCommands = subCommands;
@@ -162,12 +162,12 @@ public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Co
             return helpSubCommand.execute(user, label, args);
 
         final String[] _args = args;
-        Optional<SubCommand<T>> scmd = this.subCommands.stream().filter(
+        Optional<SubCommand<T>> subCommand = this.subCommands.stream().filter(
                 cmd -> cmd.getName().equalsIgnoreCase(_args[0])
                         || (cmd.getAliases().contains(_args[0]))
         ).findFirst();
 
-        if (scmd.isEmpty())
+        if (subCommand.isEmpty())
             if (helpSubCommand != null)
                 return helpSubCommand.execute(user, label, args);
             else
@@ -177,7 +177,7 @@ public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Co
         l.remove(0);
         args = l.toArray(value -> new String[l.size()]);
 
-        return scmd.get().execute(user, label, args);
+        return subCommand.get().execute(user, label, args);
     }
 
 
@@ -195,12 +195,12 @@ public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Co
             return this.helpSubCommand.tabComplete(user, label, args);
 
         final String[] _args = args;
-        Optional<SubCommand<T>> scmd = this.getSubCommands().stream().filter(
+        Optional<SubCommand<T>> subCommand = this.getSubCommands().stream().filter(
                 cmd -> cmd.getName().equalsIgnoreCase(_args[0])
                         || (cmd.getAliases().contains(_args[0]))
         ).findFirst();
 
-        if (scmd.isEmpty())
+        if (subCommand.isEmpty())
             if (this.helpSubCommand != null)
                 return helpSubCommand.tabComplete(user, label, args);
             else
@@ -215,6 +215,6 @@ public abstract class Command<T extends APIPlugin> extends org.bukkit.command.Co
         l.remove(0);
         args = l.stream().map(String::valueOf).toArray(value -> new String[l.size()]);
 
-        return scmd.get().tabComplete(user, label, args);
+        return subCommand.get().tabComplete(user, label, args);
     }
 }

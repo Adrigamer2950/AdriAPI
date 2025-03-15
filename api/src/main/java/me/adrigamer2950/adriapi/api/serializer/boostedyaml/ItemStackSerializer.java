@@ -41,10 +41,10 @@ public class ItemStackSerializer implements TypeAdapter<ItemStack> {
         if (!itemStack.getEnchantments().isEmpty()) {
             Map<Object, Object> enchantments = new LinkedHashMap<>();
 
-            for (Enchantment ench : itemStack.getEnchantments().keySet()) {
-                int level = itemStack.getEnchantments().get(ench);
+            for (Enchantment enchantment : itemStack.getEnchantments().keySet()) {
+                int level = itemStack.getEnchantments().get(enchantment);
 
-                enchantments.put(ench.getKey().getKey(), level);
+                enchantments.put(enchantment.getKey().getKey(), level);
             }
 
             map.put("enchantments", enchantments);
