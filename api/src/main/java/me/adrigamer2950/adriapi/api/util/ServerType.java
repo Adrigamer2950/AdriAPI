@@ -4,22 +4,12 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
-import org.jetbrains.annotations.ApiStatus;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
 @Getter
 @AllArgsConstructor
 public enum ServerType {
 
     FOLIA("Folia"),
-
-    /**
-     * @deprecated Use {@link ServerType#PAPER} instead
-     */
-    @ApiStatus.ScheduledForRemoval(inVersion = "2.4.0")
-    @Deprecated(forRemoval = true)
-    PAPER_FORK("Paper-Fork"),
 
     PAPER("Paper"),
 
@@ -40,12 +30,6 @@ public enum ServerType {
         } catch (ClassNotFoundException ex1) {
             try {
                 Class.forName("io.papermc.paper.util.Tick");
-
-                if (!Bukkit.getServer().getName().contains("Paper")) {
-                    ServerType.PAPER_FORK.setName(Bukkit.getServer().getName());
-
-                    return ServerType.PAPER_FORK;
-                }
 
                 return ServerType.PAPER;
             } catch (ClassNotFoundException ex2) {
