@@ -30,10 +30,32 @@ public abstract class APIPlugin extends JavaPlugin {
 
     private final APILogger logger = new APILogger(this);
 
+    /**
+     * Command Manager. Used to register a {@link Command} object.
+     * If command isn't found in the plugin's plugin.yml, it will register the
+     * command to the Server's CommandMap
+     */
     private CommandManager<APIPlugin> commandManager;
+
+    /**
+     * Custom scheduler that takes advantage of Folia's scheduler
+     * without the need to check all the time if the server is running Folia
+     */
     private Scheduler scheduler;
+
+    /**
+     * bStats wrapper
+     */
     private bStats bstats;
+
+    /**
+     * @see ServerType
+     */
     private ServerType serverType;
+
+    /**
+     * The library manager. Used to download libraries on runtime
+     */
     private LibraryManager libraryManager;
 
     @Override
