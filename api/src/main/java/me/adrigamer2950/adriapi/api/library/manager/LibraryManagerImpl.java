@@ -22,7 +22,7 @@ public class LibraryManagerImpl extends net.byteflux.libby.LibraryManager implem
     protected final Plugin plugin;
     protected final Set<Library> libraries = new HashSet<>();
 
-    public LibraryManagerImpl(Plugin plugin) {
+    LibraryManagerImpl(Plugin plugin) {
         super(new JDKLogAdapter(plugin.getLogger()), new File(Bukkit.getPluginsFolder(), "AdriAPI").toPath(), "lib");
         this.classLoader = new URLClassLoaderHelper((URLClassLoader) plugin.getClass().getClassLoader(), this);
 
