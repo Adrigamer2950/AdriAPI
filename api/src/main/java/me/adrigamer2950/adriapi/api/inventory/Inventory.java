@@ -11,6 +11,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -85,8 +86,8 @@ public abstract class Inventory implements InventoryHolder {
         private Component title;
         private int size = InventorySize.THREE_ROWS.getSize();
         private Consumer<@NotNull Inventory> setupInventory;
-        private Consumer<@NotNull InventoryClickEvent> onInventoryClick;
-        private Consumer<@NotNull InventoryCloseEvent> onInventoryClose;
+        private BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory> onInventoryClick;
+        private BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory> onInventoryClose;
 
         public Builder user(@NonNull User user) {
             this.user = user;
@@ -113,11 +114,19 @@ public abstract class Inventory implements InventoryHolder {
         }
 
         public Builder onInventoryClick(Consumer<@NotNull InventoryClickEvent> onInventoryClick) {
+            return onInventoryClick((e, i) -> onInventoryClick.accept(e));
+        }
+
+        public Builder onInventoryClick(BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory> onInventoryClick) {
             this.onInventoryClick = onInventoryClick;
             return this;
         }
 
         public Builder onInventoryClose(Consumer<@NotNull InventoryCloseEvent> onInventoryClose) {
+            return onInventoryClose((e, i) -> onInventoryClose.accept(e));
+        }
+
+        public Builder onInventoryClose(BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory> onInventoryClose) {
             this.onInventoryClose = onInventoryClose;
             return this;
         }
@@ -136,13 +145,13 @@ public abstract class Inventory implements InventoryHolder {
                 @Override
                 public void onInventoryClick(@NotNull InventoryClickEvent e) {
                     if (onInventoryClick != null)
-                        onInventoryClick.accept(e);
+                        onInventoryClick.accept(e, this);
                 }
 
                 @Override
                 public void onInventoryClose(@NotNull InventoryCloseEvent e) {
                     if (onInventoryClose != null)
-                        onInventoryClose.accept(e);
+                        onInventoryClose.accept(e, this);
                 }
             };
         }
