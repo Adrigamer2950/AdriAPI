@@ -84,7 +84,7 @@ public abstract class Inventory implements InventoryHolder {
         private User user;
         private Component title;
         private int size = InventorySize.THREE_ROWS.getSize();
-        private Consumer<Inventory> setupInventory;
+        private Consumer<@NotNull Inventory> setupInventory;
         private Consumer<@NotNull InventoryClickEvent> onInventoryClick;
         private Consumer<@NotNull InventoryCloseEvent> onInventoryClose;
 
@@ -107,7 +107,7 @@ public abstract class Inventory implements InventoryHolder {
             return this;
         }
 
-        public Builder setupInventory(Consumer<Inventory> setupInventory) {
+        public Builder setupInventory(Consumer<@NotNull Inventory> setupInventory) {
             this.setupInventory = setupInventory;
             return this;
         }
