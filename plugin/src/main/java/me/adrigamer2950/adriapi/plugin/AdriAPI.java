@@ -1,14 +1,12 @@
 package me.adrigamer2950.adriapi.plugin;
 
 import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.plugin.listeners.CustomEventsListener;
 import me.adrigamer2950.adriapi.plugin.listeners.InventoriesListener;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 
 import java.util.List;
-import java.util.Set;
 
 public final class AdriAPI extends APIPlugin {
 
@@ -30,12 +28,7 @@ public final class AdriAPI extends APIPlugin {
 
     @Override
     public void onPostLoad() {
-        this.registerListeners(
-                Set.of(
-                        new CustomEventsListener(),
-                        new InventoriesListener()
-                )
-        );
+        this.registerListener(new InventoriesListener());
 
         this.registerCommand(new AdriAPICommand(this));
 
