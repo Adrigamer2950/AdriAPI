@@ -2,6 +2,7 @@ package me.adrigamer2950.adriapi.api.inventory;
 
 import lombok.Getter;
 import lombok.NonNull;
+import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.user.User;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -25,20 +26,21 @@ public abstract class Inventory implements InventoryHolder {
 
     private final org.bukkit.inventory.Inventory inventory;
     private final User user;
+    private final APIPlugin plugin;
 
-    public Inventory(@NotNull User user) {
-        this(user, null);
+    public Inventory(@NotNull User user, @NotNull APIPlugin plugin) {
+        this(user, null, plugin);
     }
 
-    public Inventory(@NotNull User user, @Nullable Component title) {
-        this(user, title, InventorySize.THREE_ROWS);
+    public Inventory(@NotNull User user, @Nullable Component title, @NotNull APIPlugin plugin) {
+        this(user, title, plugin, InventorySize.THREE_ROWS);
     }
 
-    public Inventory(@NotNull User user, @Nullable Component title, @NotNull InventorySize size) {
-        this(user, title, size.getSize());
+    public Inventory(@NotNull User user, @Nullable Component title, @NotNull APIPlugin plugin, @NotNull InventorySize size) {
+        this(user, title, plugin, size.getSize());
     }
 
-    public Inventory(@NotNull @NonNull User user, @Nullable Component title, int size) {
+    public Inventory(@NotNull @NonNull User user, @Nullable Component title, @NotNull APIPlugin plugin, int size) {
         if (!user.isPlayer())
             throw new IllegalArgumentException("User must be a player");
 
@@ -46,6 +48,7 @@ public abstract class Inventory implements InventoryHolder {
         this.inventory = title == null
                 ? Bukkit.createInventory(this, size)
                 : Bukkit.createInventory(this, size, title);
+        this.plugin = plugin;
     }
 
     /**
@@ -84,6 +87,7 @@ public abstract class Inventory implements InventoryHolder {
     public static class Builder {
         private User user;
         private Component title;
+        private APIPlugin plugin;
         private int size = InventorySize.THREE_ROWS.getSize();
         private Consumer<@NotNull Inventory> setupInventory;
         private BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory> onInventoryClick;
@@ -96,6 +100,11 @@ public abstract class Inventory implements InventoryHolder {
 
         public Builder title(Component title) {
             this.title = title;
+            return this;
+        }
+
+        public Builder plugin(APIPlugin plugin) {
+            this.plugin = plugin;
             return this;
         }
 
@@ -135,7 +144,7 @@ public abstract class Inventory implements InventoryHolder {
             if (this.user == null)
                 throw new IllegalArgumentException("User cannot be null");
 
-            return new Inventory(this.user, this.title, this.size) {
+            return new Inventory(this.user, this.title, this.plugin, this.size) {
                 @Override
                 protected void setupInventory() {
                     if (setupInventory != null)
