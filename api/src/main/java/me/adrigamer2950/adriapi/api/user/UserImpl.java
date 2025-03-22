@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class UserImpl implements User {
     }
 
     @Override
-    public CommandSender getBukkitSender() {
+    public @NotNull CommandSender getBukkitSender() {
         return this.sender;
     }
 
@@ -41,13 +42,13 @@ public class UserImpl implements User {
     }
 
     @Override
-    public Optional<ConsoleCommandSender> getConsole() {
+    public @NotNull Optional<ConsoleCommandSender> getConsole() {
         if (isConsole()) return Optional.of((ConsoleCommandSender) sender);
         return Optional.empty();
     }
 
     @Override
-    public Optional<Player> getPlayer() {
+    public @NotNull Optional<Player> getPlayer() {
         if (isPlayer()) return Optional.of((Player) sender);
         return Optional.empty();
     }
@@ -79,13 +80,13 @@ public class UserImpl implements User {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return sender.getName();
     }
 
     @SuppressWarnings("removal")
     @Override
-    public Component name() {
+    public @NotNull Component name() {
         return Component.text(this.getName());
     }
 

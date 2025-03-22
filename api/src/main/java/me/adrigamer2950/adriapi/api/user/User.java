@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -22,6 +24,7 @@ public interface User {
      * @param sender Bukkit API's command sender
      * @return A User
      */
+    @NotNull
     static User fromBukkitSender(@NonNull CommandSender sender) {
         return new UserImpl(sender);
     }
@@ -29,6 +32,7 @@ public interface User {
     /**
      * @return The console as a User
      */
+    @NotNull
     static User console() {
         return User.fromBukkitSender(Bukkit.getConsoleSender());
     }
@@ -36,6 +40,7 @@ public interface User {
     /**
      * @return The {@link CommandSender}
      */
+    @NotNull
     CommandSender getBukkitSender();
 
     /**
@@ -51,11 +56,13 @@ public interface User {
     /**
      * @return {@link Optional<ConsoleCommandSender>} of the Console
      */
+    @NotNull
     Optional<ConsoleCommandSender> getConsole();
 
     /**
      * @return {@link ConsoleCommandSender} if the user is the console, null otherwise
      */
+    @Nullable
     default ConsoleCommandSender getConsoleOrNull() {
         return getConsole().orElse(null);
     }
@@ -63,11 +70,13 @@ public interface User {
     /**
      * @return {@link Optional<Player>} of the Console
      */
+    @NotNull
     Optional<Player> getPlayer();
 
     /**
      * @return {@link Player} if the user is the console, null otherwise
      */
+    @Nullable
     default Player getPlayerOrNull() {
         return getPlayer().orElse(null);
     }
@@ -95,6 +104,7 @@ public interface User {
     /**
      * @return The player's name
      */
+    @NotNull
     String getName();
 
     /**
@@ -103,6 +113,7 @@ public interface User {
      */
     @Deprecated(forRemoval = true)
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
+    @NotNull
     Component name();
 
     /**
