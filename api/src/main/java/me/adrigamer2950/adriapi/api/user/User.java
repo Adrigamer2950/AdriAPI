@@ -26,6 +26,11 @@ public interface User {
     }
 
     /**
+     * @return The {@link CommandSender}
+     */
+    CommandSender getBukkitSender();
+
+    /**
      * @return True if the user is the console, false otherwise
      */
     boolean isConsole();

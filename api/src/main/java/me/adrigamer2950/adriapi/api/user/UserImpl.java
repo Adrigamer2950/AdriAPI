@@ -26,6 +26,11 @@ public class UserImpl implements User {
     }
 
     @Override
+    public CommandSender getBukkitSender() {
+        return this.sender;
+    }
+
+    @Override
     public boolean isConsole() {
         return sender instanceof ConsoleCommandSender;
     }
