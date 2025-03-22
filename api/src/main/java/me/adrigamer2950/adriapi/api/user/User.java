@@ -2,6 +2,7 @@ package me.adrigamer2950.adriapi.api.user;
 
 import lombok.NonNull;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -23,6 +24,13 @@ public interface User {
      */
     static User fromBukkitSender(@NonNull CommandSender sender) {
         return new UserImpl(sender);
+    }
+
+    /**
+     * @return The console as a User
+     */
+    static User console() {
+        return User.fromBukkitSender(Bukkit.getConsoleSender());
     }
 
     /**
