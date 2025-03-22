@@ -1,5 +1,6 @@
 package me.adrigamer2950.adriapi.api.user;
 
+import lombok.NonNull;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -20,7 +21,7 @@ public interface User {
      * @param sender Bukkit API's command sender
      * @return A User
      */
-    static User fromBukkitSender(CommandSender sender) {
+    static User fromBukkitSender(@NonNull CommandSender sender) {
         return new UserImpl(sender);
     }
 
