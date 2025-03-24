@@ -1,162 +1,165 @@
-package me.adrigamer2950.adriapi.api.serializer.boostedyaml;
+package me.adrigamer2950.adriapi.api.serializer.boostedyaml
 
-import dev.dejvokep.boostedyaml.serialization.standard.TypeAdapter;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
+import dev.dejvokep.boostedyaml.serialization.standard.TypeAdapter
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import org.bukkit.Material
+import org.bukkit.NamespacedKey
+import org.bukkit.attribute.Attribute
+import org.bukkit.attribute.AttributeModifier
+import org.bukkit.enchantments.Enchantment
+import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.ItemStack
 
-import java.util.*;
+import java.util.*
 
 @SuppressWarnings("unused")
-public class ItemStackSerializer implements TypeAdapter<ItemStack> {
+class ItemStackSerializer : TypeAdapter<ItemStack> {
 
     @SuppressWarnings("DataFlowIssue")
-    @Override
-    public @NotNull Map<Object, Object> serialize(@NotNull ItemStack itemStack) {
-        Map<Object, Object> map = new LinkedHashMap<>();
+    override fun serialize(itemStack: ItemStack): Map<Any, Any> {
+        val map = LinkedHashMap<Any, Any>()
 
-        map.put("material", itemStack.getType().name());
-        map.put("count", itemStack.getAmount());
+        map.put("material", itemStack.type.name)
+        map.put("count", itemStack.amount)
 
-        if (itemStack.getItemMeta().hasDisplayName())
-            map.put("name",
-                    LegacyComponentSerializer.legacyAmpersand().serialize(itemStack.getItemMeta().displayName())
-            );
+        if (itemStack.itemMeta.hasDisplayName())
+            map.put(
+                "name",
+                LegacyComponentSerializer.legacyAmpersand().serialize(itemStack.itemMeta.displayName()!!)
+            )
 
-        if (itemStack.getItemMeta().hasLore())
-            map.put("lore", itemStack.getItemMeta().lore()
-                    .stream().map(LegacyComponentSerializer.legacyAmpersand()::serialize));
+        if (itemStack.itemMeta.hasLore())
+            map.put(
+                "lore", itemStack.itemMeta.lore()!!
+                    .stream().map(LegacyComponentSerializer.legacyAmpersand()::serialize)
+            )
 
-        if (itemStack.getItemMeta().hasCustomModelData())
-            map.put("custom_model_data", itemStack.getItemMeta().getCustomModelData());
+        if (itemStack.itemMeta.hasCustomModelData())
+            map.put("custom_model_data", itemStack.itemMeta.customModelData)
 
-        if (!itemStack.getEnchantments().isEmpty()) {
-            Map<Object, Object> enchantments = new LinkedHashMap<>();
+        if (!itemStack.enchantments.isEmpty()) {
+            val enchantments: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
-            for (Enchantment enchantment : itemStack.getEnchantments().keySet()) {
-                int level = itemStack.getEnchantments().get(enchantment);
+            itemStack.enchantments.keys.forEach {
+                val level: Any = itemStack.enchantments[it] as Any
 
-                enchantments.put(enchantment.getKey().getKey(), level);
+                enchantments.put(it.key.key, level)
             }
 
-            map.put("enchantments", enchantments);
+            map.put("enchantments", enchantments)
         }
 
-        if (!itemStack.getItemFlags().isEmpty()) {
-            map.put("flags", itemStack.getItemFlags()
+        if (!itemStack.itemFlags.isEmpty()) {
+            map.put(
+                "flags", itemStack.itemFlags
                     .stream().map(ItemFlag::name)
                     .toList()
-            );
+            )
         }
 
-        if (itemStack.getItemMeta().hasAttributeModifiers()) {
-            List<Map<Object, Object>> attributes = new LinkedList<>();
+        if (itemStack.itemMeta.hasAttributeModifiers()) {
+            val attributes: MutableList<Map<Any, Any>> = LinkedList<Map<Any, Any>>()
 
-            for (Attribute key : itemStack.getItemMeta().getAttributeModifiers().keySet()) {
-                Map<Object, Object> attribute = new LinkedHashMap<>();
+            itemStack.itemMeta.attributeModifiers?.keySet()?.forEach {
+                val attribute: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
-                Collection<AttributeModifier> modifiers = itemStack.getItemMeta().getAttributeModifiers().get(key);
+                val modifiers: Collection<AttributeModifier?>? = itemStack.itemMeta.attributeModifiers?.get(it)
 
-                for (AttributeModifier modifier : modifiers) {
-                    Map<Object, Object> modifierMap = new LinkedHashMap<>();
+                modifiers?.forEach {
+                    val modifierMap: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
-                    modifierMap.put("name", modifier.getName());
-                    modifierMap.put("operation", modifier.getOperation().name());
-                    modifierMap.put("amount", modifier.getAmount());
+                    modifierMap.put("name", it!!.name)
+                    modifierMap.put("operation", it.operation.name)
+                    modifierMap.put("amount", it.amount)
 
-                    attribute.put(key.name(), modifierMap);
+                    attribute.put(it.name, modifierMap)
                 }
 
-                attributes.add(attribute);
+                attributes.add(attribute)
             }
 
-            map.put("attributes", attributes);
+            map.put("attributes", attributes)
         }
 
-        if (itemStack.getItemMeta().isUnbreakable())
-            map.put("unbreakable", true);
+        if (itemStack.itemMeta.isUnbreakable)
+            map.put("unbreakable", true)
 
-        return map;
+        return map
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public @NotNull ItemStack deserialize(@NotNull Map<Object, Object> map) {
-        Material mat = Material.getMaterial((String) map.get("material"));
+    @Suppress("UNCHECKED_CAST")
+    override fun deserialize(map: Map<in Any, Any?>): ItemStack {
+        val mat = Material.getMaterial(map["material"] as String)
 
         if (mat == null)
-            throw new IllegalArgumentException("Material does not exist!");
+            throw IllegalArgumentException("Material does not exist!")
 
         if (!map.containsKey("count"))
-            throw new IllegalArgumentException("Count variable isn't set!");
+            throw IllegalArgumentException("Count variable isn't set!")
 
-        int count = (int) map.get("count");
+        val count = map["count"] as Int
 
-        ItemStack stack = new ItemStack(mat, count);
-        ItemMeta meta = stack.getItemMeta();
+        val stack = ItemStack(mat, count)
+        val meta = stack.itemMeta
 
         if (map.containsKey("name"))
             meta.displayName(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize((String) map.get("name"))
-            );
+                LegacyComponentSerializer.legacyAmpersand().deserialize(map["name"] as String)
+            )
 
         if (map.containsKey("lore"))
             meta.lore(
-                    ((List<String>) map.get("lore")).stream()
-                            .map(s -> (Component) LegacyComponentSerializer.legacyAmpersand().deserialize(s))
-                            .toList()
-            );
+                (map["lore"] as List<String>).stream()
+                    .map { LegacyComponentSerializer.legacyAmpersand().deserialize(it) as Component }
+                    .toList()
+            )
 
         if (map.containsKey("custom_model_data"))
-            meta.setCustomModelData(Integer.parseInt(map.get("custom_model_data").toString()));
+            meta.setCustomModelData(map["custom_model_data"] as Int)
 
         if (map.containsKey("enchantments")) {
-            Map<String, Integer> enchantments = (Map<String, Integer>) map.get("enchantments");
+            val enchantments = map["enchantments"] as Map<String, Int>
 
-            for (String key : enchantments.keySet()) {
-                int level = enchantments.get(key);
+            for (key in enchantments.keys) {
+                val level = enchantments[key] as Int
 
-                meta.addEnchant(Objects.requireNonNull(Enchantment.getByKey(NamespacedKey.minecraft(key))), level, true);
+                meta.addEnchant(
+                    Enchantment.getByKey(NamespacedKey.minecraft(key))!!,
+                    level,
+                    true
+                )
             }
         }
 
         if (map.containsKey("flags"))
-            for (String key : (List<String>) map.get("flags"))
-                meta.addItemFlags(ItemFlag.valueOf(key));
+            for (key in map["flags"] as List<String>)
+                meta.addItemFlags(ItemFlag.valueOf(key))
 
         if (map.containsKey("attributes")) {
-            List<Map<String, Map<String, Object>>> attributes = (List<Map<String, Map<String, Object>>>) map.get("attributes");
+            val attributes = map["attributes"] as List<Map<String, Map<String, Any>>>
 
-            for (Map<String, Map<String, Object>> attribute : attributes) {
-                for (String key : attribute.keySet()) {
-                    Map<String, Object> modifierMap = attribute.get(key);
+            for (attribute in attributes) {
+                for (key in attribute.keys) {
+                    val modifierMap = attribute[key]
 
-                    String name = (String) modifierMap.get("name");
-                    AttributeModifier.Operation operation = AttributeModifier.Operation.valueOf((String) modifierMap.get("operation"));
-                    double amount = (Double) modifierMap.get("amount");
+                    val name = modifierMap!!["name"] as String
+                    val operation = AttributeModifier.Operation.valueOf(modifierMap["operation"] as String)
+                    val amount = modifierMap["amount"] as Double
 
-                    AttributeModifier modifier = new AttributeModifier(name, amount, operation);
-                    Attribute attr = Attribute.valueOf(key);
+                    val modifier = AttributeModifier(name, amount, operation)
+                    val attr = Attribute.valueOf(key)
 
-                    meta.addAttributeModifier(attr, modifier);
+                    meta.addAttributeModifier(attr, modifier)
                 }
             }
         }
 
-        if (map.containsKey("unbreakable")) {
-            meta.setUnbreakable((Boolean) map.get("unbreakable"));
-        }
+        if (map.containsKey("unbreakable"))
+            meta.isUnbreakable = map["unbreakable"] as Boolean
 
-        stack.setItemMeta(meta);
+        stack.itemMeta = meta
 
-        return stack;
+        return stack
     }
 }

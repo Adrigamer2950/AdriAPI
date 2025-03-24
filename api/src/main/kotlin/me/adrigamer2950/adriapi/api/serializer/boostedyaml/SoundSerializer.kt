@@ -1,56 +1,51 @@
-package me.adrigamer2950.adriapi.api.serializer.boostedyaml;
+package me.adrigamer2950.adriapi.api.serializer.boostedyaml
 
-import dev.dejvokep.boostedyaml.serialization.standard.TypeAdapter;
-import me.adrigamer2950.adriapi.api.sound.Sound;
-import org.bukkit.SoundCategory;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.Map;
+import dev.dejvokep.boostedyaml.serialization.standard.TypeAdapter
+import me.adrigamer2950.adriapi.api.sound.Sound
+import org.bukkit.SoundCategory
+import org.bukkit.Sound as BukkitSound
 
 @SuppressWarnings("unused")
-public class SoundSerializer implements TypeAdapter<Sound> {
+class SoundSerializer : TypeAdapter<Sound> {
 
-    @Override
-    public @NotNull Map<Object, Object> serialize(@NotNull Sound sound) {
-        Map<Object, Object> map = new HashMap<>();
+    override fun serialize(sound: Sound): Map<in Any, Any?> {
+        val map: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
-        map.put("sound", sound.getSound().name());
+        map.put("sound", sound.sound.name)
 
-        if (sound.getVolume() != 1.0) {
-            map.put("volume", sound.getVolume());
+        if (sound.volume != 1.0f) {
+            map.put("volume", sound.volume)
         }
 
-        if (sound.getPitch() != 1.0) {
-            map.put("pitch", sound.getPitch());
+        if (sound.pitch != 1.0f) {
+            map.put("pitch", sound.pitch)
         }
 
-        map.put("category", sound.getCategory().name());
+        map.put("category", sound.category.name)
 
-        return map;
+        return map
     }
 
-    @Override
-    public @NotNull Sound deserialize(@NotNull Map<Object, Object> map) {
-        org.bukkit.Sound sound = org.bukkit.Sound.valueOf((String) map.get("sound"));
+    override fun deserialize(map: Map<in Any, Any?>): Sound {
+        val sound: BukkitSound = BukkitSound.valueOf(map["sound"] as String)
 
-        float volume = 1.0f;
+        var volume = 1.0f
         if (map.containsKey("volume")) {
-            volume = Float.parseFloat(map.get("volume").toString());
+            volume = (map["volume"] as Float)
         }
 
-        float pitch = 1.0f;
+        var pitch = 1.0f
         if (map.containsKey("pitch")) {
-            pitch = Float.parseFloat(map.get("pitch").toString());
+            pitch = (map["pitch"] as Float)
         }
 
-        SoundCategory category = SoundCategory.valueOf((String) map.get("category"));
+        val category = SoundCategory.valueOf(map["category"] as String)
 
         return Sound.builder()
-                .sound(sound)
-                .volume(volume)
-                .pitch(pitch)
-                .category(category)
-                .build();
+            .sound(sound)
+            .volume(volume)
+            .pitch(pitch)
+            .category(category)
+            .build()
     }
 }
