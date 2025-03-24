@@ -6,6 +6,7 @@ import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.event.command.CommandLoadedEvent;
 import me.adrigamer2950.adriapi.api.event.command.CommandUnloadedEvent;
 import me.adrigamer2950.adriapi.api.user.User;
+import me.adrigamer2950.adriapi.api.user.UserFactory;
 import me.adrigamer2950.adriapi.api.util.CommandUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -53,7 +54,7 @@ public abstract class AbstractCommand extends org.bukkit.command.Command impleme
 
     @Override
     public final boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        this.execute(User.fromBukkitSender(sender), args, commandLabel);
+        this.execute(UserFactory.INSTANCE.fromBukkitSender(sender), args, commandLabel);
 
         return true;
     }
@@ -65,7 +66,7 @@ public abstract class AbstractCommand extends org.bukkit.command.Command impleme
 
     @Override
     public final @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String commandName, @NotNull String[] args) throws IllegalArgumentException {
-        return tabComplete(User.fromBukkitSender(sender), args, commandName);
+        return tabComplete(UserFactory.INSTANCE.fromBukkitSender(sender), args, commandName);
     }
 
     @SuppressWarnings("unused")

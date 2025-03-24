@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi.api.user;
+package me.adrigamer2950.adriapi.api.user
 
 import me.adrigamer2950.adriapi.api.colors.Colors
 import net.kyori.adventure.text.Component
@@ -18,7 +18,7 @@ import java.util.Optional
  * @since 2.0.0
  */
 @ApiStatus.Internal
-class UserImpl(override val bukkitSender: CommandSender) : User {
+class UserImpl internal constructor(override val bukkitSender: CommandSender) : User {
 
     override fun isConsole(): Boolean {
         return bukkitSender is ConsoleCommandSender
