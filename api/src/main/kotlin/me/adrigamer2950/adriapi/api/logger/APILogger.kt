@@ -1,190 +1,158 @@
-package me.adrigamer2950.adriapi.api.logger;
+package me.adrigamer2950.adriapi.api.logger
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.api.colors.Colors;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
+import me.adrigamer2950.adriapi.api.APIPlugin
+import me.adrigamer2950.adriapi.api.colors.Colors
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import java.util.logging.Level
+import java.util.logging.LogRecord
+import java.util.logging.Logger
 
 /**
  * Main Logger class
  */
+@Suppress("unused")
 @SuppressWarnings("unused")
-@Setter
-@Getter
-public class APILogger extends Logger {
+class APILogger(val name: String, parent: Logger) : Logger(name, null) {
 
-    private boolean debug;
+    constructor(plugin: APIPlugin, parent: Logger) : this(plugin.description.prefix ?: plugin.description.name, parent)
+    constructor(plugin: APIPlugin) : this(plugin, plugin.server.logger)
 
-    /**
-     * @param plugin The plugin
-     */
-    public APILogger(@NonNull APIPlugin plugin) {
-        this(plugin, plugin.getServer().getLogger());
+    var debug: Boolean = false
+
+    init {
+        setParent(parent)
+        setLevel(Level.ALL)
     }
 
-    /**
-     * @param plugin The plugin
-     * @param parent The logger's parent
-     */
-    public APILogger(@NonNull APIPlugin plugin, @NonNull @NotNull Logger parent) {
-        this(
-                plugin.getDescription().getPrefix() != null ? plugin.getDescription().getPrefix() : plugin.getDescription().getName(),
-                parent
-        );
-    }
-
-    /**
-     * @param name   The logger's name
-     * @param parent The logger's parent
-     */
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
-    @Deprecated(forRemoval = true)
-    public APILogger(@NonNull @NotNull String name, @NonNull @NotNull Logger parent) {
-        super(name, null);
-
-        setParent(parent);
-        setLevel(Level.ALL);
-    }
-
-    private String colorizeMessage(String msg) {
+    fun colorizeMessage(msg: String): String {
         return Colors.translateToAnsi(
-                Colors.translateAPIColors(
-                        msg
-                ),
-                '§'
-        );
+            Colors.translateAPIColors(
+                msg
+            ),
+            '§'
+        )
     }
 
     /**
      * @param component The component
      */
-    public void info(@NonNull Component component) {
-        this.info(LegacyComponentSerializer.legacyAmpersand().serialize(component));
+    fun info(component: Component) {
+        this.info(LegacyComponentSerializer.legacyAmpersand().serialize(component))
     }
 
     /**
      * @param msg The message that you want to send
      */
-    public void info(@NonNull String msg) {
-        super.info(msg);
+    override fun info(msg: String) {
+        super.info(msg)
     }
 
     /**
      * @param component The component
      */
-    public void warn(@NonNull Component component) {
-        this.warn(LegacyComponentSerializer.legacyAmpersand().serialize(component));
+    fun warn(component: Component) {
+        this.warn(LegacyComponentSerializer.legacyAmpersand().serialize(component))
     }
 
     /**
      * @param msg The message that you want to send
      */
-    public void warn(@NonNull String msg) {
-        super.warning(msg);
+    fun warn(msg: String) {
+        super.warning(msg)
     }
 
     /**
      * @param component The component
      */
-    public void error(@NonNull Component component) {
-        this.error(LegacyComponentSerializer.legacyAmpersand().serialize(component));
+    fun error(component: Component) {
+        this.error(LegacyComponentSerializer.legacyAmpersand().serialize(component))
     }
 
     /**
      * @param msg The message that you want to send
      */
-    public void error(@NonNull String msg) {
-        super.severe(msg);
+    fun error(msg: String) {
+        super.severe(msg)
     }
 
     /**
      * @param throwable The throwable that you want to log
      */
-    public void error(@NonNull Throwable throwable) {
-        this.error("An error occurred: " + throwable.getMessage(), throwable);
+    fun error(throwable: Throwable) {
+        this.error("An error occurred: " + throwable.message, throwable)
     }
 
     /**
      * @param component The component
      * @param throwable The throwable that you want to log
      */
-    public void error(@NonNull Component component, @NonNull Throwable throwable) {
-        this.error(LegacyComponentSerializer.legacyAmpersand().serialize(component), throwable);
+    fun error(component: Component, throwable: Throwable) {
+        this.error(LegacyComponentSerializer.legacyAmpersand().serialize(component), throwable)
     }
 
     /**
      * @param msg The message that you want to send
      * @param throwable The throwable that you want to log
      */
-    public void error(@NonNull String msg, @NonNull Throwable throwable) {
-        super.log(Level.SEVERE, msg, throwable);
+    fun error(msg: String, throwable: Throwable) {
+        super.log(Level.SEVERE, msg, throwable)
     }
 
     /**
      * @param component The component
      */
-    public void debug(@NonNull Component component) {
-        this.debug(component, false);
+    fun debug(component: Component) {
+        this.debug(component, false)
     }
 
     /**
      * @param component The component
      * @param forceLog  If the log should be forced
      */
-    public void debug(@NonNull Component component, boolean forceLog) {
-        if (!this.isDebug() && !forceLog) return;
+    fun debug(component: Component, forceLog: Boolean) {
+        if (!this.debug && !forceLog) return
 
-        this.info(Component.text("[DEBUG]").append(component));
+        this.info(Component.text("[DEBUG]").append(component))
     }
 
     /**
      * @param msg The message that you want to send
      */
-    public void debug(@NonNull String msg) {
-        this.debug(msg, false);
+    fun debug(msg: String) {
+        this.debug(msg, false)
     }
 
     /**
      * @param msg The message that you want to send
      * @param forceLog  If the log should be forced
      */
-    public void debug(@NonNull String msg, boolean forceLog) {
-        if (!this.isDebug() && !forceLog) return;
+    fun debug(msg: String, forceLog: Boolean) {
+        if (!this.debug && !forceLog) return
 
-        super.info("[DEBUG] %s".formatted(msg));
+        super.info("[DEBUG] $msg")
     }
 
     /**
      * @param level     The level of the log
      * @param component The component
      */
-    public void log(@NonNull Level level, @NonNull Component component) {
-        this.log(level, LegacyComponentSerializer.legacyAmpersand().serialize(component));
+    fun log(level: Level, component: Component) {
+        this.log(level, LegacyComponentSerializer.legacyAmpersand().serialize(component))
     }
 
     /**
      * @param level The level of the log
      * @param msg   The message that you want to send
      */
-    public void log(@NonNull Level level, @NonNull String msg) {
-        super.log(level, colorizeMessage(msg));
+    override fun log(level: Level, msg: String) {
+        super.log(level, colorizeMessage(msg))
     }
 
     @Override
-    public void log(@NotNull @NonNull LogRecord logRecord) {
-        logRecord.setMessage(
-                colorizeMessage(logRecord.getMessage())
-        );
-        super.log(logRecord);
+    override fun log(logRecord: LogRecord) {
+        logRecord.message = colorizeMessage(logRecord.message)
+        super.log(logRecord)
     }
 }
