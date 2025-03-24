@@ -3,8 +3,6 @@ package me.adrigamer2950.adriapi.api.command
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.user.User
 
-import java.util.List
-
 /**
  * Command interface. You can implement this interface
  * if you want to customize default behavior however
