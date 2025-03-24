@@ -1,30 +1,29 @@
-package me.adrigamer2950.adriapi.api.util;
+package me.adrigamer2950.adriapi.api.util
 
-import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandMap;
+import me.adrigamer2950.adriapi.api.APIPlugin
+import me.adrigamer2950.adriapi.api.command.manager.CommandManager
+import org.bukkit.Bukkit
+import org.bukkit.command.Command
 
-public class CommandUtil {
+object CommandUtil {
 
-    public static void unRegisterCommand(Command command, CommandManager commandManager) {
-        CommandMap commandMap = Bukkit.getCommandMap();
+    fun unRegisterCommand(command: Command, commandManager: CommandManager) {
+        val commandMap = Bukkit.getCommandMap()
 
-        commandMap.getKnownCommands().remove(command.getName());
-        command.getAliases().forEach(a -> commandMap.getKnownCommands().remove(a));
-        command.unregister(commandMap);
+        commandMap.knownCommands.remove(command.name)
+        command.aliases.forEach { commandMap.knownCommands.remove(it) }
+        command.unregister(commandMap)
 
-        commandManager.syncCommands();
+        commandManager.syncCommands()
     }
 
-    public static void registerCommand(Command command, APIPlugin plugin) {
-        CommandMap commandMap = Bukkit.getCommandMap();
+    fun registerCommand(command: Command, plugin: APIPlugin) {
+        val commandMap = Bukkit.getCommandMap()
 
-        org.bukkit.command.Command foundCommand = commandMap.getCommand(command.getName());
+        val foundCommand = commandMap.getCommand(command.name)
 
-        if (foundCommand != null) CommandUtil.unRegisterCommand(foundCommand, plugin.getCommandManager());
+        if (foundCommand != null) unRegisterCommand(foundCommand, plugin.commandManager)
 
-        commandMap.register(plugin.getName(), command);
+        commandMap.register(plugin.name, command)
     }
 }
