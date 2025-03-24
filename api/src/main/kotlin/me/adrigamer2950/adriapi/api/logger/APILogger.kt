@@ -14,7 +14,7 @@ import java.util.logging.Logger
  */
 @Suppress("unused")
 @SuppressWarnings("unused")
-class APILogger(val name: String, parent: Logger) : Logger(name, null) {
+class APILogger(name: String, parent: Logger) : Logger(name, null) {
 
     constructor(plugin: APIPlugin, parent: Logger) : this(plugin.description.prefix ?: plugin.description.name, parent)
     constructor(plugin: APIPlugin) : this(plugin, plugin.server.logger)
