@@ -58,6 +58,7 @@ public abstract class Inventory implements InventoryHolder {
     public void openInventory() {
         this.setupInventory();
 
+        //noinspection DataFlowIssue
         this.user.getPlayerOrNull().openInventory(this.getInventory());
     }
 
