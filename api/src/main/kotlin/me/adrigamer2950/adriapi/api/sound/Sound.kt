@@ -1,38 +1,71 @@
-package me.adrigamer2950.adriapi.api.sound;
+package me.adrigamer2950.adriapi.api.sound
 
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.Value;
-import org.bukkit.Location;
-import org.bukkit.SoundCategory;
-import org.bukkit.entity.Entity;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.Location
+import org.bukkit.SoundCategory
+import org.bukkit.entity.Entity
+import org.bukkit.Sound as BukkitSound
 
-@SuppressWarnings("unused")
-@Value
-@Builder
-public class Sound {
+@Suppress("unused")
+class Sound(
+    val sound: BukkitSound,
+    val volume: Float = 1.0f,
+    val pitch: Float = 1.0f,
+    val category: SoundCategory = SoundCategory.MASTER
+) {
 
-    @NotNull
-    @NonNull
-    org.bukkit.Sound sound;
-
-    @Builder.Default
-    float volume = 1.0f;
-
-    @Builder.Default
-    float pitch = 1.0f;
-
-    @NotNull
-    @NonNull
-    @Builder.Default
-    SoundCategory category = SoundCategory.MASTER;
-
-    public void playToEntity(Entity entity) {
-        entity.getWorld().playSound(entity, this.sound, this.category, this.volume, this.pitch);
+    fun playToEntity(entity: Entity) {
+        entity.world.playSound(entity, this.sound, this.category, this.volume, this.pitch);
     }
 
-    public void playOnLocation(Location l) {
-        l.getWorld().playSound(l, this.sound, this.category, this.volume, this.pitch);
+    fun playOnLocation(l: Location) {
+        l.world.playSound(l, this.sound, this.category, this.volume, this.pitch);
+    }
+
+    class Builder {
+        var sound: BukkitSound? = null
+            private set
+
+        var volume: Float = 1.0f
+            private set
+
+        var pitch: Float = 1.0f
+            private set
+
+        var category: SoundCategory = SoundCategory.MASTER
+            private set
+
+        fun sound(sound: BukkitSound): Builder {
+            this.sound = sound
+            return this
+        }
+
+        fun volume(volume: Float): Builder {
+            this.volume = volume
+            return this
+        }
+
+        fun pitch(pitch: Float): Builder {
+            this.pitch = pitch
+            return this
+        }
+
+        fun category(category: SoundCategory): Builder {
+            this.category = category
+            return this
+        }
+
+        fun build(): Sound {
+            if (this.sound == null)
+                throw IllegalArgumentException("Sound cannot be null")
+
+            return Sound(this.sound!!, this.volume, this.pitch, this.category)
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun builder(): Builder {
+            return Builder()
+        }
     }
 }
