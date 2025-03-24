@@ -1,168 +1,153 @@
-package me.adrigamer2950.adriapi.api.item;
+package me.adrigamer2950.adriapi.api.item
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-import lombok.AccessLevel;
-import lombok.NonNull;
-import lombok.experimental.FieldDefaults;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
+import com.google.common.collect.HashMultimap
+import com.google.common.collect.Multimap
+import net.kyori.adventure.text.Component
+import org.bukkit.Material
+import org.bukkit.attribute.Attribute
+import org.bukkit.attribute.AttributeModifier
+import org.bukkit.enchantments.Enchantment
+import org.bukkit.inventory.ItemFlag
+import org.bukkit.inventory.ItemStack
 
-import java.util.*;
+@Suppress("unused")
+class ItemBuilder {
 
-@SuppressWarnings({"unused", "UnusedReturnValue"})
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class ItemBuilder {
+    companion object {
+        @JvmStatic
+        fun builder(): ItemBuilder = ItemBuilder()
 
-    public static ItemBuilder builder() {
-        return new ItemBuilder();
+        @JvmStatic
+        fun fromItemStack(stack: ItemStack): ItemBuilder {
+            val builder = builder()
+                .material(stack.type)
+                .amount(stack.amount)
+                .name(
+                    if (stack.itemMeta.hasDisplayName())
+                        stack.itemMeta.displayName()
+                    else
+                        null
+                )
+                .lore(
+                    if (stack.itemMeta.hasLore())
+                        stack.itemMeta.lore() as List<Component>
+                    else
+                        listOfNotNull<Component>()
+                )
+                .customModelData(stack.itemMeta.customModelData)
+                .unbreakable(stack.itemMeta.isUnbreakable)
+
+            stack.itemMeta.enchants.forEach {
+                builder.addEnchantment(it.key, it.value)
+            }
+
+            stack.itemMeta.itemFlags.forEach {
+                builder.addItemFlag(it)
+            }
+
+            if (stack.itemMeta.hasAttributeModifiers())
+                stack.itemMeta.attributeModifiers!!.entries().forEach {
+                    builder.addAttributeModifier(it.key, it.value)
+                }
+
+            return builder
+        }
     }
 
-    public static ItemBuilder fromItemStack(@NotNull @NonNull ItemStack stack) {
-        ItemBuilder builder = ItemBuilder.builder()
-                .material(stack.getType())
-                .amount(stack.getAmount())
-                .name(stack.getItemMeta().hasDisplayName() ? stack.getItemMeta().displayName() : null)
-                .lore(stack.getItemMeta().hasLore() ? stack.getItemMeta().lore() : List.of())
-                .customModelData(stack.getItemMeta().getCustomModelData())
-                .unbreakable(stack.getItemMeta().isUnbreakable());
+    var material: Material? = null
+        private set
 
-        for (Map.Entry<Enchantment, Integer> entry : stack.getEnchantments().entrySet())
-            builder.addEnchantment(entry.getKey(), entry.getValue());
+    var amount: Int = 1
+        private set
 
-        for (ItemFlag flag : stack.getItemFlags())
-            builder.addItemFlag(flag);
+    var name: Component? = null
 
-        if (stack.getItemMeta().hasAttributeModifiers())
-            //noinspection DataFlowIssue
-            for (Map.Entry<Attribute, AttributeModifier> entry : stack.getItemMeta().getAttributeModifiers().entries())
-                builder.addAttributeModifier(entry.getKey(), entry.getValue());
+    val lore: MutableList<Component> = mutableListOf()
 
-        return builder;
+    var customModelData: Int = 0
+
+    val enchantments: MutableMap<Enchantment, Int> = mutableMapOf()
+
+    val flags: MutableSet<ItemFlag> = mutableSetOf()
+
+    val attributes: Multimap<Attribute, AttributeModifier> = HashMultimap.create()
+
+    var unbreakable: Boolean = false
+
+    fun material(material: Material): ItemBuilder {
+        this.material = material
+        return this
     }
 
-    Material material;
-    int amount = 1;
-    Component name;
-    List<Component> lore = new ArrayList<>();
-    int customModelData = 0;
-    final HashMap<Enchantment, Integer> enchantments = new HashMap<>();
-    final Set<ItemFlag> flags = new HashSet<>();
-    final Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-    boolean unbreakable = false;
-
-    public Material material() {
-        return this.material;
+    fun amount(amount: Int): ItemBuilder {
+        this.amount = amount
+        return this
     }
 
-    public ItemBuilder material(Material material) {
-        this.material = material;
-        return this;
+    fun name(name: Component?): ItemBuilder {
+        this.name = name
+        return this
     }
 
-    public int amount() {
-        return this.amount;
+    fun lore(lore: List<Component>): ItemBuilder {
+        this.lore.addAll(lore)
+        return this
     }
 
-    public ItemBuilder amount(int amount) {
-        this.amount = amount;
-        return this;
+    fun customModelData(customModelData: Int): ItemBuilder {
+        this.customModelData = customModelData
+        return this
     }
 
-    public Component name() {
-        return this.name;
+    fun addEnchantment(enchantment: Enchantment, level: Int): ItemBuilder {
+        this.enchantments[enchantment] = level
+        return this
     }
 
-    public ItemBuilder name(Component name) {
-        this.name = name;
-        return this;
+    fun addItemFlag(flag: ItemFlag): ItemBuilder {
+        this.flags.add(flag)
+        return this
     }
 
-    public List<Component> lore() {
-        return this.lore;
+    fun addAttributeModifier(attribute: Attribute, modifier: AttributeModifier): ItemBuilder {
+        this.attributes.put(attribute, modifier)
+        return this
     }
 
-    public ItemBuilder lore(List<Component> lore) {
-        this.lore = lore;
-        return this;
+    fun unbreakable(unbreakable: Boolean): ItemBuilder {
+        this.unbreakable = unbreakable
+        return this
     }
 
-    public int customModelData() {
-        return this.customModelData;
-    }
+    fun build(): ItemStack {
+        if (this.material == null)
+            throw IllegalArgumentException("Material cannot be null")
 
-    public ItemBuilder customModelData(int customModelData) {
-        this.customModelData = customModelData;
-        return this;
-    }
-
-    public HashMap<Enchantment, Integer> enchantments() {
-        return this.enchantments;
-    }
-
-    public ItemBuilder addEnchantment(Enchantment enchantment, int level) {
-        this.enchantments.put(enchantment, level);
-        return this;
-    }
-
-    public Set<ItemFlag> flags() {
-        return this.flags;
-    }
-
-    public ItemBuilder addItemFlag(ItemFlag flag) {
-        this.flags.add(flag);
-        return this;
-    }
-
-    public Multimap<Attribute, AttributeModifier> attributes() {
-        return this.attributes;
-    }
-
-    public ItemBuilder addAttributeModifier(Attribute attr, AttributeModifier mod) {
-        this.attributes.put(attr, mod);
-        return this;
-    }
-
-    public boolean unbreakable() {
-        return this.unbreakable;
-    }
-
-    public ItemBuilder unbreakable(boolean unbreakable) {
-        this.unbreakable = unbreakable;
-        return this;
-    }
-
-    public ItemStack build() {
-        ItemStack stack = new ItemStack(this.material(), this.amount());
-        ItemMeta meta = stack.getItemMeta();
+        val stack = ItemStack(this.material!!, this.amount)
+        val meta = stack.itemMeta
 
         if (name != null)
-            meta.displayName(this.name());
+            meta.displayName(name)
 
-        if (lore.isEmpty())
-            meta.lore(this.lore());
+        if (lore.isNotEmpty())
+            meta.lore(lore)
 
-        meta.setCustomModelData(this.customModelData());
+        meta.setCustomModelData(this.customModelData)
 
-        for (Map.Entry<Enchantment, Integer> entry : this.enchantments().entrySet())
-            meta.addEnchant(entry.getKey(), entry.getValue(), true);
+        this.enchantments.entries.forEach {
+            meta.addEnchant(it.key, it.value, true)
+        }
 
-        for (ItemFlag flag : this.flags())
-            meta.addItemFlags(flag);
+        this.flags.forEach {
+            meta.addItemFlags(it)
+        }
 
-        meta.setAttributeModifiers(this.attributes());
+        meta.attributeModifiers = this.attributes
 
-        meta.setUnbreakable(this.unbreakable());
+        meta.isUnbreakable = this.unbreakable
 
-        stack.setItemMeta(meta);
+        stack.itemMeta = meta
 
-        return stack;
+        return stack
     }
 }
