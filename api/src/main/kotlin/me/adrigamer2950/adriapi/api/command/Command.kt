@@ -1,10 +1,9 @@
-package me.adrigamer2950.adriapi.api.command;
+package me.adrigamer2950.adriapi.api.command
 
-import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.api.user.User;
-import org.jetbrains.annotations.NotNull;
+import me.adrigamer2950.adriapi.api.APIPlugin
+import me.adrigamer2950.adriapi.api.user.User
 
-import java.util.List;
+import java.util.List
 
 /**
  * Command interface. You can implement this interface
@@ -13,30 +12,30 @@ import java.util.List;
  *
  * @since 1.0.0
  */
-public interface Command {
+interface Command {
 
-    @NotNull String getName();
+    val name: String
 
-    @NotNull APIPlugin getPlugin();
+    val plugin: APIPlugin
 
-    @NotNull List<Command> getSubCommands();
+    val subCommands: List<Command>
 
     /**
      * Register the Command
      */
-    void register();
+    fun register()
 
     /**
      * Unregister the Command
      */
-    void unRegister();
+    fun unRegister()
 
     /**
      * @param user The user that executed the command
      * @param args The arguments of the command
      * @param commandName The alias of the command
      */
-    void execute(User user, String[] args, String commandName);
+    fun execute(user: User, args: Array<out String>, commandName: String)
 
     /**
      * @param user The user that executed the command
@@ -44,5 +43,5 @@ public interface Command {
      * @param commandName The alias of the command
      * @return The list of suggestions
      */
-    List<String> tabComplete(User user, String[] args, String commandName);
+    fun tabComplete(user: User, args: Array<out String>, commandName: String): List<String>
 }
