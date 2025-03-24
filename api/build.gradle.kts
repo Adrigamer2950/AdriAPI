@@ -80,8 +80,8 @@ dependencies {
     api(libs.libby)
     implementation(libs.libby)
 
-    api(project(":folia"))
-    implementation(project(":folia"))
+    api(project(":api:folia"))
+    implementation(project(":api:folia"))
 
     compileOnly(libs.boosted.yaml)
 }
