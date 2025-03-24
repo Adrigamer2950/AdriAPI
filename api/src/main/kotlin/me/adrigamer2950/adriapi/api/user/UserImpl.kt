@@ -1,14 +1,14 @@
 package me.adrigamer2950.adriapi.api.user;
 
-import me.adrigamer2950.adriapi.api.colors.Colors;
-import net.kyori.adventure.text.Component;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
+import me.adrigamer2950.adriapi.api.colors.Colors
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import org.bukkit.command.CommandSender
+import org.bukkit.command.ConsoleCommandSender
+import org.bukkit.entity.Player
+import org.jetbrains.annotations.ApiStatus
 
-import java.util.Optional;
+import java.util.Optional
 
 /**
  * Implementation of {@link User}. Preferable to use it as
@@ -18,80 +18,53 @@ import java.util.Optional;
  * @since 2.0.0
  */
 @ApiStatus.Internal
-public class UserImpl implements User {
+class UserImpl(override val bukkitSender: CommandSender) : User {
 
-    private final CommandSender sender;
+    override fun isConsole(): Boolean {
+        return bukkitSender is ConsoleCommandSender
+    }
 
-    UserImpl(CommandSender sender) {
-        this.sender = sender;
+    override fun isPlayer(): Boolean {
+        return bukkitSender is Player
+    }
+
+    override fun getConsole(): Optional<ConsoleCommandSender> {
+        if (isConsole()) return Optional.of(bukkitSender as ConsoleCommandSender)
+        return Optional.empty()
+    }
+
+    override fun getPlayer(): Optional<Player> {
+        if (isPlayer()) return Optional.of(bukkitSender as Player)
+        return Optional.empty()
+    }
+
+    override fun sendMessage(vararg messages: String) {
+        messages.forEach {
+            bukkitSender.sendMessage(
+                if (isConsole())
+                    Colors.translateToAnsi(it)
+                else
+                    Colors.translateColors(it)
+            )
+        }
     }
 
     @Override
-    public @NotNull CommandSender getBukkitSender() {
-        return this.sender;
+    override fun sendMessage(vararg components: Component) {
+        if (isPlayer())
+            components.forEach { bukkitSender.sendMessage(it) }
+        else
+            components.forEach {
+                this.sendMessage(LegacyComponentSerializer.legacyAmpersand().serialize(it))
+            }
     }
 
-    @Override
-    public boolean isConsole() {
-        return sender instanceof ConsoleCommandSender;
+    @Suppress("OVERRIDE_DEPRECATION")
+    override fun name(): Component {
+        return Component.text(this.name)
     }
 
-    @Override
-    public boolean isPlayer() {
-        return sender instanceof Player;
-    }
-
-    @Override
-    public @NotNull Optional<ConsoleCommandSender> getConsole() {
-        if (isConsole()) return Optional.of((ConsoleCommandSender) sender);
-        return Optional.empty();
-    }
-
-    @Override
-    public @NotNull Optional<Player> getPlayer() {
-        if (isPlayer()) return Optional.of((Player) sender);
-        return Optional.empty();
-    }
-
-    @Override
-    public void sendMessage(String message) {
-        sender.sendMessage(
-                this.isConsole()
-                        ? Colors.translateToAnsi(message)
-                        : Colors.translateColors(message)
-        );
-    }
-
-    @Override
-    public void sendMessage(String... messages) {
-        for (String msg : messages)
-            this.sendMessage(msg);
-    }
-
-    @Override
-    public void sendMessage(Component component) {
-        sender.sendMessage(component);
-    }
-
-    @Override
-    public void sendMessage(Component... components) {
-        for (Component comp : components)
-            this.sendMessage(comp);
-    }
-
-    @Override
-    public @NotNull String getName() {
-        return sender.getName();
-    }
-
-    @SuppressWarnings("removal")
-    @Override
-    public @NotNull Component name() {
-        return Component.text(this.getName());
-    }
-
-    @Override
-    public boolean hasPermission(String permission) {
-        return sender.hasPermission(permission);
+    override fun hasPermission(permission: String): Boolean {
+        return bukkitSender.hasPermission(permission)
     }
 }
