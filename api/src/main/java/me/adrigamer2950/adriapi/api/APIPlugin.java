@@ -31,11 +31,9 @@ public abstract class APIPlugin extends JavaPlugin {
     private final APILogger logger = new APILogger(this);
 
     /**
-     * Command Manager. Used to register a {@link Command} object.
-     * If command isn't found in the plugin's plugin.yml, it will register the
-     * command to the Server's CommandMap
+     * Command Manager. Used to register a {@link Command}
      */
-    private CommandManager<APIPlugin> commandManager;
+    private CommandManager commandManager;
 
     /**
      * Custom scheduler that takes advantage of Folia's scheduler
@@ -77,7 +75,7 @@ public abstract class APIPlugin extends JavaPlugin {
 
     private void loadHooks() {
         this.getLogger().debug("&6Loading Command Manager...");
-        this.commandManager = new CommandManager<>(this);
+        this.commandManager = new CommandManager(this);
 
         this.getLogger().debug("&6Loading Scheduler...");
         this.scheduler = Scheduler.get(this, this.getServerType().equals(ServerType.FOLIA));
@@ -122,9 +120,8 @@ public abstract class APIPlugin extends JavaPlugin {
      * @param commands The Set of commands
      * @see Command
      */
-    protected void registerCommands(@NonNull Set<@NonNull Command<? extends APIPlugin>> commands) {
-        for (Command<? extends APIPlugin> command : commands)
-            this.registerCommand(command);
+    protected void registerCommands(@NonNull Set<@NonNull Command> commands) {
+        commands.forEach(this::registerCommand);
     }
 
     /**
@@ -133,8 +130,16 @@ public abstract class APIPlugin extends JavaPlugin {
      * @param command The command
      * @see Command
      */
-    protected void registerCommand(@NonNull Command<? extends APIPlugin> command) {
+    protected void registerCommand(@NonNull Command command) {
         this.commandManager.registerCommand(command);
+    }
+
+    protected void unRegisterCommand(@NonNull String name) {
+        this.commandManager.getCommand(name).ifPresent(this::unRegisterCommand);
+    }
+
+    protected void unRegisterCommand(@NonNull Command command) {
+        this.commandManager.unRegisterCommand(command);
     }
 
     /**
@@ -144,8 +149,7 @@ public abstract class APIPlugin extends JavaPlugin {
      * @see Listener
      */
     protected void registerListeners(@NonNull Set<@NonNull Listener> listeners) {
-        for (Listener listener : listeners)
-            this.registerListener(listener);
+        listeners.forEach(this::registerListener);
     }
 
     /**

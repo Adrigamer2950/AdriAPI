@@ -12,5 +12,5 @@ import org.bukkit.event.Event;
 @RequiredArgsConstructor
 public abstract class CommandEvent extends Event {
 
-    private final Command<?> command;
+    private final Command command;
 }

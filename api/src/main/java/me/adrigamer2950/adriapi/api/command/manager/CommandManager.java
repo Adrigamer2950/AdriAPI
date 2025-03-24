@@ -1,94 +1,71 @@
 package me.adrigamer2950.adriapi.api.command.manager;
 
-import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.command.Command;
-import me.adrigamer2950.adriapi.api.event.command.CommandLoadedEvent;
-import me.adrigamer2950.adriapi.api.exceptions.command.CommandNotInPluginYMLException;
-import me.adrigamer2950.adriapi.api.logger.APILogger;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandMap;
-import org.bukkit.command.PluginCommand;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.util.Optional;
 
 /**
- * Manage commands.
+ * Register and unregister commands
  *
- * @param <T> Your plugin's main class
  * @see Command
  * @since 1.0.0
  */
-@SuppressWarnings("unused")
-public final class CommandManager<T extends APIPlugin> {
+@RequiredArgsConstructor
+public class CommandManager {
 
-    public final APILogger LOGGER;
-    private final List<Command<? extends APIPlugin>> commands = new ArrayList<>();
+    private final APIPlugin plugin;
 
-    @Getter
-    private final T plugin;
+    private final MethodHandle syncCommands = this.findSyncCommandsMethod();
 
-    /**
-     * @param pl The plugin
-     */
-    public CommandManager(T pl) {
-        this.plugin = pl;
-
-        this.LOGGER = this.plugin.getLogger();
+    private MethodHandle findSyncCommandsMethod() {
+        try {
+            return MethodHandles.lookup().findVirtual(Bukkit.getServer().getClass(), "syncCommands", MethodType.methodType(void.class));
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new RuntimeException("Could not find syncCommands method", e);
+        }
     }
 
     /**
-     * This method allows you to register and load commands for their use.
+     * Register commands
      *
-     * @param command The command that you want to register and load.
-     * @throws IllegalArgumentException       if command is null
-     * @throws CommandNotInPluginYMLException if command is not registered in your plugin.yml
-     * @since 1.0.0
+     * @param command The command that you want to register
+     * @throws IllegalArgumentException if command is already registered
      */
-    public void registerCommand(Command<? extends APIPlugin> command) {
-        if (command == null) {
-            throw new NullPointerException("Command must not be null");
-        }
-
-        CommandMap commandMap = command.getPlugin().getServer().getCommandMap();
-
-        if (commandMap.getCommand(command.getName()) == null) {
-            commandMap.register(command.getPlugin().getDescription().getName(), command);
-        } else {
-            PluginCommand plCmd = command.getPlugin().getServer().getPluginCommand(command.getName());
-            if (plCmd == null || plCmd.getPlugin() != command.getPlugin()) {
-                LOGGER.error(String.format("&cERROR LOADING COMMAND '%s'", command.getName()));
-                throw new CommandNotInPluginYMLException(String.format("Command '%s' must be registered in plugin.yml", command.getName()));
-            }
-
-            plCmd.setExecutor(command);
-            plCmd.setTabCompleter(command);
-        }
-
-        commands.add(command);
-
-        CommandLoadedEvent event = new CommandLoadedEvent(command, plugin);
-        Bukkit.getPluginManager().callEvent(event);
-
-        LOGGER.debug(
-                String.format("Command '%s' for plugin %s v%s has been successfully loaded", command.getName(), command.getPlugin().getName(), command.getPlugin().getDescription().getVersion())
-        );
+    public void registerCommand(@NotNull @NonNull Command command) {
+        command.register();
     }
 
-    /**
-     * @param name The name of the command.
-     * @return Registered command. Null if command doesn't exist.
-     * @since 1.0.0
-     */
-    public Command<? extends APIPlugin> getCommand(String name) {
-        for (Command<? extends APIPlugin> cmd : commands) {
-            if (!Objects.equals(cmd.getName(), name)) continue;
+    public void unRegisterCommand(@NotNull @NonNull Command command) {
+        command.unRegister();
+    }
 
-            return cmd;
+    public void syncCommands() {
+        try {
+            if (this.syncCommands != null) this.syncCommands.invoke(Bukkit.getServer());
+        } catch (Throwable e) {
+            this.plugin.getLogger().error("Could not sync commands", e);
         }
+    }
 
-        return null;
+    public Optional<Command> getCommand(String name) {
+        return Bukkit.getCommandMap().getKnownCommands().values().stream()
+                .filter(command -> command instanceof Command)
+                .map(command -> (Command) command)
+                .filter(command -> command.getPlugin().equals(this.plugin))
+                .filter(command -> command.getName().equalsIgnoreCase(name))
+                .findFirst();
+    }
+
+    @SuppressWarnings("unused")
+    public Command getCommandOrNull(String name) {
+        return this.getCommand(name).orElse(null);
     }
 }

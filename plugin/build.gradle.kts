@@ -22,11 +22,4 @@ bukkit {
     website = "https://github.com/Adrigamer2950/AdriAPI"
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     foliaSupported = true
-
-    commands {
-        register("adriapi") {
-            description = "Main command"
-            usage = "/adriapi"
-        }
-    }
 }

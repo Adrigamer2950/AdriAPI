@@ -6,12 +6,12 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * This event will be triggered when a {@link Command} is successfully loaded
+ * This event will be triggered when a {@link Command} is unloaded
  *
  * @see Command
  */
 @Getter
-public class CommandLoadedEvent extends CommandEvent {
+public class CommandUnloadedEvent extends CommandEvent {
 
     private static final HandlerList handlers = new HandlerList();
 
@@ -25,7 +25,7 @@ public class CommandLoadedEvent extends CommandEvent {
         return handlers;
     }
 
-    public CommandLoadedEvent(Command command) {
+    public CommandUnloadedEvent(Command command) {
         super(command);
     }
 }

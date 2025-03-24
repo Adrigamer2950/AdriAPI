@@ -30,7 +30,7 @@ public final class AdriAPI extends APIPlugin {
     public void onPostLoad() {
         this.registerListener(new InventoriesListener());
 
-        this.registerCommand(new AdriAPICommand(this));
+        this.registerCommand(new AdriAPICommand(this, "adriapi"));
 
         this.getLogger().info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD));
     }
