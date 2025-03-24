@@ -1,192 +1,184 @@
-package me.adrigamer2950.adriapi.api;
+package me.adrigamer2950.adriapi.api
 
-import lombok.Getter;
-import lombok.NonNull;
-import me.adrigamer2950.adriapi.api.command.Command;
-import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
-import me.adrigamer2950.adriapi.api.scheduler.Scheduler;
-import me.adrigamer2950.adriapi.api.library.manager.LibraryManager;
-import me.adrigamer2950.adriapi.api.logger.APILogger;
-import me.adrigamer2950.adriapi.api.util.ServerType;
-import me.adrigamer2950.adriapi.api.util.bStats;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.ApiStatus;
-
-import java.util.Set;
+import me.adrigamer2950.adriapi.api.command.Command
+import me.adrigamer2950.adriapi.api.command.manager.CommandManager
+import me.adrigamer2950.adriapi.api.library.manager.LibraryManager
+import me.adrigamer2950.adriapi.api.logger.APILogger
+import me.adrigamer2950.adriapi.api.scheduler.Scheduler
+import me.adrigamer2950.adriapi.api.util.ServerType
+import me.adrigamer2950.adriapi.api.util.bStats
+import org.bukkit.event.Listener
+import org.bukkit.plugin.java.JavaPlugin
+import org.jetbrains.annotations.ApiStatus
+import java.util.function.Consumer
 
 /**
- * APIPlugin is an extension of the {@link JavaPlugin} class
- * that gives you full control over AdriAPI's functions.
- * You should make your plugin's main class extend this class,
- * because it's necessary for many functions AdriAPI has.
+ * Extension of JavaPlugin which works as
+ * a main class for plugins, just like JavaPlugin
  *
  * @see org.bukkit.plugin.java.JavaPlugin
  * @since 2.0.0
  */
-@SuppressWarnings({"unused"})
-@Getter
-public abstract class APIPlugin extends JavaPlugin {
+abstract class APIPlugin : JavaPlugin() {
 
-    private final APILogger logger = new APILogger(this);
+    val logger = APILogger(this)
 
     /**
      * Command Manager. Used to register a {@link Command}
      */
-    private CommandManager commandManager;
+    lateinit var commandManager: CommandManager
 
     /**
      * Custom scheduler that takes advantage of Folia's scheduler
      * without the need to check all the time if the server is running Folia
      */
-    private Scheduler scheduler;
+    lateinit var scheduler: Scheduler
 
     /**
      * bStats wrapper
      */
-    private bStats bstats;
+    lateinit var bStats: bStats
+    protected open var bStatsServiceId = 0
 
     /**
      * @see ServerType
      */
-    private ServerType serverType;
+    lateinit var serverType: ServerType
 
     /**
      * The library manager. Used to download libraries on runtime
      */
-    private LibraryManager libraryManager;
+    lateinit var libraryManager: LibraryManager
 
-    @Override
-    public final void onLoad() {
-        this.serverType = ServerType.getType();
-        this.libraryManager = LibraryManager.get(this);
+    var debug: Boolean
+        get() = logger.isDebug
+        set(debug) {
+            logger.isDebug = debug
+        }
 
-        onPreLoad();
+    final override fun onLoad() {
+        this.serverType = ServerType.type
+        this.libraryManager = LibraryManager.get(this)
 
-        this.getLogger().debug("&6Loading hooks...");
-        loadHooks();
+        this.onPreLoad()
+
+        logger.debug("&6Loading hooks...")
+        loadHooks()
     }
 
-    @Override
-    public final void onEnable() {
-        this.getLogger().debug("&6Enabling plugin...");
-        onPostLoad();
+    final override fun onEnable() {
+        logger.debug("&6Enabling plugin...")
+        onPostLoad()
     }
 
-    private void loadHooks() {
-        this.getLogger().debug("&6Loading Command Manager...");
-        this.commandManager = new CommandManager(this);
+    final override fun onDisable() {
+        logger.debug("&6Disabling plugin...")
+        onUnload()
 
-        this.getLogger().debug("&6Loading Scheduler...");
-        this.scheduler = Scheduler.get(this, this.getServerType().equals(ServerType.FOLIA));
+        if (this::bStats.isInitialized)
+            bStats.shutdown()
+    }
 
-        if (this.getBStatsServiceId() != 0) {
-            this.getLogger().debug("&6Loading bStats hook...");
-            this.bstats = new bStats(this, this.getBStatsServiceId());
+    private fun loadHooks() {
+        logger.debug("&6Loading Command Manager...")
+        commandManager = CommandManager(this)
+
+        logger.debug("&6Loading Scheduler...")
+        scheduler = Scheduler.get(this, serverType == ServerType.FOLIA)
+
+        if (bStatsServiceId != 0) {
+            logger.debug("&6Loading bStats hook...")
+            bStats = bStats(this, bStatsServiceId)
         }
     }
 
     /**
      * Called before loading AdriAPI's hooks
      */
-    public abstract void onPreLoad();
+    abstract fun onPreLoad()
 
     /**
      * Called after loading AdriAPI's hooks
      */
-    public abstract void onPostLoad();
+    abstract fun onPostLoad()
 
     /**
      * Called before unloading AdriAPI's hooks
      */
-    public abstract void onUnload();
-
-    @Override
-    public final void onDisable() {
-        this.getLogger().debug("&6Unloading plugin...");
-        this.onUnload();
-
-        this.commandManager = null;
-        this.scheduler = null;
-        if (this.bstats != null) this.bstats.shutdown();
-        this.bstats = null;
-        this.serverType = null;
-        this.libraryManager = null;
-    }
+    abstract fun onUnload()
 
     /**
-     * Registers a {@link Set} of {@link Command}
+     * Registers a [Set] of [Command]
      *
      * @param commands The Set of commands
      * @see Command
      */
-    protected void registerCommands(@NonNull Set<@NonNull Command> commands) {
-        commands.forEach(this::registerCommand);
+    protected fun registerCommands(commands: MutableSet<Command>) {
+        commands.forEach {
+            registerCommand(it)
+        }
     }
 
     /**
-     * Registers a {@link Command}
+     * Registers a [Command]
      *
      * @param command The command
      * @see Command
      */
-    protected void registerCommand(@NonNull Command command) {
-        this.commandManager.registerCommand(command);
-    }
-
-    protected void unRegisterCommand(@NonNull String name) {
-        this.commandManager.getCommand(name).ifPresent(this::unRegisterCommand);
-    }
-
-    protected void unRegisterCommand(@NonNull Command command) {
-        this.commandManager.unRegisterCommand(command);
+    protected fun registerCommand(command: Command) {
+        commandManager.registerCommand(command)
     }
 
     /**
-     * Registers a {@link Set} of {@link Listener}
+     * Unregisters a [Command] by its name
+     *
+     * @param command The command
+     * @see Command
+     */
+    protected fun unRegisterCommand(name: String) {
+        this.commandManager.getCommand(name)
+            .ifPresent(Consumer { command: Command? -> this.unRegisterCommand(command!!) })
+    }
+
+    /**
+     * Unregisters a [Command]
+     *
+     * @param command The command
+     * @see Command
+     */
+    protected fun unRegisterCommand(command: Command) {
+        this.commandManager.unRegisterCommand(command)
+    }
+
+    /**
+     * Registers a [Set] of [Listener]
      *
      * @param listeners The listeners
      * @see Listener
      */
-    protected void registerListeners(@NonNull Set<@NonNull Listener> listeners) {
-        listeners.forEach(this::registerListener);
+    protected fun registerListeners(listeners: MutableSet<Listener>) {
+        listeners.forEach {
+            this.registerListener(it)
+        }
     }
 
     /**
-     * Registers a {@link Listener}
+     * Registers a [Listener]
      *
      * @param listener The listener
      * @see Listener
      */
-    protected void registerListener(@NonNull Listener listener) {
-        getServer().getPluginManager().registerEvents(listener, this);
-    }
-
-    /**
-     * Override with your bStats plugin id to enable bStats module
-     *
-     * @return Your bStats plugin id, 0 if you didn't override this method
-     */
-    protected int getBStatsServiceId() {
-        return 0;
+    protected fun registerListener(listener: Listener) {
+        server.pluginManager.registerEvents(listener, this)
     }
 
     /**
      * @return The plugin's Logger
-     * @see APIPlugin#getLogger()
-     * @deprecated In favor of {@link APIPlugin#getLogger()}
+     * @see APIPlugin.getLogger
      */
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
-    @Deprecated(forRemoval = true)
-    public APILogger getApiLogger() {
-        return this.getLogger();
-    }
-
-    public boolean isDebug() {
-        return this.logger.isDebug();
-    }
-
-    protected void setDebug(boolean debug) {
-        this.logger.setDebug(debug);
+    @Deprecated("In favor of APIPlugin#getLogger()")
+    fun getApiLogger(): APILogger {
+        return logger
     }
 }

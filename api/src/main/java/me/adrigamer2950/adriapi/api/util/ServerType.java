@@ -16,8 +16,7 @@ public enum ServerType {
 
     BUKKIT("Bukkit");
 
-    @Getter
-    private static final ServerType type = ServerType.getServerType();
+    public static final ServerType type = ServerType.getServerType();
 
     @SuppressWarnings("NonFinalFieldInEnum")
     @Setter(AccessLevel.PRIVATE)
