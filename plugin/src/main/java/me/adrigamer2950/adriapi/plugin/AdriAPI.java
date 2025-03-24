@@ -17,7 +17,7 @@ public final class AdriAPI extends APIPlugin {
                         .append(Component.text("AdriAPI ", NamedTextColor.GREEN))
                         .append(Component.text("v%s".formatted(this.getDescription().getVersion()), NamedTextColor.GOLD)),
                 Component.text("|    ")
-                        .append(Component.text("Running on %s".formatted(this.getServerType().getName()), NamedTextColor.BLUE)),
+                        .append(Component.text("Running on %s".formatted(this.getServerType().getServerName()), NamedTextColor.BLUE)),
                 Component.text("|    ")
                         .append(Component.text("Loading...", NamedTextColor.GOLD))
         );

@@ -108,14 +108,14 @@ public abstract class AbstractCommand extends org.bukkit.command.Command impleme
 
     @Override
     public void unRegister() {
-        CommandUtil.unRegisterCommand(this, plugin.getCommandManager());
+        CommandUtil.INSTANCE.unRegisterCommand(this, plugin.getCommandManager());
 
         Bukkit.getPluginManager().callEvent(new CommandUnloadedEvent(this));
     }
 
     @Override
     public void register() {
-        CommandUtil.registerCommand(this, plugin);
+        CommandUtil.INSTANCE.registerCommand(this, plugin);
 
         Bukkit.getPluginManager().callEvent(new CommandLoadedEvent(this));
     }

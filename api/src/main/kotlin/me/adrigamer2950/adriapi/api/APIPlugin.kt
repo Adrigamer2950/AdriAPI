@@ -51,9 +51,9 @@ abstract class APIPlugin : JavaPlugin() {
     lateinit var libraryManager: LibraryManager
 
     var debug: Boolean
-        get() = logger.isDebug
+        get() = logger.debug
         set(debug) {
-            logger.isDebug = debug
+            logger.debug = debug
         }
 
     final override fun onLoad() {
