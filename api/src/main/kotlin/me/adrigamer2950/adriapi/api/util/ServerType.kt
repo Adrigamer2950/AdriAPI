@@ -1,14 +1,6 @@
-package me.adrigamer2950.adriapi.api.util;
+package me.adrigamer2950.adriapi.api.util
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-@SuppressWarnings("SpellCheckingInspection")
-@Getter
-@AllArgsConstructor
-public enum ServerType {
+enum class ServerType(val serverName: String) {
 
     FOLIA("Folia"),
 
@@ -16,29 +8,26 @@ public enum ServerType {
 
     BUKKIT("Bukkit");
 
-    public static final ServerType type = ServerType.getServerType();
+    companion object {
+        @JvmField
+        val type: ServerType = getServerType() ?: throw IllegalStateException("Unknown server type")
 
-    @SuppressWarnings("NonFinalFieldInEnum")
-    @Setter(AccessLevel.PRIVATE)
-    private String name;
-
-    private static ServerType getServerType() {
-        try {
-            Class.forName("io.papermc.paper.threadedregions.RegionizedServer");
-
-            return ServerType.FOLIA;
-        } catch (ClassNotFoundException ex1) {
-            try {
-                Class.forName("io.papermc.paper.util.Tick");
-
-                return ServerType.PAPER;
-            } catch (ClassNotFoundException ex2) {
+        @JvmStatic
+        private fun getServerType(): ServerType? {
+            return try {
+                Class.forName("io.papermc.paper.threadedregions.RegionizedServer")
+                FOLIA
+            } catch (_: ClassNotFoundException) {
                 try {
-                    Class.forName("org.bukkit.Bukkit");
-
-                    return ServerType.BUKKIT;
-                } catch (ClassNotFoundException ex3) {
-                    return null;
+                    Class.forName("io.papermc.paper.util.Tick")
+                    PAPER
+                } catch (_: ClassNotFoundException) {
+                    try {
+                        Class.forName("org.bukkit.Bukkit")
+                        BUKKIT
+                    } catch (_: ClassNotFoundException) {
+                        null
+                    }
                 }
             }
         }
