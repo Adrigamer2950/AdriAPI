@@ -17,13 +17,14 @@ import java.util.Optional
  *
  * @since 2.4.0
  */
+@Suppress("unused")
 abstract class AbstractCommand(
     override val plugin: APIPlugin,
-    name: String,
+    override val commandName: String,
     description: String,
     aliases: List<String>,
     override val subCommands: List<Command>
-) : BukkitCommand(name, description, "/$name", aliases), Command {
+) : BukkitCommand(commandName, description, "/$commandName", aliases), Command {
 
     constructor(plugin: APIPlugin, name: String) : this(plugin, name, listOf())
     constructor(plugin: APIPlugin, name: String, subCommands: List<Command>) : this(
@@ -50,7 +51,6 @@ abstract class AbstractCommand(
         return tabComplete(UserFactory.fromBukkitSender(sender), args, commandLabel)
     }
 
-    @SuppressWarnings("unused")
     protected fun executeSubCommands(user: User, args: Array<out String>, commandLabel: String) {
         this.executeSubCommands(user, args, commandLabel, true)
     }
@@ -76,7 +76,7 @@ abstract class AbstractCommand(
 
         val subCommand = this.subCommands.stream()
             .filter {
-                it.name == args[0]
+                it.commandName == args[0]
             }.findFirst()
 
         if (subCommand.isEmpty) {
@@ -97,7 +97,7 @@ abstract class AbstractCommand(
     private fun findHelpCommand(): Optional<Command> {
         return this.subCommands.stream()
             .filter {
-                it.name == "help"
+                it.commandName == "help"
             }
             .findFirst()
     }

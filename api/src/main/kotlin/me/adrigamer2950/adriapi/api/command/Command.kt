@@ -12,7 +12,12 @@ import me.adrigamer2950.adriapi.api.user.User
  */
 interface Command {
 
-    val name: String
+    /**
+     * This could be named "name", but an
+     * "Inherited platform declarations clash" error
+     * would be thrown at compile time
+     */
+    val commandName: String
 
     val plugin: APIPlugin
 
