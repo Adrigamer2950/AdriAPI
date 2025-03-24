@@ -73,6 +73,7 @@ object Colors {
      * @param input The message
      * @return A colored message
      */
+    @JvmStatic
     fun translateAPIColors(input: String): String {
         var message = input
 
@@ -93,6 +94,7 @@ object Colors {
      * @param input The message you want to colorize
      * @return Colorized message
      */
+    @JvmStatic
     fun translateColors(input: String): String {
         @Suppress("DEPRECATION")
         return translateColors(input, '&', false)
@@ -106,6 +108,7 @@ object Colors {
      * @param toConsole If the message is being sent to console
      * @return Colorized message
      */
+    @JvmStatic
     @SuppressWarnings("DeprecatedIsStillUsed")
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
     @Deprecated("In favor of Colors#translateToAnsi(String) and Colors#translateToAnsi(String, char)")
@@ -113,10 +116,12 @@ object Colors {
         return if (toConsole) translateToAnsi(input, s) else ChatColor.translateAlternateColorCodes(s, input)
     }
 
+    @JvmStatic
     fun translateToAnsi(input: String): String {
         return translateToAnsi(input, '&')
     }
 
+    @JvmStatic
     fun translateToAnsi(input: String, s: Char): String {
         return StringBuilder().append(
             input.replace(s + "0", Ansi.ansi().a(Ansi.Attribute.RESET).fg(Ansi.Color.BLACK).boldOff().toString())
