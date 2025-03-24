@@ -4,6 +4,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 
 plugins {
+    kotlin("jvm")
     id("java")
     id("java-library")
     id("maven-publish")
@@ -96,6 +97,17 @@ tasks.named<ShadowJar>("shadowJar") {
     }
 }
 
+val targetJavaVersion = (parent!!.properties["java-version"] as String).toInt()
+
+kotlin {
+    jvmToolchain(targetJavaVersion)
+}
+
 tasks.named("build") {
     finalizedBy(tasks.named("shadowJar"))
+}
+
+sourceSets.main {
+    java.srcDirs("src/main/java")
+    kotlin.srcDirs("src/main/kotlin")
 }
