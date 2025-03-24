@@ -1,51 +1,50 @@
-package me.adrigamer2950.adriapi.api.library.manager;
+package me.adrigamer2950.adriapi.api.library.manager
 
-import net.byteflux.libby.Library;
-import org.bukkit.plugin.Plugin;
-
-import java.util.Collection;
+import net.byteflux.libby.Library
+import org.bukkit.plugin.Plugin
 
 /**
  * Simple Library management
  * @since 2.2.0
  */
-public interface LibraryManager {
+interface LibraryManager {
 
     /**
      * @return The plugin
      */
-    Plugin getPlugin();
+    val plugin: Plugin
 
     /**
      * Adds a library
      * @param library The library
      */
-    void addLibrary(Library library);
+    fun addLibrary(library: Library)
 
     /**
      * Adds multiple libraries at once
      * @param libraries The libraries
      */
-    void addLibraries(Library... libraries);
+    fun addLibraries(vararg libraries: Library)
 
     /**
      * @return The libraries
      */
-    Collection<Library> getLibraries();
+    val libraries: MutableCollection<Library>
 
     /**
-     * Loads all libraries registered using {@link #addLibrary(Library)}
+     * Loads all libraries registered using [.addLibrary]
      */
-    void loadLibraries();
+    fun loadLibraries()
 
-    void addRepository(String url);
+    fun addRepository(url: String)
 
-    /**
-     *
-     * @param plugin The plugin
-     * @return A new instance of {@link LibraryManager}
-     */
-    static LibraryManager get(Plugin plugin) {
-        return new LibraryManagerImpl(plugin);
+    companion object {
+        /**
+         * @param plugin The plugin
+         * @return A new instance of [LibraryManager]
+         */
+        fun get(plugin: Plugin): LibraryManager {
+            return LibraryManagerImpl(plugin)
+        }
     }
 }
