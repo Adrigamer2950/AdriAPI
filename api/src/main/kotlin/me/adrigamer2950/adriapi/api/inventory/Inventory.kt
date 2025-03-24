@@ -1,169 +1,140 @@
-package me.adrigamer2950.adriapi.api.inventory;
+package me.adrigamer2950.adriapi.api.inventory
 
-import lombok.Getter;
-import lombok.NonNull;
-import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.api.user.User;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.InventoryHolder;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import lombok.Getter
+import me.adrigamer2950.adriapi.api.APIPlugin
+import me.adrigamer2950.adriapi.api.user.User
+import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryCloseEvent
+import org.bukkit.inventory.InventoryHolder
+import org.jetbrains.annotations.NotNull
+import org.bukkit.inventory.Inventory as BukkitInventory
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer
+import java.util.function.Consumer
 
 /**
  * Create inventories
  *
  * @since 2.1.0
  */
+@Suppress("unused")
 @SuppressWarnings("unused")
 @Getter
-public abstract class Inventory implements InventoryHolder {
+abstract class Inventory(val user: User, title: Component? = null, val plugin: APIPlugin?, size: Int = InventorySize.THREE_ROWS.size) : InventoryHolder {
 
-    private final org.bukkit.inventory.Inventory inventory;
-    private final User user;
-    private final APIPlugin plugin;
+    constructor(user: User, title: Component? = null, plugin: APIPlugin, size: InventorySize = InventorySize.THREE_ROWS) : this(user, title, plugin, size.size)
 
-    public Inventory(@NotNull User user, @NotNull APIPlugin plugin) {
-        this(user, null, plugin);
-    }
+    val bukkitInventory: BukkitInventory
 
-    public Inventory(@NotNull User user, @Nullable Component title, @NotNull APIPlugin plugin) {
-        this(user, title, plugin, InventorySize.THREE_ROWS);
-    }
+    override fun getInventory(): BukkitInventory = bukkitInventory
 
-    public Inventory(@NotNull User user, @Nullable Component title, @NotNull APIPlugin plugin, @NotNull InventorySize size) {
-        this(user, title, plugin, size.getSize());
-    }
-
-    public Inventory(@NotNull @NonNull User user, @Nullable Component title, @NotNull APIPlugin plugin, int size) {
+    init {
         if (!user.isPlayer())
-            throw new IllegalArgumentException("User must be a player");
+            throw IllegalArgumentException("User must be a player!")
 
-        this.user = user;
-        this.inventory = title == null
-                ? Bukkit.createInventory(this, size)
-                : Bukkit.createInventory(this, size, title);
-        this.plugin = plugin;
+        bukkitInventory = title?.let {
+            Bukkit.createInventory(this, size, it)
+        } ?: Bukkit.createInventory(this, size)
     }
 
     /**
      * Setup inventory items ({@link #setupInventory()})
      * and open the inventory to the player
      */
-    public void openInventory() {
-        this.setupInventory();
+    fun openInventory() {
+        this.setupInventory()
 
         //noinspection DataFlowIssue
-        this.user.getPlayerOrNull().openInventory(this.getInventory());
+        this.user.getPlayerOrNull()?.openInventory(this.getInventory())
     }
 
     /**
      * Setup items in the inventory or any other thing you may want to do
      */
-    protected void setupInventory() { }
+    protected open fun setupInventory() { }
 
     /**
      * Executed when a player clicks in the inventory
      *
-     * @param e An {@link InventoryClickEvent}.
+     * @param e An InventoryClickEvent.
      *          Null check on {@link InventoryClickEvent#getClickedInventory()}
      *          is unnecessary as it is checked before executing this method
+     * @see InventoryClickEvent
      */
-    public void onInventoryClick(@NotNull InventoryClickEvent e) { }
+    open fun onInventoryClick(e: InventoryClickEvent) { }
 
     /**
-     * @param e An {@link InventoryCloseEvent}
+     * @param e An InventoryCloseEvent
+     * @see InventoryCloseEvent
      */
-    public void onInventoryClose(@NotNull InventoryCloseEvent e) { }
+    open fun onInventoryClose(e: InventoryCloseEvent) { }
 
-    public static Builder builder() {
-        return new Builder();
+    companion object {
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-    public static class Builder {
-        private User user;
-        private Component title;
-        private APIPlugin plugin;
-        private int size = InventorySize.THREE_ROWS.getSize();
-        private Consumer<@NotNull Inventory> setupInventory;
-        private BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory> onInventoryClick;
-        private BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory> onInventoryClose;
+    class Builder {
+        var user: User? = null
+            private set
 
-        public Builder user(@NonNull User user) {
-            this.user = user;
-            return this;
-        }
+        var title: Component? = null
+            private set
 
-        public Builder title(Component title) {
-            this.title = title;
-            return this;
-        }
+        var plugin: APIPlugin? = null
+            private set
 
-        public Builder plugin(APIPlugin plugin) {
-            this.plugin = plugin;
-            return this;
-        }
+        var size: Int = InventorySize.THREE_ROWS.size
+            private set
 
-        public Builder size(InventorySize size) {
-            return this.size(size.getSize());
-        }
+        var setupInventory: Consumer<@NotNull Inventory>? = null
+            private set
 
-        public Builder size(int size) {
-            this.size = size;
-            return this;
-        }
+        var onInventoryClick: BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory>? = null
+            private set
 
-        public Builder setupInventory(Consumer<@NotNull Inventory> setupInventory) {
-            this.setupInventory = setupInventory;
-            return this;
-        }
+        var onInventoryClose: BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory>? = null
+            private set
 
-        public Builder onInventoryClick(Consumer<@NotNull InventoryClickEvent> onInventoryClick) {
-            return onInventoryClick((e, i) -> onInventoryClick.accept(e));
-        }
+        fun user(user: User) = apply { this.user = user }
 
-        public Builder onInventoryClick(BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory> onInventoryClick) {
-            this.onInventoryClick = onInventoryClick;
-            return this;
-        }
+        fun title(title: Component) = apply { this.title = title }
 
-        public Builder onInventoryClose(Consumer<@NotNull InventoryCloseEvent> onInventoryClose) {
-            return onInventoryClose((e, i) -> onInventoryClose.accept(e));
-        }
+        fun plugin(plugin: APIPlugin) = apply { this.plugin = plugin }
 
-        public Builder onInventoryClose(BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory> onInventoryClose) {
-            this.onInventoryClose = onInventoryClose;
-            return this;
-        }
+        fun size(size: InventorySize) = apply { this.size = size.size }
 
-        public Inventory build() {
-            if (this.user == null)
-                throw new IllegalArgumentException("User cannot be null");
+        fun size(size: Int) = apply { this.size = size }
 
-            return new Inventory(this.user, this.title, this.plugin, this.size) {
-                @Override
-                protected void setupInventory() {
-                    if (setupInventory != null)
-                        setupInventory.accept(this);
+        fun setupInventory(setupInventory: Consumer<@NotNull Inventory>) = apply { this.setupInventory = setupInventory }
+
+        fun onInventoryClick(onInventoryClick: Consumer<@NotNull InventoryClickEvent>) = apply { this.onInventoryClick = BiConsumer { e, _ -> onInventoryClick.accept(e) } }
+
+        fun onInventoryClick(onInventoryClick: BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory>) = apply { this.onInventoryClick = onInventoryClick }
+
+        fun onInventoryClose(onInventoryClose: Consumer<@NotNull InventoryCloseEvent>) = apply { this.onInventoryClose = BiConsumer { e, _ -> onInventoryClose.accept(e) } }
+
+        fun onInventoryClose(onInventoryClose: BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory>) = apply { this.onInventoryClose = onInventoryClose }
+
+        fun build(): Inventory {
+            if (user == null)
+                throw IllegalArgumentException("User cannot be null")
+
+            return object : Inventory(user!!, title, plugin, size) {
+                override fun setupInventory() {
+                    setupInventory?.accept(this)
                 }
 
-                @Override
-                public void onInventoryClick(@NotNull InventoryClickEvent e) {
-                    if (onInventoryClick != null)
-                        onInventoryClick.accept(e, this);
+                override fun onInventoryClick(e: InventoryClickEvent) {
+                    onInventoryClick?.accept(e, this)
                 }
 
-                @Override
-                public void onInventoryClose(@NotNull InventoryCloseEvent e) {
-                    if (onInventoryClose != null)
-                        onInventoryClose.accept(e, this);
+                override fun onInventoryClose(e: InventoryCloseEvent) {
+                    onInventoryClose?.accept(e, this)
                 }
-            };
+            }
         }
     }
 }
