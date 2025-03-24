@@ -1,16 +1,13 @@
-package me.adrigamer2950.adriapi.api.command.manager;
+package me.adrigamer2950.adriapi.api.command.manager
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.api.command.Command;
-import org.bukkit.Bukkit;
-import org.jetbrains.annotations.NotNull;
+import me.adrigamer2950.adriapi.api.APIPlugin
+import me.adrigamer2950.adriapi.api.command.Command
+import org.bukkit.Bukkit
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
-import java.util.Optional;
+import java.lang.invoke.MethodHandle
+import java.lang.invoke.MethodHandles
+import java.lang.invoke.MethodType
+import java.util.Optional
 
 /**
  * Register and unregister commands
@@ -18,18 +15,20 @@ import java.util.Optional;
  * @see Command
  * @since 1.0.0
  */
-@RequiredArgsConstructor
-public class CommandManager {
+@Suppress("unused")
+class CommandManager(val plugin: APIPlugin) {
 
-    private final APIPlugin plugin;
+    val syncCommands: MethodHandle? = this.findSyncCommandsMethod()
 
-    private final MethodHandle syncCommands = this.findSyncCommandsMethod();
-
-    private MethodHandle findSyncCommandsMethod() {
+    fun findSyncCommandsMethod(): MethodHandle {
         try {
-            return MethodHandles.lookup().findVirtual(Bukkit.getServer().getClass(), "syncCommands", MethodType.methodType(void.class));
-        } catch (NoSuchMethodException | IllegalAccessException e) {
-            throw new RuntimeException("Could not find syncCommands method", e);
+            return MethodHandles.lookup().findVirtual(
+                Bukkit.getServer().javaClass, "syncCommands", MethodType.methodType(
+                    Void::class.java
+                )
+            )
+        } catch (e: Exception) {
+            throw RuntimeException("Could not find syncCommands method", e)
         }
     }
 
@@ -39,33 +38,32 @@ public class CommandManager {
      * @param command The command that you want to register
      * @throws IllegalArgumentException if command is already registered
      */
-    public void registerCommand(@NotNull @NonNull Command command) {
-        command.register();
+    fun registerCommand(command: Command) {
+        command.register()
     }
 
-    public void unRegisterCommand(@NotNull @NonNull Command command) {
-        command.unRegister();
+    fun unRegisterCommand(command: Command) {
+        command.unRegister()
     }
 
-    public void syncCommands() {
+    fun syncCommands() {
         try {
-            if (this.syncCommands != null) this.syncCommands.invoke(Bukkit.getServer());
-        } catch (Throwable e) {
-            this.plugin.getLogger().error("Could not sync commands", e);
+            this.syncCommands?.invoke(Bukkit.getServer())
+        } catch (e: Throwable) {
+            this.plugin.logger.error("Could not sync commands", e)
         }
     }
 
-    public Optional<Command> getCommand(String name) {
-        return Bukkit.getCommandMap().getKnownCommands().values().stream()
-                .filter(command -> command instanceof Command)
-                .map(command -> (Command) command)
-                .filter(command -> command.getPlugin().equals(this.plugin))
-                .filter(command -> command.getName().equalsIgnoreCase(name))
-                .findFirst();
+    fun getCommand(name: String): Optional<Command> {
+        return Bukkit.getCommandMap().knownCommands.values.stream()
+            .filter { it is Command }
+            .map { it as Command }
+            .filter { it.plugin == this.plugin }
+            .filter { it.name == name }
+            .findFirst()
     }
 
-    @SuppressWarnings("unused")
-    public Command getCommandOrNull(String name) {
-        return this.getCommand(name).orElse(null);
+    fun getCommandOrNull(name: String): Command {
+        return this.getCommand(name).orElse(null)
     }
 }
