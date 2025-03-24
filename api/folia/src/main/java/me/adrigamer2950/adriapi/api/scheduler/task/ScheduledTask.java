@@ -8,6 +8,7 @@ import org.bukkit.scheduler.BukkitTask;
 @RequiredArgsConstructor
 public final class ScheduledTask {
 
+    @Getter
     private boolean cancelled = false;
     private final Object task;
 
