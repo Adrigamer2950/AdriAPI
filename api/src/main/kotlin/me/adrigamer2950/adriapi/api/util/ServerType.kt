@@ -2,13 +2,13 @@ package me.adrigamer2950.adriapi.api.util
 
 import org.bukkit.Bukkit
 
-enum class ServerType(val serverName: String) {
+enum class ServerType {
 
-    FOLIA("Folia"),
+    FOLIA,
 
-    PAPER("Paper"),
+    PAPER,
 
-    BUKKIT("Bukkit");
+    BUKKIT;
 
     companion object {
         @JvmField
