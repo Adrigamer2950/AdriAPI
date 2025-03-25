@@ -16,7 +16,6 @@ import java.util.*
 @Suppress("unused")
 class ItemStackSerializer : TypeAdapter<ItemStack> {
 
-    @SuppressWarnings("DataFlowIssue")
     override fun serialize(itemStack: ItemStack): Map<Any, Any> {
         val map = LinkedHashMap<Any, Any>()
 

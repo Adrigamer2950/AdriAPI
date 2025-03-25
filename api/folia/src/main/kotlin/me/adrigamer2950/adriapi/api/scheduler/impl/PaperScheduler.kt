@@ -1,7 +1,7 @@
 package me.adrigamer2950.adriapi.api.scheduler.impl
 
-import me.adrigamer2950.adriapi.api.scheduler.Scheduler
 import me.adrigamer2950.adriapi.api.scheduler.ScheduledTask
+import me.adrigamer2950.adriapi.api.scheduler.Scheduler
 import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.entity.Entity
@@ -49,7 +49,13 @@ class PaperScheduler(val plugin: Plugin) : Scheduler {
         }
     }
 
-    override fun runTimerOnEntity(runnable: Runnable, entity: Entity, delay: Long, period: Long, async: Boolean): ScheduledTask {
+    override fun runTimerOnEntity(
+        runnable: Runnable,
+        entity: Entity,
+        delay: Long,
+        period: Long,
+        async: Boolean
+    ): ScheduledTask {
         return if (async) {
             runAsyncTimer(runnable, delay, period)
         } else {
@@ -57,7 +63,13 @@ class PaperScheduler(val plugin: Plugin) : Scheduler {
         }
     }
 
-    override fun runAtRegion(runnable: Runnable, world: World, chunkX: Int, chunkZ: Int, async: Boolean): ScheduledTask {
+    override fun runAtRegion(
+        runnable: Runnable,
+        world: World,
+        chunkX: Int,
+        chunkZ: Int,
+        async: Boolean
+    ): ScheduledTask {
         return if (async) {
             runAsync(runnable)
         } else {
@@ -65,7 +77,14 @@ class PaperScheduler(val plugin: Plugin) : Scheduler {
         }
     }
 
-    override fun runLaterAtRegion(runnable: Runnable, world: World, chunkX: Int, chunkZ: Int, delay: Long, async: Boolean): ScheduledTask {
+    override fun runLaterAtRegion(
+        runnable: Runnable,
+        world: World,
+        chunkX: Int,
+        chunkZ: Int,
+        delay: Long,
+        async: Boolean
+    ): ScheduledTask {
         return if (async) {
             runAsyncLater(runnable, delay)
         } else {
@@ -73,7 +92,15 @@ class PaperScheduler(val plugin: Plugin) : Scheduler {
         }
     }
 
-    override fun runTimerAtRegion(runnable: Runnable, world: World, chunkX: Int, chunkZ: Int, delay: Long, period: Long, async: Boolean): ScheduledTask {
+    override fun runTimerAtRegion(
+        runnable: Runnable,
+        world: World,
+        chunkX: Int,
+        chunkZ: Int,
+        delay: Long,
+        period: Long,
+        async: Boolean
+    ): ScheduledTask {
         return if (async) {
             runAsyncTimer(runnable, delay, period)
         } else {

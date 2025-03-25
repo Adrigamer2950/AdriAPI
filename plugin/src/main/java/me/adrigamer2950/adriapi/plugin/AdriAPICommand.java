@@ -14,7 +14,7 @@ public class AdriAPICommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(@NotNull User user, @NotNull String[] args, @NotNull String commandName) {
+    public void execute(@NotNull User user, @NotNull String @NotNull [] args, @NotNull String commandName) {
         user.sendMessage(
                 Component.text("AdriAPI Version ", NamedTextColor.GRAY)
                         .append(Component.text(getPlugin().getDescription().getVersion(), NamedTextColor.GOLD))

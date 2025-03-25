@@ -18,7 +18,6 @@ import org.bukkit.inventory.Inventory as BukkitInventory
  * @since 2.1.0
  */
 @Suppress("unused")
-@SuppressWarnings("unused")
 abstract class Inventory(
     val user: User,
     title: Component? = null,

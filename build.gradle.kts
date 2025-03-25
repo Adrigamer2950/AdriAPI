@@ -1,10 +1,10 @@
 @file:Suppress("VulnerableLibrariesLocal")
 
-import xyz.jpenilla.runtask.task.AbstractRun
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import xyz.jpenilla.runpaper.task.RunServer
 import io.papermc.hangarpublishplugin.model.Platforms
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
+import xyz.jpenilla.runpaper.task.RunServer
+import xyz.jpenilla.runtask.task.AbstractRun
 import java.io.ByteArrayOutputStream
 
 plugins {

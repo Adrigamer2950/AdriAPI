@@ -23,5 +23,5 @@ boosted-yaml = { group = "dev.dejvokep", name = "boosted-yaml", version.ref = "b
 plugin-yml = { id = "net.minecrell.plugin-yml.bukkit", version.ref = "plugin-yml" }
 minotaur = { id = "com.modrinth.minotaur", version.ref = "minotaur" }
 run-server = { id = "xyz.jpenilla.run-paper", version.ref = "run-server" }
-shadow = { id = "com.gradleup.shadow", version.ref = "shadow"}
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 hangar-publish = { id = "io.papermc.hangar-publish-plugin", version.ref = "hangar-publish-plugin" }

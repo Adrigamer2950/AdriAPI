@@ -13,7 +13,6 @@ import java.util.logging.Logger
  * Main Logger class
  */
 @Suppress("unused")
-@SuppressWarnings("unused")
 class APILogger(name: String, parent: Logger) : Logger(name, null) {
 
     constructor(plugin: APIPlugin, parent: Logger) : this(plugin.description.prefix ?: plugin.description.name, parent)

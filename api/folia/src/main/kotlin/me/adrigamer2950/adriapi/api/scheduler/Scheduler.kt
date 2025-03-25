@@ -90,7 +90,13 @@ interface Scheduler {
      * @param async Whether to run the task asynchronously (Doesn't do anything in Folia)
      * @return The task
      */
-    fun runTimerOnEntity(runnable: Runnable, entity: Entity, delay: Long, period: Long, async: Boolean = false): ScheduledTask
+    fun runTimerOnEntity(
+        runnable: Runnable,
+        entity: Entity,
+        delay: Long,
+        period: Long,
+        async: Boolean = false
+    ): ScheduledTask
 
     /**
      * Runs a task on a specific region
@@ -113,7 +119,14 @@ interface Scheduler {
      * @param async Whether to run the task asynchronously (Doesn't do anything in Folia)
      * @return The task
      */
-    fun runLaterAtRegion(runnable: Runnable, world: World, chunkX: Int, chunkZ: Int, delay: Long, async: Boolean = false): ScheduledTask
+    fun runLaterAtRegion(
+        runnable: Runnable,
+        world: World,
+        chunkX: Int,
+        chunkZ: Int,
+        delay: Long,
+        async: Boolean = false
+    ): ScheduledTask
 
     /**
      * Runs a task on a specific region repeatedly after a delay
@@ -126,5 +139,13 @@ interface Scheduler {
      * @param async Whether to run the task asynchronously (Doesn't do anything in Folia)
      * @return The task
      */
-    fun runTimerAtRegion(runnable: Runnable, world: World, chunkX: Int, chunkZ: Int, delay: Long, period: Long, async: Boolean = false): ScheduledTask
+    fun runTimerAtRegion(
+        runnable: Runnable,
+        world: World,
+        chunkX: Int,
+        chunkZ: Int,
+        delay: Long,
+        period: Long,
+        async: Boolean = false
+    ): ScheduledTask
 }

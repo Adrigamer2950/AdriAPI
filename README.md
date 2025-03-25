@@ -1,4 +1,6 @@
 # AdriAPI
+
+<!--suppress HtmlDeprecatedAttribute -->
 <p align="center">
     <img src="https://avatars.githubusercontent.com/u/58531641?v=4" height="200" alt="Logo" />
 </p>
@@ -21,6 +23,7 @@ providing a lot of utilities that will make your life (and mine) easier.
 ### It's mostly used in my plugins, but you can use it on your own plugins if you want, just make sure to give proper credit!
 
 # Resources
+
 - [Docs](https://docs.devadri.es)
 - [bStats](https://bstats.org/plugin/bukkit/AdriAPI/20135)
 - [Maven Repository](https://repo.devadri.es)

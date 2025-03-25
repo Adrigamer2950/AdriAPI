@@ -109,7 +109,6 @@ object Colors {
      * @return Colorized message
      */
     @JvmStatic
-    @SuppressWarnings("DeprecatedIsStillUsed")
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
     @Deprecated("In favor of Colors#translateToAnsi(String) and Colors#translateToAnsi(String, char)")
     fun translateColors(input: String, s: Char, toConsole: Boolean): String {
