@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi.api.scheduler.task;
+package me.adrigamer2950.adriapi.api.scheduler;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
