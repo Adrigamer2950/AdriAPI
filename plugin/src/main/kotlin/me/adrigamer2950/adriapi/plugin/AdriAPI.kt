@@ -1,48 +1,41 @@
-package me.adrigamer2950.adriapi.plugin;
+package me.adrigamer2950.adriapi.plugin
 
-import me.adrigamer2950.adriapi.api.APIPlugin;
-import me.adrigamer2950.adriapi.api.util.ServerType;
-import me.adrigamer2950.adriapi.plugin.listeners.InventoriesListener;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
+import me.adrigamer2950.adriapi.api.APIPlugin
+import me.adrigamer2950.adriapi.api.util.ServerType
+import me.adrigamer2950.adriapi.plugin.listeners.InventoriesListener
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 
-import java.util.List;
+class AdriAPI : APIPlugin() {
 
-public final class AdriAPI extends APIPlugin {
-
-    @Override
-    public void onPreLoad() {
-        List<Component> l = List.of(
-                Component.text("|    ")
-                        .append(Component.text("AdriAPI ", NamedTextColor.GREEN))
-                        .append(Component.text("v%s".formatted(this.getDescription().getVersion()), NamedTextColor.GOLD)),
-                Component.text("|    ")
-                        .append(Component.text("Running on %s".formatted(ServerType.name), NamedTextColor.BLUE)),
-                Component.text("|    ")
-                        .append(Component.text("Loading...", NamedTextColor.GOLD))
-        );
-
-        for (Component c : l)
-            this.getLogger().info(c);
+    override fun bStatsServiceId(): Int {
+        return 20135
     }
 
-    @Override
-    public void onPostLoad() {
-        this.registerListener(new InventoriesListener());
+    override fun onPreLoad() {
+        val l = listOf(
+            Component.text("|    ")
+                .append(Component.text("AdriAPI ", NamedTextColor.GREEN))
+                .append(Component.text("v${this.description.version}", NamedTextColor.GOLD)),
+            Component.text("|    ")
+                .append(Component.text("Running on ${ServerType.name}", NamedTextColor.BLUE)),
+            Component.text("|    ")
+                .append(Component.text("Loading...", NamedTextColor.GOLD))
+        )
 
-        this.registerCommand(new AdriAPICommand(this, "adriapi"));
-
-        this.getLogger().info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD));
+        l.forEach(this.logger::info)
     }
 
-    @Override
-    public void onUnload() {
-        this.getLogger().info(Component.text("Disabled", NamedTextColor.RED, TextDecoration.BOLD));
+    override fun onPostLoad() {
+        this.registerListener(InventoriesListener())
+
+        this.registerCommand(AdriAPICommand(this, "adriapi"))
+
+        this.logger.info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD))
     }
 
-    @Override
-    protected int getBStatsServiceId() {
-        return 20135;
+    override fun onUnload() {
+        this.logger.info(Component.text("Disabled", NamedTextColor.RED, TextDecoration.BOLD))
     }
 }
