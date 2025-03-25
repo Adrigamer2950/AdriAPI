@@ -42,9 +42,6 @@ allprojects {
 
     dependencies {
         compileOnly(rootProject.libs.jetbrains.annotations)
-
-        compileOnly(rootProject.libs.lombok)
-        annotationProcessor(rootProject.libs.lombok)
     }
 
     tasks.withType<JavaCompile>().configureEach {

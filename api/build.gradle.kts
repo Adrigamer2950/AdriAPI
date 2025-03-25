@@ -5,13 +5,10 @@ import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 
 plugins {
     kotlin("jvm")
-    kotlin("kapt")
     id("java")
     id("java-library")
     id("maven-publish")
     alias(libs.plugins.shadow)
-    kotlin("plugin.lombok") version "1.8.10"
-    id("io.freefair.lombok") version "5.3.0"
 }
 
 val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowerCase().contains("beta")
@@ -90,8 +87,6 @@ dependencies {
     implementation(project(":api:folia"))
 
     compileOnly(libs.boosted.yaml)
-
-    kapt(rootProject.libs.lombok)
 }
 
 tasks.named<ShadowJar>("shadowJar") {
@@ -117,12 +112,4 @@ tasks.named("build") {
 sourceSets.main {
     java.srcDirs("src/main/java")
     kotlin.srcDirs("src/main/kotlin")
-}
-
-kapt {
-    keepJavacAnnotationProcessors = true
-}
-
-kotlinLombok {
-    lombokConfigurationFile(file("lombok.config"))
 }

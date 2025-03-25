@@ -8,10 +8,5 @@ dependencies {
     // JetBrains Annotations
     compileOnly(libs.jetbrains.annotations)
 
-    // Lombok
-    compileOnly(libs.lombok)
-    annotationProcessor(libs.lombok)
-
-    // Folia
     compileOnly(libs.folia.api)
 }
