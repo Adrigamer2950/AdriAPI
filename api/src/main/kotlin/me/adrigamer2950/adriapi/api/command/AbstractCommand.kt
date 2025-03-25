@@ -8,9 +8,8 @@ import me.adrigamer2950.adriapi.api.user.UserFactory
 import me.adrigamer2950.adriapi.api.util.CommandUtil
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
+import java.util.*
 import org.bukkit.command.Command as BukkitCommand
-
-import java.util.Optional
 
 /**
  * Default implementation of {@link Command}

@@ -7,8 +7,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.entity.Player
 import org.jetbrains.annotations.ApiStatus
-
-import java.util.Optional
+import java.util.*
 
 /**
  * Implementation of {@link User}. Preferable to use it as

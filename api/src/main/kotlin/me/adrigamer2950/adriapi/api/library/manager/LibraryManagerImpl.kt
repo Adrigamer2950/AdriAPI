@@ -1,7 +1,6 @@
 package me.adrigamer2950.adriapi.api.library.manager
 
 import net.byteflux.libby.Library
-import net.byteflux.libby.LibraryManager as LibbyLibraryManager
 import net.byteflux.libby.classloader.URLClassLoaderHelper
 import net.byteflux.libby.logging.adapters.JDKLogAdapter
 import org.bukkit.Bukkit
@@ -10,6 +9,7 @@ import org.jetbrains.annotations.ApiStatus
 import java.io.File
 import java.net.URLClassLoader
 import java.nio.file.Path
+import net.byteflux.libby.LibraryManager as LibbyLibraryManager
 
 @ApiStatus.Internal
 class LibraryManagerImpl internal constructor(override val plugin: Plugin) : LibbyLibraryManager(

@@ -3,11 +3,10 @@ package me.adrigamer2950.adriapi.api.command.manager
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.command.Command
 import org.bukkit.Bukkit
-
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
 import java.lang.invoke.MethodType
-import java.util.Optional
+import java.util.*
 
 /**
  * Register and unregister commands

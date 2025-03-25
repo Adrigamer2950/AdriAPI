@@ -9,10 +9,9 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.inventory.InventoryHolder
 import org.jetbrains.annotations.NotNull
-import org.bukkit.inventory.Inventory as BukkitInventory
-
 import java.util.function.BiConsumer
 import java.util.function.Consumer
+import org.bukkit.inventory.Inventory as BukkitInventory
 
 /**
  * Create inventories
@@ -22,9 +21,19 @@ import java.util.function.Consumer
 @Suppress("unused")
 @SuppressWarnings("unused")
 @Getter
-abstract class Inventory(val user: User, title: Component? = null, val plugin: APIPlugin, size: Int = InventorySize.THREE_ROWS.size) : InventoryHolder {
+abstract class Inventory(
+    val user: User,
+    title: Component? = null,
+    val plugin: APIPlugin,
+    size: Int = InventorySize.THREE_ROWS.size
+) : InventoryHolder {
 
-    constructor(user: User, title: Component? = null, plugin: APIPlugin, size: InventorySize = InventorySize.THREE_ROWS) : this(user, title, plugin, size.size)
+    constructor(
+        user: User,
+        title: Component? = null,
+        plugin: APIPlugin,
+        size: InventorySize = InventorySize.THREE_ROWS
+    ) : this(user, title, plugin, size.size)
 
     val bukkitInventory: BukkitInventory
 
@@ -53,7 +62,7 @@ abstract class Inventory(val user: User, title: Component? = null, val plugin: A
     /**
      * Setup items in the inventory or any other thing you may want to do
      */
-    protected open fun setupInventory() { }
+    protected open fun setupInventory() {}
 
     /**
      * Executed when a player clicks in the inventory
@@ -63,13 +72,13 @@ abstract class Inventory(val user: User, title: Component? = null, val plugin: A
      *          is unnecessary as it is checked before executing this method
      * @see InventoryClickEvent
      */
-    open fun onInventoryClick(e: InventoryClickEvent) { }
+    open fun onInventoryClick(e: InventoryClickEvent) {}
 
     /**
      * @param e An InventoryCloseEvent
      * @see InventoryCloseEvent
      */
-    open fun onInventoryClose(e: InventoryCloseEvent) { }
+    open fun onInventoryClose(e: InventoryCloseEvent) {}
 
     companion object {
         @JvmStatic
@@ -108,15 +117,20 @@ abstract class Inventory(val user: User, title: Component? = null, val plugin: A
 
         fun size(size: Int) = apply { this.size = size }
 
-        fun setupInventory(setupInventory: Consumer<@NotNull Inventory>) = apply { this.setupInventory = setupInventory }
+        fun setupInventory(setupInventory: Consumer<@NotNull Inventory>) =
+            apply { this.setupInventory = setupInventory }
 
-        fun onInventoryClick(onInventoryClick: Consumer<@NotNull InventoryClickEvent>) = apply { this.onInventoryClick = BiConsumer { e, _ -> onInventoryClick.accept(e) } }
+        fun onInventoryClick(onInventoryClick: Consumer<@NotNull InventoryClickEvent>) =
+            apply { this.onInventoryClick = BiConsumer { e, _ -> onInventoryClick.accept(e) } }
 
-        fun onInventoryClick(onInventoryClick: BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory>) = apply { this.onInventoryClick = onInventoryClick }
+        fun onInventoryClick(onInventoryClick: BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory>) =
+            apply { this.onInventoryClick = onInventoryClick }
 
-        fun onInventoryClose(onInventoryClose: Consumer<@NotNull InventoryCloseEvent>) = apply { this.onInventoryClose = BiConsumer { e, _ -> onInventoryClose.accept(e) } }
+        fun onInventoryClose(onInventoryClose: Consumer<@NotNull InventoryCloseEvent>) =
+            apply { this.onInventoryClose = BiConsumer { e, _ -> onInventoryClose.accept(e) } }
 
-        fun onInventoryClose(onInventoryClose: BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory>) = apply { this.onInventoryClose = onInventoryClose }
+        fun onInventoryClose(onInventoryClose: BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory>) =
+            apply { this.onInventoryClose = onInventoryClose }
 
         fun build(): Inventory {
             if (user == null)
