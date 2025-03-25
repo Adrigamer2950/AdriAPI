@@ -181,6 +181,8 @@ tasks.withType(AbstractRun::class) {
 }
 
 tasks.named<ShadowJar>("shadowJar") {
+    dependsOn(":api:shadowJar")
+
     archiveClassifier.set("")
     archiveVersion.set(version as String)
 }

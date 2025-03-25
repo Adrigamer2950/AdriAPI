@@ -15,6 +15,12 @@ dependencies {
     compileOnly(project(":api"))
 }
 
+val targetJavaVersion = (rootProject.properties["java-version"] as String).toInt()
+
+kotlin {
+    jvmToolchain(targetJavaVersion)
+}
+
 bukkit {
     name = "AdriAPI"
     main = "me.adrigamer2950.adriapi.plugin.AdriAPI"
