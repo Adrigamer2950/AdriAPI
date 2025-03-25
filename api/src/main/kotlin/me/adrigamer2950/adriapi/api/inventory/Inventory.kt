@@ -22,7 +22,7 @@ import java.util.function.Consumer
 @Suppress("unused")
 @SuppressWarnings("unused")
 @Getter
-abstract class Inventory(val user: User, title: Component? = null, val plugin: APIPlugin?, size: Int = InventorySize.THREE_ROWS.size) : InventoryHolder {
+abstract class Inventory(val user: User, title: Component? = null, val plugin: APIPlugin, size: Int = InventorySize.THREE_ROWS.size) : InventoryHolder {
 
     constructor(user: User, title: Component? = null, plugin: APIPlugin, size: InventorySize = InventorySize.THREE_ROWS) : this(user, title, plugin, size.size)
 
@@ -122,7 +122,10 @@ abstract class Inventory(val user: User, title: Component? = null, val plugin: A
             if (user == null)
                 throw IllegalArgumentException("User cannot be null")
 
-            return object : Inventory(user!!, title, plugin, size) {
+            if (plugin == null)
+                throw IllegalArgumentException("Plugin cannot be null")
+
+            return object : Inventory(user!!, title, plugin!!, size) {
                 override fun setupInventory() {
                     setupInventory?.accept(this)
                 }
