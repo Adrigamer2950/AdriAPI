@@ -1,6 +1,7 @@
 package me.adrigamer2950.adriapi.api.user
 
 import net.kyori.adventure.text.Component
+import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.entity.Player
@@ -71,4 +72,23 @@ interface User {
      * @return True if the user has the permission, false otherwise
      */
     fun hasPermission(permission: String): Boolean
+
+    companion object {
+        /**
+         * @param sender Bukkit API's command sender
+         * @return A User
+         */
+        @JvmStatic
+        fun fromBukkitSender(sender: CommandSender): User {
+            return UserImpl(sender)
+        }
+
+        /**
+         * @return The console as a User
+         */
+        @JvmStatic
+        fun console(): User {
+            return fromBukkitSender(Bukkit.getConsoleSender())
+        }
+    }
 }
