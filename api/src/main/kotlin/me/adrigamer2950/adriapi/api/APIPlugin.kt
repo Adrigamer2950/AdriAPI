@@ -10,7 +10,6 @@ import me.adrigamer2950.adriapi.api.util.bStats
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.annotations.ApiStatus
-import java.util.function.Consumer
 
 /**
  * Extension of JavaPlugin which works as
@@ -109,25 +108,15 @@ abstract class APIPlugin : JavaPlugin() {
     abstract fun onUnload()
 
     /**
-     * Registers a [Set] of [Command]
-     *
-     * @param commands The Set of commands
-     * @see Command
-     */
-    protected open fun registerCommands(commands: MutableSet<Command>) {
-        commands.forEach {
-            registerCommand(it)
-        }
-    }
-
-    /**
      * Registers a [Command]
      *
-     * @param command The command
+     * @param commands The commands
      * @see Command
      */
-    protected open fun registerCommand(command: Command) {
-        commandManager.registerCommand(command)
+    protected open fun registerCommand(vararg commands: Command) {
+        commands.forEach {
+            commandManager.registerCommand(it)
+        }
     }
 
     /**
@@ -154,25 +143,15 @@ abstract class APIPlugin : JavaPlugin() {
     }
 
     /**
-     * Registers a [Set] of [Listener]
-     *
-     * @param listeners The listeners
-     * @see Listener
-     */
-    protected open fun registerListeners(listeners: MutableSet<Listener>) {
-        listeners.forEach {
-            this.registerListener(it)
-        }
-    }
-
-    /**
      * Registers a [Listener]
      *
-     * @param listener The listener
+     * @param listeners The listener
      * @see Listener
      */
-    protected open fun registerListener(listener: Listener) {
-        server.pluginManager.registerEvents(listener, this)
+    protected open fun registerListener(vararg listeners: Listener) {
+        listeners.forEach {
+            server.pluginManager.registerEvents(it, this)
+        }
     }
 
     /**
