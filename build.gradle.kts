@@ -185,6 +185,14 @@ tasks.named<ShadowJar>("shadowJar") {
 
     archiveClassifier.set("")
     archiveVersion.set(version as String)
+
+    dependencies {
+        relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
+
+        relocate("org.fusesource.jansi", "me.adrigamer2950.adriapi.lib.jansi")
+
+        relocate("kotlin", "me.adrigamer2950.adriapi.lib.kotlin")
+    }
 }
 
 tasks.named("build") {
