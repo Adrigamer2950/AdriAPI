@@ -5,7 +5,6 @@ import me.adrigamer2950.adriapi.api.command.manager.CommandManager
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManager
 import me.adrigamer2950.adriapi.api.logger.APILogger
 import me.adrigamer2950.adriapi.api.scheduler.Scheduler
-import me.adrigamer2950.adriapi.api.scheduler.SchedulerFactory
 import me.adrigamer2950.adriapi.api.util.ServerType
 import me.adrigamer2950.adriapi.api.util.bStats
 import org.bukkit.event.Listener
@@ -86,7 +85,7 @@ abstract class APIPlugin : JavaPlugin() {
         commandManager = CommandManager(this)
 
         logger.debug("&6Loading Scheduler...")
-        scheduler = SchedulerFactory.make(this, serverType == ServerType.FOLIA)
+        scheduler = Scheduler.make(this, serverType == ServerType.FOLIA)
 
         if (bStatsServiceId() != 0) {
             logger.debug("&6Loading bStats hook...")

@@ -1,7 +1,10 @@
 package me.adrigamer2950.adriapi.api.scheduler
 
+import me.adrigamer2950.adriapi.api.scheduler.impl.FoliaScheduler
+import me.adrigamer2950.adriapi.api.scheduler.impl.PaperScheduler
 import org.bukkit.World
 import org.bukkit.entity.Entity
+import org.bukkit.plugin.Plugin
 
 interface Scheduler {
 
@@ -95,7 +98,7 @@ interface Scheduler {
         entity: Entity,
         delay: Long,
         period: Long,
-        async: Boolean = false
+        async: Boolean = false,
     ): ScheduledTask
 
     /**
@@ -125,7 +128,7 @@ interface Scheduler {
         chunkX: Int,
         chunkZ: Int,
         delay: Long,
-        async: Boolean = false
+        async: Boolean = false,
     ): ScheduledTask
 
     /**
@@ -146,6 +149,26 @@ interface Scheduler {
         chunkZ: Int,
         delay: Long,
         period: Long,
-        async: Boolean = false
+        async: Boolean = false,
     ): ScheduledTask
+
+    companion object {
+
+        /**
+         * Creates a new {@link Scheduler} instance for the given plugin
+         *
+         * @param plugin The plugin to get the scheduler for
+         * @param folia Whether to use the Folia scheduler
+         * @return The scheduler instance
+         */
+        @JvmOverloads
+        @JvmStatic
+        fun make(plugin: Plugin, folia: Boolean = false): Scheduler {
+            return if (folia) {
+                FoliaScheduler(plugin)
+            } else {
+                PaperScheduler(plugin)
+            }
+        }
+    }
 }
