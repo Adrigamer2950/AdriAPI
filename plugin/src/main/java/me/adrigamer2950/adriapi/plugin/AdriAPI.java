@@ -1,6 +1,7 @@
 package me.adrigamer2950.adriapi.plugin;
 
 import me.adrigamer2950.adriapi.api.APIPlugin;
+import me.adrigamer2950.adriapi.api.util.ServerType;
 import me.adrigamer2950.adriapi.plugin.listeners.InventoriesListener;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -17,7 +18,7 @@ public final class AdriAPI extends APIPlugin {
                         .append(Component.text("AdriAPI ", NamedTextColor.GREEN))
                         .append(Component.text("v%s".formatted(this.getDescription().getVersion()), NamedTextColor.GOLD)),
                 Component.text("|    ")
-                        .append(Component.text("Running on %s".formatted(this.getServerType().getServerName()), NamedTextColor.BLUE)),
+                        .append(Component.text("Running on %s".formatted(ServerType.name), NamedTextColor.BLUE)),
                 Component.text("|    ")
                         .append(Component.text("Loading...", NamedTextColor.GOLD))
         );
