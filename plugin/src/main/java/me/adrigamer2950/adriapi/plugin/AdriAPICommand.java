@@ -1,6 +1,5 @@
 package me.adrigamer2950.adriapi.plugin;
 
-import lombok.NonNull;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import me.adrigamer2950.adriapi.api.command.AbstractCommand;
 import me.adrigamer2950.adriapi.api.user.User;
@@ -10,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AdriAPICommand extends AbstractCommand {
 
-    public AdriAPICommand(@NotNull @NonNull APIPlugin plugin, @NotNull @NonNull String name) {
+    public AdriAPICommand(@NotNull APIPlugin plugin, @NotNull String name) {
         super(plugin, name);
     }
 

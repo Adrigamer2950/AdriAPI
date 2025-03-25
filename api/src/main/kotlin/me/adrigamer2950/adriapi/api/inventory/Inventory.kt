@@ -1,6 +1,5 @@
 package me.adrigamer2950.adriapi.api.inventory
 
-import lombok.Getter
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.user.User
 import net.kyori.adventure.text.Component
@@ -20,7 +19,6 @@ import org.bukkit.inventory.Inventory as BukkitInventory
  */
 @Suppress("unused")
 @SuppressWarnings("unused")
-@Getter
 abstract class Inventory(
     val user: User,
     title: Component? = null,
