@@ -114,7 +114,7 @@ abstract class APIPlugin : JavaPlugin() {
      * @param commands The Set of commands
      * @see Command
      */
-    protected fun registerCommands(commands: MutableSet<Command>) {
+    protected open fun registerCommands(commands: MutableSet<Command>) {
         commands.forEach {
             registerCommand(it)
         }
@@ -126,7 +126,7 @@ abstract class APIPlugin : JavaPlugin() {
      * @param command The command
      * @see Command
      */
-    protected fun registerCommand(command: Command) {
+    protected open fun registerCommand(command: Command) {
         commandManager.registerCommand(command)
     }
 
@@ -136,9 +136,11 @@ abstract class APIPlugin : JavaPlugin() {
      * @param command The command
      * @see Command
      */
-    protected fun unRegisterCommand(name: String) {
+    protected open fun unRegisterCommand(name: String) {
         this.commandManager.getCommand(name)
-            .ifPresent(Consumer { command: Command? -> this.unRegisterCommand(command!!) })
+            .ifPresent {
+                this.unRegisterCommand(it)
+            }
     }
 
     /**
@@ -147,7 +149,7 @@ abstract class APIPlugin : JavaPlugin() {
      * @param command The command
      * @see Command
      */
-    protected fun unRegisterCommand(command: Command) {
+    protected open fun unRegisterCommand(command: Command) {
         this.commandManager.unRegisterCommand(command)
     }
 
@@ -157,7 +159,7 @@ abstract class APIPlugin : JavaPlugin() {
      * @param listeners The listeners
      * @see Listener
      */
-    protected fun registerListeners(listeners: MutableSet<Listener>) {
+    protected open fun registerListeners(listeners: MutableSet<Listener>) {
         listeners.forEach {
             this.registerListener(it)
         }
@@ -169,7 +171,7 @@ abstract class APIPlugin : JavaPlugin() {
      * @param listener The listener
      * @see Listener
      */
-    protected fun registerListener(listener: Listener) {
+    protected open fun registerListener(listener: Listener) {
         server.pluginManager.registerEvents(listener, this)
     }
 
