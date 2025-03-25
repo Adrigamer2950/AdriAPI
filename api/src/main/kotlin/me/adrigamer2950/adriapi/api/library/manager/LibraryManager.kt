@@ -44,6 +44,7 @@ interface LibraryManager {
          * @param plugin The plugin
          * @return A new instance of [LibraryManager]
          */
+        @JvmStatic
         fun get(plugin: Plugin): LibraryManager {
             return LibraryManagerImpl(plugin)
         }
