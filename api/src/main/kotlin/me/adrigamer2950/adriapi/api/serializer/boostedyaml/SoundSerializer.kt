@@ -5,7 +5,7 @@ import me.adrigamer2950.adriapi.api.sound.Sound
 import org.bukkit.SoundCategory
 import org.bukkit.Sound as BukkitSound
 
-@SuppressWarnings("unused")
+@Suppress("unused")
 class SoundSerializer : TypeAdapter<Sound> {
 
     override fun serialize(sound: Sound): Map<in Any, Any?> {

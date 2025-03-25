@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack
 
 import java.util.*
 
-@SuppressWarnings("unused")
+@Suppress("unused")
 class ItemStackSerializer : TypeAdapter<ItemStack> {
 
     @SuppressWarnings("DataFlowIssue")

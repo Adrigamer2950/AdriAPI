@@ -7,6 +7,7 @@ import org.bukkit.plugin.Plugin
  * Simple Library management
  * @since 2.2.0
  */
+@Suppress("unused")
 interface LibraryManager {
 
     /**

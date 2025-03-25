@@ -1,5 +1,6 @@
-package me.adrigamer2950.adriapi.api.inventory;
+package me.adrigamer2950.adriapi.api.inventory
 
+@Suppress("unused")
 enum class InventorySize(val size: Int) {
     ONE_ROW(9),
     TWO_ROWS(18),

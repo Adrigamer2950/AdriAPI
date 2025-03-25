@@ -14,11 +14,11 @@ class Sound(
 ) {
 
     fun playToEntity(entity: Entity) {
-        entity.world.playSound(entity, this.sound, this.category, this.volume, this.pitch);
+        entity.world.playSound(entity, this.sound, this.category, this.volume, this.pitch)
     }
 
     fun playOnLocation(l: Location) {
-        l.world.playSound(l, this.sound, this.category, this.volume, this.pitch);
+        l.world.playSound(l, this.sound, this.category, this.volume, this.pitch)
     }
 
     class Builder {

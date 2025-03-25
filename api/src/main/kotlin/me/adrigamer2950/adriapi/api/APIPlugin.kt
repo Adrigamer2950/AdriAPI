@@ -19,6 +19,7 @@ import java.util.function.Consumer
  * @see org.bukkit.plugin.java.JavaPlugin
  * @since 2.0.0
  */
+@Suppress("unused")
 abstract class APIPlugin : JavaPlugin() {
 
     val logger = APILogger(this)
