@@ -1,29 +1,24 @@
-package me.adrigamer2950.adriapi.plugin.listeners;
+package me.adrigamer2950.adriapi.plugin.listeners
 
-import me.adrigamer2950.adriapi.api.inventory.Inventory;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
+import me.adrigamer2950.adriapi.api.inventory.Inventory
+import org.bukkit.event.EventHandler
+import org.bukkit.event.Listener
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryCloseEvent
 
-public class InventoriesListener implements Listener {
+class InventoriesListener : Listener {
 
     @EventHandler
-    public void onInvClick(InventoryClickEvent e) {
-        if (e.getClickedInventory() == null)
-            return;
+    fun onInventoryClick(event: InventoryClickEvent) {
+        val inventory = event.inventory.holder as? Inventory ?: return
 
-        if (!(e.getClickedInventory().getHolder() instanceof Inventory inv))
-            return;
-
-        inv.onInventoryClick(e);
+        inventory.onInventoryClick(event)
     }
 
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent e) {
-        if (!(e.getInventory().getHolder() instanceof Inventory inv))
-            return;
+    fun onInventoryClose(event: InventoryCloseEvent) {
+        val inventory = event.inventory.holder as? Inventory ?: return
 
-        inv.onInventoryClose(e);
+        inventory.onInventoryClose(event)
     }
 }
