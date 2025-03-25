@@ -1,17 +1,15 @@
 plugins {
-    id("java")
+    kotlin("jvm")
 }
 
 group = "me.adrigamer2950.adriapi"
 
 dependencies {
-    // JetBrains Annotations
-    compileOnly(libs.jetbrains.annotations)
+    compileOnly(kotlin("stdlib-jdk8"))
 
-    // Lombok
-    compileOnly(libs.lombok)
-    annotationProcessor(libs.lombok)
-
-    // Folia
     compileOnly(libs.folia.api)
+}
+
+sourceSets.main {
+    kotlin.srcDirs("src/main/kotlin")
 }

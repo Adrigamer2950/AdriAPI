@@ -3,14 +3,22 @@
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 
 plugins {
-    id("java")
+    kotlin("jvm")
     alias(libs.plugins.plugin.yml)
 }
 
 dependencies {
+    compileOnly(kotlin("stdlib-jdk8"))
+
     compileOnly(libs.paper.api)
 
     compileOnly(project(":api"))
+}
+
+val targetJavaVersion = (rootProject.properties["java-version"] as String).toInt()
+
+kotlin {
+    jvmToolchain(targetJavaVersion)
 }
 
 bukkit {

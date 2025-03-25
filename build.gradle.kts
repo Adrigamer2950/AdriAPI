@@ -1,10 +1,10 @@
 @file:Suppress("VulnerableLibrariesLocal")
 
-import xyz.jpenilla.runtask.task.AbstractRun
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import xyz.jpenilla.runpaper.task.RunServer
 import io.papermc.hangarpublishplugin.model.Platforms
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
+import xyz.jpenilla.runpaper.task.RunServer
+import xyz.jpenilla.runtask.task.AbstractRun
 import java.io.ByteArrayOutputStream
 
 plugins {
@@ -42,9 +42,6 @@ allprojects {
 
     dependencies {
         compileOnly(rootProject.libs.jetbrains.annotations)
-
-        compileOnly(rootProject.libs.lombok)
-        annotationProcessor(rootProject.libs.lombok)
     }
 
     tasks.withType<JavaCompile>().configureEach {
@@ -184,8 +181,18 @@ tasks.withType(AbstractRun::class) {
 }
 
 tasks.named<ShadowJar>("shadowJar") {
+    dependsOn(":api:shadowJar")
+
     archiveClassifier.set("")
     archiveVersion.set(version as String)
+
+    dependencies {
+        relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
+
+        relocate("org.fusesource.jansi", "me.adrigamer2950.adriapi.lib.jansi")
+
+        relocate("kotlin", "me.adrigamer2950.adriapi.lib.kotlin")
+    }
 }
 
 tasks.named("build") {

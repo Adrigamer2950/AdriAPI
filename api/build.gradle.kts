@@ -4,6 +4,7 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 
 plugins {
+    kotlin("jvm")
     id("java")
     id("java-library")
     id("maven-publish")
@@ -73,6 +74,8 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
 }
 
 dependencies {
+    compileOnly(kotlin("stdlib-jdk8"))
+
     compileOnly(libs.paper.api)
 
     implementation(libs.jansi)
@@ -88,14 +91,19 @@ dependencies {
 
 tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
+}
 
-    dependencies {
-        relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
+val targetJavaVersion = (rootProject.properties["java-version"] as String).toInt()
 
-        relocate("org.fusesource.jansi", "me.adrigamer2950.adriapi.lib.jansi")
-    }
+kotlin {
+    jvmToolchain(targetJavaVersion)
 }
 
 tasks.named("build") {
     finalizedBy(tasks.named("shadowJar"))
+}
+
+sourceSets.main {
+    java.srcDirs("src/main/java")
+    kotlin.srcDirs("src/main/kotlin")
 }
