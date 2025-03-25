@@ -1,6 +1,5 @@
 package me.adrigamer2950.adriapi.api.scheduler
 
-import me.adrigamer2950.adriapi.api.scheduler.task.ScheduledTask
 import org.bukkit.World
 import org.bukkit.entity.Entity
 
@@ -10,20 +9,37 @@ interface Scheduler {
      * Runs a task on the next server tick
      *
      * @param runnable The task to run
-     * @param async Whether to run the task asynchronously (Doesn't do anything in Folia)
+     * @param async Whether to run the task asynchronously
      * @return The task
      */
     fun run(runnable: Runnable, async: Boolean = false): ScheduledTask
+
+    /**
+     * Runs a task on the next server tick
+     *
+     * @param runnable The task to run
+     * @return The task
+     */
+    fun runAsync(runnable: Runnable): ScheduledTask
 
     /**
      * Runs a task after a delay
      *
      * @param runnable The task to run
      * @param delay    The delay in ticks
-     * @param async Whether to run the task asynchronously (Doesn't do anything in Folia)
+     * @param async Whether to run the task asynchronously
      * @return The task
      */
     fun runLater(runnable: Runnable, delay: Long, async: Boolean = false): ScheduledTask
+
+    /**
+     * Runs a task after a delay
+     *
+     * @param runnable The task to run
+     * @param delay    The delay in ticks
+     * @return The task
+     */
+    fun runAsyncLater(runnable: Runnable, delay: Long): ScheduledTask
 
     /**
      * Runs a task repeatedly after a delay
@@ -31,10 +47,20 @@ interface Scheduler {
      * @param runnable The task to run
      * @param delay    The delay in ticks
      * @param period   The period in ticks
-     * @param async Whether to run the task asynchronously (Doesn't do anything in Folia)
+     * @param async Whether to run the task asynchronously
      * @return The task
      */
     fun runTimer(runnable: Runnable, delay: Long, period: Long, async: Boolean = false): ScheduledTask
+
+    /**
+     * Runs a task repeatedly after a delay
+     *
+     * @param runnable The task to run
+     * @param delay    The delay in ticks
+     * @param period   The period in ticks
+     * @return The task
+     */
+    fun runAsyncTimer(runnable: Runnable, delay: Long, period: Long): ScheduledTask
 
     /**
      * Runs a task on a specific entity
