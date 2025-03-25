@@ -40,7 +40,7 @@ abstract class APIPlugin : JavaPlugin() {
      * bStats wrapper
      */
     lateinit var bStats: bStats
-    protected open var bStatsServiceId = 0
+    protected open fun bStatsServiceId(): Int = 0
 
     /**
      * @see ServerType
@@ -88,9 +88,9 @@ abstract class APIPlugin : JavaPlugin() {
         logger.debug("&6Loading Scheduler...")
         scheduler = SchedulerFactory.make(this, serverType == ServerType.FOLIA)
 
-        if (bStatsServiceId != 0) {
+        if (bStatsServiceId() != 0) {
             logger.debug("&6Loading bStats hook...")
-            bStats = bStats(this, bStatsServiceId)
+            bStats = bStats(this, bStatsServiceId())
         }
     }
 
