@@ -1,8 +1,8 @@
-package me.adrigamer2950.adriapi.api.scheduler.paper;
+package me.adrigamer2950.adriapi.api.scheduler.impl;
 
 import lombok.RequiredArgsConstructor;
 import me.adrigamer2950.adriapi.api.scheduler.Scheduler;
-import me.adrigamer2950.adriapi.api.scheduler.task.ScheduledTask;
+import me.adrigamer2950.adriapi.api.scheduler.ScheduledTask;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
