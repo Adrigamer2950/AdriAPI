@@ -1,105 +1,83 @@
-package me.adrigamer2950.adriapi.api.scheduler.impl;
+package me.adrigamer2950.adriapi.api.scheduler.impl
 
-import lombok.RequiredArgsConstructor;
-import me.adrigamer2950.adriapi.api.scheduler.Scheduler;
-import me.adrigamer2950.adriapi.api.scheduler.ScheduledTask;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
-import org.bukkit.plugin.Plugin;
+import me.adrigamer2950.adriapi.api.scheduler.Scheduler
+import me.adrigamer2950.adriapi.api.scheduler.ScheduledTask
+import org.bukkit.Bukkit
+import org.bukkit.World
+import org.bukkit.entity.Entity
+import org.bukkit.plugin.Plugin
 
-@RequiredArgsConstructor
-public class PaperScheduler implements Scheduler {
+class PaperScheduler(val plugin: Plugin) : Scheduler {
 
-    private final Plugin plugin;
-
-    @Override
-    public ScheduledTask run(Runnable runnable) {
-        return new ScheduledTask(Bukkit.getScheduler().runTask(plugin, runnable), plugin);
+    override fun run(runnable: Runnable, async: Boolean): ScheduledTask {
+        return ScheduledTask(Bukkit.getScheduler().runTask(plugin, runnable), plugin)
     }
 
-    @Override
-    public ScheduledTask runLater(Runnable runnable, long delay) {
-        return new ScheduledTask(Bukkit.getScheduler().runTaskLater(plugin, runnable, delay), plugin);
+    override fun runLater(runnable: Runnable, delay: Long, async: Boolean): ScheduledTask {
+        return ScheduledTask(Bukkit.getScheduler().runTaskLater(plugin, runnable, delay), plugin)
     }
 
-    @Override
-    public ScheduledTask runTimer(Runnable runnable, long delay, long period) {
-        return new ScheduledTask(Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period), plugin);
+    override fun runTimer(runnable: Runnable, delay: Long, period: Long, async: Boolean): ScheduledTask {
+        return ScheduledTask(Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period), plugin)
     }
 
-    @Override
-    public ScheduledTask runAsync(Runnable runnable) {
-        return new ScheduledTask(Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable), plugin);
+    override fun runAsync(runnable: Runnable): ScheduledTask {
+        return ScheduledTask(Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable), plugin)
     }
 
-    @Override
-    public ScheduledTask runAsyncLater(Runnable runnable, long delay) {
-        return new ScheduledTask(Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delay), plugin);
+    override fun runAsyncLater(runnable: Runnable, delay: Long): ScheduledTask {
+        return ScheduledTask(Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delay), plugin)
     }
 
-    @Override
-    public ScheduledTask runAsyncTimer(Runnable runnable, long delay, long period) {
-        return new ScheduledTask(Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period), plugin);
+    override fun runAsyncTimer(runnable: Runnable, delay: Long, period: Long): ScheduledTask {
+        return ScheduledTask(Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period), plugin)
     }
 
-    @Override
-    public ScheduledTask runOnEntity(Runnable runnable, Entity entity) {
-        return runOnEntity(runnable, entity, false);
+    override fun runOnEntity(runnable: Runnable, entity: Entity, async: Boolean): ScheduledTask {
+        return if (async) {
+            runAsync(runnable)
+        } else {
+            run(runnable)
+        }
     }
 
-    @Override
-    public ScheduledTask runOnEntity(Runnable runnable, Entity entity, boolean async) {
-        return async ? runAsync(runnable) : run(runnable);
+    override fun runLaterOnEntity(runnable: Runnable, entity: Entity, delay: Long, async: Boolean): ScheduledTask {
+        return if (async) {
+            runAsyncLater(runnable, delay)
+        } else {
+            runLater(runnable, delay)
+        }
     }
 
-    @Override
-    public ScheduledTask runLaterOnEntity(Runnable runnable, Entity entity, long delay) {
-        return runLaterOnEntity(runnable, entity, delay, false);
+    override fun runTimerOnEntity(runnable: Runnable, entity: Entity, delay: Long, period: Long, async: Boolean): ScheduledTask {
+        return if (async) {
+            runAsyncTimer(runnable, delay, period)
+        } else {
+            runTimer(runnable, delay, period)
+        }
     }
 
-    @Override
-    public ScheduledTask runLaterOnEntity(Runnable runnable, Entity entity, long delay, boolean async) {
-        return async ? runAsync(runnable) : run(runnable);
+    override fun runAtRegion(runnable: Runnable, world: World, chunkX: Int, chunkZ: Int, async: Boolean): ScheduledTask {
+        return if (async) {
+            runAsync(runnable)
+        } else {
+            run(runnable)
+        }
     }
 
-    @Override
-    public ScheduledTask runTimerOnEntity(Runnable runnable, Entity entity, long delay, long period) {
-        return runTimerOnEntity(runnable, entity, delay, period, false);
+    override fun runLaterAtRegion(runnable: Runnable, world: World, chunkX: Int, chunkZ: Int, delay: Long, async: Boolean): ScheduledTask {
+        return if (async) {
+            runAsyncLater(runnable, delay)
+        } else {
+            runLater(runnable, delay)
+        }
     }
 
-    @Override
-    public ScheduledTask runTimerOnEntity(Runnable runnable, Entity entity, long delay, long period, boolean async) {
-        return async ? runAsync(runnable) : run(runnable);
-    }
-
-    @Override
-    public ScheduledTask runAtRegion(Runnable runnable, World world, int chunkX, int chunkZ) {
-        return runAtRegion(runnable, world, chunkX, chunkZ, false);
-    }
-
-    @Override
-    public ScheduledTask runAtRegion(Runnable runnable, World world, int chunkX, int chunkZ, boolean async) {
-        return async ? runAsync(runnable) : run(runnable);
-    }
-
-    @Override
-    public ScheduledTask runLaterAtRegion(Runnable runnable, World world, int chunkX, int chunkZ, long delay) {
-        return runLaterAtRegion(runnable, world, chunkX, chunkZ, delay, false);
-    }
-
-    @Override
-    public ScheduledTask runLaterAtRegion(Runnable runnable, World world, int chunkX, int chunkZ, long delay, boolean async) {
-        return async ? runAsyncLater(runnable, delay) : runLater(runnable, delay);
-    }
-
-    @Override
-    public ScheduledTask runTimerAtRegion(Runnable runnable, World world, int chunkX, int chunkZ, long delay, long period) {
-        return runTimerAtRegion(runnable, world, chunkX, chunkZ, delay, period, false);
-    }
-
-    @Override
-    public ScheduledTask runTimerAtRegion(Runnable runnable, World world, int chunkX, int chunkZ, long delay, long period, boolean async) {
-        return async ? runAsyncTimer(runnable, delay, period) : runTimer(runnable, delay, period);
+    override fun runTimerAtRegion(runnable: Runnable, world: World, chunkX: Int, chunkZ: Int, delay: Long, period: Long, async: Boolean): ScheduledTask {
+        return if (async) {
+            runAsyncTimer(runnable, delay, period)
+        } else {
+            runTimer(runnable, delay, period)
+        }
     }
 }
