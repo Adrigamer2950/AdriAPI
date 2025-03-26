@@ -15,7 +15,6 @@ val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowe
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
     artifacts {
-        archives(JavaPlugin.JAR_TASK_NAME)
         archives("sourcesJar")
         archives("javadocJar")
     }
