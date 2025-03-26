@@ -14,9 +14,9 @@ plugins {
 val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowerCase().contains("beta")
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
+
     artifacts {
-        archives("sourcesJar")
-        archives("javadocJar")
+        add("archives", tasks.kotlinSourcesJar)
     }
 
     publishing {
