@@ -14,9 +14,10 @@ plugins {
 val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowerCase().contains("beta")
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
-    java {
-        withJavadocJar()
-        withSourcesJar()
+    artifacts {
+        archives(JavaPlugin.JAR_TASK_NAME)
+        archives("sourcesJar")
+        archives("javadocJar")
     }
 
     publishing {
