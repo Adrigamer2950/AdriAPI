@@ -40,7 +40,7 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
                 version = rootProject.version as String
 
                 from(components["shadow"])
-                artifact(tasks["sourcesJar"])
+                artifact(tasks["kotlinSourcesJar"])
                 pom {
                     name = rootProject.name
                     description.set(parent?.properties?.get("description") as String)
