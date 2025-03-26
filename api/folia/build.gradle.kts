@@ -13,3 +13,9 @@ dependencies {
 sourceSets.main {
     kotlin.srcDirs("src/main/kotlin")
 }
+
+val targetJavaVersion = (rootProject.properties["java-version"] as String).toInt()
+
+kotlin {
+    jvmToolchain(targetJavaVersion)
+}
