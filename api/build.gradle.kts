@@ -13,6 +13,13 @@ plugins {
 
 val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowerCase().contains("beta")
 
+tasks.register("sourcesJar", Jar::class) {
+    from(sourceSets.main.get().kotlin)
+    archiveClassifier.set("sources")
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
 
     publishing {
@@ -111,11 +118,4 @@ tasks.named("build") {
 sourceSets.main {
     java.srcDirs("src/main/java")
     kotlin.srcDirs("src/main/kotlin")
-}
-
-tasks.register("sourcesJar", Jar::class) {
-    from(sourceSets.main.get().kotlin)
-    archiveClassifier.set("sources")
-
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
