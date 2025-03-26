@@ -15,17 +15,6 @@ val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowe
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
 
-    tasks.register("sourcesJar", Jar::class) {
-        from(sourceSets.main.get().kotlin)
-        archiveClassifier.set("sources")
-
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    }
-
-    artifacts {
-        add("archives", tasks.named<Jar>("sourcesJar"))
-    }
-
     publishing {
         repositories {
             maven {
