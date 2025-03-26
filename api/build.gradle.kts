@@ -36,7 +36,7 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
                 version = rootProject.version as String
 
                 from(components["shadow"])
-                artifact(tasks["kotlinSourcesJar"])
+                artifact(tasks["sourcesJar"])
                 pom {
                     name = rootProject.name
                     description.set(parent?.properties?.get("description") as String)
@@ -111,4 +111,11 @@ tasks.named("build") {
 sourceSets.main {
     java.srcDirs("src/main/java")
     kotlin.srcDirs("src/main/kotlin")
+}
+
+tasks.register("sourcesJar", Jar::class) {
+    from(sourceSets.main.get().kotlin)
+    archiveClassifier.set("sources")
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
