@@ -45,20 +45,17 @@ abstract class AbstractCommand(
         return listOf()
     }
 
-    override fun tabComplete(sender: CommandSender, commandLabel: String, args: Array<out String>): List<String> {
+    final override fun tabComplete(sender: CommandSender, commandLabel: String, args: Array<out String>): List<String> {
         return tabComplete(User.fromBukkitSender(sender), args, commandLabel)
     }
 
-    protected fun executeSubCommands(user: User, args: Array<out String>, commandLabel: String) {
-        this.executeSubCommands(user, args, commandLabel, true)
-    }
-
+    @JvmOverloads
     @Suppress("LocalVariableName", "SameParameterValue")
     protected fun executeSubCommands(
         user: User,
         _args: Array<out String>,
         commandLabel: String,
-        removeFirstArgument: Boolean
+        removeFirstArgument: Boolean = true
     ) {
         var args = _args
 
@@ -90,6 +87,46 @@ abstract class AbstractCommand(
         }
 
         subCommand.get().execute(user, args, commandLabel)
+    }
+
+    @JvmOverloads
+    @Suppress("LocalVariableName", "SameParameterValue")
+    protected fun suggestSubCommands(
+        user: User,
+        _args: Array<out String>,
+        commandLabel: String,
+        removeFirstArgument: Boolean = true
+    ): List<String> {
+        var args = _args
+
+        if (subCommands.isEmpty()) return listOf()
+
+        val help = this.findHelpCommand()
+
+        if (args.isEmpty()) {
+            if (help.isPresent) return help.get().tabComplete(user, args, commandLabel)
+
+            return listOf()
+        }
+
+        val subCommand = this.subCommands.stream()
+            .filter {
+                it.commandName == args[0]
+            }.findFirst()
+
+        if (subCommand.isEmpty) {
+            if (help.isPresent) return help.get().tabComplete(user, args, commandLabel)
+
+            return listOf()
+        }
+
+        if (removeFirstArgument) { // Remove first argument
+            val l = args.toMutableList()
+            l.removeAt(0)
+            args = l.toTypedArray()
+        }
+
+        return subCommand.get().tabComplete(user, args, commandLabel)
     }
 
     private fun findHelpCommand(): Optional<Command> {
