@@ -3,9 +3,7 @@ package me.adrigamer2950.adriapi.api.command.manager
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.command.Command
 import org.bukkit.Bukkit
-import java.lang.invoke.MethodHandle
-import java.lang.invoke.MethodHandles
-import java.lang.invoke.MethodType
+import java.lang.reflect.Method
 import java.util.*
 
 /**
@@ -17,15 +15,14 @@ import java.util.*
 @Suppress("unused")
 class CommandManager(val plugin: APIPlugin) {
 
-    val syncCommands: MethodHandle? = this.findSyncCommandsMethod()
+    val syncCommands: Method? = this.findSyncCommandsMethod()
 
-    fun findSyncCommandsMethod(): MethodHandle {
+    fun findSyncCommandsMethod(): Method {
         try {
-            return MethodHandles.lookup().findVirtual(
-                Bukkit.getServer().javaClass, "syncCommands", MethodType.methodType(
-                    Void::class.java
-                )
-            )
+            val method = Bukkit.getServer().javaClass.getMethod("syncCommands")
+            method.isAccessible = true
+
+            return method
         } catch (e: Exception) {
             throw RuntimeException("Could not find syncCommands method", e)
         }
