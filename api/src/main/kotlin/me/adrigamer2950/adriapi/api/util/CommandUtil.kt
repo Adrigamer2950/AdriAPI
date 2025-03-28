@@ -7,6 +7,7 @@ import org.bukkit.command.Command
 
 object CommandUtil {
 
+    @JvmStatic
     fun unRegisterCommand(command: Command, commandManager: CommandManager) {
         val commandMap = Bukkit.getCommandMap()
 
@@ -17,6 +18,7 @@ object CommandUtil {
         commandManager.syncCommands()
     }
 
+    @JvmStatic
     fun registerCommand(command: Command, plugin: APIPlugin) {
         val commandMap = Bukkit.getCommandMap()
 
