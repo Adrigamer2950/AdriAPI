@@ -8,6 +8,7 @@ import xyz.jpenilla.runtask.task.AbstractRun
 import java.io.ByteArrayOutputStream
 
 plugins {
+    kotlin("jvm")
     id("java")
     id("maven-publish")
     alias(libs.plugins.minotaur)
@@ -55,6 +56,8 @@ allprojects {
 }
 
 dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+
     implementation(project(":api"))
 
     implementation(project(":plugin"))
