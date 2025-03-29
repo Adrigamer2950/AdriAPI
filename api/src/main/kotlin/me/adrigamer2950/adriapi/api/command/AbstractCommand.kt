@@ -80,11 +80,7 @@ abstract class AbstractCommand(
             return
         }
 
-        if (removeFirstArgument) { // Remove first argument
-            val l = args.toMutableList()
-            l.removeAt(0)
-            args = l.toTypedArray()
-        }
+        if (removeFirstArgument) args = args.drop(1).toTypedArray()
 
         subCommand.get().execute(user, args, commandLabel)
     }
@@ -120,11 +116,7 @@ abstract class AbstractCommand(
             return listOf()
         }
 
-        if (removeFirstArgument) { // Remove first argument
-            val l = args.toMutableList()
-            l.removeAt(0)
-            args = l.toTypedArray()
-        }
+        if (removeFirstArgument) args = args.drop(1).toTypedArray()
 
         return subCommand.get().tabComplete(user, args, commandLabel)
     }
