@@ -8,8 +8,11 @@ import me.adrigamer2950.adriapi.api.scheduler.Scheduler
 import me.adrigamer2950.adriapi.api.util.ServerType
 import me.adrigamer2950.adriapi.api.util.bStats
 import org.bukkit.event.Listener
+import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.plugin.java.JavaPluginLoader
 import org.jetbrains.annotations.ApiStatus
+import java.io.File
 
 /**
  * Extension of JavaPlugin which works as
@@ -19,7 +22,15 @@ import org.jetbrains.annotations.ApiStatus
  * @since 2.0.0
  */
 @Suppress("unused")
-abstract class APIPlugin : JavaPlugin() {
+abstract class APIPlugin : JavaPlugin {
+
+    constructor() : super()
+
+    /**
+     * Deprecated constructor. Will be removed when JavaPlugin's equivalent is removed
+     */
+    @Deprecated("Will be removed when JavaPlugin's equivalent is removed")
+    constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File) : super(loader, description, dataFolder, file)
 
     val logger = APILogger(this)
 
