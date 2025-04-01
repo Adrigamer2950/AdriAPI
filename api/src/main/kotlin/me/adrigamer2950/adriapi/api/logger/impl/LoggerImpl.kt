@@ -14,7 +14,7 @@ import java.util.logging.Logger
  * Main Logger class
  */
 @Suppress("unused")
-class APILogger(name: String, parent: Logger? = Bukkit.getServer().logger) : Logger(name, null), me.adrigamer2950.adriapi.api.logger.Logger {
+class LoggerImpl(name: String, parent: Logger? = Bukkit.getServer().logger) : Logger(name, null), me.adrigamer2950.adriapi.api.logger.Logger {
 
     constructor(plugin: APIPlugin, parent: Logger? = Bukkit.getServer().logger) : this(plugin.description.prefix ?: plugin.description.name, parent)
 
