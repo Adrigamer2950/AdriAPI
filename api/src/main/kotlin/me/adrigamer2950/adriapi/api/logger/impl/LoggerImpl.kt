@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi.api.logger
+package me.adrigamer2950.adriapi.api.logger.impl
 
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.colors.Colors
