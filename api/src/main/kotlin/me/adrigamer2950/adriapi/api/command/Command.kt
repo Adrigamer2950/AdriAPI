@@ -6,7 +6,8 @@ import me.adrigamer2950.adriapi.api.user.User
 /**
  * Command interface. You can implement this interface
  * if you want to customize default behavior however
- * you see fit. Otherwise, you should extend {@link AbstractCommand}.
+ * you see fit. Otherwise, you should extend AbstractCommand
+ * if you want to use default behavior.
  *
  * @since 1.0.0
  */

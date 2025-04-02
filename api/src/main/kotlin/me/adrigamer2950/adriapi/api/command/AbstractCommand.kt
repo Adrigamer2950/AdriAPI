@@ -11,7 +11,7 @@ import java.util.*
 import org.bukkit.command.Command as BukkitCommand
 
 /**
- * Default implementation of {@link Command}
+ * Default implementation of Command
  *
  * @since 2.4.0
  */

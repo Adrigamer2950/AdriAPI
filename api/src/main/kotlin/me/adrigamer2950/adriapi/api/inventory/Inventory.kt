@@ -46,8 +46,10 @@ abstract class Inventory(
     }
 
     /**
-     * Setup inventory items ({@link #setupInventory()})
+     * Setup inventory items
      * and open the inventory to the player
+     *
+     * @see setupInventory
      */
     fun openInventory() {
         this.setupInventory()
@@ -65,9 +67,10 @@ abstract class Inventory(
      * Executed when a player clicks in the inventory
      *
      * @param e An InventoryClickEvent.
-     *          Null check on {@link InventoryClickEvent#getClickedInventory()}
+     *          Null check on InventoryClickEvent#getClickedInventory()
      *          is unnecessary as it is checked before executing this method
      * @see InventoryClickEvent
+     * @see InventoryClickEvent.getClickedInventory
      */
     open fun onInventoryClick(e: InventoryClickEvent) {}
 

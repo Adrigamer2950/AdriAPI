@@ -26,24 +26,24 @@ interface User {
     fun isPlayer(): Boolean
 
     /**
-     * @return {@link Optional<ConsoleCommandSender>} of the Console
+     * @return Optional object of ConsoleCommandSender
      */
     fun getConsole(): Optional<ConsoleCommandSender>
 
     /**
-     * @return {@link ConsoleCommandSender} if the user is the console, null otherwise
+     * @return A ConsoleCommandSender object if the user is the console, null otherwise
      */
     fun getConsoleOrNull(): ConsoleCommandSender? {
         return getConsole().orElse(null)
     }
 
     /**
-     * @return {@link Optional<Player>} of the Console
+     * @return Optional object of Player
      */
     fun getPlayer(): Optional<Player>
 
     /**
-     * @return {@link Player} if the user is the console, null otherwise
+     * @return A Player object if the user is a player, null otherwise
      */
     fun getPlayerOrNull(): Player? {
         return getPlayer().orElse(null)

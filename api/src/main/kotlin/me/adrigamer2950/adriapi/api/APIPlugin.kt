@@ -35,7 +35,7 @@ abstract class APIPlugin : JavaPlugin {
     val logger = APILogger(this)
 
     /**
-     * Command Manager. Used to register a {@link Command}
+     * Command Manager. Used to register a Command
      */
     lateinit var commandManager: CommandManager
 

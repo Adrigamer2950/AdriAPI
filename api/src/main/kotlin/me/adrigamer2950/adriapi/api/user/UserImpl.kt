@@ -10,7 +10,7 @@ import org.jetbrains.annotations.ApiStatus
 import java.util.*
 
 /**
- * Implementation of {@link User}. Preferable to use it as
+ * Implementation of User. Preferable to use it as
  * this class may change overtime without warning
  *
  * @see User

@@ -155,7 +155,7 @@ interface Scheduler {
     companion object {
 
         /**
-         * Creates a new {@link Scheduler} instance for the given plugin
+         * Creates a new Scheduler instance for the given plugin
          *
          * @param plugin The plugin to get the scheduler for
          * @param folia Whether to use the Folia scheduler
