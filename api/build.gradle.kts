@@ -100,8 +100,6 @@ tasks.named<ShadowJar>("shadowJar") {
         relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
 
         relocate("org.fusesource.jansi", "me.adrigamer2950.adriapi.lib.jansi")
-
-        relocate("kotlin", "me.adrigamer2950.adriapi.lib.kotlin")
     }
 }
 

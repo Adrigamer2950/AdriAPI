@@ -2,23 +2,21 @@ package me.adrigamer2950.adriapi.api.logger.impl
 
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.colors.Colors
+import me.adrigamer2950.adriapi.api.logger.Logger
 import me.adrigamer2950.adriapi.api.logger.builder.LogBuilder
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Bukkit
 import java.util.logging.Level
 import java.util.logging.LogRecord
-import java.util.logging.Logger
+import java.util.logging.Logger as JavaLogger
 
-/**
- * Main Logger class
- */
 @Suppress("unused")
-class LoggerImpl(name: String, parent: Logger? = Bukkit.getServer().logger) : Logger(name, null), me.adrigamer2950.adriapi.api.logger.Logger {
+class LoggerImpl(name: String, parent: JavaLogger? = Bukkit.getServer().logger) : JavaLogger(name, null), Logger {
 
-    constructor(plugin: APIPlugin, parent: Logger? = Bukkit.getServer().logger) : this(plugin.description.prefix ?: plugin.description.name, parent)
+    constructor(plugin: APIPlugin, parent: JavaLogger? = Bukkit.getServer().logger) : this(plugin.description.prefix ?: plugin.description.name, parent)
 
-    var debug: Boolean = false
+    override var debug: Boolean = false
 
     init {
         setParent(parent)
@@ -45,16 +43,20 @@ class LoggerImpl(name: String, parent: Logger? = Bukkit.getServer().logger) : Lo
     override fun log(builder: LogBuilder.() -> Unit) {
         val log = LogBuilder().apply(builder)
 
-        if (log.message == null) {
-            throw IllegalArgumentException("Cannot log null message")
-        }
+        if (log.debug && !this.debug) return
 
-        super<Logger>.log(log.level, parseMessage(log.message!!), log.throwable)
+        if (!log.isMessageInitialized)
+            throw IllegalArgumentException("Cannot log empty message")
+
+        val prefix = if (log.debug) "[DEBUG] " else ""
+        val message = parseMessage(log.message)
+
+        super<JavaLogger>.log(log.level, "$prefix$message", log.throwable)
     }
 
     override fun log(record: LogRecord) {
         record.message = colorizeMessage(record.message)
 
-        super<Logger>.log(record)
+        super<JavaLogger>.log(record)
     }
 }

@@ -3,7 +3,8 @@ package me.adrigamer2950.adriapi.api
 import me.adrigamer2950.adriapi.api.command.Command
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManager
-import me.adrigamer2950.adriapi.api.logger.APILogger
+import me.adrigamer2950.adriapi.api.logger.impl.LoggerImpl
+import me.adrigamer2950.adriapi.api.logger.Logger
 import me.adrigamer2950.adriapi.api.scheduler.Scheduler
 import me.adrigamer2950.adriapi.api.util.ServerType
 import me.adrigamer2950.adriapi.api.util.bStats
@@ -32,7 +33,7 @@ abstract class APIPlugin : JavaPlugin {
     @Deprecated("Will be removed when JavaPlugin's equivalent is removed")
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File) : super(loader, description, dataFolder, file)
 
-    val logger = APILogger(this)
+    val logger: Logger = LoggerImpl(this)
 
     /**
      * Command Manager. Used to register a Command
@@ -171,7 +172,7 @@ abstract class APIPlugin : JavaPlugin {
      */
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
     @Deprecated("In favor of APIPlugin#getLogger()")
-    fun getApiLogger(): APILogger {
+    fun getApiLogger(): Logger {
         return logger
     }
 }
