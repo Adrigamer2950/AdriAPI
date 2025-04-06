@@ -2,6 +2,7 @@ package me.adrigamer2950.adriapi.api.command.manager
 
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.command.Command
+import me.adrigamer2950.adriapi.api.util.ClassUtil
 import org.bukkit.Bukkit
 import java.lang.reflect.Method
 import java.util.*
@@ -15,16 +16,22 @@ import java.util.*
 @Suppress("unused")
 class CommandManager(val plugin: APIPlugin) {
 
-    val syncCommands: Method? = this.findSyncCommandsMethod()
+    private val syncCommands: Method? = this.findSyncCommandsMethod()
 
-    fun findSyncCommandsMethod(): Method {
-        try {
-            val method = Bukkit.getServer().javaClass.getMethod("syncCommands")
+    private fun findSyncCommandsMethod(): Method? {
+        // Ignore syncCommands method if plugin is running as a MockBukkit (unit testing framework) test
+        if (ClassUtil.classExists("org.mockbukkit.mockbukkit.MockBukkit"))
+            return null
+
+        return try {
+            val method = Bukkit.getServer().javaClass.getDeclaredMethod("syncCommands")
             method.isAccessible = true
 
-            return method
+            method
         } catch (e: Exception) {
-            throw RuntimeException("Could not find syncCommands method", e)
+            plugin.logger.error("Could not find syncCommands method", e)
+
+            null
         }
     }
 
