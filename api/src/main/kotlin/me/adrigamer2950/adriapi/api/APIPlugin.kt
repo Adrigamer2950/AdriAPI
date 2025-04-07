@@ -171,7 +171,7 @@ abstract class APIPlugin : JavaPlugin {
      * @see APIPlugin.getLogger
      */
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
-    @Deprecated("In favor of APIPlugin#getLogger()")
+    @Deprecated("In favor of APIPlugin#getLogger()", ReplaceWith("logger"))
     fun getApiLogger(): Logger {
         return logger
     }
