@@ -105,17 +105,17 @@ abstract class APIPlugin : JavaPlugin {
     }
 
     /**
-     * Called before loading AdriAPI's hooks
+     * Called before hooks are loaded
      */
     abstract fun onPreLoad()
 
     /**
-     * Called after loading AdriAPI's hooks
+     * Called after hooks are loaded
      */
     abstract fun onPostLoad()
 
     /**
-     * Called before unloading AdriAPI's hooks
+     * Called when disabling the plugin
      */
     abstract fun onUnload()
 
