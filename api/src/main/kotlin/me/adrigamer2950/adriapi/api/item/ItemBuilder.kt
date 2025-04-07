@@ -74,50 +74,23 @@ class ItemBuilder {
 
     var unbreakable: Boolean = false
 
-    fun material(material: Material): ItemBuilder {
-        this.material = material
-        return this
-    }
+    fun material(material: Material): ItemBuilder = apply { this.material = material }
 
-    fun amount(amount: Int): ItemBuilder {
-        this.amount = amount
-        return this
-    }
+    fun amount(amount: Int): ItemBuilder = apply { this.amount = amount }
 
-    fun name(name: Component?): ItemBuilder {
-        this.name = name
-        return this
-    }
+    fun name(name: Component?): ItemBuilder = apply { this.name = name }
 
-    fun lore(lore: List<Component>): ItemBuilder {
-        this.lore.addAll(lore)
-        return this
-    }
+    fun lore(lore: List<Component>): ItemBuilder = apply { this.lore.addAll(lore) }
 
-    fun customModelData(customModelData: Int): ItemBuilder {
-        this.customModelData = customModelData
-        return this
-    }
+    fun customModelData(customModelData: Int): ItemBuilder = apply { this.customModelData = customModelData }
 
-    fun addEnchantment(enchantment: Enchantment, level: Int): ItemBuilder {
-        this.enchantments[enchantment] = level
-        return this
-    }
+    fun addEnchantment(enchantment: Enchantment, level: Int): ItemBuilder = apply { this.enchantments[enchantment] = level }
 
-    fun addItemFlag(flag: ItemFlag): ItemBuilder {
-        this.flags.add(flag)
-        return this
-    }
+    fun addItemFlag(flag: ItemFlag): ItemBuilder = apply { this.flags.add(flag) }
 
-    fun addAttributeModifier(attribute: Attribute, modifier: AttributeModifier): ItemBuilder {
-        this.attributes.put(attribute, modifier)
-        return this
-    }
+    fun addAttributeModifier(attribute: Attribute, modifier: AttributeModifier): ItemBuilder = apply { this.attributes.put(attribute, modifier) }
 
-    fun unbreakable(unbreakable: Boolean): ItemBuilder {
-        this.unbreakable = unbreakable
-        return this
-    }
+    fun unbreakable(unbreakable: Boolean): ItemBuilder = apply { this.unbreakable = unbreakable }
 
     fun build(): ItemStack {
         if (this.material == null)
