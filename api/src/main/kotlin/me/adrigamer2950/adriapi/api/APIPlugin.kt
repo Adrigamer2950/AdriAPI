@@ -134,7 +134,7 @@ abstract class APIPlugin : JavaPlugin {
     /**
      * Unregisters a [Command] by its name
      *
-     * @param command The command
+     * @param name The command
      * @see Command
      */
     protected open fun unRegisterCommand(name: String) {
