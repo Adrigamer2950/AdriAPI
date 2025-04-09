@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi.plugin.listeners
+package me.adrigamer2950.adriapi.api.listeners
 
 import me.adrigamer2950.adriapi.api.inventory.Inventory
 import org.bukkit.event.EventHandler
