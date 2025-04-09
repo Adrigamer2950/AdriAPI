@@ -2,7 +2,6 @@ package me.adrigamer2950.adriapi.plugin
 
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.util.ServerType
-import me.adrigamer2950.adriapi.plugin.listeners.InventoriesListener
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
@@ -28,8 +27,6 @@ class AdriAPI : APIPlugin() {
     }
 
     override fun onPostLoad() {
-        this.registerListener(InventoriesListener())
-
         this.registerCommand(AdriAPICommand(this, "adriapi"))
 
         this.logger.info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD))
