@@ -51,12 +51,12 @@ class LoggerImpl(name: String, parent: JavaLogger? = Bukkit.getServer().logger) 
         val prefix = if (log.debug) "[DEBUG] " else ""
         val message = parseMessage(log.message)
 
-        super<JavaLogger>.log(log.level, "$prefix$message", log.throwable)
+        super.log(log.level, "$prefix$message", log.throwable)
     }
 
     override fun log(record: LogRecord) {
         record.message = colorizeMessage(record.message)
 
-        super<JavaLogger>.log(record)
+        super.log(record)
     }
 }
