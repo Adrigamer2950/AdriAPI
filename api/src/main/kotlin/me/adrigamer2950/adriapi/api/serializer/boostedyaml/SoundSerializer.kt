@@ -9,19 +9,19 @@ import org.bukkit.Sound as BukkitSound
 class SoundSerializer : TypeAdapter<Sound> {
 
     override fun serialize(sound: Sound): Map<in Any, Any?> {
-        val map: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
+        val map: MutableMap<Any, Any> = LinkedHashMap()
 
-        map.put("sound", sound.sound.name)
+        map["sound"] = sound.sound.name
 
         if (sound.volume != 1.0f) {
-            map.put("volume", sound.volume)
+            map["volume"] = sound.volume
         }
 
         if (sound.pitch != 1.0f) {
-            map.put("pitch", sound.pitch)
+            map["pitch"] = sound.pitch
         }
 
-        map.put("category", sound.category.name)
+        map["category"] = sound.category.name
 
         return map
     }

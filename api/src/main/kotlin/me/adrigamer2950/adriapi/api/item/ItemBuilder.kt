@@ -32,7 +32,7 @@ class ItemBuilder {
                     if (stack.itemMeta.hasLore())
                         stack.itemMeta.lore() as List<Component>
                     else
-                        listOfNotNull<Component>()
+                        listOf()
                 )
                 .customModelData(stack.itemMeta.customModelData)
                 .unbreakable(stack.itemMeta.isUnbreakable)

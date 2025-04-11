@@ -19,70 +19,66 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
     override fun serialize(itemStack: ItemStack): Map<Any, Any> {
         val map = LinkedHashMap<Any, Any>()
 
-        map.put("material", itemStack.type.name)
-        map.put("count", itemStack.amount)
+        map["material"] = itemStack.type.name
+        map["count"] = itemStack.amount
 
         if (itemStack.itemMeta.hasDisplayName())
-            map.put(
-                "name",
-                LegacyComponentSerializer.legacyAmpersand().serialize(itemStack.itemMeta.displayName()!!)
-            )
+            map["name"] = LegacyComponentSerializer.legacyAmpersand().serialize(itemStack.itemMeta.displayName()!!)
 
         if (itemStack.itemMeta.hasLore())
-            map.put(
-                "lore", itemStack.itemMeta.lore()!!
-                    .stream().map(LegacyComponentSerializer.legacyAmpersand()::serialize)
-            )
+            map["lore"] = itemStack.itemMeta.lore()!!
+                .stream().map(LegacyComponentSerializer.legacyAmpersand()::serialize)
 
         if (itemStack.itemMeta.hasCustomModelData())
-            map.put("custom_model_data", itemStack.itemMeta.customModelData)
+            map["custom_model_data"] = itemStack.itemMeta.customModelData
 
-        if (!itemStack.enchantments.isEmpty()) {
+        if (itemStack.enchantments.isNotEmpty()) {
             val enchantments: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
             itemStack.enchantments.keys.forEach {
                 val level: Any = itemStack.enchantments[it] as Any
 
-                enchantments.put(it.key.key, level)
+                enchantments[it.key.key] = level
             }
 
-            map.put("enchantments", enchantments)
+            map["enchantments"] = enchantments
         }
 
-        if (!itemStack.itemFlags.isEmpty()) {
-            map.put(
-                "flags", itemStack.itemFlags
-                    .stream().map(ItemFlag::name)
-                    .toList()
-            )
+        if (itemStack.itemFlags.isNotEmpty()) {
+            map["flags"] = itemStack.itemFlags
+                .stream().map(ItemFlag::name)
+                .toList()
         }
 
         if (itemStack.itemMeta.hasAttributeModifiers()) {
             val attributes: MutableList<Map<Any, Any>> = LinkedList<Map<Any, Any>>()
 
             itemStack.itemMeta.attributeModifiers?.keySet()?.forEach {
+                if (it == null)
+                    return@forEach
+
                 val attribute: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
-                val modifiers: Collection<AttributeModifier?>? = itemStack.itemMeta.attributeModifiers?.get(it)
+                val modifiers: Collection<AttributeModifier>? = itemStack.itemMeta.attributeModifiers?.get(it)
 
-                modifiers?.forEach {
+                modifiers?.forEach { modifier ->
                     val modifierMap: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
-                    modifierMap.put("name", it!!.name)
-                    modifierMap.put("operation", it.operation.name)
-                    modifierMap.put("amount", it.amount)
+                    modifierMap["name"] = modifier.name
+                    modifierMap["operation"] = modifier.operation.name
+                    modifierMap["amount"] = modifier.amount
 
-                    attribute.put(it.name, modifierMap)
+                    attribute[modifier.name] = modifierMap
                 }
 
                 attributes.add(attribute)
             }
 
-            map.put("attributes", attributes)
+            map["attributes"] = attributes
         }
 
         if (itemStack.itemMeta.isUnbreakable)
-            map.put("unbreakable", true)
+            map["unbreakable"] = true
 
         return map
     }
@@ -90,9 +86,7 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
     @Suppress("UNCHECKED_CAST")
     override fun deserialize(map: Map<in Any, Any?>): ItemStack {
         val mat = Material.getMaterial(map["material"] as String)
-
-        if (mat == null)
-            throw IllegalArgumentException("Material does not exist!")
+            ?: throw IllegalArgumentException("Material does not exist!")
 
         if (!map.containsKey("count"))
             throw IllegalArgumentException("Count variable isn't set!")
@@ -110,8 +104,8 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
         if (map.containsKey("lore"))
             meta.lore(
                 (map["lore"] as List<String>).stream()
-                    .map { LegacyComponentSerializer.legacyAmpersand().deserialize(it) as Component }
-                    .toList()
+                    .map { LegacyComponentSerializer.legacyAmpersand().deserialize(it) }
+                    .toList() as List<Component>
             )
 
         if (map.containsKey("custom_model_data"))

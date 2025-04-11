@@ -7,7 +7,6 @@ import org.bukkit.World
 import org.bukkit.entity.Entity
 import org.bukkit.plugin.Plugin
 import java.util.concurrent.TimeUnit
-import java.util.function.Consumer
 
 class FoliaScheduler(val plugin: Plugin) : Scheduler {
 
@@ -35,14 +34,14 @@ class FoliaScheduler(val plugin: Plugin) : Scheduler {
         return if (async) {
             runAsyncLater(runnable, delay)
         } else {
-            ScheduledTask(Bukkit.getGlobalRegionScheduler().runDelayed(plugin, Consumer {
+            ScheduledTask(Bukkit.getGlobalRegionScheduler().runDelayed(plugin, {
                 runnable.run()
             }, delay), plugin)
         }
     }
 
     override fun runAsyncLater(runnable: Runnable, delay: Long): ScheduledTask {
-        return ScheduledTask(Bukkit.getAsyncScheduler().runDelayed(plugin, Consumer {
+        return ScheduledTask(Bukkit.getAsyncScheduler().runDelayed(plugin, {
             runnable.run()
         }, delay / 20, TimeUnit.SECONDS), plugin)
     }
@@ -56,14 +55,14 @@ class FoliaScheduler(val plugin: Plugin) : Scheduler {
         return if (async) {
             runAsyncTimer(runnable, delay, period)
         } else {
-            return ScheduledTask(Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, Consumer {
+            return ScheduledTask(Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, {
                 runnable.run()
             }, delay, period), plugin)
         }
     }
 
     override fun runAsyncTimer(runnable: Runnable, delay: Long, period: Long): ScheduledTask {
-        return ScheduledTask(Bukkit.getAsyncScheduler().runAtFixedRate(plugin, Consumer {
+        return ScheduledTask(Bukkit.getAsyncScheduler().runAtFixedRate(plugin, {
             runnable.run()
         }, delay / 20, period / 20, TimeUnit.SECONDS), plugin)
     }
@@ -74,9 +73,9 @@ class FoliaScheduler(val plugin: Plugin) : Scheduler {
         async: Boolean
     ): ScheduledTask {
         return if (async) {
-            ScheduledTask(Bukkit.getAsyncScheduler().runNow(plugin, Consumer {
+            ScheduledTask(Bukkit.getAsyncScheduler().runNow(plugin) {
                 runnable.run()
-            }), plugin)
+            }, plugin)
         } else {
             return ScheduledTask(entity.scheduler.run {
                 runnable.run()
@@ -90,7 +89,7 @@ class FoliaScheduler(val plugin: Plugin) : Scheduler {
         delay: Long,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(entity.scheduler.runDelayed(plugin, Consumer {
+        return ScheduledTask(entity.scheduler.runDelayed(plugin, {
             runnable.run()
         }, null, delay) as Any, plugin)
     }
@@ -102,7 +101,7 @@ class FoliaScheduler(val plugin: Plugin) : Scheduler {
         period: Long,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(entity.scheduler.runAtFixedRate(plugin, Consumer {
+        return ScheduledTask(entity.scheduler.runAtFixedRate(plugin, {
             runnable.run()
         }, null, delay, period) as Any, plugin)
     }
@@ -127,7 +126,7 @@ class FoliaScheduler(val plugin: Plugin) : Scheduler {
         delay: Long,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(Bukkit.getRegionScheduler().runDelayed(plugin, world, chunkX, chunkZ, Consumer {
+        return ScheduledTask(Bukkit.getRegionScheduler().runDelayed(plugin, world, chunkX, chunkZ, {
             runnable.run()
         }, delay) as Any, plugin)
     }
@@ -141,7 +140,7 @@ class FoliaScheduler(val plugin: Plugin) : Scheduler {
         period: Long,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(Bukkit.getRegionScheduler().runAtFixedRate(plugin, world, chunkX, chunkZ, Consumer {
+        return ScheduledTask(Bukkit.getRegionScheduler().runAtFixedRate(plugin, world, chunkX, chunkZ, {
             runnable.run()
         }, delay, period) as Any, plugin)
     }

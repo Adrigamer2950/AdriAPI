@@ -20,7 +20,7 @@ class LibraryManagerImpl internal constructor(override val plugin: Plugin) : Lib
     private val classLoader: URLClassLoaderHelper =
         URLClassLoaderHelper(plugin.javaClass.getClassLoader() as URLClassLoader?, this)
 
-    override val libraries: MutableSet<Library> = HashSet<Library>()
+    override val libraries: MutableSet<Library> = HashSet()
 
     init {
         this.addMavenCentral()
