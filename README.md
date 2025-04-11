@@ -24,6 +24,6 @@ providing a lot of utilities that will make your life (and mine) easier.
 
 # Resources
 
-- [Docs](https://docs.devadri.es)
+- [Docs (Outdated)](https://docs.devadri.es)
 - [bStats](https://bstats.org/plugin/bukkit/AdriAPI/20135)
 - [Maven Repository](https://repo.devadri.es)
