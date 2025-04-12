@@ -34,7 +34,7 @@ abstract class APIPlugin : JavaPlugin {
     @Deprecated("Will be removed when JavaPlugin's equivalent is removed")
     constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File) : super(loader, description, dataFolder, file)
 
-    val logger: Logger = LoggerImpl(this)
+    open val logger: Logger = LoggerImpl(this)
 
     /**
      * Command Manager. Used to register a Command
