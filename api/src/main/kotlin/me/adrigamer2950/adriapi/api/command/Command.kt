@@ -16,7 +16,8 @@ interface Command {
     /**
      * This could be named "name", but an
      * "Inherited platform declarations clash" error
-     * would be thrown at compile time
+     * or an "Accidental override" error
+     * would be thrown at compile time 😿
      */
     val commandName: String
 
