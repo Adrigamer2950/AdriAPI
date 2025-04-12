@@ -40,23 +40,27 @@ abstract class APIPlugin : JavaPlugin {
      * Command Manager. Used to register a Command
      */
     lateinit var commandManager: CommandManager
+        protected set
 
     /**
      * Custom scheduler that takes advantage of Folia's scheduler
      * without the need to check all the time if the server is running Folia
      */
     lateinit var scheduler: Scheduler
+        protected set
 
     /**
      * bStats wrapper
      */
     lateinit var bStats: bStats
+        protected set
     protected open fun bStatsServiceId(): Int = 0
 
     /**
      * The library manager. Used to download libraries on runtime
      */
     lateinit var libraryManager: LibraryManager
+        protected set
 
     var debug: Boolean
         get() = logger.debug
