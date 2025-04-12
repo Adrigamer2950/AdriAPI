@@ -54,11 +54,6 @@ abstract class APIPlugin : JavaPlugin {
     protected open fun bStatsServiceId(): Int = 0
 
     /**
-     * @see ServerType
-     */
-    lateinit var serverType: ServerType
-
-    /**
      * The library manager. Used to download libraries on runtime
      */
     lateinit var libraryManager: LibraryManager
@@ -70,7 +65,6 @@ abstract class APIPlugin : JavaPlugin {
         }
 
     final override fun onLoad() {
-        this.serverType = ServerType.type
         this.libraryManager = LibraryManager.get(this)
 
         this.onPreLoad()
@@ -100,7 +94,7 @@ abstract class APIPlugin : JavaPlugin {
         commandManager = CommandManager(this)
 
         logger.debug("&6Loading Scheduler...")
-        scheduler = Scheduler.make(this, serverType == ServerType.FOLIA)
+        scheduler = Scheduler.make(this, ServerType.type == ServerType.FOLIA)
 
         if (bStatsServiceId() != 0) {
             logger.debug("&6Loading bStats hook...")
