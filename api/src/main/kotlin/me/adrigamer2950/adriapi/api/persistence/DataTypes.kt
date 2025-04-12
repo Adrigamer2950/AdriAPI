@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "PLATFORM_CLASS_MAPPED_TO_KOTLIN")
 
 package me.adrigamer2950.adriapi.api.persistence
 
