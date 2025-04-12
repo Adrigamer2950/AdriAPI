@@ -72,13 +72,11 @@ abstract class APIPlugin : JavaPlugin {
         this.libraryManager = LibraryManager.get(this)
 
         this.onPreLoad()
-
-        logger.debug("&6Loading hooks...")
-        loadHooks()
     }
 
     final override fun onEnable() {
-        logger.debug("&6Enabling plugin...")
+        logger.debug("&6Loading hooks...")
+        loadHooks()
 
         this.registerListener(InventoriesListener(this))
 
