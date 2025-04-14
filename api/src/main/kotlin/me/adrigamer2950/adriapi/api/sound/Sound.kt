@@ -67,5 +67,10 @@ class Sound(
         fun builder(): Builder {
             return Builder()
         }
+
+        @JvmStatic
+        fun fromBukkitSound(sound: BukkitSound): Sound {
+            return Sound(sound)
+        }
     }
 }
