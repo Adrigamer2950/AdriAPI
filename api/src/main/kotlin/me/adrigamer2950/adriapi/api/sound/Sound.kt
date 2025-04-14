@@ -62,6 +62,14 @@ class Sound(
         }
     }
 
+    fun toBuilder(): Builder {
+        return Builder()
+            .sound(this.sound)
+            .volume(this.volume)
+            .pitch(this.pitch)
+            .category(this.category)
+    }
+
     companion object {
         @JvmStatic
         fun builder(): Builder {
