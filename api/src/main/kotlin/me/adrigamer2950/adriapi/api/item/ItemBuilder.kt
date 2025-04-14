@@ -4,11 +4,15 @@ import com.google.common.collect.HashMultimap
 import com.google.common.collect.Multimap
 import net.kyori.adventure.text.Component
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.ItemMeta
+import org.bukkit.persistence.PersistentDataType
+import java.util.function.Consumer
 
 @Suppress("unused")
 class ItemBuilder {
@@ -74,6 +78,8 @@ class ItemBuilder {
 
     var unbreakable: Boolean = false
 
+    val persistentData: MutableList<Consumer<ItemMeta>> = mutableListOf()
+
     fun material(material: Material): ItemBuilder = apply { this.material = material }
 
     fun amount(amount: Int): ItemBuilder = apply { this.amount = amount }
@@ -91,6 +97,12 @@ class ItemBuilder {
     fun addAttributeModifier(attribute: Attribute, modifier: AttributeModifier): ItemBuilder = apply { this.attributes.put(attribute, modifier) }
 
     fun unbreakable(unbreakable: Boolean): ItemBuilder = apply { this.unbreakable = unbreakable }
+
+    fun <T, Z : Any> addPersistentData(namespacedKey: NamespacedKey, type: PersistentDataType<T, Z>, obj: Z): ItemBuilder = apply {
+        this.persistentData.add {
+            it.persistentDataContainer.set(namespacedKey, type, obj)
+        }
+    }
 
     fun build(): ItemStack {
         if (this.material == null)
@@ -118,6 +130,10 @@ class ItemBuilder {
         meta.attributeModifiers = this.attributes
 
         meta.isUnbreakable = this.unbreakable
+
+        this.persistentData.forEach {
+            it.accept(meta)
+        }
 
         stack.itemMeta = meta
 
