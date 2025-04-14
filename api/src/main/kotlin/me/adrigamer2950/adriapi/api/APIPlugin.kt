@@ -32,7 +32,12 @@ abstract class APIPlugin : JavaPlugin {
      * Deprecated constructor. Will be removed when JavaPlugin's equivalent is removed
      */
     @Deprecated("Will be removed when JavaPlugin's equivalent is removed")
-    constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File) : super(loader, description, dataFolder, file)
+    constructor(loader: JavaPluginLoader, description: PluginDescriptionFile, dataFolder: File, file: File) : super(
+        loader,
+        description,
+        dataFolder,
+        file
+    )
 
     open val logger: Logger = LoggerImpl(this)
 
@@ -54,6 +59,7 @@ abstract class APIPlugin : JavaPlugin {
      */
     lateinit var bStats: bStats
         protected set
+
     protected open fun bStatsServiceId(): Int = 0
 
     /**
