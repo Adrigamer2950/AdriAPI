@@ -160,6 +160,9 @@ tasks.withType(AbstractRun::class) {
         languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
     jvmArgs(
+        // Debug
+        "-Dadriapi.debug=true",
+
         // Hot Swap
         "-XX:+AllowEnhancedClassRedefinition",
 
