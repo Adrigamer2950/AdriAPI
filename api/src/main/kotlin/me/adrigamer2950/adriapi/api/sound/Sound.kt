@@ -3,7 +3,8 @@ package me.adrigamer2950.adriapi.api.sound
 import org.bukkit.Location
 import org.bukkit.SoundCategory
 import org.bukkit.entity.Entity
-import org.bukkit.Sound as BukkitSound
+
+typealias BukkitSound = org.bukkit.Sound
 
 @Suppress("unused")
 class Sound(
