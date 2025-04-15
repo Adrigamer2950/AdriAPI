@@ -2,7 +2,7 @@ package me.adrigamer2950.adriapi.api
 
 import me.adrigamer2950.adriapi.api.command.Command
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager
-import me.adrigamer2950.adriapi.api.listeners.InventoriesListener
+import me.adrigamer2950.adriapi.api.internal.InventoriesListener
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManager
 import me.adrigamer2950.adriapi.api.logger.impl.LoggerImpl
 import me.adrigamer2950.adriapi.api.logger.Logger

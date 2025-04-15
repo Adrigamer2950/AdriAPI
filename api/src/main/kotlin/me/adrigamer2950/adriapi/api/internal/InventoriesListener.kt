@@ -1,4 +1,4 @@
-package me.adrigamer2950.adriapi.api.listeners
+package me.adrigamer2950.adriapi.api.internal
 
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.inventory.Inventory
