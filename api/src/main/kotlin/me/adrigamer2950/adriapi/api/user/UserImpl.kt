@@ -10,8 +10,7 @@ import org.jetbrains.annotations.ApiStatus
 import java.util.*
 
 /**
- * Implementation of User. Preferable to use it as
- * this class may change overtime without warning
+ * Default implementation of User
  *
  * @see User
  * @since 2.0.0
