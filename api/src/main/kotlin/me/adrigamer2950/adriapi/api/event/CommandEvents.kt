@@ -20,7 +20,7 @@ class CommandLoadedEvent(command: Command) : CommandEvent(command) {
     }
 
     override fun getHandlers(): HandlerList {
-        return HandlerList()
+        return Companion.handlers
     }
 }
 
@@ -36,6 +36,6 @@ class CommandUnloadedEvent(command: Command) : CommandEvent(command) {
     }
 
     override fun getHandlers(): HandlerList {
-        return HandlerList()
+        return Companion.handlers
     }
 }
