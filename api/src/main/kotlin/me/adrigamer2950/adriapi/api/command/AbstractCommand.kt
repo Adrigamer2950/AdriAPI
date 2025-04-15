@@ -32,7 +32,7 @@ abstract class AbstractCommand(
         subCommands
     )
 
-    abstract override fun execute(user: User, args: Array<out String>, commandLabel: String)
+    abstract override fun execute(user: User, args: Array<out String>, commandName: String)
 
     final override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
         this.execute(User.fromBukkitSender(sender), args, commandLabel)
@@ -40,7 +40,7 @@ abstract class AbstractCommand(
         return true
     }
 
-    override fun tabComplete(user: User, args: Array<out String>, commandLabel: String): List<String> {
+    override fun tabComplete(user: User, args: Array<out String>, commandName: String): List<String> {
         return listOf()
     }
 
