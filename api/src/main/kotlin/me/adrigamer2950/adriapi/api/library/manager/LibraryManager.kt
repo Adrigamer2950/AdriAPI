@@ -28,6 +28,18 @@ interface LibraryManager {
     fun addLibraries(vararg libraries: Library)
 
     /**
+     * Loads a library
+     * @param library The library
+     */
+    fun loadLibrary(library: Library)
+
+    /**
+     * Loads an iterable list of libraries
+     * @param libraries The libraries
+     */
+    fun loadLibraries(vararg libraries: Library)
+
+    /**
      * @return The libraries
      */
     val libraries: MutableCollection<Library>
