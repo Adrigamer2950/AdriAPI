@@ -27,8 +27,6 @@ class AdriAPI : APIPlugin() {
     }
 
     override fun onPostLoad() {
-        this.registerCommand(AdriAPICommand(this, "adriapi"))
-
         this.logger.info(Component.text("Enabled", NamedTextColor.GREEN, TextDecoration.BOLD))
     }
 

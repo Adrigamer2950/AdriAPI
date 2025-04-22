@@ -39,6 +39,10 @@ allprojects {
             name = "AlessioDP"
             url = uri("https://repo.alessiodp.com/releases")
         }
+        maven {
+            name = "JitPack"
+            url = uri("https://jitpack.io")
+        }
     }
 
     dependencies {

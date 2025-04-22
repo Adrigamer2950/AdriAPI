@@ -14,6 +14,8 @@ import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.java.JavaPluginLoader
 import org.jetbrains.annotations.ApiStatus
+import org.reflections.Reflections
+import org.reflections.util.ConfigurationBuilder
 import java.io.File
 
 /**
@@ -74,6 +76,8 @@ abstract class APIPlugin : JavaPlugin {
             logger.debug = debug
         }
 
+    private val autoRegisterHandler: AutoRegisterHandler = AutoRegisterHandler(this)
+
     final override fun onLoad() {
         this.libraryManager = LibraryManager.get(this)
 
@@ -91,7 +95,8 @@ abstract class APIPlugin : JavaPlugin {
         logger.debug("&6Loading hooks...")
         loadHooks()
 
-        this.registerListener(InventoriesListener(this))
+        registerListener(InventoriesListener(this))
+        autoRegister()
 
         onPostLoad()
     }
@@ -187,5 +192,25 @@ abstract class APIPlugin : JavaPlugin {
     @Deprecated("In favor of APIPlugin#getLogger()", ReplaceWith("logger"))
     fun getApiLogger(): Logger {
         return logger
+    }
+
+    private fun autoRegister() {
+        val reflections = Reflections(
+            ConfigurationBuilder()
+                .forPackages(this::class.java.packageName)
+                .disableLogging()
+        )
+
+        reflections.getTypesAnnotatedWith(AutoRegister::class.java).forEach {
+            it.packageName.startsWith("${this::class.java.packageName}.libs") // Ignore libs package
+
+            try {
+                logger.debug("&6Found a class annotated with AutoRegister. Registering `${it.simpleName}`...")
+
+                autoRegisterHandler.registerType(it)
+            } catch (ex: Exception) {
+                logger.error("&cFailed to auto-register `${it.simpleName}`. Skipping...", ex)
+            }
+        }
     }
 }
