@@ -40,5 +40,7 @@ class LibraryManagerImpl internal constructor(override val plugin: Plugin) : Lib
 
     override fun loadLibraries() {
         libraries.forEach { this.loadLibrary(it) }
+
+        libraries.clear()
     }
 }
