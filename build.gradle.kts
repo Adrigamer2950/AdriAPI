@@ -62,7 +62,7 @@ allprojects {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation(project(":api"))
+    implementation(project(":core"))
 
     implementation(project(":plugin"))
 }
@@ -184,7 +184,7 @@ tasks.withType(AbstractRun::class) {
 }
 
 tasks.named<ShadowJar>("shadowJar") {
-    dependsOn(":api:shadowJar")
+    dependsOn(":core:shadowJar")
 
     archiveClassifier.set("")
     archiveVersion.set(version as String)

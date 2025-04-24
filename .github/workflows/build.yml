@@ -48,7 +48,7 @@ jobs:
         env:
           NEXUS_USERNAME: "${{ secrets.NEXUS_USERNAME }}"
           NEXUS_PASSWORD: "${{ secrets.NEXUS_PASSWORD }}"
-        run: "./gradlew :api:publish -PNEXUS_USERNAME=$NEXUS_USERNAME -PNEXUS_PASSWORD=$NEXUS_PASSWORD"
+        run: "./gradlew :core:publish -PNEXUS_USERNAME=$NEXUS_USERNAME -PNEXUS_PASSWORD=$NEXUS_PASSWORD"
   publish:
     if: ${{ github.repository == 'Adrigamer2950/AdriAPI' &&
       (github.event_name == 'workflow_dispatch' && github.event.inputs.publish) }}

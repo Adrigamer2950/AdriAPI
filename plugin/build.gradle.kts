@@ -12,7 +12,7 @@ dependencies {
 
     compileOnly(libs.paper.api)
 
-    compileOnly(project(":api"))
+    compileOnly(project(":core"))
 }
 
 val targetJavaVersion = (rootProject.properties["java-version"] as String).toInt()
