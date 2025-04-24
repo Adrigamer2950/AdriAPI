@@ -202,7 +202,7 @@ abstract class APIPlugin : JavaPlugin {
         )
 
         reflections.getTypesAnnotatedWith(AutoRegister::class.java).forEach {
-            it.packageName.startsWith("${this::class.java.packageName}.libs") // Ignore libs package
+            if (it.packageName.startsWith("${this::class.java.packageName}.libs")) return@forEach // Ignore libs package
 
             try {
                 logger.debug("&6Found a class annotated with AutoRegister. Registering `${it.simpleName}`...")
