@@ -194,6 +194,7 @@ abstract class APIPlugin : JavaPlugin {
         return logger
     }
 
+    @OptIn(ExperimentalAPI::class)
     private fun autoRegister() {
         val reflections = Reflections(
             ConfigurationBuilder()
