@@ -39,7 +39,16 @@ class AutoRegisterHandler internal constructor(val plugin: APIPlugin) {
             throw IllegalArgumentException("Class `${klass.simpleName}` is not a `${T::class.simpleName}`")
         }
 
-        when (val instance = getInstance(klass)) {
+        val instance = getInstance(klass)
+
+        if (instance is AutoRegisterFilter) {
+            if (!instance.shouldBeRegistered(plugin)) {
+                plugin.logger.debug("&6${klass.simpleName} wasn't registered because it didn't pass the filter")
+                return
+            }
+        }
+
+        when (instance) {
             is Listener -> plugin.server.pluginManager.registerEvents(instance, plugin)
             is Command -> plugin.commandManager.registerCommand(instance)
         }
