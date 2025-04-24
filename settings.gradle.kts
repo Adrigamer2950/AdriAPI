@@ -11,4 +11,4 @@ plugins {
 
 rootProject.name = "AdriAPI"
 
-include("core", "core:folia", "plugin")
+include("core", "folia", "plugin")
