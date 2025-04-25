@@ -7,26 +7,28 @@ import org.bukkit.entity.Entity
 
 typealias BukkitSound = org.bukkit.Sound
 
+typealias XCategory = XSound.Category
+
 @Suppress("unused")
 class Sound(
     val sound: XSound,
     val volume: Float = 1.0f,
     val pitch: Float = 1.0f,
-    val category: SoundCategory = SoundCategory.MASTER
+    val category: XCategory = XCategory.MASTER,
 ) {
 
     fun playToEntity(entity: Entity) {
         if (this.sound.get() == null)
             throw IllegalArgumentException("Sound ${this.sound.name()} is not valid")
 
-        entity.world.playSound(entity, this.sound.get()!!, this.category, this.volume, this.pitch)
+        entity.world.playSound(entity, this.sound.get()!!, this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER, this.volume, this.pitch)
     }
 
     fun playOnLocation(l: Location) {
         if (this.sound.get() == null)
             throw IllegalArgumentException("Sound ${this.sound.name()} is not valid")
 
-        l.world.playSound(l, this.sound.get()!!, this.category, this.volume, this.pitch)
+        l.world.playSound(l, this.sound.get()!!, this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER, this.volume, this.pitch)
     }
 
     class Builder {
@@ -39,7 +41,7 @@ class Sound(
         var pitch: Float = 1.0f
             private set
 
-        var category: SoundCategory = SoundCategory.MASTER
+        var category: XCategory = XCategory.MASTER
             private set
 
         fun sound(sound: XSound): Builder {
@@ -57,7 +59,7 @@ class Sound(
             return this
         }
 
-        fun category(category: SoundCategory): Builder {
+        fun category(category: XCategory): Builder {
             this.category = category
             return this
         }
