@@ -30,6 +30,6 @@ providing a lot of utilities that will make your life (and mine) easier
 - [Maven Repository](https://repo.devadri.es)
 
 # Credits
-- Thanks to [Byteflux](https://github.com/Byteflux) and [AlessioDP](https://github.com/AlessioDP/libby)
+- Thanks to [Byteflux](https://github.com/Byteflux) and [AlessioDP](https://github.com/AlessioDP)
   for creating the [Libby](https://github.com/AlessioDP/libby/tree/gradle) library, which is used to manage
   dependencies at runtime.
