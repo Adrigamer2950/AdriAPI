@@ -99,7 +99,7 @@ tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
 
     dependencies {
-        relocate("net.byteflux.libby", "me.adrigamer2950.adriapi.lib.libby")
+        relocate("com.alessiodp.libby", "me.adrigamer2950.adriapi.lib.libby")
 
         relocate("org.fusesource.jansi", "me.adrigamer2950.adriapi.lib.jansi")
 

@@ -1,6 +1,6 @@
 package me.adrigamer2950.adriapi.api.library.manager
 
-import net.byteflux.libby.Library
+import com.alessiodp.libby.Library
 import org.bukkit.plugin.Plugin
 
 /**
