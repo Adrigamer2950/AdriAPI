@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package me.adrigamer2950.adriapi.common
 
 import me.adrigamer2950.adriapi.api.APIPlugin
