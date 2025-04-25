@@ -3,11 +3,8 @@
 
 package me.adrigamer2950.adriapi.tests
 
-import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.AutoRegister
 import me.adrigamer2950.adriapi.api.ExperimentalAPI
-import me.adrigamer2950.adriapi.api.command.AbstractCommand
-import me.adrigamer2950.adriapi.api.user.User
 import me.adrigamer2950.adriapi.platform.AbstractTestPlatform
 import org.bukkit.event.Listener
 import kotlin.test.Test
@@ -17,7 +14,7 @@ class AutoRegister : AbstractTestPlatform() {
 
     @Test
     fun `Auto-Register Command`() {
-        assertTrue(plugin.commandManager.getCommandOrNull("example") != null, "Command 'example' should be registered")
+        assertTrue(plugin.commandManager.getCommandOrNull("example_auto") != null, "Command 'example_auto' should be registered")
     }
 
     @Test
