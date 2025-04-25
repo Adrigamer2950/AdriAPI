@@ -27,14 +27,6 @@ class AutoRegister : AbstractTestPlatform() {
 }
 
 @AutoRegister
-class ExampleCommand(plugin: APIPlugin) : AbstractCommand(plugin, "example") {
-
-    override fun execute(user: User, args: Array<out String>, commandName: String) {
-        user.sendMessage("nice command")
-    }
-}
-
-@AutoRegister
 class ExampleListener : Listener {
 
     companion object {
