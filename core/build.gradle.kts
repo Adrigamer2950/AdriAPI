@@ -187,8 +187,10 @@ tasks.named("compileKotlin") {
     dependsOn(tasks.named("generateBuildConstants"))
 }
 
-tasks.withType<Test> {
-    kotlin {
-        jvmToolchain(21)
-    }
+tasks.withType<Test>().configureEach {
+    javaLauncher.set(
+        javaToolchains.launcherFor {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
+    )
 }
