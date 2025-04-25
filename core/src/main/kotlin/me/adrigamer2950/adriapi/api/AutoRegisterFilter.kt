@@ -3,6 +3,7 @@ package me.adrigamer2950.adriapi.api
 /**
  * Filters auto-registration of a Listener/Command
  */
+@ExperimentalAPI
 interface AutoRegisterFilter {
 
     /**

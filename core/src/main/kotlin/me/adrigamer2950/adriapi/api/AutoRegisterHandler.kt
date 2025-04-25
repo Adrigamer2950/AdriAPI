@@ -29,6 +29,7 @@ class AutoRegisterHandler internal constructor(val plugin: APIPlugin) {
         return command
     }
 
+    @OptIn(ExperimentalAPI::class)
     @Throws(IllegalArgumentException::class)
     inline fun <reified T> registerType(klass: Class<out T>) {
         if (Modifier.isAbstract(klass.modifiers)) {
