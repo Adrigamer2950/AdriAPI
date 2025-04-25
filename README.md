@@ -16,7 +16,7 @@ providing a lot of utilities that will make your life (and mine) easier
 
 > [!CAUTION]
 > You need Java 17+ to use this API/Plugin. If you are using a lower version consider upgrading.
-> If you are contributing to this API, you will need Java 21 to run the tests
+> If you are contributing to this API, you will need Java 21+ to run the tests
 
 > [!WARNING]
 > Only Minecraft 1.17 or superior is officially supported. Versions below 1.17 will not receive any support
