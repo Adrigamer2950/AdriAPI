@@ -27,3 +27,8 @@ providing a lot of utilities that will make your life (and mine) easier.
 - [Docs (Outdated)](https://docs.devadri.es)
 - [bStats](https://bstats.org/plugin/bukkit/AdriAPI/20135)
 - [Maven Repository](https://repo.devadri.es)
+
+# Credits
+- Thanks to [Byteflux](https://github.com/Byteflux) and [AlessioDP](https://github.com/AlessioDP/libby)
+  for creating the [Libby](https://github.com/AlessioDP/libby/tree/gradle) library, which is used to manage
+  dependencies at runtime.
