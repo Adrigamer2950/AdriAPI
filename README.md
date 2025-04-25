@@ -33,3 +33,6 @@ providing a lot of utilities that will make your life (and mine) easier
 - Thanks to [Byteflux](https://github.com/Byteflux) and [AlessioDP](https://github.com/AlessioDP)
   for creating the [Libby](https://github.com/AlessioDP/libby/tree/gradle) library, which is used to manage
   dependencies at runtime.
+- Thanks to [CryptoMorin](https://github.com/CryptoMorin) for creating the [XSeries](https://github.com/CryptoMorin/XSeries) library,
+  which is used to preserve compatibility with older and newer versions of Minecraft, as IDs and APIs can vary
+  between versions.
