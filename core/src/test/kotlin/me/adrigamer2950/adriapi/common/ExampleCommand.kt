@@ -8,8 +8,14 @@ import me.adrigamer2950.adriapi.api.user.User
 
 @OptIn(ExperimentalAPI::class)
 @AutoRegister
-open class ExampleAutoCommand(plugin: APIPlugin) : AbstractCommand(plugin, "example_auto") {
+class ExampleAutoCommand(plugin: APIPlugin) : AbstractCommand(plugin, "example_auto") {
 
+    override fun execute(user: User, args: Array<out String>, commandName: String) {
+        user.sendMessage("nice auto command")
+    }
+}
+
+class ExampleCommand(plugin: APIPlugin) : AbstractCommand(plugin, "example") {
     override fun execute(user: User, args: Array<out String>, commandName: String) {
         user.sendMessage("nice command")
     }
