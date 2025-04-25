@@ -18,7 +18,7 @@ paper-api = { group = "io.papermc.paper", name = "paper-api", version.ref = "pap
 folia-api = { group = "dev.folia", name = "folia-api", version.ref = "folia-api" }
 jansi = { group = "org.fusesource.jansi", name = "jansi", version.ref = "jansi" }
 jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrains-annotations" }
-libby = { group = "com.alessiodp.libby", name = "libby-bukkit", version.ref = "libby" }
+libby = { group = "com.alessiodp.libby", name = "libby-standalone", version.ref = "libby" }
 boosted-yaml = { group = "dev.dejvokep", name = "boosted-yaml", version.ref = "boosted-yaml" }
 reflections = { group = "com.github.Adrigamer2950", name = "reflections", version.ref = "reflections" }
 kotlinpoet = { group = "com.squareup", name = "kotlinpoet", version.ref = "kotlinpoet" }
