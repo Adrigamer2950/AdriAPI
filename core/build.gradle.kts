@@ -2,6 +2,7 @@
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
+import com.squareup.kotlinpoet.*
 
 plugins {
     kotlin("jvm")
@@ -9,6 +10,15 @@ plugins {
     id("java-library")
     id("maven-publish")
     alias(libs.plugins.shadow)
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(libs.kotlinpoet)
+    }
 }
 
 val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowerCase().contains("beta")
@@ -82,7 +92,7 @@ dependencies {
 
     compileOnly(libs.paper.api)
 
-    implementation(libs.jansi)
+    compileOnly(libs.jansi)
 
     api(libs.libby)
     implementation(libs.libby)
@@ -92,7 +102,9 @@ dependencies {
 
     compileOnly(libs.boosted.yaml)
 
-    implementation(libs.reflections)
+    compileOnly(libs.reflections)
+
+    compileOnly(libs.kotlinpoet)
 }
 
 tasks.named<ShadowJar>("shadowJar") {
@@ -100,10 +112,6 @@ tasks.named<ShadowJar>("shadowJar") {
 
     dependencies {
         relocate("com.alessiodp.libby", "me.adrigamer2950.adriapi.lib.libby")
-
-        relocate("org.fusesource.jansi", "me.adrigamer2950.adriapi.lib.jansi")
-
-        relocate("org.reflections", "me.adrigamer2950.adriapi.lib.reflections")
     }
 }
 
@@ -117,7 +125,37 @@ tasks.named("build") {
     finalizedBy(tasks.named("shadowJar"))
 }
 
+val generatedDir = layout.buildDirectory.dir("generated/templates").get().asFile
+
 sourceSets.main {
     java.srcDirs("src/main/java")
-    kotlin.srcDirs("src/main/kotlin")
+    kotlin.srcDirs("src/main/kotlin", generatedDir)
+}
+
+tasks.register("generateBuildConstants") {
+    doLast {
+        val fileSpec = FileSpec.builder("me.adrigamer2950.adriapi.api.internal", "BuildConstants")
+            .addType(
+                TypeSpec.objectBuilder("BuildConstants")
+                    .addProperty(
+                        PropertySpec.builder("JANSI_VERSION", String::class)
+                            .initializer("%S", libs.versions.jansi.get())
+                            .build()
+                    )
+                    .addProperty(
+                        PropertySpec.builder("REFLECTIONS_VERSION", String::class)
+                            .initializer("%S", libs.versions.reflections.get())
+                            .build()
+                    )
+                    .build()
+            )
+            .build()
+
+        val generatedDir = layout.buildDirectory.dir("generated/templates").get().asFile
+        fileSpec.writeTo(generatedDir)
+    }
+}
+
+tasks.named("compileKotlin") {
+    dependsOn(tasks.named("generateBuildConstants"))
 }

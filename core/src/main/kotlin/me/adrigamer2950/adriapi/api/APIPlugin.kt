@@ -1,9 +1,12 @@
 package me.adrigamer2950.adriapi.api
 
+import com.alessiodp.libby.Library
 import me.adrigamer2950.adriapi.api.command.Command
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager
+import me.adrigamer2950.adriapi.api.internal.BuildConstants
 import me.adrigamer2950.adriapi.api.internal.InventoriesListener
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManager
+import me.adrigamer2950.adriapi.api.library.manager.LibraryManagerImpl
 import me.adrigamer2950.adriapi.api.logger.impl.LoggerImpl
 import me.adrigamer2950.adriapi.api.logger.Logger
 import me.adrigamer2950.adriapi.api.scheduler.Scheduler
@@ -87,6 +90,24 @@ abstract class APIPlugin : JavaPlugin {
             this.debug = true
             logger.debug("&6Debug mode was enabled because -Dadriapi.debug flag was set to true")
         }
+
+        val libMan = LibraryManagerImpl(this, "AdriAPI")
+
+        libMan.addRepository("https://jitpack.io")
+        libMan.loadLibraries(
+            Library.builder()
+                .groupId("org.fusesource.jansi")
+                .artifactId("jansi")
+                .version(BuildConstants.JANSI_VERSION)
+                .resolveTransitiveDependencies(true)
+                .build(),
+            Library.builder()
+                .groupId("com.github.Adrigamer2950")
+                .artifactId("reflections")
+                .version(BuildConstants.REFLECTIONS_VERSION)
+                .resolveTransitiveDependencies(true)
+                .build()
+        )
 
         this.onPreLoad()
     }
