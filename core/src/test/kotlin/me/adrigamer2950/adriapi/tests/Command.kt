@@ -1,5 +1,6 @@
 package me.adrigamer2950.adriapi.tests
 
+import me.adrigamer2950.adriapi.api.user.User
 import me.adrigamer2950.adriapi.common.ExampleCommand
 import me.adrigamer2950.adriapi.platform.AbstractTestPlatform
 import org.junit.jupiter.api.BeforeAll
@@ -18,5 +19,20 @@ class Command : AbstractTestPlatform() {
     @Test
     fun `Command is registered`() {
         assertNotNull(plugin.commandManager.getCommandOrNull("example"), "Command 'example' should be registered")
+    }
+
+    @Test
+    fun `Command Tab-Complete`() {
+        val command = plugin.commandManager.getCommandOrNull("example")!!
+
+        val player = server.addPlayer()
+        val user = User.fromBukkitSender(player)
+
+        val result = command.tabComplete(user, arrayOf("test1", "test2"), command.commandName)
+
+        assertTrue(result.isNotEmpty(), "Tab-complete should not be empty")
+        assertTrue(result.size == 2, "Tab-complete array should have only 2 elements")
+        assertEquals("test3", result[0], "First element should be 'test2'")
+        assertEquals("test4", result[1], "Second element should be 'test3'")
     }
 }
