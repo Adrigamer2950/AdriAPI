@@ -14,7 +14,7 @@ reflections = "3d340414a7"
 kotlinpoet = "2.1.0"
 
 # Test
-junit-launcher = "1.13.0-M2"
+junit-launcher = "1.13.0-SNAPSHOT"
 mockbukkit = "4.45.0"
 slf4j = "2.0.16"
 
