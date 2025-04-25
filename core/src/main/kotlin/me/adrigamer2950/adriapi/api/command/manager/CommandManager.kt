@@ -66,7 +66,7 @@ class CommandManager(val plugin: APIPlugin) {
             .findFirst()
     }
 
-    fun getCommandOrNull(name: String): Command {
+    fun getCommandOrNull(name: String): Command? {
         return this.getCommand(name).orElse(null)
     }
 }
