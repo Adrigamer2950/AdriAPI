@@ -5,16 +5,16 @@ import com.alessiodp.libby.classloader.URLClassLoaderHelper
 import com.alessiodp.libby.logging.adapters.JDKLogAdapter
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
-import org.jetbrains.annotations.ApiStatus
+import org.jetbrains.annotations.ApiStatus.Internal
 import java.io.File
 import java.net.URLClassLoader
 import java.nio.file.Path
 import com.alessiodp.libby.LibraryManager as LibbyLibraryManager
 
-@ApiStatus.Internal
-class LibraryManagerImpl internal constructor(override val plugin: Plugin) : LibbyLibraryManager(
+@Internal
+class LibraryManagerImpl internal constructor(override val plugin: Plugin, folderName: String = plugin.name) : LibbyLibraryManager(
     JDKLogAdapter(plugin.logger), File(
-        Bukkit.getPluginsFolder(), "AdriAPI"
+        Bukkit.getPluginsFolder(), folderName
     ).toPath(), "lib"
 ), LibraryManager {
 
