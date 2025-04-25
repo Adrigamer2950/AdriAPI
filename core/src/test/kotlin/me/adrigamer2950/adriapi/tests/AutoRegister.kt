@@ -8,13 +8,14 @@ import me.adrigamer2950.adriapi.api.ExperimentalAPI
 import me.adrigamer2950.adriapi.platform.AbstractTestPlatform
 import org.bukkit.event.Listener
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class AutoRegister : AbstractTestPlatform() {
 
     @Test
     fun `Auto-Register Command`() {
-        assertTrue(plugin.commandManager.getCommandOrNull("example_auto") != null, "Command 'example_auto' should be registered")
+        assertNotNull(plugin.commandManager.getCommandOrNull("example_auto"), "Command 'example_auto' should be registered")
     }
 
     @Test
