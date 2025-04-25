@@ -105,6 +105,11 @@ dependencies {
     compileOnly(libs.reflections)
 
     compileOnly(libs.kotlinpoet)
+
+    testImplementation(kotlin("test"))
+    testImplementation(libs.junit.platform.launcher)
+    testImplementation(libs.mockbukkit)
+    testImplementation(libs.slf4j.jdk14)
 }
 
 tasks.named<ShadowJar>("shadowJar") {
@@ -130,6 +135,20 @@ val generatedDir = layout.buildDirectory.dir("generated/templates").get().asFile
 sourceSets.main {
     java.srcDirs("src/main/java")
     kotlin.srcDirs("src/main/kotlin", generatedDir)
+}
+
+sourceSets.test {
+    kotlin.srcDirs("src/test/kotlin")
+}
+
+tasks.test {
+    doFirst {
+        classpath = classpath.plus(
+            files(tasks.named<ShadowJar>("shadowJar").get().archiveFile.get().asFile)
+        )
+    }
+
+    useJUnitPlatform()
 }
 
 tasks.register("generateBuildConstants") {
@@ -158,4 +177,10 @@ tasks.register("generateBuildConstants") {
 
 tasks.named("compileKotlin") {
     dependsOn(tasks.named("generateBuildConstants"))
+}
+
+tasks.withType<Test> {
+    kotlin {
+        jvmToolchain(21)
+    }
 }

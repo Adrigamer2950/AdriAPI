@@ -48,15 +48,6 @@ allprojects {
     dependencies {
         compileOnly(rootProject.libs.jetbrains.annotations)
     }
-
-    java {
-        val javaVersion = JavaVersion.toVersion(targetJavaVersion)
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-        if (JavaVersion.current() < javaVersion) {
-            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-        }
-    }
 }
 
 dependencies {
