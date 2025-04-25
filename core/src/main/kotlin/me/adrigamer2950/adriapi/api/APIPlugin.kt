@@ -106,6 +106,12 @@ abstract class APIPlugin : JavaPlugin {
                 .artifactId("reflections")
                 .version(BuildConstants.REFLECTIONS_VERSION)
                 .resolveTransitiveDependencies(true)
+                .build(),
+            Library.builder()
+                .groupId("com.github.cryptomorin")
+                .artifactId("XSeries")
+                .version(BuildConstants.XSERIES_VERSION)
+                .resolveTransitiveDependencies(true)
                 .build()
         )
 

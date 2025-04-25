@@ -106,6 +106,9 @@ dependencies {
 
     compileOnly(libs.kotlinpoet)
 
+    api(libs.xseries)
+    compileOnly(libs.xseries)
+
     testImplementation(kotlin("test"))
     testImplementation(libs.junit.platform.launcher)
     testImplementation(libs.mockbukkit)
@@ -164,6 +167,11 @@ tasks.register("generateBuildConstants") {
                     .addProperty(
                         PropertySpec.builder("REFLECTIONS_VERSION", String::class)
                             .initializer("%S", libs.versions.reflections.get())
+                            .build()
+                    )
+                    .addProperty(
+                        PropertySpec.builder("XSERIES_VERSION", String::class)
+                            .initializer("%S", libs.versions.xseries.get())
                             .build()
                     )
                     .build()
