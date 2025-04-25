@@ -14,6 +14,7 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class ItemBuilder : AbstractTestPlatform() {
@@ -55,6 +56,8 @@ class ItemBuilder : AbstractTestPlatform() {
         assertTrue(stack.itemMeta.hasEnchant(enchantment), "Enchantment mismatch")
         assertEquals(enchantmentLevel, stack.itemMeta.getEnchantLevel(enchantment), "Enchantment level mismatch")
         assertTrue(stack.itemMeta.hasItemFlag(flag), "Item flag mismatch")
-        assertTrue(stack.itemMeta.hasAttributeModifiers(), "Attribute modifier mismatch")
+        assertTrue(stack.itemMeta.hasAttributeModifiers(), "Item should have attributes")
+        assertNotNull(stack.itemMeta.attributeModifiers?.get(attribute), "Attribute modifier mismatch")
+        assertEquals(attributeModifier, stack.itemMeta.attributeModifiers?.get(attribute)?.firstOrNull(), "Attribute modifier mismatch")
     }
 }
