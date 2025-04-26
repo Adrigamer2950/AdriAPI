@@ -1,6 +1,5 @@
 @file:Suppress("VulnerableLibrariesLocal")
 
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import io.papermc.hangarpublishplugin.model.Platforms
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 import xyz.jpenilla.runpaper.task.RunServer
@@ -8,12 +7,9 @@ import xyz.jpenilla.runtask.task.AbstractRun
 import java.io.ByteArrayOutputStream
 
 plugins {
-    kotlin("jvm")
     id("java")
-    id("maven-publish")
     alias(libs.plugins.minotaur)
     alias(libs.plugins.run.server)
-    alias(libs.plugins.shadow)
     alias(libs.plugins.hangar.publish)
 }
 
@@ -26,7 +22,7 @@ version = properties["version"] as String +
         else ""
 val targetJavaVersion = (properties["java-version"] as String).toInt()
 
-allprojects {
+subprojects {
     apply(plugin = "java")
 
     repositories {
@@ -50,16 +46,15 @@ allprojects {
     }
 }
 
-dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-
-    implementation(project(":core"))
-
-    implementation(project(":plugin"))
-}
-
 tasks.named<Jar>("jar") {
-    enabled = false
+    dependsOn(":plugin:shadowJar")
+
+    doLast {
+        project(":plugin").tasks.named<Jar>("shadowJar").get().archiveFile.get().asFile.copyTo(
+            File(layout.buildDirectory.dir("libs").get().asFile, "${rootProject.name}-${version}.jar"),
+            overwrite = true
+        )
+    }
 }
 
 fun getJarFile(): File? {
@@ -172,21 +167,4 @@ tasks.withType(AbstractRun::class) {
         "-Dusing.aikars.flags=https://mcflags.emc.gs", "-Daikars.new.flags=true"
     )
 
-}
-
-tasks.named<ShadowJar>("shadowJar") {
-    dependsOn(":core:shadowJar")
-
-    archiveClassifier.set("")
-    archiveVersion.set(version as String)
-
-    dependencies {
-        relocate("com.alessiodp.libby", "me.adrigamer2950.adriapi.lib.libby")
-
-        relocate("kotlin", "me.adrigamer2950.adriapi.lib.kotlin")
-    }
-}
-
-tasks.named("build") {
-    finalizedBy(tasks.named("shadowJar"))
 }

@@ -1,18 +1,20 @@
 @file:Suppress("VulnerableLibrariesLocal")
 
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 
 plugins {
     kotlin("jvm")
     alias(libs.plugins.plugin.yml)
+    alias(libs.plugins.shadow)
 }
 
 dependencies {
-    compileOnly(kotlin("stdlib-jdk8"))
+    implementation(kotlin("stdlib-jdk8"))
 
     compileOnly(libs.paper.api)
 
-    compileOnly(project(":core"))
+    implementation(project(":core"))
 }
 
 val targetJavaVersion = (rootProject.properties["java-version"] as String).toInt()
@@ -30,4 +32,21 @@ bukkit {
     website = "https://github.com/Adrigamer2950/AdriAPI"
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     foliaSupported = true
+}
+
+tasks.named<Jar>("jar") {
+    enabled = false
+}
+
+tasks.named<ShadowJar>("shadowJar") {
+    dependsOn(":core:shadowJar")
+
+    archiveClassifier.set("")
+    archiveVersion.set(version as String)
+
+    dependencies {
+        relocate("com.alessiodp.libby", "me.adrigamer2950.adriapi.lib.libby")
+
+        relocate("kotlin", "me.adrigamer2950.adriapi.lib.kotlin")
+    }
 }
