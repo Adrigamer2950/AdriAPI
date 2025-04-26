@@ -120,6 +120,8 @@ tasks.named<ShadowJar>("shadowJar") {
 
     dependencies {
         relocate("com.alessiodp.libby", "me.adrigamer2950.adriapi.lib.libby")
+
+        exclude("com/cryptomorin/xseries/**")
     }
 }
 
