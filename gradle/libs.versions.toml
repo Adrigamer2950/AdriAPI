@@ -15,7 +15,7 @@ kotlinpoet = "2.1.0"
 
 # Test
 junit-launcher = "1.13.0-SNAPSHOT"
-mockbukkit = "4.46.0"
+mockbukkit = "4.46.2"
 slf4j = "2.0.17"
 
 [libraries]
