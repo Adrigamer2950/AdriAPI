@@ -25,7 +25,7 @@ class BooleanDataType : PersistentDataType<java.lang.Byte, Boolean> {
     override fun getComplexType(): Class<Boolean> = Boolean::class.java
 
     override fun toPrimitive(bool: Boolean, p1: PersistentDataAdapterContext): java.lang.Byte =
-        (if (bool) java.lang.Byte.valueOf(1.toByte()) else java.lang.Byte.valueOf(0.toByte())) as java.lang.Byte
+        (if (bool) java.lang.Byte.valueOf(1) else java.lang.Byte.valueOf(0)) as java.lang.Byte
 
     override fun fromPrimitive(
         byte: java.lang.Byte,
