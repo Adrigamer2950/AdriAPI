@@ -12,6 +12,7 @@ import me.adrigamer2950.adriapi.api.logger.Logger
 import me.adrigamer2950.adriapi.api.scheduler.Scheduler
 import me.adrigamer2950.adriapi.api.util.ServerType
 import me.adrigamer2950.adriapi.api.util.bStats
+import org.bukkit.command.PluginCommand
 import org.bukkit.event.Listener
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
@@ -240,5 +241,13 @@ abstract class APIPlugin : JavaPlugin {
                 logger.error("&cFailed to auto-register `${it.simpleName}`. Skipping...", ex)
             }
         }
+    }
+
+    @Deprecated("Use CommandManager#getCommand instead")
+    override fun getCommand(name: String): PluginCommand? {
+        logger.warn("Wrong use of APIPlugin#getCommand. Use CommandManager#getCommand instead. " +
+                "If you see this message, you should tell the developer of this plugin about it")
+
+        return super.getCommand(name)
     }
 }
