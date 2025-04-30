@@ -5,10 +5,19 @@ import org.bukkit.scheduler.BukkitTask
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask as FoliaScheduledTask
 
 @Suppress("unused")
-open class ScheduledTask(val task: Any, val owner: Plugin) {
+class ScheduledTask(var task: Any? = null, val owner: Plugin) {
+
+    constructor(task: (ScheduledTask) -> Any, owner: Plugin) : this(null, owner) {
+        this.task = task.invoke(this)
+    }
 
     var cancelled: Boolean = false
         private set
+        get() = when (task) {
+            is BukkitTask -> (task as BukkitTask).isCancelled
+            is FoliaScheduledTask -> (task as FoliaScheduledTask).isCancelled
+            else -> true
+        }
 
     /**
      * Cancels this task
@@ -17,14 +26,11 @@ open class ScheduledTask(val task: Any, val owner: Plugin) {
     @Throws(IllegalStateException::class)
     fun cancel() {
         if (cancelled) {
-            throw IllegalStateException("Task is already cancelled")
+            throw IllegalStateException("Task is already cancelled or is null")
         }
 
-        if (task is BukkitTask) {
-            task.cancel()
-        } else if (task is FoliaScheduledTask) {
-            task.cancel()
-        }
+        (task as? BukkitTask)?.cancel()
+        (task as? FoliaScheduledTask)?.cancel()
 
         cancelled = true
     }

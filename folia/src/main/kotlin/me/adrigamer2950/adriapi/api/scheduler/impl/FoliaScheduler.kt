@@ -7,132 +7,143 @@ import org.bukkit.World
 import org.bukkit.entity.Entity
 import org.bukkit.plugin.Plugin
 import java.util.concurrent.TimeUnit
+import java.util.function.Consumer
 
 class FoliaScheduler(val plugin: Plugin) : Scheduler {
 
-    override fun run(runnable: Runnable, async: Boolean): ScheduledTask {
-        return if (async) {
-            runAsync(runnable)
-        } else {
-            ScheduledTask(Bukkit.getGlobalRegionScheduler().run(plugin) {
-                runnable.run()
-            }, plugin)
-        }
-    }
-
-    override fun runAsync(runnable: Runnable): ScheduledTask {
-        return ScheduledTask(Bukkit.getAsyncScheduler().runNow(plugin) {
-            runnable.run()
+    override fun run(consumer: Consumer<ScheduledTask>, async: Boolean): ScheduledTask {
+        return ScheduledTask({ t ->
+            return@ScheduledTask if (async) {
+                Bukkit.getAsyncScheduler().runNow(plugin) {
+                    consumer.accept(t)
+                }
+            } else {
+                Bukkit.getGlobalRegionScheduler().run(plugin) {
+                    consumer.accept(t)
+                }
+            }
         }, plugin)
     }
 
+    override fun runAsync(consumer: Consumer<ScheduledTask>): ScheduledTask {
+        return run(consumer, true)
+    }
+
     override fun runLater(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         delay: Long,
         async: Boolean
     ): ScheduledTask {
-        return if (async) {
-            runAsyncLater(runnable, delay)
-        } else {
-            ScheduledTask(Bukkit.getGlobalRegionScheduler().runDelayed(plugin, {
-                runnable.run()
-            }, delay), plugin)
-        }
+        return ScheduledTask({ t ->
+            return@ScheduledTask if (async) {
+                Bukkit.getAsyncScheduler().runDelayed(plugin, {
+                    consumer.accept(t)
+                }, delay / 20, TimeUnit.SECONDS)
+            } else {
+                Bukkit.getGlobalRegionScheduler().runDelayed(plugin, {
+                    consumer.accept(t)
+                }, delay)
+            }
+        }, plugin)
     }
 
-    override fun runAsyncLater(runnable: Runnable, delay: Long): ScheduledTask {
-        return ScheduledTask(Bukkit.getAsyncScheduler().runDelayed(plugin, {
-            runnable.run()
-        }, delay / 20, TimeUnit.SECONDS), plugin)
+    override fun runAsyncLater(consumer: Consumer<ScheduledTask>, delay: Long): ScheduledTask {
+        return runLater(consumer, delay, true)
     }
 
     override fun runTimer(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         delay: Long,
         period: Long,
         async: Boolean
     ): ScheduledTask {
-        return if (async) {
-            runAsyncTimer(runnable, delay, period)
-        } else {
-            return ScheduledTask(Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, {
-                runnable.run()
-            }, delay, period), plugin)
-        }
+        return ScheduledTask({ t ->
+            return@ScheduledTask if (async) {
+                Bukkit.getAsyncScheduler().runAtFixedRate(plugin, {
+                    consumer.accept(t)
+                }, delay / 20, period / 20, TimeUnit.SECONDS)
+            } else {
+                Bukkit.getGlobalRegionScheduler().runAtFixedRate(plugin, {
+                    consumer.accept(t)
+                }, delay, period)
+            }
+        }, plugin)
     }
 
-    override fun runAsyncTimer(runnable: Runnable, delay: Long, period: Long): ScheduledTask {
-        return ScheduledTask(Bukkit.getAsyncScheduler().runAtFixedRate(plugin, {
-            runnable.run()
-        }, delay / 20, period / 20, TimeUnit.SECONDS), plugin)
+    override fun runAsyncTimer(consumer: Consumer<ScheduledTask>, delay: Long, period: Long): ScheduledTask {
+        return runTimer(consumer, delay, period, true)
     }
 
     override fun runOnEntity(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         entity: Entity,
         async: Boolean
     ): ScheduledTask {
-        return if (async) {
-            ScheduledTask(Bukkit.getAsyncScheduler().runNow(plugin) {
-                runnable.run()
-            }, plugin)
-        } else {
-            return ScheduledTask(entity.scheduler.run {
-                runnable.run()
-            }, plugin)
-        }
+        return ScheduledTask({ t ->
+            return@ScheduledTask entity.scheduler.run(plugin, {
+                consumer.accept(t)
+            }, null)!!
+        },plugin)
     }
 
     override fun runLaterOnEntity(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         entity: Entity,
         delay: Long,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(entity.scheduler.runDelayed(plugin, {
-            runnable.run()
-        }, null, delay) as Any, plugin)
+        return ScheduledTask({ t ->
+            return@ScheduledTask entity.scheduler.runDelayed(plugin, {
+                consumer.accept(t)
+            }, null, delay)!!
+        }, plugin)
     }
 
     override fun runTimerOnEntity(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         entity: Entity,
         delay: Long,
         period: Long,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(entity.scheduler.runAtFixedRate(plugin, {
-            runnable.run()
-        }, null, delay, period) as Any, plugin)
+        return ScheduledTask({ t ->
+            return@ScheduledTask entity.scheduler.runAtFixedRate(plugin, {
+                consumer.accept(t)
+            }, null, delay, period)!!
+        }, plugin)
     }
 
     override fun runAtRegion(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         world: World,
         chunkX: Int,
         chunkZ: Int,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(Bukkit.getRegionScheduler().run(plugin, world, chunkX, chunkZ) {
-            runnable.run()
+        return ScheduledTask({ t ->
+            return@ScheduledTask Bukkit.getRegionScheduler().run(plugin, world, chunkX, chunkZ) {
+                consumer.accept(t)
+            }
         }, plugin)
     }
 
     override fun runLaterAtRegion(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         world: World,
         chunkX: Int,
         chunkZ: Int,
         delay: Long,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(Bukkit.getRegionScheduler().runDelayed(plugin, world, chunkX, chunkZ, {
-            runnable.run()
-        }, delay) as Any, plugin)
+        return ScheduledTask({ t ->
+            return@ScheduledTask Bukkit.getRegionScheduler().runDelayed(plugin, world, chunkX, chunkZ, {
+                consumer.accept(t)
+            }, delay)
+        }, plugin)
     }
 
     override fun runTimerAtRegion(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         world: World,
         chunkX: Int,
         chunkZ: Int,
@@ -140,8 +151,10 @@ class FoliaScheduler(val plugin: Plugin) : Scheduler {
         period: Long,
         async: Boolean
     ): ScheduledTask {
-        return ScheduledTask(Bukkit.getRegionScheduler().runAtFixedRate(plugin, world, chunkX, chunkZ, {
-            runnable.run()
-        }, delay, period) as Any, plugin)
+        return ScheduledTask({ t ->
+            return@ScheduledTask Bukkit.getRegionScheduler().runAtFixedRate(plugin, world, chunkX, chunkZ, {
+                consumer.accept(t)
+            }, delay, period)
+        }, plugin)
     }
 }

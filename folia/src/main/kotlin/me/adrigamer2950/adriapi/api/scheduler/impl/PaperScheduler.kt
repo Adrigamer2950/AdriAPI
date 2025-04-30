@@ -6,79 +6,110 @@ import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.entity.Entity
 import org.bukkit.plugin.Plugin
+import java.util.function.Consumer
 
 class PaperScheduler(val plugin: Plugin) : Scheduler {
 
-    override fun run(runnable: Runnable, async: Boolean): ScheduledTask {
-        return ScheduledTask(Bukkit.getScheduler().runTask(plugin, runnable), plugin)
+    override fun run(consumer: Consumer<ScheduledTask>, async: Boolean): ScheduledTask {
+        return ScheduledTask({ t ->
+            return@ScheduledTask if (async) {
+                Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
+                    consumer.accept(t)
+                })
+            } else {
+                Bukkit.getScheduler().runTask(plugin, Runnable {
+                    consumer.accept(t)
+                })
+            }
+        }, plugin)
     }
 
-    override fun runLater(runnable: Runnable, delay: Long, async: Boolean): ScheduledTask {
-        return ScheduledTask(Bukkit.getScheduler().runTaskLater(plugin, runnable, delay), plugin)
+    override fun runLater(consumer: Consumer<ScheduledTask>, delay: Long, async: Boolean): ScheduledTask {
+        return ScheduledTask({ t ->
+            return@ScheduledTask if (async) {
+                Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, Runnable {
+                    consumer.accept(t)
+                }, delay)
+            } else {
+                Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+                    consumer.accept(t)
+                }, delay)
+            }
+        }, plugin)
     }
 
-    override fun runTimer(runnable: Runnable, delay: Long, period: Long, async: Boolean): ScheduledTask {
-        return ScheduledTask(Bukkit.getScheduler().runTaskTimer(plugin, runnable, delay, period), plugin)
+    override fun runTimer(consumer: Consumer<ScheduledTask>, delay: Long, period: Long, async: Boolean): ScheduledTask {
+        return ScheduledTask({ t ->
+            return@ScheduledTask if (async) {
+                Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, Runnable {
+                    consumer.accept(t)
+                }, delay, period)
+            } else {
+                Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
+                    consumer.accept(t)
+                }, delay, period)
+            }
+        }, plugin)
     }
 
-    override fun runAsync(runnable: Runnable): ScheduledTask {
-        return ScheduledTask(Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable), plugin)
+    override fun runAsync(consumer: Consumer<ScheduledTask>): ScheduledTask {
+        return run(consumer, true)
     }
 
-    override fun runAsyncLater(runnable: Runnable, delay: Long): ScheduledTask {
-        return ScheduledTask(Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delay), plugin)
+    override fun runAsyncLater(consumer: Consumer<ScheduledTask>, delay: Long): ScheduledTask {
+        return runLater(consumer, delay, true)
     }
 
-    override fun runAsyncTimer(runnable: Runnable, delay: Long, period: Long): ScheduledTask {
-        return ScheduledTask(Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, runnable, delay, period), plugin)
+    override fun runAsyncTimer(consumer: Consumer<ScheduledTask>, delay: Long, period: Long): ScheduledTask {
+        return runTimer(consumer, delay, period, true)
     }
 
-    override fun runOnEntity(runnable: Runnable, entity: Entity, async: Boolean): ScheduledTask {
+    override fun runOnEntity(consumer: Consumer<ScheduledTask>, entity: Entity, async: Boolean): ScheduledTask {
         return if (async) {
-            runAsync(runnable)
+            runAsync(consumer)
         } else {
-            run(runnable)
+            run(consumer)
         }
     }
 
-    override fun runLaterOnEntity(runnable: Runnable, entity: Entity, delay: Long, async: Boolean): ScheduledTask {
+    override fun runLaterOnEntity(consumer: Consumer<ScheduledTask>, entity: Entity, delay: Long, async: Boolean): ScheduledTask {
         return if (async) {
-            runAsyncLater(runnable, delay)
+            runAsyncLater(consumer, delay)
         } else {
-            runLater(runnable, delay)
+            runLater(consumer, delay)
         }
     }
 
     override fun runTimerOnEntity(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         entity: Entity,
         delay: Long,
         period: Long,
         async: Boolean
     ): ScheduledTask {
         return if (async) {
-            runAsyncTimer(runnable, delay, period)
+            runAsyncTimer(consumer, delay, period)
         } else {
-            runTimer(runnable, delay, period)
+            runTimer(consumer, delay, period)
         }
     }
 
     override fun runAtRegion(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         world: World,
         chunkX: Int,
         chunkZ: Int,
         async: Boolean
     ): ScheduledTask {
         return if (async) {
-            runAsync(runnable)
+            runAsync(consumer)
         } else {
-            run(runnable)
+            run(consumer)
         }
     }
 
     override fun runLaterAtRegion(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         world: World,
         chunkX: Int,
         chunkZ: Int,
@@ -86,14 +117,14 @@ class PaperScheduler(val plugin: Plugin) : Scheduler {
         async: Boolean
     ): ScheduledTask {
         return if (async) {
-            runAsyncLater(runnable, delay)
+            runAsyncLater(consumer, delay)
         } else {
-            runLater(runnable, delay)
+            runLater(consumer, delay)
         }
     }
 
     override fun runTimerAtRegion(
-        runnable: Runnable,
+        consumer: Consumer<ScheduledTask>,
         world: World,
         chunkX: Int,
         chunkZ: Int,
@@ -102,9 +133,9 @@ class PaperScheduler(val plugin: Plugin) : Scheduler {
         async: Boolean
     ): ScheduledTask {
         return if (async) {
-            runAsyncTimer(runnable, delay, period)
+            runAsyncTimer(consumer, delay, period)
         } else {
-            runTimer(runnable, delay, period)
+            runTimer(consumer, delay, period)
         }
     }
 }
