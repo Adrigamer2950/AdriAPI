@@ -5,7 +5,7 @@ import me.adrigamer2950.adriapi.platform.AbstractTestPlatform.Companion.plugin
 import me.adrigamer2950.adriapi.platform.AbstractTestPlatform.Companion.server
 import org.junit.platform.launcher.TestExecutionListener
 import org.junit.platform.launcher.TestPlan
-import org.mockbukkit.mockbukkit.MockBukkit
+import be.seeseemelk.mockbukkit.MockBukkit
 
 class GlobalTestListener : TestExecutionListener {
 

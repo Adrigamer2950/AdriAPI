@@ -7,7 +7,6 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.Style
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
@@ -29,12 +28,12 @@ class ItemBuilder : AbstractTestPlatform() {
             "&bThis is a test item"
         )
             .map { LegacyComponentSerializer.legacyAmpersand().deserialize(it) }
-        val enchantment = Enchantment.FLAME
+        val enchantment = Enchantment.ARROW_FIRE
         val enchantmentLevel = 3
         val flag = ItemFlag.HIDE_ENCHANTS
-        val attribute = Attribute.LUCK
+        val attribute = Attribute.GENERIC_LUCK
         val attributeModifier = AttributeModifier(
-            NamespacedKey(plugin, "attribute_modifier"),
+            "attribute_modifier",
             1.0,
             AttributeModifier.Operation.ADD_NUMBER
         )

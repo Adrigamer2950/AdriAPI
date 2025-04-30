@@ -1,7 +1,7 @@
 package me.adrigamer2950.adriapi.platform
 
 import me.adrigamer2950.adriapi.TestPlugin
-import org.mockbukkit.mockbukkit.ServerMock
+import be.seeseemelk.mockbukkit.ServerMock
 
 abstract class AbstractTestPlatform {
 

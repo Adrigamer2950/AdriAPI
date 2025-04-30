@@ -16,7 +16,7 @@ xseries = "13.2.0"
 
 # Test
 junit-launcher = "1.13.0-SNAPSHOT"
-mockbukkit = "4.46.3"
+mockbukkit = "3.1.0"
 slf4j = "2.0.17"
 
 [libraries]
@@ -32,7 +32,7 @@ xseries = { group = "com.github.cryptomorin", name = "XSeries", version.ref = "x
 
 # Test
 junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version.ref = "junit-launcher" }
-mockbukkit = { group = "org.mockbukkit.mockbukkit", name = "mockbukkit-v1.21", version.ref = "mockbukkit" }
+mockbukkit = { group = "com.github.seeseemelk", name = "MockBukkit-v1.19", version.ref = "mockbukkit" }
 slf4j-jdk14 = { group = "org.slf4j", name = "slf4j-jdk14", version.ref = "slf4j" }
 
 [plugins]
