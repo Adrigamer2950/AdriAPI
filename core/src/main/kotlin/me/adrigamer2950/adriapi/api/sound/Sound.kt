@@ -21,7 +21,7 @@ class Sound(
         if (this.sound.get() == null)
             throw IllegalArgumentException("Sound ${this.sound.name()} is not valid")
 
-        entity.world.playSound(entity, this.sound.get()!!, this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER, this.volume, this.pitch)
+        entity.world.playSound(entity.location, this.sound.get()!!, this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER, this.volume, this.pitch)
     }
 
     fun playOnLocation(l: Location) {
