@@ -1,6 +1,5 @@
 package me.adrigamer2950.adriapi.tests
 
-import com.google.gson.Gson
 import me.adrigamer2950.adriapi.api.item.ItemBuilder
 import me.adrigamer2950.adriapi.api.persistence.DataTypes
 import me.adrigamer2950.adriapi.api.persistence.GsonDataType
@@ -42,7 +41,7 @@ class PersistentDataTypes : AbstractTestPlatform() {
     @Test
     fun `Gson Data Type`() {
         val testClass = GsonTestClass("Adri", 25)
-        val gson = GsonDataType(GsonTestClass::class, Gson())
+        val gson = GsonDataType(GsonTestClass::class)
         val key = NamespacedKey(plugin, "data_type_test")
 
         val stack = ItemBuilder.builder()

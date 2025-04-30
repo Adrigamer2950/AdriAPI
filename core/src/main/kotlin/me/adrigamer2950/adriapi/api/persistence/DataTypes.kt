@@ -54,9 +54,9 @@ data class GsonDataType<T : Any>(val clazz: Class<T>, val gson: Gson = Gson()) :
 
     constructor(clazz: KClass<T>, gson: Gson = Gson()) : this(clazz.java, gson)
 
-    constructor(clazz: Class<T>, adapter: TypeAdapter<T>? = null) : this(clazz, GsonBuilder().registerTypeAdapter(clazz, adapter).create())
+    constructor(clazz: Class<T>, adapter: TypeAdapter<T>) : this(clazz, GsonBuilder().registerTypeAdapter(clazz, adapter).create())
 
-    constructor(clazz: KClass<T>, adapter: TypeAdapter<T>? = null) : this(clazz.java, adapter)
+    constructor(clazz: KClass<T>, adapter: TypeAdapter<T>) : this(clazz.java, adapter)
 
     override fun getPrimitiveType(): Class<String> = String::class.java
 
