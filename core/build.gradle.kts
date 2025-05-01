@@ -94,10 +94,8 @@ dependencies {
 
     compileOnly(libs.jansi)
 
-    api(libs.libby)
     implementation(libs.libby)
 
-    api(project(":folia"))
     implementation(project(":folia"))
 
     compileOnly(libs.boosted.yaml)
