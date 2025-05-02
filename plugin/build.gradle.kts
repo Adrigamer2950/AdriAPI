@@ -48,5 +48,7 @@ tasks.named<ShadowJar>("shadowJar") {
         relocate("com.alessiodp.libby", "me.adrigamer2950.adriapi.lib.libby")
 
         relocate("kotlin", "me.adrigamer2950.adriapi.lib.kotlin")
+
+        exclude("com/cryptomorin/xseries/**")
     }
 }
