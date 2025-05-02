@@ -10,10 +10,15 @@ interface Logger {
 
     fun log(builder: LogBuilder.() -> Unit)
 
-    fun info(msg: Any) {
+    fun info(msg: Any, throwable: Throwable? = null) {
         log {
             message = msg
+            this.throwable = throwable
         }
+    }
+
+    fun info(msg: Any) {
+        info(msg, null)
     }
 
     fun warn(msg: Any, throwable: Throwable? = null) {
@@ -24,6 +29,10 @@ interface Logger {
         }
     }
 
+    fun warn(msg: Any) {
+        warn(msg, null)
+    }
+
     fun error(msg: Any, throwable: Throwable? = null) {
         log {
             level = Level.SEVERE
@@ -32,11 +41,19 @@ interface Logger {
         }
     }
 
+    fun error(msg: Any) {
+        error(msg, null)
+    }
+
     fun debug(msg: Any, throwable: Throwable? = null) {
         log {
             message = msg
             this.throwable = throwable
             debug = true
         }
+    }
+
+    fun debug(msg: Any) {
+        debug(msg, null)
     }
 }
