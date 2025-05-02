@@ -81,8 +81,6 @@ abstract class APIPlugin : JavaPlugin {
             logger.debug = debug
         }
 
-    private val autoRegisterHandler: AutoRegisterHandler = AutoRegisterHandler(this)
-
     final override fun onLoad() {
         this.libraryManager = LibraryManager.get(this)
 
@@ -230,6 +228,7 @@ abstract class APIPlugin : JavaPlugin {
                 .forPackages(this::class.java.packageName)
                 .disableLogging()
         )
+        val handler = AutoRegisterHandler(this)
 
         reflections.getTypesAnnotatedWith(AutoRegister::class.java).forEach {
             if (it.packageName.startsWith("${this::class.java.packageName}.libs")) return@forEach // Ignore libs package
@@ -237,7 +236,7 @@ abstract class APIPlugin : JavaPlugin {
             try {
                 logger.debug("&6Found a class annotated with AutoRegister. Registering `${it.simpleName}`...")
 
-                autoRegisterHandler.registerType(it)
+                handler.registerType(it)
             } catch (ex: Exception) {
                 logger.error("&cFailed to auto-register `${it.simpleName}`. Skipping...", ex)
             }
