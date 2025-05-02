@@ -45,7 +45,8 @@ abstract class APIPlugin : JavaPlugin {
         file
     )
 
-    open val logger: Logger = LoggerImpl(this)
+    @JvmField
+    val logger: Logger = LoggerImpl(this)
 
     /**
      * Command Manager. Used to register a Command
