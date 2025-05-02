@@ -20,11 +20,11 @@ abstract class AbstractCommand(
     override val commandName: String,
     description: String,
     aliases: List<String>,
-    override val subCommands: List<Command>
+    override val subCommands: MutableList<Command>
 ) : BukkitCommand(commandName, description, "/$commandName", aliases), Command {
 
-    constructor(plugin: APIPlugin, name: String) : this(plugin, name, listOf())
-    constructor(plugin: APIPlugin, name: String, subCommands: List<Command>) : this(
+    constructor(plugin: APIPlugin, name: String) : this(plugin, name, mutableListOf())
+    constructor(plugin: APIPlugin, name: String, subCommands: MutableList<Command>) : this(
         plugin,
         name,
         "No description",
