@@ -22,11 +22,41 @@ providing a lot of utilities that will make your life (and mine) easier
 
 ### It's mostly used in my plugins, but you can use it on your own plugins if you want, just make sure to give proper credit!
 
-# Resources
+# How to import
 
-- [Docs (Outdated)](https://docs.devadri.es)
-- [bStats](https://bstats.org/plugin/bukkit/AdriAPI/20135)
-- [Maven Repository](https://repo.devadri.es)
+## Gradle
+
+````kotlin
+repositories {
+    maven {
+        name = "devadri"
+        url = uri("https://repo.devadri.es/repository/releases") // Use dev repository for beta builds
+    }
+}
+
+dependencies {
+    implementation("me.adrigamer2950:AdriAPI:{VERSION}") // Replace {VERSION} with the desired version
+}
+````
+
+## Maven
+
+```xml
+<repositories>
+    <repository>
+        <id>devadri</id>
+        <url>https://repo.devadri.es/repository/releases</url> <!-- Use dev repository for beta builds -->
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>me.adrigamer2950</groupId>
+        <artifactId>AdriAPI</artifactId>
+        <version>{VERSION}</version> <!-- Replace {VERSION} with the desired version -->
+    </dependency>
+</dependencies>
+```
 
 # Credits
 - Thanks to [Byteflux](https://github.com/Byteflux) and [AlessioDP](https://github.com/AlessioDP)
