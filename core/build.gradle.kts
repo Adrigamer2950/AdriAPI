@@ -107,6 +107,11 @@ dependencies {
     api(libs.xseries)
     compileOnly(libs.xseries)
 
+    implementation(project(":nms:common")) {
+        isTransitive = false
+    }
+    implementation(project(":nms:1_17_R1", "reobf"))
+
     testImplementation(kotlin("test"))
     testImplementation(libs.junit.platform.launcher)
     testImplementation(libs.mockbukkit)

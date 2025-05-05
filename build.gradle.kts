@@ -15,15 +15,16 @@ plugins {
 
 val versionIsBeta = (properties["version"] as String).toDefaultLowerCase().contains("beta")
 
-group = "me.adrigamer2950"
-version = properties["version"] as String +
-        if (versionIsBeta)
-            "-${getGitCommitHash()}"
-        else ""
 val targetJavaVersion = (properties["java-version"] as String).toInt()
 
-subprojects {
+allprojects {
     apply(plugin = "java")
+
+    group = "me.adrigamer2950"
+    version = properties["version"] as String +
+            if (versionIsBeta)
+                "-${getGitCommitHash()}"
+            else ""
 
     repositories {
         mavenCentral()
@@ -48,6 +49,10 @@ subprojects {
 
 tasks.named<Jar>("jar") {
     dependsOn(":plugin:shadowJar")
+
+    doFirst {
+        File(layout.buildDirectory.dir("libs").get().asFile, "${rootProject.name}-${version}.jar").delete()
+    }
 
     doLast {
         project(":plugin").tasks.named<Jar>("shadowJar").get().archiveFile.get().asFile.copyTo(
@@ -135,7 +140,7 @@ hangarPublish {
 }
 
 tasks.named<RunServer>("runServer").configure {
-    minecraftVersion("1.20.2")
+    minecraftVersion("1.17.1")
 
     downloadPlugins {
         // ViaVersion
