@@ -5,17 +5,17 @@ package me.adrigamer2950.adriapi.api.nms.v1_18_R1
 import me.adrigamer2950.adriapi.api.nms.common.NmsSound
 import net.minecraft.core.Registry
 import net.minecraft.network.protocol.game.ClientboundSoundEntityPacket
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.sounds.SoundSource
 import org.bukkit.Sound
 import org.bukkit.SoundCategory
 import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer
+import org.bukkit.craftbukkit.v1_18_R1.util.CraftNamespacedKey
 import org.bukkit.entity.Player
 
 class NmsSoundImpl : NmsSound {
 
     override fun playToPlayer(player: Player, category: SoundCategory, sound: Sound, volume: Float, pitch: Float) {
-        val nmsSound = Registry.SOUND_EVENT.get(ResourceLocation(sound.key.key))
+        val nmsSound = Registry.SOUND_EVENT.get(CraftNamespacedKey.toMinecraft(sound.key))
             ?: throw IllegalArgumentException("Sound ${sound.name} not found")
 
         val nmsCategory = when (category) {
