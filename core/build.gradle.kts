@@ -110,8 +110,14 @@ dependencies {
     implementation(project(":nms:common")) {
         isTransitive = false
     }
+
+    compileOnly(project(":nms:1_17_R1"))
     implementation(project(":nms:1_17_R1", "reobf"))
+
+    compileOnly(project(":nms:1_18_R1"))
     implementation(project(":nms:1_18_R1", "reobf"))
+
+    compileOnly(project(":nms:1_18_R2"))
     implementation(project(":nms:1_18_R2", "reobf"))
 
     testImplementation(kotlin("test"))
