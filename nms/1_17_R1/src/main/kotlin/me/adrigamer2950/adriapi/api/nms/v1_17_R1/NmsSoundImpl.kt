@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package me.adrigamer2950.adriapi.api.nms.v1_17_R1
 
 import me.adrigamer2950.adriapi.api.nms.common.NmsSound
