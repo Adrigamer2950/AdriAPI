@@ -18,6 +18,6 @@ rootProject.name = "AdriAPI"
 
 include("core", "folia", "plugin", ":nms:common")
 
-listOf("1_17_R1").forEach {
+listOf("1_17_R1", "1_18_R1", "1_18_R2").forEach {
     include(":nms:$it")
 }

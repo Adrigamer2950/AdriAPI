@@ -140,7 +140,7 @@ hangarPublish {
 }
 
 tasks.named<RunServer>("runServer").configure {
-    minecraftVersion("1.17.1")
+    minecraftVersion("1.18.1")
 
     downloadPlugins {
         // ViaVersion

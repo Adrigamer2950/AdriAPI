@@ -111,6 +111,8 @@ dependencies {
         isTransitive = false
     }
     implementation(project(":nms:1_17_R1", "reobf"))
+    implementation(project(":nms:1_18_R1", "reobf"))
+    implementation(project(":nms:1_18_R2", "reobf"))
 
     testImplementation(kotlin("test"))
     testImplementation(libs.junit.platform.launcher)
