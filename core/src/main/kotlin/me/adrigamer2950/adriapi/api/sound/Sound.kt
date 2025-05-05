@@ -1,9 +1,12 @@
 package me.adrigamer2950.adriapi.api.sound
 
 import com.cryptomorin.xseries.XSound
+import me.adrigamer2950.adriapi.api.ExperimentalAPI
+import me.adrigamer2950.adriapi.api.Nms
 import org.bukkit.Location
 import org.bukkit.SoundCategory
 import org.bukkit.entity.Entity
+import org.bukkit.entity.Player
 
 typealias BukkitSound = org.bukkit.Sound
 
@@ -18,17 +21,38 @@ class Sound(
 ) {
 
     fun playToEntity(entity: Entity) {
+        if (entity is Player) {
+            playToPlayer(entity)
+        } else {
+            playOnLocation(entity.location)
+        }
+    }
+
+    @OptIn(ExperimentalAPI::class)
+    fun playToPlayer(player: Player) {
         if (this.sound.get() == null)
             throw IllegalArgumentException("Sound ${this.sound.name()} is not valid")
 
-        entity.world.playSound(entity.location, this.sound.get()!!, this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER, this.volume, this.pitch)
+        Nms.sound.playToPlayer(
+            player,
+            this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER,
+            this.sound.get()!!,
+            this.volume,
+            this.pitch
+        )
     }
 
     fun playOnLocation(l: Location) {
         if (this.sound.get() == null)
             throw IllegalArgumentException("Sound ${this.sound.name()} is not valid")
 
-        l.world.playSound(l, this.sound.get()!!, this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER, this.volume, this.pitch)
+        l.world.playSound(
+            l,
+            this.sound.get()!!,
+            this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER,
+            this.volume,
+            this.pitch
+        )
     }
 
     class Builder {
