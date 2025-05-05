@@ -26,6 +26,9 @@ class NmsSoundImpl : NmsSound {
             SoundCategory.HOSTILE -> SoundSource.HOSTILE
             SoundCategory.WEATHER -> SoundSource.WEATHER
             SoundCategory.NEUTRAL -> SoundSource.NEUTRAL
+            SoundCategory.VOICE -> SoundSource.VOICE
+            SoundCategory.RECORDS -> SoundSource.RECORDS
+            SoundCategory.MUSIC -> SoundSource.MUSIC
             else -> throw IllegalArgumentException("Sound category ${category.name} not found")
         }
 
