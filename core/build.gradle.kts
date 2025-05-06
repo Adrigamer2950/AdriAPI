@@ -129,6 +129,17 @@ dependencies {
     compileOnly(project(":nms:1_19_R3"))
     implementation(project(":nms:1_19_R3", "reobf"))
 
+    compileOnly(project(":nms:1_20_R1"))
+    implementation(project(":nms:1_20_R1", "reobf"))
+
+    compileOnly(project(":nms:1_20_R2"))
+    implementation(project(":nms:1_20_R2", "reobf"))
+
+    compileOnly(project(":nms:1_20_R3"))
+    implementation(project(":nms:1_20_R3", "reobf"))
+
+    implementation(project(":nms:1_20_R4"))
+
     testImplementation(kotlin("test"))
     testImplementation(libs.junit.platform.launcher)
     testImplementation(libs.mockbukkit)
