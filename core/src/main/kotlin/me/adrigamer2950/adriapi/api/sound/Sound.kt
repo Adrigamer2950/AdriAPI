@@ -10,14 +10,14 @@ import org.bukkit.entity.Player
 
 typealias BukkitSound = org.bukkit.Sound
 
-typealias XCategory = XSound.Category
+typealias XSoundCategory = XSound.Category
 
 @Suppress("unused")
 class Sound(
     val sound: XSound,
     val volume: Float = 1.0f,
     val pitch: Float = 1.0f,
-    val category: XCategory = XCategory.MASTER,
+    val category: XSoundCategory = XSoundCategory.MASTER,
 ) {
 
     fun playToEntity(entity: Entity) {
@@ -65,7 +65,7 @@ class Sound(
         var pitch: Float = 1.0f
             private set
 
-        var category: XCategory = XCategory.MASTER
+        var category: XSoundCategory = XSoundCategory.MASTER
             private set
 
         fun sound(sound: XSound): Builder {
@@ -83,7 +83,7 @@ class Sound(
             return this
         }
 
-        fun category(category: XCategory): Builder {
+        fun category(category: XSoundCategory): Builder {
             this.category = category
             return this
         }

@@ -3,7 +3,7 @@ package me.adrigamer2950.adriapi.api.serializer.boostedyaml
 import com.cryptomorin.xseries.XSound
 import dev.dejvokep.boostedyaml.serialization.standard.TypeAdapter
 import me.adrigamer2950.adriapi.api.sound.Sound
-import me.adrigamer2950.adriapi.api.sound.XCategory
+import me.adrigamer2950.adriapi.api.sound.XSoundCategory
 
 @Suppress("unused")
 class SoundSerializer : TypeAdapter<Sound> {
@@ -43,7 +43,7 @@ class SoundSerializer : TypeAdapter<Sound> {
             pitch = (map["pitch"] as Float)
         }
 
-        val category = XCategory.valueOf(map["category"] as String)
+        val category = XSoundCategory.valueOf(map["category"] as String)
 
         return Sound.builder()
             .sound(sound.get())
