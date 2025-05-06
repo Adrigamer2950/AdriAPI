@@ -138,12 +138,22 @@ dependencies {
     compileOnly(project(":nms:1_20_R3"))
     implementation(project(":nms:1_20_R3", "reobf"))
 
-    implementation(project(":nms:1_20_R4"))
+    implementation(project(":nms:1_20_R4")) {
+        isTransitive = false
+    }
 
-    implementation(project(":nms:1_21_R1"))
-    implementation(project(":nms:1_21_R2"))
-    implementation(project(":nms:1_21_R3"))
-    implementation(project(":nms:1_21_R4"))
+    implementation(project(":nms:1_21_R1")) {
+        isTransitive = false
+    }
+    implementation(project(":nms:1_21_R2")) {
+        isTransitive = false
+    }
+    implementation(project(":nms:1_21_R3")) {
+        isTransitive = false
+    }
+    implementation(project(":nms:1_21_R4")) {
+        isTransitive = false
+    }
 
     testImplementation(kotlin("test"))
     testImplementation(libs.junit.platform.launcher)
