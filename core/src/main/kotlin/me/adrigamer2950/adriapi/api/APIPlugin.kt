@@ -84,13 +84,6 @@ abstract class APIPlugin : JavaPlugin {
     final override fun onLoad() {
         this.libraryManager = LibraryManager.get(this)
 
-        System.getProperty("adriapi.debug")?.let {
-            if (it != "true") return@let
-
-            this.debug = true
-            logger.debug("&6Debug mode was enabled because -Dadriapi.debug flag was set to true")
-        }
-
         val libMan = LibraryManagerImpl(this, "AdriAPI")
 
         libMan.addRepository("https://jitpack.io")
@@ -114,6 +107,13 @@ abstract class APIPlugin : JavaPlugin {
                 .resolveTransitiveDependencies(true)
                 .build()
         )
+
+        System.getProperty("adriapi.debug")?.let {
+            if (it != "true") return@let
+
+            this.debug = true
+            logger.debug("&6Debug mode was enabled because -Dadriapi.debug flag was set to true")
+        }
 
         this.onPreLoad()
     }
