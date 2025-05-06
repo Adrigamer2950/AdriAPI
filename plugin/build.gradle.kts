@@ -35,6 +35,12 @@ bukkit {
 }
 
 tasks.named<Jar>("jar") {
+    manifest {
+        attributes(
+            "paperweight-mappings-namespace" to "mojang"
+        )
+    }
+
     enabled = false
 }
 

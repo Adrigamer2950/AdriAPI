@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.20.6-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
 
     compileOnly(project(":nms:common"))
 }
@@ -13,8 +13,4 @@ val targetJavaVersion = (rootProject.properties["java-version"] as String).toInt
 
 kotlin {
     jvmToolchain(targetJavaVersion)
-}
-
-tasks.reobfJar {
-    enabled = false
 }
