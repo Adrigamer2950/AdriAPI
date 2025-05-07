@@ -2,13 +2,11 @@ package me.adrigamer2950.adriapi.plugin
 
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.AutoRegister
-import me.adrigamer2950.adriapi.api.ExperimentalAPI
 import me.adrigamer2950.adriapi.api.command.AbstractCommand
 import me.adrigamer2950.adriapi.api.user.User
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 
-@OptIn(ExperimentalAPI::class)
 @Suppress("unused")
 @AutoRegister
 class AdriAPICommand(plugin: APIPlugin) : AbstractCommand(plugin, "adriapi") {
