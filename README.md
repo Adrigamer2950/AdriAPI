@@ -15,7 +15,7 @@ This API is aimed to simplify the development of Paper plugins,
 providing a lot of utilities that will make your life (and mine) easier
 
 > [!CAUTION]
-> You need Java 21+ to use this API/Plugin. If you are using a lower version consider upgrading
+> You need Java 17+ to use this API/Plugin. If you are using a lower version consider upgrading
 
 > [!WARNING]
 > Only Minecraft 1.17 or superior is officially supported. Versions below 1.17 will not receive any support
