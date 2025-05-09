@@ -3,6 +3,7 @@ package me.adrigamer2950.adriapi.api.command
 import me.adrigamer2950.adriapi.api.APIPlugin
 import me.adrigamer2950.adriapi.api.event.CommandLoadedEvent
 import me.adrigamer2950.adriapi.api.event.CommandUnloadedEvent
+import me.adrigamer2950.adriapi.api.toUser
 import me.adrigamer2950.adriapi.api.user.User
 import me.adrigamer2950.adriapi.api.util.CommandUtil
 import org.bukkit.Bukkit
@@ -35,7 +36,7 @@ abstract class AbstractCommand(
     abstract override fun execute(user: User, args: Array<out String>, commandName: String)
 
     final override fun execute(sender: CommandSender, commandLabel: String, args: Array<out String>): Boolean {
-        this.execute(User.fromBukkitSender(sender), args, commandLabel)
+        this.execute(sender.toUser(), args, commandLabel)
 
         return true
     }
@@ -45,7 +46,7 @@ abstract class AbstractCommand(
     }
 
     final override fun tabComplete(sender: CommandSender, commandLabel: String, args: Array<out String>): List<String> {
-        return tabComplete(User.fromBukkitSender(sender), args, commandLabel)
+        return tabComplete(sender.toUser(), args, commandLabel)
     }
 
     @JvmOverloads

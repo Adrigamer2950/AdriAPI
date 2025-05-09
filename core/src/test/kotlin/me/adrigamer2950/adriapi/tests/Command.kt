@@ -1,6 +1,6 @@
 package me.adrigamer2950.adriapi.tests
 
-import me.adrigamer2950.adriapi.api.user.User
+import me.adrigamer2950.adriapi.api.toUser
 import me.adrigamer2950.adriapi.common.ExampleCommand
 import me.adrigamer2950.adriapi.platform.AbstractTestPlatform
 import org.junit.jupiter.api.BeforeAll
@@ -26,7 +26,7 @@ class Command : AbstractTestPlatform() {
         val command = plugin.commandManager.getCommandOrNull("example")!!
 
         val player = server.addPlayer()
-        val user = User.fromBukkitSender(player)
+        val user = player.toUser()
 
         val result = command.tabComplete(user, arrayOf("test1", "test2"), command.commandName)
 
