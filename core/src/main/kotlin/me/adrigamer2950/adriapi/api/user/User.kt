@@ -74,13 +74,18 @@ interface User {
     fun hasPermission(permission: String): Boolean
 
     companion object {
+
+        private val cachedUsers: Set<User> = HashSet()
+
         /**
          * @param sender Bukkit API's command sender
          * @return A User
          */
         @JvmStatic
         fun fromBukkitSender(sender: CommandSender): User {
-            return UserImpl(sender)
+            cachedUsers.firstOrNull { it.bukkitSender == sender }?.let {
+                return it
+            } ?: return UserImpl(sender)
         }
 
         /**
