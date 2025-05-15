@@ -2,11 +2,8 @@ package me.adrigamer2950.adriapi.api
 
 import me.adrigamer2950.adriapi.api.nms.common.NmsSound
 import me.adrigamer2950.adriapi.api.nms.common.NmsVersions
-import org.jetbrains.annotations.ApiStatus.Experimental
 import kotlin.reflect.KClass
 
-@Experimental
-@ExperimentalAPI
 object Nms {
 
     @JvmField

@@ -1,7 +1,6 @@
 package me.adrigamer2950.adriapi.api.sound
 
 import com.cryptomorin.xseries.XSound
-import me.adrigamer2950.adriapi.api.ExperimentalAPI
 import me.adrigamer2950.adriapi.api.Nms
 import org.bukkit.Location
 import org.bukkit.SoundCategory
@@ -28,7 +27,6 @@ class Sound(
         }
     }
 
-    @OptIn(ExperimentalAPI::class)
     fun playToPlayer(player: Player) {
         if (this.sound.get() == null)
             throw IllegalArgumentException("Sound ${this.sound.name()} is not valid")
