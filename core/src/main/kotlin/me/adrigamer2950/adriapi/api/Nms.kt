@@ -13,7 +13,7 @@ object Nms {
         sound = getNMSInstance(getNMSClass("NmsSoundImpl"))
     }
 
-    private fun <T : Any> getNMSClass(name: String): KClass<T> {
+    private fun <T : Any> getNMSClass(@Suppress("SameParameterValue") name: String): KClass<T> {
         return try {
             @Suppress("UNCHECKED_CAST")
             Class.forName("${Nms::class.java.packageName}.nms.${NmsVersions.getCurrent().name.replace('V', 'v')}.$name").kotlin as KClass<T>
