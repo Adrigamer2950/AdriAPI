@@ -109,7 +109,8 @@ modrinth {
             "1.21.1",
             "1.21.2",
             "1.21.3",
-            "1.21.4"
+            "1.21.4",
+            "1.21.5"
         )
     )
     loaders.set(
@@ -132,7 +133,7 @@ hangarPublish {
             register(Platforms.PAPER) {
                 jar.set(getJarFile())
 
-                val versions: List<String> = listOf("1.17-1.21.4")
+                val versions: List<String> = listOf("1.17-1.21.5")
                 platformVersions.set(versions)
             }
         }
@@ -140,7 +141,7 @@ hangarPublish {
 }
 
 tasks.named<RunServer>("runServer").configure {
-    minecraftVersion("1.20.6")
+    minecraftVersion("1.20.2")
 
     downloadPlugins {
         // ViaVersion
