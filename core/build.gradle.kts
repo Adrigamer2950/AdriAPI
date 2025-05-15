@@ -138,20 +138,20 @@ dependencies {
     compileOnly(project(":nms:1_20_R3"))
     implementation(project(":nms:1_20_R3", "reobf"))
 
-    implementation(project(":nms:1_20_R4")) {
+    implementation(project(":nms:1_20_R4", "archives")) {
         isTransitive = false
     }
 
-    implementation(project(":nms:1_21_R1")) {
+    implementation(project(":nms:1_21_R1", "archives")) {
         isTransitive = false
     }
-    implementation(project(":nms:1_21_R2")) {
+    implementation(project(":nms:1_21_R2", "archives")) {
         isTransitive = false
     }
-    implementation(project(":nms:1_21_R3")) {
+    implementation(project(":nms:1_21_R3", "archives")) {
         isTransitive = false
     }
-    implementation(project(":nms:1_21_R4")) {
+    implementation(project(":nms:1_21_R4", "archives")) {
         isTransitive = false
     }
 
