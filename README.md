@@ -14,7 +14,7 @@ An API aimed to simplify the development of Paper plugins
 This API is aimed to simplify the development of Paper plugins,
 providing a lot of utilities that will make your life (and mine) easier
 
-Check the [TODO.md](TODO.md) file to check things that are coming in next version
+Check the [TODO.md](https://github.com/Adrigamer2950/AdriAPI/blob/master/TODO.md) file to check things that are coming in next version
 
 > [!CAUTION]
 > You need Java 17+ to use this API/Plugin. If you are using a lower version consider upgrading
