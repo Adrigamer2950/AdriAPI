@@ -20,7 +20,7 @@ enum class NmsVersions(vararg val versions: String) {
     V1_21_R4("1.21.5");
 
     companion object {
-        lateinit var current: NmsVersions
+        private lateinit var current: NmsVersions
 
         @JvmStatic
         fun getCurrent(): NmsVersions {
