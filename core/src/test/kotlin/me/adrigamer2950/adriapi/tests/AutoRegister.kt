@@ -1,10 +1,8 @@
 @file:Suppress("unused")
-@file:OptIn(ExperimentalAPI::class)
 
 package me.adrigamer2950.adriapi.tests
 
 import me.adrigamer2950.adriapi.api.AutoRegister
-import me.adrigamer2950.adriapi.api.ExperimentalAPI
 import me.adrigamer2950.adriapi.platform.AbstractTestPlatform
 import org.bukkit.event.Listener
 import kotlin.test.Test
