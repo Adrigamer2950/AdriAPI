@@ -20,9 +20,17 @@ enum class NmsVersions(vararg val versions: String) {
     V1_21_R4("1.21.5");
 
     companion object {
+        lateinit var current: NmsVersions
+
         @JvmStatic
-        fun getCurrent(): NmsVersions = entries.firstOrNull {
-            it.versions.contains(Bukkit.getMinecraftVersion())
-        } ?: throw IllegalStateException("Nms version not found")
+        fun getCurrent(): NmsVersions {
+            return if (!::current.isInitialized) {
+                entries.firstOrNull {
+                    it.versions.contains(Bukkit.getMinecraftVersion())
+                } ?: throw IllegalStateException("Nms version not found")
+            } else {
+                current
+            }
+        }
     }
 }
