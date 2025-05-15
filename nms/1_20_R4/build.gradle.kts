@@ -5,16 +5,10 @@ plugins {
 
 dependencies {
     paperweight.paperDevBundle("1.20.6-R0.1-SNAPSHOT")
-
-    compileOnly(project(":nms:common"))
 }
-
-val targetJavaVersion = (rootProject.properties["java-version"] as String).toInt()
 
 kotlin {
-    jvmToolchain(targetJavaVersion)
+    jvmToolchain(21)
 }
 
-tasks.reobfJar {
-    enabled = false
-}
+paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.REOBF_PRODUCTION

@@ -16,9 +16,10 @@ plugins {
 
 rootProject.name = "AdriAPI"
 
-include("core", "folia", "plugin", ":nms:common")
+include("core", "folia", "plugin", "nms")
 
 listOf(
+    "common",
     "1_17_R1",
     "1_18_R1",
     "1_18_R2",
