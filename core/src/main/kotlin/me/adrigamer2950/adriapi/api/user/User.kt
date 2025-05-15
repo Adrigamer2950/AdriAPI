@@ -83,9 +83,7 @@ interface User {
          */
         @JvmStatic
         fun fromBukkitSender(sender: CommandSender): User {
-            cachedUsers.firstOrNull { it.bukkitSender == sender }?.let {
-                return it
-            } ?: return UserImpl(sender)
+            return cachedUsers.firstOrNull { it.bukkitSender == sender } ?: UserImpl(sender)
         }
 
         /**
