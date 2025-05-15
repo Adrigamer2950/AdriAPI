@@ -1,8 +1,10 @@
 @file:Suppress("VulnerableLibrariesLocal")
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.PropertySpec
+import com.squareup.kotlinpoet.TypeSpec
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
-import com.squareup.kotlinpoet.*
 
 plugins {
     kotlin("jvm")
@@ -23,11 +25,34 @@ buildscript {
 
 val versionIsBeta = (parent?.properties?.get("version") as String).toDefaultLowerCase().contains("beta")
 
+val sourcesImplementation = configurations.create("sourcesImplementation")
+
+val unpackSources by tasks.registering(Sync::class) {
+    doNotTrackState("Unpack dependency sources")
+
+    from({
+        sourcesImplementation.resolve().map { zipTree(it) }
+    })
+    into(layout.buildDirectory.dir("unpacked-dep-sources"))
+
+    exclude("META-INF/**")
+}
+
 tasks.register("sourcesJar", Jar::class) {
-    from(sourceSets.main.get().kotlin)
-    archiveClassifier.set("sources")
+    dependsOn(unpackSources)
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from(sourceSets.main.get().allSource)
+    from(layout.buildDirectory.dir("unpacked-dep-sources")) {
+        exclude("META-INF/**")
+    }
+    archiveClassifier.set("sources")
+
+    rootProject.subprojects.filter { it.name != "plugin" }.forEach { sub ->
+        from(sub.file("src/main/java"))
+        from(sub.file("src/main/kotlin"))
+    }
 }
 
 if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
@@ -95,8 +120,10 @@ dependencies {
     compileOnly(libs.jansi)
 
     implementation(libs.libby)
+    sourcesImplementation(libs.libby)
 
     implementation(project(":folia"))
+//    sourcesImplementation(project(":folia"))
 
     compileOnly(libs.boosted.yaml)
 
