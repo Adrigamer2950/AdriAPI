@@ -152,7 +152,7 @@ tasks.withType(AbstractRun::class) {
     javaLauncher = javaToolchains.launcherFor {
         @Suppress("UnstableApiUsage")
         vendor = JvmVendorSpec.JETBRAINS
-        languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        languageVersion = JavaLanguageVersion.of(21)
     }
     jvmArgs(
         // Debug
