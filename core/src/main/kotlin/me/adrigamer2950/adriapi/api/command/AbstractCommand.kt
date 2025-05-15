@@ -97,24 +97,14 @@ abstract class AbstractCommand(
 
         if (subCommands.isEmpty()) return listOf()
 
-        val help = this.findHelpCommand()
-
-        if (args.isEmpty()) {
-            if (help.isPresent) return help.get().tabComplete(user, args, commandLabel)
-
-            return subCommands.map { it.commandName }
-        }
+        if (args.isEmpty()) return subCommands.map { it.commandName }
 
         val subCommand = this.subCommands.stream()
             .filter {
                 it.commandName == args[0]
             }.findFirst()
 
-        if (subCommand.isEmpty) {
-            if (help.isPresent) return help.get().tabComplete(user, args, commandLabel)
-
-            return subCommands.filter { it.commandName.startsWith(args[0]) }.map { it.commandName }
-        }
+        if (subCommand.isEmpty) return subCommands.filter { it.commandName.startsWith(args[0]) }.map { it.commandName }
 
         if (removeFirstArgument) args = args.drop(1).toTypedArray()
 
