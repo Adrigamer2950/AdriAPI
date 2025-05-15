@@ -208,6 +208,11 @@ tasks.register("generateBuildConstants") {
             .addType(
                 TypeSpec.objectBuilder("BuildConstants")
                     .addProperty(
+                        PropertySpec.builder("ADRIAPI_VERSION", String::class)
+                            .initializer("%S", rootProject.version as String)
+                            .build()
+                    )
+                    .addProperty(
                         PropertySpec.builder("JANSI_VERSION", String::class)
                             .initializer("%S", libs.versions.jansi.get())
                             .build()
