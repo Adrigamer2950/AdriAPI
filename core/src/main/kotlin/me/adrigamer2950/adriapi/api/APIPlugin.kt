@@ -4,7 +4,6 @@ import com.alessiodp.libby.Library
 import me.adrigamer2950.adriapi.api.command.Command
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager
 import me.adrigamer2950.adriapi.api.internal.BuildConstants
-import me.adrigamer2950.adriapi.api.internal.InventoriesListener
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManager
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManagerImpl
 import me.adrigamer2950.adriapi.api.logger.impl.LoggerImpl
@@ -122,7 +121,7 @@ abstract class APIPlugin : JavaPlugin {
         logger.debug("&6Loading hooks...")
         loadHooks()
 
-        registerListener(InventoriesListener(this))
+        logger.debug("Auto-registering listeners & commands...")
         autoRegister()
 
         onPostLoad()

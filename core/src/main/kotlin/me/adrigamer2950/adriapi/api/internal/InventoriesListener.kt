@@ -1,12 +1,15 @@
 package me.adrigamer2950.adriapi.api.internal
 
 import me.adrigamer2950.adriapi.api.APIPlugin
+import me.adrigamer2950.adriapi.api.AutoRegister
 import me.adrigamer2950.adriapi.api.inventory.Inventory
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 
+@Suppress("unused")
+@AutoRegister
 class InventoriesListener(val plugin: APIPlugin) : Listener {
 
     @EventHandler
