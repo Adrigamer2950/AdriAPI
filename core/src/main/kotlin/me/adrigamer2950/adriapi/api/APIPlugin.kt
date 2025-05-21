@@ -121,7 +121,7 @@ abstract class APIPlugin : JavaPlugin {
         logger.debug("&6Loading hooks...")
         loadHooks()
 
-        logger.debug("Auto-registering listeners & commands...")
+        logger.debug("&6Auto-registering listeners & commands...")
         autoRegister()
 
         onPostLoad()
