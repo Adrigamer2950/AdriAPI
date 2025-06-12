@@ -2,6 +2,7 @@
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.KModifier
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
@@ -237,21 +238,25 @@ tasks.register("generateBuildConstants") {
                     .addProperty(
                         PropertySpec.builder("ADRIAPI_VERSION", String::class)
                             .initializer("%S", rootProject.version as String)
+                            .addModifiers(KModifier.CONST)
                             .build()
                     )
                     .addProperty(
                         PropertySpec.builder("JANSI_VERSION", String::class)
                             .initializer("%S", libs.versions.jansi.get())
+                            .addModifiers(KModifier.CONST)
                             .build()
                     )
                     .addProperty(
                         PropertySpec.builder("REFLECTIONS_VERSION", String::class)
                             .initializer("%S", libs.versions.reflections.get())
+                            .addModifiers(KModifier.CONST)
                             .build()
                     )
                     .addProperty(
                         PropertySpec.builder("XSERIES_VERSION", String::class)
                             .initializer("%S", libs.versions.xseries.get())
+                            .addModifiers(KModifier.CONST)
                             .build()
                     )
                     .build()
