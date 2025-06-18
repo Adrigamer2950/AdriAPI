@@ -8,16 +8,16 @@ subprojects {
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
-    if (this.name == "common") return@subprojects
-
-    apply(plugin = "maven-publish")
-
     tasks.register("sourcesJar", Jar::class) {
         from(sourceSets.main.get().kotlin)
         archiveClassifier.set("sources")
 
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
+
+    if (this.name == "common") return@subprojects
+
+    apply(plugin = "maven-publish")
 
     afterEvaluate {
         dependencies {
