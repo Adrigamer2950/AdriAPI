@@ -18,6 +18,11 @@ class CommandManager(val plugin: APIPlugin) {
 
     private val syncCommands: Method? = this.findSyncCommandsMethod()
 
+    private val _commands = mutableListOf<Command>()
+
+    val commands: List<Command>
+        get() = this._commands.toList()
+
     private fun findSyncCommandsMethod(): Method? {
         // Ignore syncCommands method if plugin is running as a MockBukkit (unit testing framework) test
         if (ClassUtil.classExists("org.mockbukkit.mockbukkit.MockBukkit"))
@@ -43,10 +48,14 @@ class CommandManager(val plugin: APIPlugin) {
      */
     fun registerCommand(command: Command) {
         command.register()
+
+        _commands.add(command)
     }
 
     fun unRegisterCommand(command: Command) {
         command.unRegister()
+
+        _commands.remove(command)
     }
 
     fun syncCommands() {

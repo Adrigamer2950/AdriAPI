@@ -6,8 +6,8 @@ import me.adrigamer2950.adriapi.api.command.manager.CommandManager
 import me.adrigamer2950.adriapi.api.internal.BuildConstants
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManager
 import me.adrigamer2950.adriapi.api.library.manager.LibraryManagerImpl
-import me.adrigamer2950.adriapi.api.logger.impl.LoggerImpl
 import me.adrigamer2950.adriapi.api.logger.Logger
+import me.adrigamer2950.adriapi.api.logger.impl.LoggerImpl
 import me.adrigamer2950.adriapi.api.scheduler.Scheduler
 import me.adrigamer2950.adriapi.api.util.ServerType
 import me.adrigamer2950.adriapi.api.util.bStats
@@ -133,6 +133,10 @@ abstract class APIPlugin : JavaPlugin {
 
         if (this::bStats.isInitialized)
             bStats.shutdown()
+
+        if (this::commandManager.isInitialized) {
+            this.commandManager.commands.forEach { this.commandManager.unRegisterCommand(it) }
+        }
     }
 
     private fun loadHooks() {
@@ -243,8 +247,10 @@ abstract class APIPlugin : JavaPlugin {
 
     @Deprecated("Use CommandManager#getCommand instead")
     override fun getCommand(name: String): PluginCommand? {
-        logger.warn("Wrong use of APIPlugin#getCommand. Use CommandManager#getCommand instead. " +
-                "If you see this message, you should tell the developer of this plugin about it")
+        logger.warn(
+            "Wrong use of APIPlugin#getCommand. Use CommandManager#getCommand instead. " +
+                    "If you see this message, you should tell the developer of this plugin about it"
+        )
 
         return super.getCommand(name)
     }
