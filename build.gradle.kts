@@ -145,7 +145,7 @@ tasks.named<RunServer>("runServer").configure {
 
     downloadPlugins {
         // ViaVersion
-        hangar("ViaVersion", "5.2.0")
+        hangar("viaversion", "5.3.2")
     }
 }
 
