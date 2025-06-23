@@ -38,7 +38,12 @@ class ItemBuilder {
                     else
                         listOf()
                 )
-                .customModelData(stack.itemMeta.customModelData)
+                .customModelData(
+                    if (stack.itemMeta.hasCustomModelData())
+                        stack.itemMeta.customModelData
+                    else
+                        0
+                )
                 .unbreakable(stack.itemMeta.isUnbreakable)
 
             stack.itemMeta.enchants.forEach {
