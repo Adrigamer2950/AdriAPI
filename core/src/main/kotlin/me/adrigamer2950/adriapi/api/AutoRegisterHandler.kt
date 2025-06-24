@@ -18,10 +18,7 @@ class AutoRegisterHandler internal constructor(val plugin: APIPlugin) {
                         && APIPlugin::class.java.isAssignableFrom(it.parameters[0].type)
             }
         ) {
-            klass.constructors.firstOrNull {
-                it.parameters.size == 1
-                        && APIPlugin::class.java.isAssignableFrom(it.parameters[0].type)
-            }?.newInstance(plugin) as T
+            klass.getDeclaredConstructor(APIPlugin::class.java).newInstance(plugin) as T
         } else {
             throw IllegalArgumentException("Class `${klass.simpleName}` must have a no-arg constructor or a constructor of only a APIPlugin (or an implementation of APIPlugin) a object")
         }
