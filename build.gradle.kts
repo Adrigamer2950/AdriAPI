@@ -110,7 +110,8 @@ modrinth {
             "1.21.2",
             "1.21.3",
             "1.21.4",
-            "1.21.5"
+            "1.21.5",
+            "1.21.6"
         )
     )
     loaders.set(
@@ -133,7 +134,7 @@ hangarPublish {
             register(Platforms.PAPER) {
                 jar.set(getJarFile())
 
-                val versions: List<String> = listOf("1.17-1.21.5")
+                val versions: List<String> = listOf("1.17-1.21.6")
                 platformVersions.set(versions)
             }
         }
