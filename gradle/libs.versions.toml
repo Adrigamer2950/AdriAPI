@@ -15,7 +15,7 @@ kotlinpoet = "2.2.0"
 xseries = "13.3.1"
 
 # Test
-junit-launcher = "1.13.1"
+junit-launcher = "1.13.2"
 mockbukkit = "3.1.0"
 slf4j = "2.0.17"
 
