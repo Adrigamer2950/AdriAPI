@@ -15,8 +15,6 @@ plugins {
 
 val versionIsBeta = (properties["version"] as String).toDefaultLowerCase().contains("beta")
 
-val targetJavaVersion = (properties["java-version"] as String).toInt()
-
 allprojects {
     apply(plugin = "java")
 
