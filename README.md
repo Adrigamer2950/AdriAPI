@@ -20,6 +20,12 @@ Check the [TODO.md](https://github.com/Adrigamer2950/AdriAPI/blob/master/TODO.md
 > You need Java 17+ to use this API/Plugin. If you are using a lower version consider upgrading
 
 > [!WARNING]
+> You need to set your plugin to use Spigot mappings in case you think of using Mojang mappings
+> in order to preserve compatibility with Paper forks that are still using Spigot mappings.
+> If your plugin is going to be used in a server that you know that will use Mojang mappings,
+> you can skip this step. More information in the [PaperMC documentation](https://docs.papermc.io/paper/dev/project-setup/#plugin-remapping).
+
+> [!WARNING]
 > Only Minecraft 1.17 or superior is officially supported. Versions below 1.17 will not receive any support
 
 ### It's mostly used in my plugins, but you can use it on your own plugins if you want, just make sure to give proper credit!
