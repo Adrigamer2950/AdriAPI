@@ -7,6 +7,7 @@ import me.adrigamer2950.adriapi.api.toUser
 import me.adrigamer2950.adriapi.api.user.User
 import me.adrigamer2950.adriapi.api.util.CommandUtil
 import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.command.CommandSender
 import java.util.*
 
@@ -47,6 +48,15 @@ abstract class AbstractCommand(
 
     final override fun tabComplete(sender: CommandSender, commandLabel: String, args: Array<out String>): List<String> {
         return tabComplete(sender.toUser(), args, commandLabel)
+    }
+
+    final override fun tabComplete(
+        sender: CommandSender,
+        alias: String,
+        args: Array<out String>,
+        location: Location?
+    ): List<String?> {
+        return tabComplete(sender.toUser(), args, commandName)
     }
 
     @JvmOverloads
