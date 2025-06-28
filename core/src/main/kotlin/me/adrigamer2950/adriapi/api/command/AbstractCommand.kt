@@ -76,7 +76,7 @@ abstract class AbstractCommand(
             return
         }
 
-        val subCommand = this.subCommands.firstOrNull { it.info.name == args[0] }
+        val subCommand = this.subCommands.firstOrNull { it.info.name == args[0] || it.info.aliases.contains(args[0]) }
 
         if (subCommand == null) {
             help?.execute(user, args, commandLabel)
@@ -103,9 +103,14 @@ abstract class AbstractCommand(
 
         if (args.isEmpty()) return subCommands.map { it.info.name }
 
-        val subCommand = this.subCommands.firstOrNull { it.info.name == args[0] }
+        val subCommand = this.subCommands.firstOrNull { it.info.name == args[0] || it.info.aliases.contains(args[0]) }
 
-        if (subCommand == null) return subCommands.filter { it.info.name.startsWith(args[0]) }.map { it.info.name }
+        if (subCommand == null) {
+            return listOf(
+                *subCommands.map { it.info.name }.toTypedArray(),
+                *subCommands.flatMap { it.info.aliases }.toTypedArray()
+            ).filter { it.startsWith(args[0]) }
+        }
 
         if (removeFirstArgument) args = args.drop(1).toTypedArray()
 
