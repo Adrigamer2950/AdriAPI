@@ -71,7 +71,7 @@ class CommandManager(val plugin: APIPlugin) {
             .filter { it is Command }
             .map { it as Command }
             .filter { it.plugin == this.plugin }
-            .filter { it.commandName == name }
+            .filter { it.info.name == name }
             .findFirst()
     }
 
