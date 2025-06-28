@@ -22,13 +22,13 @@ abstract class AbstractCommand(
     description: String = "No description",
     aliases: List<String> = listOf<String>(),
     override val subCommands: MutableList<Command> = mutableListOf<Command>()
-) : BukkitCommand(name), Command {
+) : BukkitCommand(name, description, "/$name", aliases), Command {
 
-    override val info: CommandInfo = CommandInfo(this.name, this.description, this.aliases)
+    override var info: CommandInfo = CommandInfo(this.name, this.description, this.aliases)
 
-    init {
-        setDescription(info.description)
-        setAliases(info.aliases)
+    override fun setDescription(description: String): org.bukkit.command.Command {
+        this.info = CommandInfo(this.name, description, this.aliases)
+        return super.setDescription(description)
     }
 
     abstract override fun execute(user: User, args: Array<out String>, commandName: String)
