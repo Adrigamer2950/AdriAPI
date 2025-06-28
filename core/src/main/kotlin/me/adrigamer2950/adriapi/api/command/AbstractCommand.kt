@@ -9,7 +9,6 @@ import me.adrigamer2950.adriapi.api.util.CommandUtil
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.command.CommandSender
-import java.util.*
 
 /**
  * Default implementation of Command
@@ -20,21 +19,17 @@ import java.util.*
 abstract class AbstractCommand(
     override val plugin: APIPlugin,
     name: String,
-    description: String,
-    aliases: List<String>,
-    override val subCommands: MutableList<Command>
-) : BukkitCommand(name, description, "/$name", aliases), Command {
-
-    constructor(plugin: APIPlugin, name: String) : this(plugin, name, mutableListOf())
-    constructor(plugin: APIPlugin, name: String, subCommands: MutableList<Command>) : this(
-        plugin,
-        name,
-        "No description",
-        listOf(),
-        subCommands
-    )
+    description: String = "No description",
+    aliases: List<String> = listOf<String>(),
+    override val subCommands: MutableList<Command> = mutableListOf<Command>()
+) : BukkitCommand(name), Command {
 
     override val info: CommandInfo = CommandInfo(this.name, this.description, this.aliases)
+
+    init {
+        setDescription(info.description)
+        setAliases(info.aliases)
+    }
 
     abstract override fun execute(user: User, args: Array<out String>, commandName: String)
 
@@ -76,25 +71,22 @@ abstract class AbstractCommand(
         val help = this.findHelpCommand()
 
         if (args.isEmpty()) {
-            if (help.isPresent) help.get().execute(user, args, commandLabel)
+            help?.execute(user, args, commandLabel)
 
             return
         }
 
-        val subCommand = this.subCommands.stream()
-            .filter {
-                it.info.name == args[0]
-            }.findFirst()
+        val subCommand = this.subCommands.firstOrNull { it.info.name == args[0] }
 
-        if (subCommand.isEmpty) {
-            if (help.isPresent) help.get().execute(user, args, commandLabel)
+        if (subCommand == null) {
+            help?.execute(user, args, commandLabel)
 
             return
         }
 
         if (removeFirstArgument) args = args.drop(1).toTypedArray()
 
-        subCommand.get().execute(user, args, commandLabel)
+        subCommand.execute(user, args, commandLabel)
     }
 
     @JvmOverloads
@@ -111,24 +103,19 @@ abstract class AbstractCommand(
 
         if (args.isEmpty()) return subCommands.map { it.info.name }
 
-        val subCommand = this.subCommands.stream()
-            .filter {
-                it.info.name == args[0]
-            }.findFirst()
+        val subCommand = this.subCommands.firstOrNull { it.info.name == args[0] }
 
-        if (subCommand.isEmpty) return subCommands.filter { it.info.name.startsWith(args[0]) }.map { it.info.name }
+        if (subCommand == null) return subCommands.filter { it.info.name.startsWith(args[0]) }.map { it.info.name }
 
         if (removeFirstArgument) args = args.drop(1).toTypedArray()
 
-        return subCommand.get().tabComplete(user, args, commandLabel)
+        return subCommand.tabComplete(user, args, commandLabel)
     }
 
-    private fun findHelpCommand(): Optional<Command> {
-        return this.subCommands.stream()
-            .filter {
-                it.info.name == "help"
-            }
-            .findFirst()
+    private fun findHelpCommand(): Command? {
+        return this.subCommands.firstOrNull {
+            it.info.name == "help"
+        }
     }
 
     @Override
