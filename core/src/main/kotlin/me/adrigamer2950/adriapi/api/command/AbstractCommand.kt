@@ -19,11 +19,11 @@ import java.util.*
 @Suppress("unused")
 abstract class AbstractCommand(
     override val plugin: APIPlugin,
-    override val commandName: String,
+    name: String,
     description: String,
     aliases: List<String>,
     override val subCommands: MutableList<Command>
-) : BukkitCommand(commandName, description, "/$commandName", aliases), Command {
+) : BukkitCommand(name, description, "/$name", aliases), Command {
 
     constructor(plugin: APIPlugin, name: String) : this(plugin, name, mutableListOf())
     constructor(plugin: APIPlugin, name: String, subCommands: MutableList<Command>) : this(
@@ -33,6 +33,8 @@ abstract class AbstractCommand(
         listOf(),
         subCommands
     )
+
+    override val info: CommandInfo = CommandInfo(this.name, this.description, this.aliases)
 
     abstract override fun execute(user: User, args: Array<out String>, commandName: String)
 
@@ -56,7 +58,7 @@ abstract class AbstractCommand(
         args: Array<out String>,
         location: Location?
     ): List<String?> {
-        return tabComplete(sender.toUser(), args, commandName)
+        return tabComplete(sender.toUser(), args, this.info.name)
     }
 
     @JvmOverloads
@@ -81,7 +83,7 @@ abstract class AbstractCommand(
 
         val subCommand = this.subCommands.stream()
             .filter {
-                it.commandName == args[0]
+                it.info.name == args[0]
             }.findFirst()
 
         if (subCommand.isEmpty) {
@@ -107,14 +109,14 @@ abstract class AbstractCommand(
 
         if (subCommands.isEmpty()) return listOf()
 
-        if (args.isEmpty()) return subCommands.map { it.commandName }
+        if (args.isEmpty()) return subCommands.map { it.info.name }
 
         val subCommand = this.subCommands.stream()
             .filter {
-                it.commandName == args[0]
+                it.info.name == args[0]
             }.findFirst()
 
-        if (subCommand.isEmpty) return subCommands.filter { it.commandName.startsWith(args[0]) }.map { it.commandName }
+        if (subCommand.isEmpty) return subCommands.filter { it.info.name.startsWith(args[0]) }.map { it.info.name }
 
         if (removeFirstArgument) args = args.drop(1).toTypedArray()
 
@@ -124,7 +126,7 @@ abstract class AbstractCommand(
     private fun findHelpCommand(): Optional<Command> {
         return this.subCommands.stream()
             .filter {
-                it.commandName == "help"
+                it.info.name == "help"
             }
             .findFirst()
     }

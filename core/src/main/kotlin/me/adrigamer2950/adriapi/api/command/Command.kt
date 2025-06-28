@@ -15,13 +15,7 @@ typealias BukkitCommand = org.bukkit.command.Command
  */
 interface Command {
 
-    /**
-     * This could be named "name", but an
-     * "Inherited platform declarations clash" error
-     * or an "Accidental override" error
-     * would be thrown at compile time 😿
-     */
-    val commandName: String
+    val info: CommandInfo
 
     val plugin: APIPlugin
 
