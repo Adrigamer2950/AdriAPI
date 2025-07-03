@@ -12,7 +12,7 @@ hangar-publish-plugin = "0.1.3"
 boosted-yaml = "1.3.7"
 reflections = "3d340414a7"
 kotlinpoet = "2.2.0"
-xseries = "13.3.2"
+xseries = "13.3.3"
 
 # Test
 junit-launcher = "1.13.2"
