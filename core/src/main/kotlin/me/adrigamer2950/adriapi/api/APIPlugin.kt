@@ -138,7 +138,7 @@ abstract class APIPlugin : JavaPlugin {
             bStats.shutdown()
 
         if (this::commandManager.isInitialized) {
-            this.commandManager.commands.forEach { this.commandManager.unRegisterCommand(it) }
+            this.commandManager.commands.toList().forEach { this.commandManager.unRegisterCommand(it) }
         }
     }
 
