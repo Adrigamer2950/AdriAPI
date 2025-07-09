@@ -127,12 +127,16 @@ abstract class AbstractCommand(
     override fun unRegister() {
         CommandUtil.unRegisterCommand(this, plugin)
 
+        unregister(Bukkit.getCommandMap())
+
         Bukkit.getPluginManager().callEvent(CommandUnloadedEvent(this))
     }
 
     @Override
     override fun register() {
         CommandUtil.registerCommand(this, plugin)
+
+        register(Bukkit.getCommandMap())
 
         Bukkit.getPluginManager().callEvent(CommandLoadedEvent(this))
     }

@@ -6,19 +6,13 @@ import org.bukkit.command.Command
 
 object CommandUtil {
 
-    @JvmOverloads
     @JvmStatic
-    fun unRegisterCommand(command: Command, plugin: APIPlugin, isPrefixCommand: Boolean = false) {
+    fun unRegisterCommand(command: Command, plugin: APIPlugin) {
         val commandMap = Bukkit.getCommandMap()
 
-        commandMap.knownCommands.remove("${
-            if (isPrefixCommand) "${plugin.name.lowercase()}:" else ""
-        }${command.name}")
-        command.aliases.forEach { commandMap.knownCommands.remove(it) }
-        command.unregister(commandMap)
-
-        if (!isPrefixCommand) {
-            commandMap.knownCommands.filter { it.key.startsWith("${plugin.name.lowercase()}:") }.forEach { this.unRegisterCommand(it.value, plugin, true) }
+        listOf<String>(command.name, *command.aliases.toTypedArray()).forEach {
+            commandMap.knownCommands.remove(it)
+            commandMap.knownCommands.remove("${plugin.name.lowercase()}:$it")
         }
 
         plugin.commandManager.syncCommands()
@@ -28,11 +22,10 @@ object CommandUtil {
     fun registerCommand(command: Command, plugin: APIPlugin) {
         val commandMap = Bukkit.getCommandMap()
 
-        val foundCommand = commandMap.getCommand(command.name)
-
-        if (foundCommand != null) unRegisterCommand(foundCommand, plugin)
-
-        commandMap.register(plugin.name, command)
+        listOf<String>(command.name, *command.aliases.toTypedArray()).forEach {
+            commandMap.knownCommands[it] = command
+            commandMap.knownCommands["${plugin.name.lowercase()}:$it"] = command
+        }
 
         plugin.commandManager.syncCommands()
     }
