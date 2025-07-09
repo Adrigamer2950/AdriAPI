@@ -26,9 +26,28 @@ abstract class AbstractCommand(
 
     override var info: CommandInfo = CommandInfo(this.name, this.description, this.aliases)
 
-    override fun setDescription(description: String): org.bukkit.command.Command {
+    override fun setDescription(description: String): BukkitCommand = apply {
         this.info = CommandInfo(this.name, description, this.aliases)
-        return super.setDescription(description)
+        this.description = description
+    }
+
+    override fun setAliases(aliases: List<String>): BukkitCommand = apply {
+        this.info = CommandInfo(this.name, this.description, aliases)
+        this.aliases = aliases
+    }
+
+    override fun setName(name: String): Boolean {
+        if (!isRegistered) {
+            this.info = CommandInfo(name, this.description, this.aliases)
+            this.name = name
+            return true
+        } else {
+            return false
+        }
+    }
+
+    override fun setPermission(ignored: String?) {
+        return super.setPermission(null)
     }
 
     abstract override fun execute(user: User, args: Array<out String>, commandName: String)
