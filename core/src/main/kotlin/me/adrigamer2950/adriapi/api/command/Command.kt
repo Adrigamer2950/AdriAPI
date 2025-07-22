@@ -9,7 +9,7 @@ typealias BukkitCommand = org.bukkit.command.Command
  * Command interface. You can implement this interface
  * if you want to customize default behavior however
  * you see fit. Otherwise, you should extend AbstractCommand
- * if you want to use default behavior.
+ * if you don't want to code any custom behavior
  *
  * @since 1.0.0
  */
