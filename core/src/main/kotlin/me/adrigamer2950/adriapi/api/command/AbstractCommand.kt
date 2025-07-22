@@ -16,7 +16,7 @@ import org.bukkit.command.CommandSender
  * @since 2.4.0
  */
 @Suppress("unused")
-abstract class AbstractCommand(
+abstract class AbstractCommand @JvmOverloads constructor(
     override val plugin: APIPlugin,
     name: String,
     description: String = "No description",
