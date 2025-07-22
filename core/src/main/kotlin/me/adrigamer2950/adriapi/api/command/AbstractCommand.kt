@@ -21,8 +21,9 @@ abstract class AbstractCommand @JvmOverloads constructor(
     name: String,
     description: String = "No description",
     aliases: List<String> = listOf<String>(),
-    override val subCommands: MutableList<Command> = mutableListOf<Command>()
-) : BukkitCommand(name, description, "/$name", aliases), Command {
+    override val subCommands: MutableList<Command> = mutableListOf<Command>(),
+    usage: String = "/$name"
+) : BukkitCommand(name, description, usage, aliases), Command {
 
     override var info: CommandInfo = CommandInfo(this.name, this.description, this.aliases)
 
