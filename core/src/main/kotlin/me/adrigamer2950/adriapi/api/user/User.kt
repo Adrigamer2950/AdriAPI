@@ -61,7 +61,7 @@ interface User {
 
     /**
      * @return The player's name
-     * @see User#getName()
+     * @see User#name
      */
     @Deprecated("Use User#name instead", ReplaceWith("name"))
     @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
