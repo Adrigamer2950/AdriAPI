@@ -26,11 +26,13 @@ class UserImpl internal constructor(override val bukkitSender: CommandSender) : 
         return bukkitSender is Player
     }
 
+    @Deprecated("Use User#asConsole instead", replaceWith = ReplaceWith("User#asConsole"))
     override fun getConsole(): Optional<ConsoleCommandSender> {
         if (isConsole()) return Optional.of(bukkitSender as ConsoleCommandSender)
         return Optional.empty()
     }
 
+    @Deprecated("Use User#asPlayer instead", replaceWith = ReplaceWith("User#asPlayer"))
     override fun getPlayer(): Optional<Player> {
         if (isPlayer()) return Optional.of(bukkitSender as Player)
         return Optional.empty()

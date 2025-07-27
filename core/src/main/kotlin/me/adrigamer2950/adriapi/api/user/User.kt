@@ -13,7 +13,7 @@ import java.util.*
  *
  * @since 2.0.0
  */
-@Suppress("unused")
+@Suppress("unused", "DEPRECATION")
 interface User {
 
     val bukkitSender: CommandSender
@@ -28,25 +28,37 @@ interface User {
     /**
      * @return Optional object of ConsoleCommandSender
      */
+    @Deprecated("Use User#asConsole instead", ReplaceWith("User#asConsole"))
     fun getConsole(): Optional<ConsoleCommandSender>
 
     /**
      * @return A ConsoleCommandSender object if the user is the console, null otherwise
      */
+    @Deprecated("Use User#asConsole instead", ReplaceWith("User#asConsole"))
     fun getConsoleOrNull(): ConsoleCommandSender? {
         return getConsole().orElse(null)
+    }
+
+    fun asConsole(): ConsoleCommandSender? {
+        return bukkitSender as? ConsoleCommandSender
     }
 
     /**
      * @return Optional object of Player
      */
+    @Deprecated("Use User#asPlayer instead", ReplaceWith("User#asPlayer"))
     fun getPlayer(): Optional<Player>
 
     /**
      * @return A Player object if the user is a player, null otherwise
      */
+    @Deprecated("Use User#asPlayer instead", ReplaceWith("User#asPlayer"))
     fun getPlayerOrNull(): Player? {
         return getPlayer().orElse(null)
+    }
+
+    fun asPlayer(): Player? {
+        return bukkitSender as? Player
     }
 
     /**
