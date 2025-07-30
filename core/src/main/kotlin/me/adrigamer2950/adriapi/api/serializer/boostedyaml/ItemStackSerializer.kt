@@ -1,7 +1,6 @@
 package me.adrigamer2950.adriapi.api.serializer.boostedyaml
 
 import dev.dejvokep.boostedyaml.serialization.standard.TypeAdapter
-import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -10,7 +9,6 @@ import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
 import org.bukkit.inventory.ItemStack
-
 import java.util.*
 
 @Suppress("unused")
@@ -27,7 +25,7 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
 
         if (itemStack.itemMeta.hasLore())
             map["lore"] = itemStack.itemMeta.lore()!!
-                .stream().map(LegacyComponentSerializer.legacyAmpersand()::serialize)
+                .map(LegacyComponentSerializer.legacyAmpersand()::serialize)
 
         if (itemStack.itemMeta.hasCustomModelData())
             map["custom_model_data"] = itemStack.itemMeta.customModelData
@@ -46,7 +44,7 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
 
         if (itemStack.itemFlags.isNotEmpty()) {
             map["flags"] = itemStack.itemFlags
-                .stream().map(ItemFlag::name)
+                .map(ItemFlag::name)
                 .toList()
         }
 
@@ -103,9 +101,8 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
 
         if (map.containsKey("lore"))
             meta.lore(
-                (map["lore"] as List<String>).stream()
+                (map["lore"] as List<String>)
                     .map { LegacyComponentSerializer.legacyAmpersand().deserialize(it) }
-                    .toList() as List<Component>
             )
 
         if (map.containsKey("custom_model_data"))
