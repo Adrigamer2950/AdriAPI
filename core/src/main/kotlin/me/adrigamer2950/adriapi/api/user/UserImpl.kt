@@ -39,14 +39,9 @@ class UserImpl internal constructor(override val bukkitSender: CommandSender) : 
     }
 
     override fun sendMessage(vararg messages: String) {
-        messages.forEach {
-            bukkitSender.sendMessage(
-                if (isConsole())
-                    Colors.translateToAnsi(it)
-                else
-                    Colors.translateColors(it)
-            )
-        }
+        bukkitSender.sendMessage(
+            *messages.map { if (isConsole()) Colors.translateToAnsi(it) else Colors.translateColors(it) }.toTypedArray()
+        )
     }
 
     @Override
@@ -54,9 +49,7 @@ class UserImpl internal constructor(override val bukkitSender: CommandSender) : 
         if (isPlayer())
             components.forEach { bukkitSender.sendMessage(it) }
         else
-            components.forEach {
-                this.sendMessage(LegacyComponentSerializer.legacyAmpersand().serialize(it))
-            }
+            this.sendMessage(*components.map { LegacyComponentSerializer.legacyAmpersand().serialize(it) }.toTypedArray())
     }
 
     @Suppress("OVERRIDE_DEPRECATION")
