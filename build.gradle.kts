@@ -66,15 +66,11 @@ fun getJarFile(): File? {
 }
 
 fun getGitCommitHash(): String {
-    val byteOut = ByteArrayOutputStream()
+    val process = ProcessBuilder("git", "rev-parse", "--short", "HEAD")
+        .redirectErrorStream(true)
+        .start()
 
-    @Suppress("DEPRECATION")
-    exec {
-        commandLine = "git rev-parse --short HEAD".split(" ")
-        standardOutput = byteOut
-    }
-
-    return String(byteOut.toByteArray()).trim()
+    return process.inputStream.bufferedReader().readText().trim()
 }
 
 modrinth {
