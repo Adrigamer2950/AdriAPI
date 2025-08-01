@@ -1,0 +1,28 @@
+name: Pull Request Test
+
+on:
+  - pull_request
+
+jobs:
+  test:
+    name: Test Build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout sources
+
+      - uses: actions/setup-java@v4
+        name: Set up JDK 17
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - uses: gradle/actions/setup-gradle@v4
+        name: Setup Gradle
+
+      - name: Build Artifact
+        run: "chmod +x ./gradlew && ./gradlew build"
