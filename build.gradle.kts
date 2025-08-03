@@ -1,15 +1,12 @@
 @file:Suppress("VulnerableLibrariesLocal")
 
-import io.papermc.hangarpublishplugin.model.Platforms
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 import xyz.jpenilla.runpaper.task.RunServer
 import xyz.jpenilla.runtask.task.AbstractRun
 
 plugins {
     id("java")
-    alias(libs.plugins.minotaur)
     alias(libs.plugins.run.server)
-    alias(libs.plugins.hangar.publish)
 }
 
 val versionIsBeta = (properties["version"] as String).toDefaultLowerCase().contains("beta")
@@ -65,68 +62,6 @@ fun getGitCommitHash(): String {
         .start()
 
     return process.inputStream.bufferedReader().readText().trim()
-}
-
-modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = "adriapi"
-    versionNumber = version as String
-    versionName = rootProject.name + " " + version
-    versionType = "release"
-    uploadFile.set(project(":plugin").tasks.getByName<org.gradle.jvm.tasks.Jar>("shadowJar").archiveFile)
-    gameVersions.set(
-        listOf(
-            "1.17",
-            "1.17.1",
-            "1.18",
-            "1.18.1",
-            "1.18.2",
-            "1.19",
-            "1.19.1",
-            "1.19.2",
-            "1.19.3",
-            "1.19.4",
-            "1.20",
-            "1.20.1",
-            "1.20.2",
-            "1.20.3",
-            "1.20.4",
-            "1.20.5",
-            "1.20.6",
-            "1.21",
-            "1.21.1",
-            "1.21.2",
-            "1.21.3",
-            "1.21.4",
-            "1.21.5",
-            "1.21.6"
-        )
-    )
-    loaders.set(
-        listOf(
-            "folia",
-            "paper",
-            "purpur"
-        )
-    )
-    syncBodyFrom = rootProject.file("README.md").readText()
-}
-
-hangarPublish {
-    publications.register("plugin") {
-        version.set(project.version as String)
-        channel.set("Release")
-        id.set("AdriAPI")
-        apiKey.set(System.getenv("HANGAR_API_TOKEN"))
-        platforms {
-            register(Platforms.PAPER) {
-                jar.set(project(":plugin").tasks.getByName<org.gradle.jvm.tasks.Jar>("shadowJar").archiveFile)
-
-                val versions: List<String> = listOf("1.17-1.21.6")
-                platformVersions.set(versions)
-            }
-        }
-    }
 }
 
 tasks.named<RunServer>("runServer").configure {
