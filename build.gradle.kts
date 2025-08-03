@@ -4,7 +4,6 @@ import io.papermc.hangarpublishplugin.model.Platforms
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 import xyz.jpenilla.runpaper.task.RunServer
 import xyz.jpenilla.runtask.task.AbstractRun
-import java.io.ByteArrayOutputStream
 
 plugins {
     id("java")
@@ -60,11 +59,6 @@ tasks.named<Jar>("jar") {
     }
 }
 
-fun getJarFile(): File? {
-    val jarFile = File("./gh-assets").listFiles()?.firstOrNull { it.name.endsWith(".jar") }
-    return jarFile
-}
-
 fun getGitCommitHash(): String {
     val process = ProcessBuilder("git", "rev-parse", "--short", "HEAD")
         .redirectErrorStream(true)
@@ -79,7 +73,7 @@ modrinth {
     versionNumber = version as String
     versionName = rootProject.name + " " + version
     versionType = "release"
-    uploadFile.set(getJarFile())
+    uploadFile.set(project(":plugin").tasks.getByName<org.gradle.jvm.tasks.Jar>("shadowJar").archiveFile)
     gameVersions.set(
         listOf(
             "1.17",
@@ -126,7 +120,7 @@ hangarPublish {
         apiKey.set(System.getenv("HANGAR_API_TOKEN"))
         platforms {
             register(Platforms.PAPER) {
-                jar.set(getJarFile())
+                jar.set(project(":plugin").tasks.getByName<org.gradle.jvm.tasks.Jar>("shadowJar").archiveFile)
 
                 val versions: List<String> = listOf("1.17-1.21.6")
                 platformVersions.set(versions)
