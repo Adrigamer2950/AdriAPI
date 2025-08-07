@@ -42,18 +42,7 @@ allprojects {
 }
 
 tasks.named<Jar>("jar") {
-    dependsOn(":plugin:shadowJar")
-
-    doFirst {
-        File(layout.buildDirectory.dir("libs").get().asFile, "${rootProject.name}-${version}.jar").delete()
-    }
-
-    doLast {
-        project(":plugin").tasks.named<Jar>("shadowJar").get().archiveFile.get().asFile.copyTo(
-            File(layout.buildDirectory.dir("libs").get().asFile, "${rootProject.name}-${version}.jar"),
-            overwrite = true
-        )
-    }
+    enabled = false
 }
 
 fun getGitCommitHash(): String {
