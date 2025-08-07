@@ -50,6 +50,7 @@ tasks.named<Jar>("jar") {
 tasks.named<ShadowJar>("shadowJar") {
     dependsOn(":core:shadowJar")
 
+    archiveBaseName.set("AdriAPI")
     archiveClassifier.set("")
     archiveVersion.set(version as String)
 
@@ -68,7 +69,7 @@ modrinth {
     versionNumber = version as String
     versionName = "${rootProject.name} $version"
     versionType = "release"
-    uploadFile.set(project(":plugin").tasks.getByName<org.gradle.jvm.tasks.Jar>("shadowJar").archiveFile)
+    uploadFile.set(tasks.shadowJar.get().archiveFile)
     gameVersions.set(
         listOf(
             "1.17",
@@ -115,7 +116,7 @@ hangarPublish {
         apiKey.set(System.getenv("HANGAR_API_TOKEN"))
         platforms {
             register(Platforms.PAPER) {
-                jar.set(project(":plugin").tasks.getByName<org.gradle.jvm.tasks.Jar>("shadowJar").archiveFile)
+                jar.set(tasks.shadowJar.get().archiveFile)
 
                 val versions: List<String> = listOf("1.17-1.21.6")
                 platformVersions.set(versions)
