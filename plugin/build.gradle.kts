@@ -3,6 +3,10 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import io.papermc.hangarpublishplugin.model.Platforms
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+import org.gradle.kotlin.dsl.named
+import org.gradle.kotlin.dsl.withType
+import xyz.jpenilla.runpaper.task.RunServer
+import xyz.jpenilla.runtask.task.AbstractRun
 
 plugins {
     kotlin("jvm")
@@ -10,6 +14,7 @@ plugins {
     alias(libs.plugins.shadow)
     alias(libs.plugins.minotaur)
     alias(libs.plugins.hangar.publish)
+    alias(libs.plugins.run.server)
 }
 
 dependencies {
@@ -123,4 +128,42 @@ hangarPublish {
             }
         }
     }
+}
+
+tasks.named<RunServer>("runServer").configure {
+    minecraftVersion("1.17.1")
+
+    downloadPlugins {
+        // ViaVersion
+        hangar("viaversion", "5.3.2")
+
+        // ViaBackwards
+        hangar("viabackwards", "5.3.2")
+    }
+}
+
+tasks.withType(AbstractRun::class) {
+    javaLauncher = javaToolchains.launcherFor {
+        @Suppress("UnstableApiUsage")
+        vendor = JvmVendorSpec.JETBRAINS
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+    jvmArgs(
+        // Debug
+        "-Dadriapi.debug=true",
+
+        // Hot Swap
+        "-XX:+AllowEnhancedClassRedefinition",
+
+        // Aikar Flags
+        "--add-modules=jdk.incubator.vector", "-XX:+UseG1GC", "-XX:+ParallelRefProcEnabled",
+        "-XX:MaxGCPauseMillis=200", "-XX:+UnlockExperimentalVMOptions", "-XX:+DisableExplicitGC",
+        "-XX:+AlwaysPreTouch", "-XX:G1NewSizePercent=30", "-XX:G1MaxNewSizePercent=40",
+        "-XX:G1HeapRegionSize=8M", "-XX:G1ReservePercent=20", "-XX:G1HeapWastePercent=5",
+        "-XX:G1MixedGCCountTarget=4", "-XX:InitiatingHeapOccupancyPercent=15",
+        "-XX:G1MixedGCLiveThresholdPercent=90", "-XX:G1RSetUpdatingPauseTimePercent=5",
+        "-XX:SurvivorRatio=32", "-XX:+PerfDisableSharedMem", "-XX:MaxTenuringThreshold=1",
+        "-Dusing.aikars.flags=https://mcflags.emc.gs", "-Daikars.new.flags=true"
+    )
+
 }
