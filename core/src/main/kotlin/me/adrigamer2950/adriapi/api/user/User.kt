@@ -25,36 +25,8 @@ interface User {
 
     fun isPlayer(): Boolean
 
-    /**
-     * @return Optional object of ConsoleCommandSender
-     */
-    @Deprecated("Use User#asConsole instead", ReplaceWith("User#asConsole"))
-    fun getConsole(): Optional<ConsoleCommandSender>
-
-    /**
-     * @return A ConsoleCommandSender object if the user is the console, null otherwise
-     */
-    @Deprecated("Use User#asConsole instead", ReplaceWith("User#asConsole"))
-    fun getConsoleOrNull(): ConsoleCommandSender? {
-        return getConsole().orElse(null)
-    }
-
     fun asConsole(): ConsoleCommandSender? {
         return bukkitSender as? ConsoleCommandSender
-    }
-
-    /**
-     * @return Optional object of Player
-     */
-    @Deprecated("Use User#asPlayer instead", ReplaceWith("User#asPlayer"))
-    fun getPlayer(): Optional<Player>
-
-    /**
-     * @return A Player object if the user is a player, null otherwise
-     */
-    @Deprecated("Use User#asPlayer instead", ReplaceWith("User#asPlayer"))
-    fun getPlayerOrNull(): Player? {
-        return getPlayer().orElse(null)
     }
 
     fun asPlayer(): Player? {
@@ -70,14 +42,6 @@ interface User {
      * @param components The components you want to send
      */
     fun sendMessage(vararg components: Component)
-
-    /**
-     * @return The player's name
-     * @see User#name
-     */
-    @Deprecated("Use User#name instead", ReplaceWith("name"))
-    @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
-    fun name(): Component
 
     /**
      * @param permission The permission

@@ -56,7 +56,7 @@ abstract class Inventory(
         this.setupInventory()
 
         //noinspection DataFlowIssue
-        this.user.getPlayerOrNull()?.openInventory(this.getInventory())
+        this.user.asPlayer()?.openInventory(this.getInventory())
     }
 
     /**

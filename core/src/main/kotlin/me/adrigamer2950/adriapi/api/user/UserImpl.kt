@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.ConsoleCommandSender
 import org.bukkit.entity.Player
 import org.jetbrains.annotations.ApiStatus
-import java.util.*
 
 /**
  * Default implementation of User
@@ -26,18 +25,6 @@ class UserImpl internal constructor(override val bukkitSender: CommandSender) : 
         return bukkitSender is Player
     }
 
-    @Deprecated("Use User#asConsole instead", replaceWith = ReplaceWith("User#asConsole"))
-    override fun getConsole(): Optional<ConsoleCommandSender> {
-        if (isConsole()) return Optional.of(bukkitSender as ConsoleCommandSender)
-        return Optional.empty()
-    }
-
-    @Deprecated("Use User#asPlayer instead", replaceWith = ReplaceWith("User#asPlayer"))
-    override fun getPlayer(): Optional<Player> {
-        if (isPlayer()) return Optional.of(bukkitSender as Player)
-        return Optional.empty()
-    }
-
     override fun sendMessage(vararg messages: String) {
         bukkitSender.sendMessage(
             *messages.map { if (isConsole()) Colors.legacyToAnsi(it) else Colors.legacy(it) }.toTypedArray()
@@ -50,11 +37,6 @@ class UserImpl internal constructor(override val bukkitSender: CommandSender) : 
             components.forEach { bukkitSender.sendMessage(it) }
         else
             this.sendMessage(*components.map { LegacyComponentSerializer.legacyAmpersand().serialize(it) }.toTypedArray())
-    }
-
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun name(): Component {
-        return Component.text(this.name)
     }
 
     override fun hasPermission(permission: String): Boolean {

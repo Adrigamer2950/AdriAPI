@@ -12,12 +12,10 @@ import me.adrigamer2950.adriapi.api.logger.impl.LoggerImpl
 import me.adrigamer2950.adriapi.api.scheduler.Scheduler
 import me.adrigamer2950.adriapi.api.util.ServerType
 import me.adrigamer2950.adriapi.api.util.bStats
-import org.bukkit.command.PluginCommand
 import org.bukkit.event.Listener
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.java.JavaPluginLoader
-import org.jetbrains.annotations.ApiStatus
 import org.reflections.Reflections
 import org.reflections.util.ConfigurationBuilder
 import java.io.File
@@ -217,16 +215,6 @@ abstract class APIPlugin : JavaPlugin {
         }
     }
 
-    /**
-     * @return The plugin's Logger
-     * @see APIPlugin.getLogger
-     */
-    @ApiStatus.ScheduledForRemoval(inVersion = "3.0.0")
-    @Deprecated("In favor of APIPlugin#getLogger()", ReplaceWith("logger"))
-    fun getApiLogger(): Logger {
-        return logger
-    }
-
     private fun autoRegister() {
         val reflections = Reflections(
             ConfigurationBuilder()
@@ -246,15 +234,5 @@ abstract class APIPlugin : JavaPlugin {
                 logger.error("&cFailed to auto-register `${it.simpleName}`. Skipping... ${ex.message}", ex)
             }
         }
-    }
-
-    @Deprecated("Use CommandManager#getCommand instead")
-    override fun getCommand(name: String): PluginCommand? {
-        logger.warn(
-            "Wrong use of APIPlugin#getCommand. Use CommandManager#getCommand instead. " +
-                    "If you see this message, you should tell the developer of this plugin about it"
-        )
-
-        return super.getCommand(name)
     }
 }
