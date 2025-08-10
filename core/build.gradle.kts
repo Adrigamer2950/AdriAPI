@@ -196,10 +196,6 @@ kotlin {
     jvmToolchain(targetJavaVersion)
 }
 
-tasks.named("build") {
-    finalizedBy(tasks.named("shadowJar"))
-}
-
 val generatedDir = layout.buildDirectory.dir("generated/templates").get().asFile
 
 sourceSets.main {
