@@ -40,7 +40,7 @@ class UserImpl internal constructor(override val bukkitSender: CommandSender) : 
 
     override fun sendMessage(vararg messages: String) {
         bukkitSender.sendMessage(
-            *messages.map { if (isConsole()) Colors.translateToAnsi(it) else Colors.translateColors(it) }.toTypedArray()
+            *messages.map { if (isConsole()) Colors.legacyToAnsi(it) else Colors.legacy(it) }.toTypedArray()
         )
     }
 

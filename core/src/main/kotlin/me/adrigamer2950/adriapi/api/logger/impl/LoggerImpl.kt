@@ -23,15 +23,6 @@ class LoggerImpl(name: String, parent: JavaLogger? = Bukkit.getServer().logger) 
         setLevel(Level.ALL)
     }
 
-    private fun colorizeMessage(msg: String): String {
-        return Colors.translateToAnsi(
-            Colors.translateAPIColors(
-                msg
-            ),
-            '§'
-        )
-    }
-
     private fun parseMessage(msg: Any): String {
         return if (msg is Component) {
             LegacyComponentSerializer.legacyAmpersand().serialize(msg)
@@ -55,7 +46,7 @@ class LoggerImpl(name: String, parent: JavaLogger? = Bukkit.getServer().logger) 
     }
 
     override fun log(record: LogRecord) {
-        record.message = colorizeMessage(record.message)
+        record.message = Colors.legacyToAnsi(record.message)
 
         super.log(record)
     }
