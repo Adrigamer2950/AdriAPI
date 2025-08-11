@@ -5,7 +5,6 @@ import me.adrigamer2950.adriapi.api.scheduler.impl.PaperScheduler
 import org.bukkit.World
 import org.bukkit.entity.Entity
 import org.bukkit.plugin.Plugin
-import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
 
 interface Scheduler {
 
