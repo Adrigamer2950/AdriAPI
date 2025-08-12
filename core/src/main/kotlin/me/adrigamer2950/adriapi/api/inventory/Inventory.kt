@@ -1,6 +1,8 @@
 package me.adrigamer2950.adriapi.api.inventory
 
 import me.adrigamer2950.adriapi.api.APIPlugin
+import me.adrigamer2950.adriapi.api.asPlayer
+import me.adrigamer2950.adriapi.api.isPlayer
 import me.adrigamer2950.adriapi.api.user.User
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit

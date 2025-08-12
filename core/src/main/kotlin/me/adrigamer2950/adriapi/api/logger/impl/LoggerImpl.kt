@@ -6,6 +6,7 @@ import me.adrigamer2950.adriapi.api.logger.Logger
 import me.adrigamer2950.adriapi.api.logger.builder.LogBuilder
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Bukkit
 import java.util.logging.Level
 import java.util.logging.LogRecord
@@ -46,7 +47,7 @@ class LoggerImpl(name: String, parent: JavaLogger? = Bukkit.getServer().logger) 
     }
 
     override fun log(record: LogRecord) {
-        record.message = Colors.legacyToAnsi(record.message)
+        record.message = PlainTextComponentSerializer.plainText().serialize(Colors.legacyToComponent(record.message))
 
         super.log(record)
     }

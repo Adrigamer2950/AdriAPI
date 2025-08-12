@@ -1,11 +1,9 @@
 package me.adrigamer2950.adriapi.api.user
 
+import me.adrigamer2950.adriapi.api.user.impl.BukkitUser
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
-import org.bukkit.command.ConsoleCommandSender
-import org.bukkit.entity.Player
-import org.jetbrains.annotations.ApiStatus
 import java.util.*
 
 /**
@@ -16,22 +14,10 @@ import java.util.*
 @Suppress("unused", "DEPRECATION")
 interface User {
 
-    val bukkitSender: CommandSender
-
-    val name: String
-        get() = bukkitSender.name
-
-    fun isConsole(): Boolean
-
-    fun isPlayer(): Boolean
-
-    fun asConsole(): ConsoleCommandSender? {
-        return bukkitSender as? ConsoleCommandSender
-    }
-
-    fun asPlayer(): Player? {
-        return bukkitSender as? Player
-    }
+    /**
+     * @param messages The messages you want to send
+     */
+    fun sendRawMessage(vararg messages: String)
 
     /**
      * @param messages The messages you want to send
@@ -51,7 +37,7 @@ interface User {
 
     companion object {
 
-        private val cachedUsers: Set<User> = HashSet()
+        private val cachedUsers: Set<BukkitUser> = HashSet()
 
         /**
          * @param sender Bukkit API's command sender
@@ -59,7 +45,7 @@ interface User {
          */
         @JvmStatic
         fun fromBukkitSender(sender: CommandSender): User {
-            return cachedUsers.firstOrNull { it.bukkitSender == sender } ?: UserImpl(sender)
+            return cachedUsers.firstOrNull { it.bukkitSender == sender } ?: BukkitUser(sender)
         }
 
         /**
