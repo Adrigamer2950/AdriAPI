@@ -6,7 +6,9 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
+import org.jetbrains.annotations.ApiStatus
 
+@ApiStatus.Internal
 @Suppress("unused")
 class InventoriesListener(val plugin: APIPlugin) : Listener {
 
