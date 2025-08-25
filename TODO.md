@@ -1,6 +1,6 @@
 # TODOs for 3.0.0
 
 - [x] Refactor Colors
-- [ ] Refactor User
+- [x] Refactor User
 - [ ] Glow module
 - [ ] Rebrand
