@@ -25,15 +25,8 @@ abstract class Inventory(
     val user: User,
     title: Component? = null,
     val plugin: APIPlugin,
-    size: Int = InventorySize.THREE_ROWS.size
+    val size: InventorySize = InventorySize.THREE_ROWS
 ) : InventoryHolder {
-
-    constructor(
-        user: User,
-        title: Component? = null,
-        plugin: APIPlugin,
-        size: InventorySize = InventorySize.THREE_ROWS
-    ) : this(user, title, plugin, size.size)
 
     val bukkitInventory: BukkitInventory
 
@@ -44,8 +37,8 @@ abstract class Inventory(
             throw IllegalArgumentException("User must be a player!")
 
         bukkitInventory = title?.let {
-            Bukkit.createInventory(this, size, it)
-        } ?: Bukkit.createInventory(this, size)
+            Bukkit.createInventory(this, size.size, it)
+        } ?: Bukkit.createInventory(this, size.size)
     }
 
     /**
@@ -98,7 +91,7 @@ abstract class Inventory(
         var plugin: APIPlugin? = null
             private set
 
-        var size: Int = InventorySize.THREE_ROWS.size
+        var size: InventorySize = InventorySize.THREE_ROWS
             private set
 
         var setupInventory: Consumer<@NotNull Inventory>? = null
@@ -116,9 +109,7 @@ abstract class Inventory(
 
         fun plugin(plugin: APIPlugin) = apply { this.plugin = plugin }
 
-        fun size(size: InventorySize) = apply { this.size = size.size }
-
-        fun size(size: Int) = apply { this.size = size }
+        fun size(size: InventorySize) = apply { this.size = size }
 
         fun setupInventory(setupInventory: Consumer<@NotNull Inventory>) =
             apply { this.setupInventory = setupInventory }
