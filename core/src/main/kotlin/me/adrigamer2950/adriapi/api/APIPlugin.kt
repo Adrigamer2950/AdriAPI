@@ -47,6 +47,12 @@ abstract class APIPlugin : JavaPlugin {
     val logger: Logger = LoggerImpl(this)
 
     /**
+     * Standard Bukkit logger. Might be useful if API's logger has some issue logging something
+     */
+    @JvmField
+    val bukkitLogger: java.util.logging.Logger = super.logger
+
+    /**
      * Command Manager. Used to register a Command
      */
     lateinit var commandManager: CommandManager
