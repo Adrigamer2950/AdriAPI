@@ -15,6 +15,10 @@ An API aimed to simplify the development of Paper plugins
 This API is aimed to simplify the development of Paper plugins,
 providing a lot of utilities that will make your life (and mine) easier
 
+Even though a standalone plugin version is available, it's recommended to shade this API into your
+plugins, as this API changes frequently and depending on the standalone version may cause
+some issues if server owners install some plugins that depend on different versions of this API
+
 Check the [TODO.md](https://github.com/Adrigamer2950/AdriAPI/blob/master/TODO.md) file to check things that are coming in next version
 
 > [!CAUTION]
