@@ -29,7 +29,7 @@ abstract class Menu protected constructor(title: Component, plugin: APIPlugin, s
         }
     }
 
-    override fun setupInventory() {
+    override fun setup() {
         for (button in buttons) {
             inventory.setItem(
                 button.coordinates.toSlot(),
@@ -41,7 +41,7 @@ abstract class Menu protected constructor(title: Component, plugin: APIPlugin, s
         }
     }
 
-    override fun onInventoryClick(e: InventoryClickEvent) {
+    override fun onClick(e: InventoryClickEvent) {
         val inv = e.clickedInventory ?: return
 
         val stack = inv.getItem(e.slot) ?: return

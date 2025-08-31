@@ -25,7 +25,7 @@ abstract class Inventory(
     val size: InventorySize = InventorySize.THREE_ROWS
 ) : InventoryHolder {
 
-    val bukkitInventory = title?.let {
+    val bukkitInventory: BukkitInventory = title?.let {
         Bukkit.createInventory(this, size.size, it)
     } ?: Bukkit.createInventory(this, size.size)
 
@@ -36,10 +36,10 @@ abstract class Inventory(
      * and open the inventory to the player
      *
      * @param player The player (duh)
-     * @see setupInventory
+     * @see setup
      */
     fun openFor(player: Player) {
-        this.setupInventory()
+        this.setup()
 
         player.openInventory(bukkitInventory)
     }
@@ -47,7 +47,7 @@ abstract class Inventory(
     /**
      * Setup items in the inventory or any other thing you may want to do
      */
-    protected open fun setupInventory() {}
+    protected open fun setup() {}
 
     /**
      * Executed when a player clicks in the inventory
@@ -58,13 +58,13 @@ abstract class Inventory(
      * @see InventoryClickEvent
      * @see InventoryClickEvent.getClickedInventory
      */
-    open fun onInventoryClick(e: InventoryClickEvent) {}
+    open fun onClick(e: InventoryClickEvent) {}
 
     /**
      * @param e An InventoryCloseEvent
      * @see InventoryCloseEvent
      */
-    open fun onInventoryClose(e: InventoryCloseEvent) {}
+    open fun onClose(e: InventoryCloseEvent) {}
 
     companion object {
         @JvmStatic
@@ -81,13 +81,13 @@ abstract class Inventory(
         var size: InventorySize = InventorySize.THREE_ROWS
             private set
 
-        var setupInventory: Consumer<@NotNull Inventory>? = null
+        var setup: Consumer<@NotNull Inventory>? = null
             private set
 
-        var onInventoryClick: BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory>? = null
+        var onClick: BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory>? = null
             private set
 
-        var onInventoryClose: BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory>? = null
+        var onClose: BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory>? = null
             private set
 
         fun title(title: Component) = apply { this.title = title }
@@ -96,36 +96,36 @@ abstract class Inventory(
 
         fun size(size: InventorySize) = apply { this.size = size }
 
-        fun setupInventory(setupInventory: Consumer<@NotNull Inventory>) =
-            apply { this.setupInventory = setupInventory }
+        fun setup(setupInventory: Consumer<@NotNull Inventory>) =
+            apply { this.setup = setupInventory }
 
-        fun onInventoryClick(onInventoryClick: Consumer<@NotNull InventoryClickEvent>) =
-            apply { this.onInventoryClick = BiConsumer { e, _ -> onInventoryClick.accept(e) } }
+        fun onClick(onClick: Consumer<@NotNull InventoryClickEvent>) =
+            apply { this.onClick = BiConsumer { e, _ -> onClick.accept(e) } }
 
-        fun onInventoryClick(onInventoryClick: BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory>) =
-            apply { this.onInventoryClick = onInventoryClick }
+        fun onClick(onClick: BiConsumer<@NotNull InventoryClickEvent, @NotNull Inventory>) =
+            apply { this.onClick = onClick }
 
-        fun onInventoryClose(onInventoryClose: Consumer<@NotNull InventoryCloseEvent>) =
-            apply { this.onInventoryClose = BiConsumer { e, _ -> onInventoryClose.accept(e) } }
+        fun onClose(onClose: Consumer<@NotNull InventoryCloseEvent>) =
+            apply { this.onClose = BiConsumer { e, _ -> onClose.accept(e) } }
 
-        fun onInventoryClose(onInventoryClose: BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory>) =
-            apply { this.onInventoryClose = onInventoryClose }
+        fun onClose(onInventoryClose: BiConsumer<@NotNull InventoryCloseEvent, @NotNull Inventory>) =
+            apply { this.onClose = onInventoryClose }
 
         fun build(): Inventory {
             if (plugin == null)
                 throw IllegalArgumentException("Plugin cannot be null")
 
             return object : Inventory(title, plugin!!, size) {
-                override fun setupInventory() {
-                    setupInventory?.accept(this)
+                override fun setup() {
+                    setup?.accept(this)
                 }
 
-                override fun onInventoryClick(e: InventoryClickEvent) {
-                    onInventoryClick?.accept(e, this)
+                override fun onClick(e: InventoryClickEvent) {
+                    onClick?.accept(e, this)
                 }
 
-                override fun onInventoryClose(e: InventoryCloseEvent) {
-                    onInventoryClose?.accept(e, this)
+                override fun onClose(e: InventoryCloseEvent) {
+                    onClose?.accept(e, this)
                 }
             }
         }

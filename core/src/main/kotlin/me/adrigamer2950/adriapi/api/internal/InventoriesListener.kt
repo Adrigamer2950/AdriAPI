@@ -18,7 +18,7 @@ class InventoriesListener(val plugin: APIPlugin) : Listener {
 
         if (inventory.plugin != plugin) return
 
-        inventory.onInventoryClick(event)
+        inventory.onClick(event)
     }
 
     @EventHandler
@@ -27,6 +27,6 @@ class InventoriesListener(val plugin: APIPlugin) : Listener {
 
         if (inventory.plugin != plugin) return
 
-        inventory.onInventoryClose(event)
+        inventory.onClose(event)
     }
 }

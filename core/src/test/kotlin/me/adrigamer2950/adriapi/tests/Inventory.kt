@@ -23,10 +23,10 @@ class Inventory : AbstractTestPlatform() {
         fun `Create Inventory`() {
             inventory = object : Inventory(plugin = plugin, size = InventorySize.SIX_ROWS) {
                 init {
-                    setupInventory()
+                    setup()
                 }
 
-                override fun setupInventory() {
+                override fun setup() {
                     val item = ItemBuilder.builder()
                         .material(Material.STONE)
                         .build()
