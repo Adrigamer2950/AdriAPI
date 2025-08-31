@@ -3,7 +3,6 @@ package me.adrigamer2950.adriapi.tests
 import me.adrigamer2950.adriapi.api.inventory.Inventory
 import me.adrigamer2950.adriapi.api.inventory.InventorySize
 import me.adrigamer2950.adriapi.api.item.ItemBuilder
-import me.adrigamer2950.adriapi.api.toUser
 import me.adrigamer2950.adriapi.platform.AbstractTestPlatform
 import org.bukkit.Material
 import org.junit.jupiter.api.BeforeAll
