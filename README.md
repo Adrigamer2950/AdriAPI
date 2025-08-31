@@ -1,4 +1,4 @@
-# AdriAPI
+# Obsidian
 
 <!--suppress HtmlDeprecatedAttribute -->
 <p align="center">
@@ -47,7 +47,7 @@ repositories {
 }
 
 dependencies {
-    implementation("me.adrigamer2950:AdriAPI:{VERSION}") // Replace {VERSION} with the desired version
+    implementation("me.devadri:obsidian:{VERSION}") // Replace {VERSION} with the desired version
 }
 ````
 
@@ -63,8 +63,8 @@ dependencies {
 
 <dependencies>
     <dependency>
-        <groupId>me.adrigamer2950</groupId>
-        <artifactId>AdriAPI</artifactId>
+        <groupId>me.devadri</groupId>
+        <artifactId>obsidian</artifactId>
         <version>{VERSION}</version> <!-- Replace {VERSION} with the desired version -->
     </dependency>
 </dependencies>
