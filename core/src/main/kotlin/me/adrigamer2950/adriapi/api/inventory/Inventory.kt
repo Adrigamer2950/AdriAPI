@@ -38,7 +38,7 @@ abstract class Inventory(
      * @param player The player (duh)
      * @see setupInventory
      */
-    fun openInventory(player: Player) {
+    fun openFor(player: Player) {
         this.setupInventory()
 
         player.openInventory(bukkitInventory)
