@@ -75,7 +75,7 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
         publications {
             create<MavenPublication>("shadow") {
                 groupId = rootProject.group as String
-                artifactId = rootProject.name
+                artifactId = rootProject.name.lowercase()
                 version = rootProject.version as String
 
                 from(components["shadow"])
