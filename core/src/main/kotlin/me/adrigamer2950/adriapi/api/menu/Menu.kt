@@ -16,15 +16,17 @@ abstract class Menu protected constructor(title: Component, plugin: APIPlugin, s
 
     protected val buttons: MutableList<MenuButton> = mutableListOf()
 
-    open fun addButton(button: MenuButton) {
-        buttons.add(button)
+    open fun addButton(vararg buttonsArray: MenuButton) {
+        buttonsArray.forEach { addButton(it) }
     }
 
-    open fun removeButton(button: MenuButton) {
-        if (!buttons.contains(button)) return
+    open fun removeButton(vararg buttonsArray: MenuButton) {
+        buttonsArray.forEach {
+            if (!buttons.contains(it)) return@forEach
 
-        buttons.remove(button)
-        inventory.setItem(button.coordinates.toSlot(), null)
+            buttons.remove(it)
+            inventory.setItem(it.coordinates.toSlot(), null)
+        }
     }
 
     override fun setupInventory() {
