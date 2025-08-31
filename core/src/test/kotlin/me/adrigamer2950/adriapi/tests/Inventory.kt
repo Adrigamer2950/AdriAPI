@@ -21,10 +21,7 @@ class Inventory : AbstractTestPlatform() {
         @JvmStatic
         @BeforeAll
         fun `Create Inventory`() {
-            val player = server.addPlayer()
-            val user = player.toUser()
-
-            inventory = object : Inventory(user, plugin = plugin, size = InventorySize.SIX_ROWS) {
+            inventory = object : Inventory(plugin = plugin, size = InventorySize.SIX_ROWS) {
                 init {
                     setupInventory()
                 }
