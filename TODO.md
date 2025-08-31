@@ -4,4 +4,5 @@
 - [x] Refactor User
 - [ ] Menu module
 - [ ] Glow module
-- [ ] Rebrand
+- [x] Rebrand
+- [ ] Add more tests
