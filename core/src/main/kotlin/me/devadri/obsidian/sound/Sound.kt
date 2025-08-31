@@ -13,11 +13,23 @@ typealias XSoundCategory = XSound.Category
 
 @Suppress("unused")
 class Sound(
-    val sound: XSound,
+    val sound: BukkitSound,
     val volume: Float = 1.0f,
     val pitch: Float = 1.0f,
     val category: XSoundCategory = XSoundCategory.MASTER,
 ) {
+
+    constructor(
+        sound: XSound,
+        volume: Float = 1.0f,
+        pitch: Float = 1.0f,
+        category: XSoundCategory = XSoundCategory.MASTER
+    ) : this(
+        sound.get() ?: throw IllegalArgumentException("Sound ${sound.name()} is not valid"),
+        volume,
+        pitch,
+        category
+    )
 
     fun playToEntity(entity: Entity) {
         if (entity is Player) {
@@ -28,25 +40,19 @@ class Sound(
     }
 
     fun playToPlayer(player: Player) {
-        if (this.sound.get() == null)
-            throw IllegalArgumentException("Sound ${this.sound.name()} is not valid")
-
         Nms.sound.playToPlayer(
             player,
             this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER,
-            this.sound.get()!!,
+            this.sound,
             this.volume,
             this.pitch
         )
     }
 
     fun playOnLocation(l: Location) {
-        if (this.sound.get() == null)
-            throw IllegalArgumentException("Sound ${this.sound.name()} is not valid")
-
         l.world.playSound(
             l,
-            this.sound.get()!!,
+            this.sound,
             this.category.bukkitObject as? SoundCategory ?: SoundCategory.MASTER,
             this.volume,
             this.pitch
@@ -54,7 +60,7 @@ class Sound(
     }
 
     class Builder {
-        var sound: XSound? = null
+        var sound: BukkitSound? = null
             private set
 
         var volume: Float = 1.0f
@@ -66,32 +72,17 @@ class Sound(
         var category: XSoundCategory = XSoundCategory.MASTER
             private set
 
-        fun sound(sound: XSound): Builder {
-            this.sound = sound
-            return this
-        }
+        fun sound(sound: XSound): Builder = apply { this.sound = sound.get() ?: throw IllegalArgumentException("Sound ${sound.name()} is not valid") }
 
-        fun volume(volume: Float): Builder {
-            this.volume = volume
-            return this
-        }
+        fun sound(sound: BukkitSound): Builder = apply { this.sound = sound }
 
-        fun pitch(pitch: Float): Builder {
-            this.pitch = pitch
-            return this
-        }
+        fun volume(volume: Float): Builder = apply { this.volume = volume }
 
-        fun category(category: XSoundCategory): Builder {
-            this.category = category
-            return this
-        }
+        fun pitch(pitch: Float): Builder = apply { this.pitch = pitch }
 
-        fun build(): Sound {
-            if (this.sound == null)
-                throw IllegalArgumentException("Sound cannot be null")
+        fun category(category: XSoundCategory): Builder = apply { this.category = category }
 
-            return Sound(this.sound!!, this.volume, this.pitch, this.category)
-        }
+        fun build(): Sound = Sound(this.sound!!, this.volume, this.pitch, this.category)
     }
 
     fun toBuilder(): Builder {
