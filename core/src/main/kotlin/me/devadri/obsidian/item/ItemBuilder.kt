@@ -71,7 +71,7 @@ class ItemBuilder {
 
     var name: Component? = null
 
-    val lore: MutableList<Component> = mutableListOf()
+    var lore: MutableList<Component> = mutableListOf()
 
     var customModelData: Int = 0
 
@@ -91,7 +91,11 @@ class ItemBuilder {
 
     fun name(name: Component?): ItemBuilder = apply { this.name = name }
 
-    fun lore(lore: List<Component>): ItemBuilder = apply { this.lore.addAll(lore) }
+    fun lore(lore: List<Component>): ItemBuilder = apply { this.lore = lore.toMutableList() }
+
+    fun addToLore(lore: List<Component>): ItemBuilder = apply { this.lore.addAll(lore) }
+
+    fun addToLore(vararg lore: Component): ItemBuilder = apply { this.lore.addAll(lore) }
 
     fun customModelData(customModelData: Int): ItemBuilder = apply { this.customModelData = customModelData }
 
