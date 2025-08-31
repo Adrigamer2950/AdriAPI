@@ -1,0 +1,45 @@
+@file:Suppress("unused")
+
+package me.devadri.obsidian.nms.v1_18_R2
+
+import me.devadri.obsidian.nms.common.NmsSound
+import net.minecraft.core.Registry
+import net.minecraft.network.protocol.game.ClientboundSoundEntityPacket
+import net.minecraft.sounds.SoundSource
+import org.bukkit.Sound
+import org.bukkit.SoundCategory
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer
+import org.bukkit.craftbukkit.v1_18_R2.util.CraftNamespacedKey
+import org.bukkit.entity.Player
+
+class NmsSoundImpl : NmsSound {
+
+    override fun playToPlayer(player: Player, category: SoundCategory, sound: Sound, volume: Float, pitch: Float) {
+        val nmsSound = Registry.SOUND_EVENT.get(CraftNamespacedKey.toMinecraft(sound.key))
+            ?: throw IllegalArgumentException("Sound ${sound.name} not found")
+
+        val nmsCategory = when (category) {
+            SoundCategory.MASTER -> SoundSource.MASTER
+            SoundCategory.AMBIENT -> SoundSource.AMBIENT
+            SoundCategory.BLOCKS -> SoundSource.BLOCKS
+            SoundCategory.PLAYERS -> SoundSource.PLAYERS
+            SoundCategory.HOSTILE -> SoundSource.HOSTILE
+            SoundCategory.WEATHER -> SoundSource.WEATHER
+            SoundCategory.NEUTRAL -> SoundSource.NEUTRAL
+            SoundCategory.VOICE -> SoundSource.VOICE
+            SoundCategory.RECORDS -> SoundSource.RECORDS
+            SoundCategory.MUSIC -> SoundSource.MUSIC
+            else -> throw IllegalArgumentException("Sound category ${category.name} not found")
+        }
+
+        val packet = ClientboundSoundEntityPacket(
+            nmsSound,
+            nmsCategory,
+            (player as CraftPlayer).handle,
+            volume,
+            pitch
+        )
+
+        player.handle.connection.send(packet)
+    }
+}

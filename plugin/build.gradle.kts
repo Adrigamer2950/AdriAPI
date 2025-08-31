@@ -32,12 +32,12 @@ kotlin {
 }
 
 bukkit {
-    name = "AdriAPI"
-    main = "me.adrigamer2950.adriapi.plugin.AdriAPI"
+    name = "Obsidian"
+    main = "me.devadri.obsidian.plugin.ObsidianStandalonePlugin"
     apiVersion = "1.17"
     author = properties["author"] as String?
     description = properties["description"] as String?
-    website = "https://github.com/Adrigamer2950/AdriAPI"
+    website = "https://github.com/Adrigamer2950/Obsidian"
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     foliaSupported = true
 }
@@ -55,14 +55,14 @@ tasks.named<Jar>("jar") {
 tasks.named<ShadowJar>("shadowJar") {
     dependsOn(":core:shadowJar")
 
-    archiveBaseName.set("AdriAPI")
+    archiveBaseName.set(rootProject.name)
     archiveClassifier.set("")
     archiveVersion.set(version as String)
 
     dependencies {
-        relocate("com.alessiodp.libby", "me.adrigamer2950.adriapi.lib.libby")
+        relocate("com.alessiodp.libby", "me.devadri.obsidian.lib.libby")
 
-        relocate("kotlin", "me.adrigamer2950.adriapi.lib.kotlin")
+        relocate("kotlin", "me.devadri.obsidian.lib.kotlin")
 
         exclude("com/cryptomorin/xseries/**")
     }

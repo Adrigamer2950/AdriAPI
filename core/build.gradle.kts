@@ -184,7 +184,7 @@ tasks.named<ShadowJar>("shadowJar") {
     archiveClassifier.set("")
 
     dependencies {
-        relocate("com.alessiodp.libby", "me.adrigamer2950.adriapi.lib.libby")
+        relocate("com.alessiodp.libby", "me.devadri.obsidian.lib.libby")
 
         exclude("com/cryptomorin/xseries/**")
     }
@@ -219,7 +219,7 @@ tasks.test {
 
 tasks.register("generateBuildConstants") {
     doLast {
-        val fileSpec = FileSpec.builder("me.adrigamer2950.adriapi.api.internal", "BuildConstants")
+        val fileSpec = FileSpec.builder("me.devadri.obsidian.internal", "BuildConstants")
             .addType(
                 TypeSpec.objectBuilder("BuildConstants")
                     .addProperty(

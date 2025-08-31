@@ -11,7 +11,7 @@ val versionIsBeta = (properties["version"] as String).toDefaultLowerCase().conta
 allprojects {
     apply(plugin = "java")
 
-    group = "me.adrigamer2950"
+    group = "me.devadri"
     version = properties["version"] as String +
             if (versionIsBeta)
                 "-${getGitCommitHash()}"

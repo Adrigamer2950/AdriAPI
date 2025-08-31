@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "me.adrigamer2950.adriapi"
+group = "me.devadri.obsidian"
 
 dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
