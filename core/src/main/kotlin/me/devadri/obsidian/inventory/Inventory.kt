@@ -52,9 +52,7 @@ abstract class Inventory(
     /**
      * Executed when a player clicks in the inventory
      *
-     * @param e An InventoryClickEvent.
-     *          Null check on InventoryClickEvent#getClickedInventory()
-     *          is unnecessary as it is checked before executing this method
+     * @param e An InventoryClickEvent
      * @see InventoryClickEvent
      * @see InventoryClickEvent.getClickedInventory
      */
