@@ -6,6 +6,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
+import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.inventory.InventoryHolder
 import org.jetbrains.annotations.NotNull
 import java.util.function.BiConsumer
@@ -48,6 +49,14 @@ abstract class Inventory(
      * Setup items in the inventory or any other thing you may want to do
      */
     protected open fun setup() {}
+
+    /**
+     * Executed when a player opens the inventory
+     *
+     * @param e An InventoryOpenEvent
+     * @see InventoryOpenEvent
+     */
+    open fun onOpen(e: InventoryOpenEvent) {}
 
     /**
      * Executed when a player clicks in the inventory

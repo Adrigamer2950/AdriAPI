@@ -6,11 +6,21 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
+import org.bukkit.event.inventory.InventoryOpenEvent
 import org.jetbrains.annotations.ApiStatus
 
 @ApiStatus.Internal
 @Suppress("unused")
 class InventoriesListener(val plugin: ObsidianPlugin) : Listener {
+
+    @EventHandler
+    fun onInventoryOpen(event: InventoryOpenEvent) {
+        val inventory = event.inventory.holder as? Inventory ?: return
+
+        if (inventory.plugin != plugin) return
+
+        inventory.onOpen(event)
+    }
 
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
