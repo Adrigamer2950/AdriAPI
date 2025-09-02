@@ -11,8 +11,9 @@ import org.bukkit.NamespacedKey
 import org.bukkit.event.inventory.InventoryClickEvent
 
 @ExperimentalAPI
-abstract class Menu protected constructor(title: Component, plugin: ObsidianPlugin, size: InventorySize) :
-    Inventory(title, plugin, size) {
+abstract class Menu protected constructor(
+    title: Component, plugin: ObsidianPlugin, size: InventorySize = InventorySize.THREE_ROWS
+) : Inventory(title, plugin, size) {
 
     protected val buttons: MutableList<MenuButton> = mutableListOf()
 
