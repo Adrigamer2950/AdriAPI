@@ -3,6 +3,5 @@
 - [x] Refactor Colors
 - [x] Refactor User
 - [ ] Menu module
-- [ ] Glow module
 - [x] Rebrand
 - [ ] Add more tests
