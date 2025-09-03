@@ -2,13 +2,13 @@ package me.devadri.obsidian.menu.coords
 
 import kotlin.math.abs
 
-class Coordinates(raw: Int, column: Int) {
+class Coordinates(row: Int, column: Int) {
 
-    val raw = abs(raw)
+    val row = abs(row)
     val column = abs(column)
 
     fun toSlot(): Int {
-        return column * raw
+        return column * row
     }
 
     companion object {
