@@ -26,13 +26,7 @@ abstract class PaginatedMenu<T> protected constructor(
     var currentPage: Int
         get() = _currentPage
         set(value) {
-            if (value < 0) {
-                throw IllegalArgumentException("Current page must be positive.")
-            }
-
-            if (value > maxPage) {
-                throw IllegalArgumentException("Current page must be lower than max page ($maxPage).")
-            }
+            require(value in 0..maxPage) { "Current page must be positive and lower than max page ($maxPage)." }
 
             _currentPage = value
         }
