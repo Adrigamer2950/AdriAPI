@@ -13,7 +13,7 @@ open class MenuButton(
     val plugin: ObsidianPlugin,
     val item: ItemBuilder,
     val coordinates: Coordinates,
-    val onClick: (InventoryClickEvent, Menu, MenuButton) -> Unit)
-{
+    val onClick: (InventoryClickEvent, Menu, MenuButton) -> Unit = { _, _, _ -> }
+) {
     val id: UUID = UUID.randomUUID()
 }
