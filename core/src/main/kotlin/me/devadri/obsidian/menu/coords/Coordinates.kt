@@ -8,7 +8,7 @@ class Coordinates(row: Int, column: Int) {
     val column = abs(column)
 
     fun toSlot(): Int {
-        return column * row
+        return row * 9 + column
     }
 
     companion object {
