@@ -2,7 +2,7 @@
 
 package me.devadri.obsidian.nms.v1_20_R1
 
-import me.adrigamer2950.adriapi.api.nms.common.NmsSound
+import me.devadri.obsidian.nms.common.NmsSound
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.protocol.game.ClientboundSoundEntityPacket

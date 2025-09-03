@@ -11,7 +11,7 @@ class SoundSerializer : TypeAdapter<Sound> {
     override fun serialize(sound: Sound): Map<in Any, Any?> {
         val map: MutableMap<Any, Any> = LinkedHashMap()
 
-        map["sound"] = sound.sound.name()
+        map["sound"] = sound.sound.name
 
         if (sound.volume != 1.0f) {
             map["volume"] = sound.volume
