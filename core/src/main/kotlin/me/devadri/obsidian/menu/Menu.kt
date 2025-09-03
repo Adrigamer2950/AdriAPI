@@ -18,7 +18,7 @@ abstract class Menu protected constructor(
     protected val buttons: MutableList<MenuButton> = mutableListOf()
 
     open fun addButton(vararg buttonsArray: MenuButton) {
-        buttonsArray.forEach { addButton(it) }
+        buttonsArray.forEach { buttons.add(it) }
     }
 
     open fun removeButton(vararg buttonsArray: MenuButton) {
