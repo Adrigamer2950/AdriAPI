@@ -1,7 +1,6 @@
 package me.devadri.obsidian
 
 import com.alessiodp.libby.Library
-import me.devadri.obsidian.scheduler.Scheduler
 import me.devadri.obsidian.util.bStats
 import me.devadri.obsidian.command.Command
 import me.devadri.obsidian.command.manager.CommandManager
@@ -11,6 +10,8 @@ import me.devadri.obsidian.library.manager.LibraryManager
 import me.devadri.obsidian.library.manager.LibraryManagerImpl
 import me.devadri.obsidian.logger.Logger
 import me.devadri.obsidian.logger.impl.LoggerImpl
+import me.devadri.obsidian.scheduler.refactor.provider.SchedulerProvider
+import me.devadri.obsidian.scheduler.refactor.task.ScheduledTask
 import me.devadri.obsidian.util.ServerType
 import org.bukkit.event.Listener
 import org.bukkit.plugin.PluginDescriptionFile
@@ -62,7 +63,7 @@ abstract class ObsidianPlugin : JavaPlugin {
      * Custom scheduler that takes advantage of Folia's scheduler
      * without the need to check all the time if the server is running Folia
      */
-    lateinit var scheduler: Scheduler
+    lateinit var scheduler: SchedulerProvider
         protected set
 
     /**
@@ -144,6 +145,9 @@ abstract class ObsidianPlugin : JavaPlugin {
         if (this::commandManager.isInitialized) {
             this.commandManager.commands.toList().forEach { this.commandManager.unRegisterCommand(it) }
         }
+
+        logger.debug("&6Cancelling all scheduler tasks...")
+        ScheduledTask.cancelAll(this)
     }
 
     private fun loadHooks() {
@@ -151,7 +155,7 @@ abstract class ObsidianPlugin : JavaPlugin {
         commandManager = CommandManager(this)
 
         logger.debug("&6Loading Scheduler...")
-        scheduler = Scheduler.make(this, ServerType.type == ServerType.FOLIA)
+        scheduler = SchedulerProvider.create(this, ServerType.type == ServerType.FOLIA)
 
         if (bStatsServiceId() != 0) {
             logger.debug("&6Loading bStats hook...")
