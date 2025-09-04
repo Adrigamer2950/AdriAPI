@@ -4,6 +4,7 @@ import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitTask
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask as FoliaScheduledTask
 
+@Deprecated("In favor of new refactor")
 @Suppress("unused")
 class ScheduledTask(func: (ScheduledTask) -> Any, owner: Plugin) {
 

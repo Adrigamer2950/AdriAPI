@@ -6,6 +6,7 @@ import org.bukkit.World
 import org.bukkit.entity.Entity
 import org.bukkit.plugin.Plugin
 
+@Deprecated("In favor of new refactor")
 interface Scheduler {
 
     /**

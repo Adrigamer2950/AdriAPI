@@ -8,6 +8,7 @@ import org.bukkit.entity.Entity
 import org.bukkit.plugin.Plugin
 import java.util.concurrent.TimeUnit
 
+@Deprecated("In favor of new refactor")
 class FoliaScheduler(val plugin: Plugin) : Scheduler {
 
     override fun run(async: Boolean, func: (ScheduledTask) -> Unit): ScheduledTask {

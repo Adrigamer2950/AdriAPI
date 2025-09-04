@@ -7,6 +7,7 @@ import org.bukkit.World
 import org.bukkit.entity.Entity
 import org.bukkit.plugin.Plugin
 
+@Deprecated("In favor of new refactor")
 class PaperScheduler(val plugin: Plugin) : Scheduler {
 
     override fun run(async: Boolean, func: (ScheduledTask) -> Unit): ScheduledTask {
