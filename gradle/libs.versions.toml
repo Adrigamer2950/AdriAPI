@@ -1,7 +1,7 @@
 [versions]
 folia-api = "1.20.4-R0.1-SNAPSHOT"
 jansi = "2.4.2"
-jetbrains-annotations = "26.0.2"
+jetbrains-annotations = "26.0.2-1"
 plugin-yml = "0.6.0"
 minotaur = "2.+"
 run-server = "2.3.1"
