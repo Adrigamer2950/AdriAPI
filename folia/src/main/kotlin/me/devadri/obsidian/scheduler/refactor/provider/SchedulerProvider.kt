@@ -13,9 +13,11 @@ interface SchedulerProvider {
     fun sync(): Scheduler
 
     companion object {
+        internal val providers: MutableMap<Plugin, SchedulerProvider> = mutableMapOf()
+
         @JvmStatic
         fun create(plugin: Plugin, folia: Boolean): SchedulerProvider {
-            return SchedulerProviderImpl(plugin, folia)
+            return providers[plugin] ?: SchedulerProviderImpl(plugin, folia)
         }
     }
 }

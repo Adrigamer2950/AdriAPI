@@ -5,6 +5,10 @@ import org.bukkit.plugin.Plugin
 
 class SchedulerProviderImpl(val plugin: Plugin, folia: Boolean) : SchedulerProvider {
 
+    init {
+        SchedulerProvider.providers[plugin] = this
+    }
+
     val asyncScheduler: Scheduler = if (folia) {
         TODO("FoliaScheduler not yet implemented")
     } else {
