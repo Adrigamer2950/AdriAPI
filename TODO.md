@@ -5,4 +5,4 @@
 - [ ] Menu module
 - [x] Rebrand
 - [ ] Add more tests
-- [ ] Another Scheduler refactor
+- [x] Another Scheduler refactor
