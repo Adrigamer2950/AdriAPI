@@ -2,7 +2,7 @@
 
 <!--suppress HtmlDeprecatedAttribute -->
 <p align="center">
-    <img src="./logo.png" height="200" alt="Logo" />
+    <img src="https://raw.githubusercontent.com/Adrigamer2950/Obsidian/refs/heads/master/logo_256x.png" alt="Logo" />
 </p>
 
 An API aimed to simplify the development of Paper plugins
