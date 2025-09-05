@@ -8,7 +8,7 @@ env:
 
 jobs:
   build:
-    if: github.repository == 'Adrigamer2950/AdriAPI'
+    if: github.repository == 'Adrigamer2950/Obsidian'
     name: Build
     runs-on: ubuntu-latest
 
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: Save Artifact
         with:
-          name: "AdriAPI-b${{ github.run_number }}"
+          name: "Obsidian-b${{ github.run_number }}"
           path: build/libs/*.jar
 
       - name: Publish Artifact
