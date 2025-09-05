@@ -127,6 +127,7 @@ dependencies {
 //    sourcesImplementation(project(":folia"))
 
     compileOnly(libs.boosted.yaml)
+    testImplementation(libs.boosted.yaml)
 
     compileOnly(libs.reflections)
 
