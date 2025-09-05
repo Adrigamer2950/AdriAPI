@@ -1,8 +1,12 @@
 package me.devadri.obsidian.tests
 
+import com.cryptomorin.xseries.XSound
 import me.devadri.obsidian.item.ItemBuilder
 import me.devadri.obsidian.platform.AbstractTestPlatform
 import me.devadri.obsidian.serializer.boostedyaml.ItemStackSerializer
+import me.devadri.obsidian.serializer.boostedyaml.SoundSerializer
+import me.devadri.obsidian.sound.Sound
+import me.devadri.obsidian.sound.XSoundCategory
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
@@ -11,7 +15,6 @@ import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemFlag
-import org.junit.jupiter.api.Order
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -19,10 +22,10 @@ class BoostedYamlSerializers : AbstractTestPlatform() {
 
     companion object {
         lateinit var serializedStack: Map<in Any, Any?>
+        lateinit var serializedSound: Map<in Any, Any?>
     }
 
     @Test
-    @Order(1)
     fun `Serialize ItemStack`() {
         val item = ItemBuilder.builder()
             .material(Material.DIAMOND)
@@ -66,7 +69,6 @@ class BoostedYamlSerializers : AbstractTestPlatform() {
     }
 
     @Test
-    @Order(2)
     fun `Deserialize ItemStack`() {
         val item = ItemStackSerializer().deserialize(serializedStack)
 
@@ -82,5 +84,34 @@ class BoostedYamlSerializers : AbstractTestPlatform() {
         assertEquals(1, item.itemMeta.enchants[Enchantment.THORNS])
         assertEquals(true, item.itemMeta.isUnbreakable)
         assertEquals(3, item.itemMeta.customModelData)
+    }
+
+    @Test
+    fun `Serialize Sound`() {
+        val sound = Sound.builder()
+            .sound(XSound.BLOCK_NOTE_BLOCK_PLING)
+            .category(XSoundCategory.BLOCKS)
+            .volume(0.5f)
+            .pitch(0.5f)
+            .build()
+
+        val map = SoundSerializer().serialize(sound)
+
+        assertEquals("BLOCK_NOTE_BLOCK_PLING", map["sound"])
+        assertEquals("BLOCKS", map["category"])
+        assertEquals(0.5f, map["volume"])
+        assertEquals(0.5f, map["pitch"])
+
+        serializedSound = map
+    }
+
+    @Test
+    fun `Deserialize Sound`() {
+        val sound = SoundSerializer().deserialize(serializedSound)
+
+        assertEquals(XSound.BLOCK_NOTE_BLOCK_PLING.get(), sound.sound)
+        assertEquals(XSoundCategory.BLOCKS, sound.category)
+        assertEquals(0.5f, sound.volume)
+        assertEquals(0.5f, sound.pitch)
     }
 }
