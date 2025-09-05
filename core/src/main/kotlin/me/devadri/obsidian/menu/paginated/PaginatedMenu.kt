@@ -1,6 +1,5 @@
 package me.devadri.obsidian.menu.paginated
 
-import me.devadri.obsidian.ExperimentalAPI
 import me.devadri.obsidian.ObsidianPlugin
 import me.devadri.obsidian.inventory.InventorySize
 import me.devadri.obsidian.menu.Menu
@@ -8,7 +7,6 @@ import me.devadri.obsidian.menu.button.MenuButton
 import me.devadri.obsidian.menu.coords.Coordinates
 import net.kyori.adventure.text.Component
 
-@ExperimentalAPI
 abstract class PaginatedMenu<T> protected constructor(
     val list: List<T>,
     title: Component,

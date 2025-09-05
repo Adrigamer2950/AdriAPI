@@ -1,14 +1,12 @@
 package me.devadri.obsidian.menu.button
 
 import me.devadri.obsidian.ObsidianPlugin
-import me.devadri.obsidian.ExperimentalAPI
 import me.devadri.obsidian.item.ItemBuilder
 import me.devadri.obsidian.menu.Menu
 import me.devadri.obsidian.menu.coords.Coordinates
 import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.*
 
-@ExperimentalAPI
 open class MenuButton(
     val plugin: ObsidianPlugin,
     val item: ItemBuilder,

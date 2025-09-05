@@ -1,7 +1,6 @@
 package me.devadri.obsidian.menu
 
 import me.devadri.obsidian.ObsidianPlugin
-import me.devadri.obsidian.ExperimentalAPI
 import me.devadri.obsidian.inventory.Inventory
 import me.devadri.obsidian.inventory.InventorySize
 import me.devadri.obsidian.menu.button.MenuButton
@@ -10,7 +9,6 @@ import net.kyori.adventure.text.Component
 import org.bukkit.NamespacedKey
 import org.bukkit.event.inventory.InventoryClickEvent
 
-@ExperimentalAPI
 abstract class Menu protected constructor(
     title: Component, plugin: ObsidianPlugin, size: InventorySize = InventorySize.THREE_ROWS
 ) : Inventory(title, plugin, size) {
