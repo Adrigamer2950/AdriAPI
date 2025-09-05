@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class AsyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
 
-    val syncScheduler = SchedulerProvider.Companion.create(plugin, false).sync()
+    val syncScheduler = SchedulerProvider.create(plugin, false).sync()
 
     override fun run(func: (ScheduledTask) -> Unit): ScheduledTask {
         val task = ScheduledTask(plugin)
