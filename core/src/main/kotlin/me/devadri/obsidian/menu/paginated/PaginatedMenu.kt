@@ -84,4 +84,7 @@ abstract class PaginatedMenu<T> protected constructor(
             inventory.setItem(slot, null)
         }
     }
+
+    fun hasNextPage(): Boolean = currentPage < maxPage
+    fun hasPreviousPage(): Boolean = currentPage > 0
 }
