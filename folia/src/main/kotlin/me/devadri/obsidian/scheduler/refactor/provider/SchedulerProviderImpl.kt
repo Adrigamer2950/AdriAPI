@@ -1,6 +1,11 @@
 package me.devadri.obsidian.scheduler.refactor.provider
 
+import me.devadri.obsidian.scheduler.refactor.AsyncScheduler
 import me.devadri.obsidian.scheduler.refactor.Scheduler
+import me.devadri.obsidian.scheduler.refactor.folia.async.AsyncFoliaScheduler
+import me.devadri.obsidian.scheduler.refactor.folia.sync.SyncFoliaScheduler
+import me.devadri.obsidian.scheduler.refactor.paper.async.AsyncPaperScheduler
+import me.devadri.obsidian.scheduler.refactor.paper.sync.SyncPaperScheduler
 import org.bukkit.plugin.Plugin
 
 class SchedulerProviderImpl(val plugin: Plugin, folia: Boolean) : SchedulerProvider {
@@ -9,16 +14,16 @@ class SchedulerProviderImpl(val plugin: Plugin, folia: Boolean) : SchedulerProvi
         SchedulerProvider.providers[plugin] = this
     }
 
-    val asyncScheduler: Scheduler = if (folia) {
-        TODO("FoliaScheduler not yet implemented")
+    val asyncScheduler: AsyncScheduler = if (folia) {
+        AsyncFoliaScheduler(plugin)
     } else {
-        TODO("PaperScheduler not yet implemented")
+        AsyncPaperScheduler(plugin)
     }
 
     val syncScheduler: Scheduler = if (folia) {
-        TODO("FoliaScheduler not yet implemented")
+        SyncFoliaScheduler(plugin)
     } else {
-        TODO("PaperScheduler not yet implemented")
+        SyncPaperScheduler(plugin)
     }
 
     override fun async(): Scheduler = asyncScheduler
