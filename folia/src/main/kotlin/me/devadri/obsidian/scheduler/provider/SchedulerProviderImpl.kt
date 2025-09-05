@@ -26,7 +26,7 @@ class SchedulerProviderImpl(val plugin: Plugin, folia: Boolean) : SchedulerProvi
         SyncPaperScheduler(plugin)
     }
 
-    override fun async(): Scheduler = asyncScheduler
+    override fun async(): AsyncScheduler = asyncScheduler
 
     override fun sync(): Scheduler = syncScheduler
 }

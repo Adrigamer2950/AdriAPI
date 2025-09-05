@@ -1,11 +1,12 @@
 package me.devadri.obsidian.scheduler.provider
 
+import me.devadri.obsidian.scheduler.AsyncScheduler
 import me.devadri.obsidian.scheduler.Scheduler
 import org.bukkit.plugin.Plugin
 
 interface SchedulerProvider {
 
-    fun async(): Scheduler
+    fun async(): AsyncScheduler
 
     /**
      * In Folia, sync tasks are ran through Folia's Global Region Scheduler
