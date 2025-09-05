@@ -5,7 +5,7 @@ import org.bukkit.scheduler.BukkitTask
 import org.jetbrains.annotations.ApiStatus
 
 @ApiStatus.Internal
-class TaskEither internal constructor(val value: Any) {
+class TaskEither internal constructor(val value: Any?) {
 
     init {
         if (!isBukkitTask && !isFoliaTask) {

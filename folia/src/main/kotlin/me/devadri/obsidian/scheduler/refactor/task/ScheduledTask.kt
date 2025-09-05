@@ -3,9 +3,10 @@ package me.devadri.obsidian.scheduler.refactor.task
 import me.devadri.obsidian.scheduler.refactor.util.TaskEither
 import org.bukkit.plugin.Plugin
 
-class ScheduledTask(obj: Any, val owner: Plugin) {
+class ScheduledTask(val owner: Plugin) {
 
-    val task = TaskEither(obj)
+    lateinit var task: TaskEither
+        internal set
 
     var cancelled: Boolean = false
         private set
