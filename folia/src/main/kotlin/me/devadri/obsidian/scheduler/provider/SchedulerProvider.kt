@@ -1,6 +1,6 @@
-package me.devadri.obsidian.scheduler.refactor.provider
+package me.devadri.obsidian.scheduler.provider
 
-import me.devadri.obsidian.scheduler.refactor.Scheduler
+import me.devadri.obsidian.scheduler.Scheduler
 import org.bukkit.plugin.Plugin
 
 interface SchedulerProvider {

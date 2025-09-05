@@ -1,11 +1,11 @@
-package me.devadri.obsidian.scheduler.refactor.provider
+package me.devadri.obsidian.scheduler.provider
 
-import me.devadri.obsidian.scheduler.refactor.AsyncScheduler
-import me.devadri.obsidian.scheduler.refactor.Scheduler
-import me.devadri.obsidian.scheduler.refactor.folia.async.AsyncFoliaScheduler
-import me.devadri.obsidian.scheduler.refactor.folia.sync.SyncFoliaScheduler
-import me.devadri.obsidian.scheduler.refactor.paper.async.AsyncPaperScheduler
-import me.devadri.obsidian.scheduler.refactor.paper.sync.SyncPaperScheduler
+import me.devadri.obsidian.scheduler.AsyncScheduler
+import me.devadri.obsidian.scheduler.Scheduler
+import me.devadri.obsidian.scheduler.folia.async.AsyncFoliaScheduler
+import me.devadri.obsidian.scheduler.folia.sync.SyncFoliaScheduler
+import me.devadri.obsidian.scheduler.paper.async.AsyncPaperScheduler
+import me.devadri.obsidian.scheduler.paper.sync.SyncPaperScheduler
 import org.bukkit.plugin.Plugin
 
 class SchedulerProviderImpl(val plugin: Plugin, folia: Boolean) : SchedulerProvider {

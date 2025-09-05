@@ -1,22 +1,25 @@
-package me.devadri.obsidian.scheduler.refactor.paper.sync
+package me.devadri.obsidian.scheduler.paper.async
 
-import me.devadri.obsidian.scheduler.refactor.AsyncScheduler
-import me.devadri.obsidian.scheduler.refactor.task.ScheduledTask
-import me.devadri.obsidian.scheduler.refactor.util.TaskEither
-import me.devadri.obsidian.scheduler.refactor.util.TickUtil
+import me.devadri.obsidian.scheduler.AsyncScheduler
+import me.devadri.obsidian.scheduler.provider.SchedulerProvider
+import me.devadri.obsidian.scheduler.task.ScheduledTask
+import me.devadri.obsidian.scheduler.util.TaskEither
+import me.devadri.obsidian.scheduler.util.TickUtil
 import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.entity.Entity
 import org.bukkit.plugin.Plugin
 import java.util.concurrent.TimeUnit
 
-class SyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
+class AsyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
+
+    val syncScheduler = SchedulerProvider.Companion.create(plugin, false).sync()
 
     override fun run(func: (ScheduledTask) -> Unit): ScheduledTask {
         val task = ScheduledTask(plugin)
 
         task.task = TaskEither(
-            Bukkit.getScheduler().runTask(plugin, Runnable {
+            Bukkit.getScheduler().runTaskAsynchronously(plugin, Runnable {
                 func(task)
             })
         )
@@ -32,7 +35,7 @@ class SyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
         val task = ScheduledTask(plugin)
 
         task.task = TaskEither(
-            Bukkit.getScheduler().runTaskLater(plugin, Runnable {
+            Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, Runnable {
                 func(task)
             }, TickUtil.timeToTicks(unit, delay))
         )
@@ -49,7 +52,7 @@ class SyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
         val task = ScheduledTask(plugin)
 
         task.task = TaskEither(
-            Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
+            Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, Runnable {
                 func(task)
             }, TickUtil.timeToTicks(unit, delay), TickUtil.timeToTicks(unit, period))
         )
@@ -60,14 +63,14 @@ class SyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
     override fun runOnEntity(
         entity: Entity,
         func: (ScheduledTask) -> Unit
-    ): ScheduledTask = this.run(func)
+    ): ScheduledTask = syncScheduler.run(func)
 
     override fun runLaterOnEntity(
         entity: Entity,
         unit: TimeUnit,
         delay: Long,
         func: (ScheduledTask) -> Unit
-    ): ScheduledTask = this.runLater(unit, delay, func)
+    ): ScheduledTask = syncScheduler.runLater(unit, delay, func)
 
     override fun runTimerOnEntity(
         entity: Entity,
@@ -75,14 +78,14 @@ class SyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
         delay: Long,
         period: Long,
         func: (ScheduledTask) -> Unit
-    ): ScheduledTask = this.runTimer(unit, delay, period, func)
+    ): ScheduledTask = syncScheduler.runTimer(unit, delay, period, func)
 
     override fun runAtRegion(
         world: World,
         chunkX: Int,
         chunkZ: Int,
         func: (ScheduledTask) -> Unit
-    ): ScheduledTask = this.run(func)
+    ): ScheduledTask = syncScheduler.run(func)
 
     override fun runLaterAtRegion(
         world: World,
@@ -91,7 +94,7 @@ class SyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
         unit: TimeUnit,
         delay: Long,
         func: (ScheduledTask) -> Unit
-    ): ScheduledTask = this.runLater(unit, delay, func)
+    ): ScheduledTask = syncScheduler.runLater(unit, delay, func)
 
     override fun runTimerAtRegion(
         world: World,
@@ -101,5 +104,5 @@ class SyncPaperScheduler(val plugin: Plugin) : AsyncScheduler {
         delay: Long,
         period: Long,
         func: (ScheduledTask) -> Unit
-    ): ScheduledTask = this.runTimer(unit, delay, period, func)
+    ): ScheduledTask = syncScheduler.runTimer(unit, delay, period, func)
 }

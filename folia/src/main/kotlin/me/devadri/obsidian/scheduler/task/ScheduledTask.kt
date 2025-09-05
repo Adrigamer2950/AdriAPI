@@ -1,6 +1,6 @@
-package me.devadri.obsidian.scheduler.refactor.task
+package me.devadri.obsidian.scheduler.task
 
-import me.devadri.obsidian.scheduler.refactor.util.TaskEither
+import me.devadri.obsidian.scheduler.util.TaskEither
 import org.bukkit.plugin.Plugin
 
 class ScheduledTask(val owner: Plugin) {

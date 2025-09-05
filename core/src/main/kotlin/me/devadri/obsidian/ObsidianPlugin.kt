@@ -10,8 +10,8 @@ import me.devadri.obsidian.library.manager.LibraryManager
 import me.devadri.obsidian.library.manager.LibraryManagerImpl
 import me.devadri.obsidian.logger.Logger
 import me.devadri.obsidian.logger.impl.LoggerImpl
-import me.devadri.obsidian.scheduler.refactor.provider.SchedulerProvider
-import me.devadri.obsidian.scheduler.refactor.task.ScheduledTask
+import me.devadri.obsidian.scheduler.provider.SchedulerProvider
+import me.devadri.obsidian.scheduler.task.ScheduledTask
 import me.devadri.obsidian.util.ServerType
 import org.bukkit.event.Listener
 import org.bukkit.plugin.PluginDescriptionFile

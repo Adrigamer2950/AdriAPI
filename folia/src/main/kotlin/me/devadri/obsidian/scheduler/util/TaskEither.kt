@@ -1,4 +1,4 @@
-package me.devadri.obsidian.scheduler.refactor.util
+package me.devadri.obsidian.scheduler.util
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
 import org.bukkit.scheduler.BukkitTask

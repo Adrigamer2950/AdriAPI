@@ -1,6 +1,6 @@
-package me.devadri.obsidian.scheduler.refactor
+package me.devadri.obsidian.scheduler
 
-import me.devadri.obsidian.scheduler.refactor.task.ScheduledTask
+import me.devadri.obsidian.scheduler.task.ScheduledTask
 import java.util.concurrent.TimeUnit
 
 interface Scheduler {

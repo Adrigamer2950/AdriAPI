@@ -1,9 +1,9 @@
-package me.devadri.obsidian.scheduler.refactor.folia.async
+package me.devadri.obsidian.scheduler.folia.async
 
-import me.devadri.obsidian.scheduler.refactor.AsyncScheduler
-import me.devadri.obsidian.scheduler.refactor.task.ScheduledTask
-import me.devadri.obsidian.scheduler.refactor.util.TaskEither
-import me.devadri.obsidian.scheduler.refactor.util.TickUtil
+import me.devadri.obsidian.scheduler.AsyncScheduler
+import me.devadri.obsidian.scheduler.task.ScheduledTask
+import me.devadri.obsidian.scheduler.util.TaskEither
+import me.devadri.obsidian.scheduler.util.TickUtil
 import org.bukkit.Bukkit
 import org.bukkit.World
 import org.bukkit.entity.Entity

@@ -1,6 +1,6 @@
-package me.devadri.obsidian.scheduler.refactor
+package me.devadri.obsidian.scheduler
 
-import me.devadri.obsidian.scheduler.refactor.task.ScheduledTask
+import me.devadri.obsidian.scheduler.task.ScheduledTask
 import org.bukkit.World
 import org.bukkit.entity.Entity
 import java.util.concurrent.TimeUnit

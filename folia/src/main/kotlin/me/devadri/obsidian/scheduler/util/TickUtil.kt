@@ -1,4 +1,4 @@
-package me.devadri.obsidian.scheduler.refactor.util
+package me.devadri.obsidian.scheduler.util
 
 import java.util.concurrent.TimeUnit
 

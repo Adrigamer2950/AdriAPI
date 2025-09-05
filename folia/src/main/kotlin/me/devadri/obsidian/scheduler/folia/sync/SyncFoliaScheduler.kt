@@ -1,9 +1,9 @@
-package me.devadri.obsidian.scheduler.refactor.folia.sync
+package me.devadri.obsidian.scheduler.folia.sync
 
-import me.devadri.obsidian.scheduler.refactor.Scheduler
-import me.devadri.obsidian.scheduler.refactor.task.ScheduledTask
-import me.devadri.obsidian.scheduler.refactor.util.TaskEither
-import me.devadri.obsidian.scheduler.refactor.util.TickUtil
+import me.devadri.obsidian.scheduler.Scheduler
+import me.devadri.obsidian.scheduler.task.ScheduledTask
+import me.devadri.obsidian.scheduler.util.TaskEither
+import me.devadri.obsidian.scheduler.util.TickUtil
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import java.util.concurrent.TimeUnit
