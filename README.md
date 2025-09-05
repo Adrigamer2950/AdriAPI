@@ -19,8 +19,6 @@ Even though a standalone plugin version is available, it's recommended to shade 
 plugins, as this API changes frequently and depending on the standalone version may cause
 some issues if server owners install some plugins that depend on different versions of this API
 
-Check the [TODO.md](https://github.com/Adrigamer2950/AdriAPI/blob/master/TODO.md) file to check things that are coming in next version
-
 > [!CAUTION]
 > You need Java 17+ to use this API/Plugin. If you are using a lower version consider upgrading
 
