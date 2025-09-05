@@ -57,17 +57,21 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
 
                 val attribute: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
-                val modifiers: Collection<AttributeModifier>? = itemStack.itemMeta.attributeModifiers?.get(it)
+                attribute["name"] = it.name
 
-                modifiers?.forEach { modifier ->
+                val modifiers: MutableList<Map<Any, Any>> = mutableListOf()
+
+                itemStack.itemMeta.attributeModifiers?.get(it)?.forEach { modifier ->
                     val modifierMap: MutableMap<Any, Any> = LinkedHashMap<Any, Any>()
 
                     modifierMap["name"] = modifier.name
                     modifierMap["operation"] = modifier.operation.name
                     modifierMap["amount"] = modifier.amount
 
-                    attribute[modifier.name] = modifierMap
+                    modifiers.add(modifierMap)
                 }
+
+                attribute["modifiers"] = modifiers
 
                 attributes.add(attribute)
             }
@@ -127,18 +131,20 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
                 meta.addItemFlags(ItemFlag.valueOf(key))
 
         if (map.containsKey("attributes")) {
-            val attributes = map["attributes"] as List<Map<String, Map<String, Any>>>
+            val attributes = map["attributes"] as List<Map<String, Any>>
 
             for (attribute in attributes) {
-                for (key in attribute.keys) {
-                    val modifierMap = attribute[key]
+                val name = attribute["name"] as String
+                val modifiers = attribute["modifiers"] as List<Map<String, Any>>
 
-                    val name = modifierMap!!["name"] as String
-                    val operation = AttributeModifier.Operation.valueOf(modifierMap["operation"] as String)
-                    val amount = modifierMap["amount"] as Double
+                val attr = Attribute.valueOf(name)
 
-                    val modifier = AttributeModifier(name, amount, operation)
-                    val attr = Attribute.valueOf(key)
+                for (map in modifiers) {
+                    val modName = map["name"] as String
+                    val operation = AttributeModifier.Operation.valueOf(map["operation"] as String)
+                    val amount = map["amount"] as Double
+
+                    val modifier = AttributeModifier(modName, amount, operation)
 
                     meta.addAttributeModifier(attr, modifier)
                 }
