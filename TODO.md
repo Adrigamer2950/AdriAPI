@@ -4,5 +4,5 @@
 - [x] Refactor User
 - [x] Menu module
 - [x] Rebrand
-- [ ] Add more tests
+- [x] Add more tests
 - [x] Another Scheduler refactor
