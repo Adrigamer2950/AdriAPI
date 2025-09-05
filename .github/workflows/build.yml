@@ -35,7 +35,7 @@ jobs:
         name: Save Artifact
         with:
           name: "Obsidian-b${{ github.run_number }}"
-          path: build/libs/*.jar
+          path: plugin/build/libs/*.jar
 
       - name: Publish Artifact
         env:
