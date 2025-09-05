@@ -70,7 +70,7 @@ tasks.named<ShadowJar>("shadowJar") {
 
 modrinth {
     token = System.getenv("MODRINTH_TOKEN")
-    projectId = "adriapi"
+    projectId = "obsidiancore"
     versionNumber = version as String
     versionName = "${rootProject.name} $version"
     versionType = "release"
@@ -117,7 +117,7 @@ hangarPublish {
     publications.register("plugin") {
         version.set(project.version as String)
         channel.set("Release")
-        id.set("AdriAPI")
+        id.set("Obsidian")
         apiKey.set(System.getenv("HANGAR_API_TOKEN"))
         platforms {
             register(Platforms.PAPER) {
