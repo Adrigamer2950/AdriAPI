@@ -1,6 +1,7 @@
 package me.devadri.obsidian.tests
 
 import com.cryptomorin.xseries.XSound
+import me.devadri.obsidian.colors.Colors
 import me.devadri.obsidian.item.ItemBuilder
 import me.devadri.obsidian.platform.AbstractTestPlatform
 import me.devadri.obsidian.serializer.boostedyaml.ItemStackSerializer
@@ -9,7 +10,6 @@ import me.devadri.obsidian.sound.Sound
 import me.devadri.obsidian.sound.XSoundCategory
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
@@ -74,8 +74,8 @@ class BoostedYamlSerializers : AbstractTestPlatform() {
 
         assertEquals("DIAMOND", item.type.name)
         assertEquals(3, item.amount)
-        assertEquals("&9Test Item", LegacyComponentSerializer.legacyAmpersand().serialize(item.itemMeta.displayName()!!))
-        assertEquals("test line", LegacyComponentSerializer.legacyAmpersand().serialize(item.itemMeta.lore()!![0]))
+        assertEquals("&9Test Item", Colors.componentToLegacy(item.itemMeta.displayName()!!))
+        assertEquals("test line", Colors.componentToLegacy(item.itemMeta.lore()!![0]))
         assertEquals(1, item.itemMeta.attributeModifiers!![Attribute.GENERIC_MAX_HEALTH].size)
         assertEquals("test", item.itemMeta.attributeModifiers!![Attribute.GENERIC_MAX_HEALTH].first().name)
         assertEquals(1.0, item.itemMeta.attributeModifiers!![Attribute.GENERIC_MAX_HEALTH].first().amount)

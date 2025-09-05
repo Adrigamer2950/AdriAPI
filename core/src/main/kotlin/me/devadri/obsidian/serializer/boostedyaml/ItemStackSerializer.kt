@@ -1,7 +1,7 @@
 package me.devadri.obsidian.serializer.boostedyaml
 
 import dev.dejvokep.boostedyaml.serialization.standard.TypeAdapter
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import me.devadri.obsidian.colors.Colors
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
@@ -21,11 +21,11 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
         map["count"] = itemStack.amount
 
         if (itemStack.itemMeta.hasDisplayName())
-            map["name"] = LegacyComponentSerializer.legacyAmpersand().serialize(itemStack.itemMeta.displayName()!!)
+            map["name"] = Colors.componentToLegacy(itemStack.itemMeta.displayName()!!)
 
         if (itemStack.itemMeta.hasLore())
             map["lore"] = itemStack.itemMeta.lore()!!
-                .map(LegacyComponentSerializer.legacyAmpersand()::serialize)
+                .map(Colors::componentToLegacy)
 
         if (itemStack.itemMeta.hasCustomModelData())
             map["custom_model_data"] = itemStack.itemMeta.customModelData
@@ -100,13 +100,13 @@ class ItemStackSerializer : TypeAdapter<ItemStack> {
 
         if (map.containsKey("name"))
             meta.displayName(
-                LegacyComponentSerializer.legacyAmpersand().deserialize(map["name"] as String)
+                Colors.legacyToComponent(map["name"] as String)
             )
 
         if (map.containsKey("lore"))
             meta.lore(
                 (map["lore"] as List<String>)
-                    .map { LegacyComponentSerializer.legacyAmpersand().deserialize(it) }
+                    .map(Colors::legacyToComponent)
             )
 
         if (map.containsKey("custom_model_data"))

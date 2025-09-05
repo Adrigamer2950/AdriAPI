@@ -1,11 +1,11 @@
 package me.devadri.obsidian.tests
 
+import me.devadri.obsidian.colors.Colors
 import me.devadri.obsidian.item.ItemBuilder
 import me.devadri.obsidian.platform.AbstractTestPlatform
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.Style
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.Material
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
@@ -26,8 +26,7 @@ class ItemBuilder : AbstractTestPlatform() {
         val lore = listOf(
             "&aHey!",
             "&bThis is a test item"
-        )
-            .map { LegacyComponentSerializer.legacyAmpersand().deserialize(it) }
+        ).map(Colors::legacyToComponent)
         val enchantment = Enchantment.ARROW_FIRE
         val enchantmentLevel = 3
         val flag = ItemFlag.HIDE_ENCHANTS
