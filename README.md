@@ -7,8 +7,8 @@
 
 An API aimed to simplify the development of Paper plugins
 
-[![Available in Modrinth](https://raw.githubusercontent.com/intergrav/devins-badges/refs/heads/v3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/plugin/adriapi)
-[![Available in HangarMC](https://raw.githubusercontent.com/intergrav/devins-badges/refs/heads/v3/assets/cozy/available/hangar_vector.svg)](https://hangar.papermc.io/devadri/AdriAPI)
+[![Available in Modrinth](https://raw.githubusercontent.com/intergrav/devins-badges/refs/heads/v3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/plugin/obsidiancore)
+[![Available in HangarMC](https://raw.githubusercontent.com/intergrav/devins-badges/refs/heads/v3/assets/cozy/available/hangar_vector.svg)](https://hangar.papermc.io/devadri/Obsidian)
 
 # Info
 
